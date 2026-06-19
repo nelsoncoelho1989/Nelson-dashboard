@@ -8,37 +8,40 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <meta name="apple-mobile-web-app-title" content="NC Dashboard"/>
   <title>Nelson Coelho · Dashboard</title>
-  <link rel="manifest" href="manifest.json"/>
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <style>*{box-sizing:border-box;margin:0;padding:0}body{background:#07090F;font-family:system-ui,-apple-system,sans-serif}</style>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{background:#07090F;font-family:system-ui,-apple-system,sans-serif;min-height:100vh}
+    #fallback{color:#5A6B8A;font-size:13px;padding:24px;text-align:center;font-family:monospace}
+  </style>
 </head>
 <body>
-  <div id="root"></div>
-  <script type="text/babel">
+  <div id="root"><div id="fallback">A carregar dashboard...</div></div>
+  <script type="text/babel" data-presets="react">
+try {
+
 const { useState } = React;
-const { LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,ResponsiveContainer,ReferenceLine,BarChart,Bar,Cell } = Recharts;
 
 // ── ATUALIZAR ESTES DADOS SEMPRE QUE O CLAUDE FORNECER UMA NOVA VERSÃO ──────
 const DATA = {
-  meta: { updatedAt: "18 Jun 2026 · 20:30", source: "inicial" },
+  meta: { updatedAt: "19 Jun 2026 · 21:00" },
   hrv: 47, hrvTrend: "→ BALANCED",
   rhr: 47, bodyBattery: 83,
-  readiness: 62, readinessSub: "driver: sono hist.",
-  vo2max: 56.3, acwr: 0.80, weight: 79.8,
+  readiness: 53, readinessSub: "driver: sono hist. (LISTEN_TO_YOUR_BODY)",
+  vo2max: 57.0, acwr: 1.00, weight: 78.9,
   trainingStatus: "PRODUTIVO", lthr: 163, ltPace: "4:05",
   vdot: 53, vdotEst: "54–55",
   weekLabel: "Semana 25 · 14–21 Jun",
-  weekDone: 27.8, weekTarget: 63,
+  weekDone: 38.3, weekTarget: 63,
   sessions: [
     { day:"Dom 14", code:"REC-LEVE",   km:7.5,  status:"done",    icon:"😴" },
     { day:"Seg 15", code:"EASY-45",    km:8.3,  status:"done",    icon:"🏃" },
     { day:"Ter 16", code:"5 × 1000m",  km:12.0, status:"done",    icon:"⚡" },
     { day:"Qua 17", code:"EASY+STR",   km:10.0, status:"planned", icon:"🏃" },
-    { day:"Qui 18", code:"HILL 10×45", km:10.5, status:"today",   icon:"⛰️" },
-    { day:"Sex 19", code:"EASY-40",    km:8.5,  status:"planned", icon:"🏃" },
+    { day:"Qui 18", code:"HILL 10×45", km:10.5, status:"done",    icon:"⛰️" },
+    { day:"Sex 19", code:"EASY-40",    km:8.5,  status:"today",   icon:"🏃" },
     { day:"Sáb 20", code:"SHAKEOUT",   km:5.5,  status:"planned", icon:"✨" },
     { day:"Dom 21", code:"GP MANIQUE", km:7.0,  status:"race",    icon:"🏁" },
   ],
@@ -61,11 +64,11 @@ const DATA = {
     { date:"16 Jun", session:"5 × 1000m",      pace:"3:44→3:33", fc:"~170 final", read:"Ritmo previsto conservador" },
   ],
   races: [
-    { date:"21 Jun", name:"GP Manique de Cima",   dist:"6.5km ⛰️", days:3,   prio:"Troféu",    col:"#FDE047" },
-    { date:"28 Jun", name:"GP JOMA",               dist:"6–7km",    days:10,  prio:"Troféu",    col:"#FDE047" },
-    { date:"13 Set", name:"Corrida do Tejo ★",     dist:"10km",     days:87,  prio:"PROVA A",   col:"#FF5422" },
-    { date:"19 Set", name:"Corrida Auchan",         dist:"10km",     days:93,  prio:"Follow-up", col:"#5A6B8A" },
-    { date:"11 Out", name:"Hyundai Meia Maratona", dist:"21.1km",   days:115, prio:"Endurance", col:"#9B59FF" },
+    { date:"21 Jun", name:"GP Manique de Cima",   dist:"6.5km ⛰️", days:2,   prio:"Troféu",    col:"#FDE047" },
+    { date:"28 Jun", name:"GP JOMA",               dist:"6–7km",    days:9,   prio:"Troféu",    col:"#FDE047" },
+    { date:"13 Set", name:"Corrida do Tejo ★",     dist:"10km",     days:86,  prio:"PROVA A",   col:"#FF5422" },
+    { date:"19 Set", name:"Corrida Auchan",         dist:"10km",     days:92,  prio:"Follow-up", col:"#5A6B8A" },
+    { date:"11 Out", name:"Hyundai Meia Maratona", dist:"21.1km",   days:114, prio:"Endurance", col:"#9B59FF" },
   ],
   phases: [
     { label:"Ligação Sintra",  weeks:"S25–26", km:"~58/sem",   status:"active" },
@@ -85,6 +88,7 @@ const C = {
   z1:"#22C55E",z2:"#86EFAC",z3:"#FDE047",z4:"#FB923C",z5:"#EF4444",
 };
 
+// ── VDOT GAUGE (SVG puro) ──
 function VDOTGauge({ vdot=53, vdotEst="54–55" }) {
   const W=320,H=200,cx=160,cy=175,Ro=126,Ri=96,VMIN=48,VMAX=63;
   const vToAngle=v=>Math.PI*(1-(v-VMIN)/(VMAX-VMIN));
@@ -94,28 +98,114 @@ function VDOTGauge({ vdot=53, vdotEst="54–55" }) {
   const[nx,ny]=ptAt(vdot,Ri+6),[nx2,ny2]=ptAt(vdot,Ro+5);
   return (
     <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{display:"block",overflow:"visible"}}>
-      <path d={arc(VMIN,VMAX,Ro)} fill="none" stroke={C.dim} strokeWidth={20} strokeLinecap="round"/>
-      <path d={arc(48,51.3,Ro)} fill="none" stroke={C.sub} strokeWidth={20} opacity={0.15}/>
-      <path d={arc(51.3,53,Ro)} fill="none" stroke={C.z3} strokeWidth={20} opacity={0.2}/>
-      <path d={arc(53,55,Ro)} fill="none" stroke={C.orange} strokeWidth={20} opacity={0.18}/>
-      <path d={arc(55,57,Ro)} fill="none" stroke={C.purple} strokeWidth={20} opacity={0.18}/>
-      <path d={arc(57,63,Ro)} fill="none" stroke={C.teal} strokeWidth={20} opacity={0.18}/>
-      <path d={arc(VMIN,vdot,Ro)} fill="none" stroke={C.orange} strokeWidth={20} strokeLinecap="round"/>
-      <path d={arc(vdot,estEnd,Ro)} fill="none" stroke={C.orange} strokeWidth={20} strokeDasharray="6 5" opacity={0.55}/>
-      <path d={arc(VMIN,VMAX,Ri)} fill="none" stroke={C.border} strokeWidth={2} strokeLinecap="round"/>
+      <path d={arc(VMIN,VMAX,Ro)} fill="none" stroke={C.dim} strokeWidth="20" strokeLinecap="round"/>
+      <path d={arc(48,51.3,Ro)} fill="none" stroke={C.sub} strokeWidth="20" opacity="0.15"/>
+      <path d={arc(51.3,53,Ro)} fill="none" stroke={C.z3} strokeWidth="20" opacity="0.2"/>
+      <path d={arc(53,55,Ro)} fill="none" stroke={C.orange} strokeWidth="20" opacity="0.18"/>
+      <path d={arc(55,57,Ro)} fill="none" stroke={C.purple} strokeWidth="20" opacity="0.18"/>
+      <path d={arc(57,63,Ro)} fill="none" stroke={C.teal} strokeWidth="20" opacity="0.18"/>
+      <path d={arc(VMIN,vdot,Ro)} fill="none" stroke={C.orange} strokeWidth="20" strokeLinecap="round"/>
+      <path d={arc(vdot,estEnd,Ro)} fill="none" stroke={C.orange} strokeWidth="20" strokeDasharray="6 5" opacity="0.55"/>
+      <path d={arc(VMIN,VMAX,Ri)} fill="none" stroke={C.border} strokeWidth="2" strokeLinecap="round"/>
       {[48,51,53,55,57,60,63].map(v=>{
         const[tx,ty]=ptAt(v,Ri-14),[t1x,t1y]=ptAt(v,Ri),[t2x,t2y]=ptAt(v,Ri-6);
-        return <g key={v}><line x1={t1x} y1={t1y} x2={t2x} y2={t2y} stroke={C.sub} strokeWidth={1.5}/>
-          <text x={tx} y={ty+3} textAnchor="middle" fill={C.sub} fontSize={8} fontFamily="monospace">{v}</text></g>;
+        return <g key={v}><line x1={t1x} y1={t1y} x2={t2x} y2={t2y} stroke={C.sub} strokeWidth="1.5"/>
+          <text x={tx} y={ty+3} textAnchor="middle" fill={C.sub} fontSize="8" fontFamily="monospace">{v}</text></g>;
       })}
-      {(()=>{const[ax,ay]=ptAt(57,Ro+5),[bx,by]=ptAt(57,Ro+18),[lx,ly]=ptAt(57,Ro+28);return<g><line x1={ax} y1={ay} x2={bx} y2={by} stroke={C.purple} strokeWidth={2}/><text x={lx} y={ly-5} textAnchor="middle" fill={C.purple} fontSize={9} fontWeight="700">PB</text><text x={lx} y={ly+5} textAnchor="middle" fill={C.purple} fontSize={8}>'16</text></g>;})()}
-      {(()=>{const[ax,ay]=ptAt(60,Ro+5),[bx,by]=ptAt(60,Ro+18),[lx,ly]=ptAt(60,Ro+28);return<g><line x1={ax} y1={ay} x2={bx} y2={by} stroke={C.teal} strokeWidth={2}/><text x={lx} y={ly-5} textAnchor="middle" fill={C.teal} fontSize={9} fontWeight="700">≤37'</text><text x={lx} y={ly+5} textAnchor="middle" fill={C.teal} fontSize={8}>target</text></g>;})()}
-      <line x1={nx} y1={ny} x2={nx2} y2={ny2} stroke={C.orange} strokeWidth={3} strokeLinecap="round"/>
-      <circle cx={nx} cy={ny} r={4} fill={C.orange}/>
-      <text x={cx} y={cy-52} textAnchor="middle" fill={C.text} fontSize={54} fontWeight="900" fontFamily="'Courier New',monospace" letterSpacing="-2">{vdot}</text>
-      <text x={cx} y={cy-32} textAnchor="middle" fill={C.sub} fontSize={9} letterSpacing="3">VDOT OFICIAL</text>
-      <text x={cx} y={cy-12} textAnchor="middle" fill={C.orange} fontSize={13} fontWeight="600">~{vdotEst} estimado</text>
+      {(()=>{const[ax,ay]=ptAt(57,Ro+5),[bx,by]=ptAt(57,Ro+18),[lx,ly]=ptAt(57,Ro+28);return<g><line x1={ax} y1={ay} x2={bx} y2={by} stroke={C.purple} strokeWidth="2"/><text x={lx} y={ly-5} textAnchor="middle" fill={C.purple} fontSize="9" fontWeight="700">PB</text><text x={lx} y={ly+5} textAnchor="middle" fill={C.purple} fontSize="8">'16</text></g>;})()}
+      {(()=>{const[ax,ay]=ptAt(60,Ro+5),[bx,by]=ptAt(60,Ro+18),[lx,ly]=ptAt(60,Ro+28);return<g><line x1={ax} y1={ay} x2={bx} y2={by} stroke={C.teal} strokeWidth="2"/><text x={lx} y={ly-5} textAnchor="middle" fill={C.teal} fontSize="9" fontWeight="700">≤37'</text><text x={lx} y={ly+5} textAnchor="middle" fill={C.teal} fontSize="8">target</text></g>;})()}
+      <line x1={nx} y1={ny} x2={nx2} y2={ny2} stroke={C.orange} strokeWidth="3" strokeLinecap="round"/>
+      <circle cx={nx} cy={ny} r="4" fill={C.orange}/>
+      <text x={cx} y={cy-52} textAnchor="middle" fill={C.text} fontSize="54" fontWeight="900" fontFamily="'Courier New',monospace" letterSpacing="-2">{vdot}</text>
+      <text x={cx} y={cy-32} textAnchor="middle" fill={C.sub} fontSize="9" letterSpacing="3">VDOT OFICIAL</text>
+      <text x={cx} y={cy-12} textAnchor="middle" fill={C.orange} fontSize="13" fontWeight="600">~{vdotEst} estimado</text>
     </svg>
+  );
+}
+
+// ── LINE CHART (SVG puro, substitui Recharts) ──
+function VDOTLineChart({ data, vdotRef, pbRef }) {
+  const W=320, H=150, padL=28, padR=14, padT=14, padB=20;
+  const innerW = W - padL - padR, innerH = H - padT - padB;
+  const vals = data.map(d=>d.vdot);
+  const min = 50, max = 57;
+  const x = i => padL + (i/(data.length-1)) * innerW;
+  const y = v => padT + innerH - ((v-min)/(max-min)) * innerH;
+  const [hover, setHover] = useState(null);
+  const pathD = data.map((d,i)=>`${i===0?"M":"L"} ${x(i)} ${y(d.vdot)}`).join(" ");
+  return (
+    <div style={{position:"relative"}}>
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{display:"block"}}>
+        {[50,52,54,56].map(v=>(
+          <line key={v} x1={padL} y1={y(v)} x2={W-padR} y2={y(v)} stroke={C.border} strokeWidth="1" strokeDasharray="3 3"/>
+        ))}
+        {[50,52,54,56].map(v=>(
+          <text key={v} x={padL-5} y={y(v)+3} textAnchor="end" fill={C.sub} fontSize="8" fontFamily="monospace">{v}</text>
+        ))}
+        <line x1={padL} y1={y(vdotRef)} x2={W-padR} y2={y(vdotRef)} stroke={C.orange} strokeWidth="1" strokeDasharray="4 3"/>
+        <line x1={padL} y1={y(pbRef)} x2={W-padR} y2={y(pbRef)} stroke={C.purple} strokeWidth="1" strokeDasharray="4 3"/>
+        <path d={pathD} fill="none" stroke={C.orange} strokeWidth="2.5" strokeLinejoin="round"/>
+        {data.map((d,i)=>(
+          <circle key={i} cx={x(i)} cy={y(d.vdot)} r={hover===i?7:4} fill={C.orange}
+            onMouseEnter={()=>setHover(i)} onMouseLeave={()=>setHover(null)}
+            onTouchStart={()=>setHover(i)} style={{cursor:"pointer"}}/>
+        ))}
+        {data.map((d,i)=>(
+          <text key={i} x={x(i)} y={H-4} textAnchor="middle" fill={C.sub} fontSize="8">{d.x}</text>
+        ))}
+      </svg>
+      {hover!==null && (
+        <div style={{position:"absolute",top:0,left:0,background:C.card2,border:`1px solid ${C.border}`,borderRadius:8,padding:"6px 10px",pointerEvents:"none"}}>
+          <div style={{color:C.sub,fontSize:9}}>{data[hover].name}</div>
+          <div style={{color:C.orange,fontSize:14,fontWeight:800,fontFamily:"monospace"}}>VDOT {data[hover].vdot}</div>
+          <div style={{color:C.text,fontSize:10,fontFamily:"monospace"}}>{data[hover].time}</div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── BAR CHART (SVG puro, substitui Recharts) ──
+function LoadBarChart({ data }) {
+  const W=320, H=130, padL=24, padR=8, padT=8, padB=18;
+  const innerW = W - padL - padR, innerH = H - padT - padB;
+  const max = Math.max(...data.map(d=>d.km)) * 1.15;
+  const bw = innerW / data.length * 0.6;
+  const gap = innerW / data.length;
+  const [hover, setHover] = useState(null);
+  return (
+    <div style={{position:"relative"}}>
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{display:"block"}}>
+        {[0,0.5,1].map(f=>{
+          const v = max*f;
+          const yy = padT + innerH - (v/max)*innerH;
+          return <g key={f}>
+            <line x1={padL} y1={yy} x2={W-padR} y2={yy} stroke={C.border} strokeWidth="1" strokeDasharray="3 3"/>
+            <text x={padL-4} y={yy+3} textAnchor="end" fill={C.sub} fontSize="8" fontFamily="monospace">{Math.round(v)}</text>
+          </g>;
+        })}
+        {data.map((d,i)=>{
+          const bh = (d.km/max)*innerH;
+          const bx = padL + i*gap + (gap-bw)/2;
+          const by = padT + innerH - bh;
+          return (
+            <g key={i}>
+              <rect x={bx} y={by} width={bw} height={bh} rx="4"
+                fill={d.cur?C.orange:C.dim}
+                onMouseEnter={()=>setHover(i)} onMouseLeave={()=>setHover(null)}
+                onTouchStart={()=>setHover(i)} style={{cursor:"pointer"}}/>
+              <text x={bx+bw/2} y={H-4} textAnchor="middle" fill={C.sub} fontSize="9">{d.w}</text>
+            </g>
+          );
+        })}
+      </svg>
+      {hover!==null && (
+        <div style={{position:"absolute",top:0,left:0,background:C.card2,border:`1px solid ${C.border}`,borderRadius:8,padding:"6px 10px",pointerEvents:"none"}}>
+          <div style={{color:C.sub,fontSize:9}}>{data[hover].w}</div>
+          <div style={{color:C.orange,fontSize:14,fontWeight:800,fontFamily:"monospace"}}>{data[hover].km} km</div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -137,8 +227,6 @@ const ST=({label,accent})=>(
     <span style={{color:C.sub,fontSize:9,fontWeight:700,letterSpacing:"2px",textTransform:"uppercase"}}>{label}</span>
   </div>
 );
-const VDOTTip=({active,payload})=>{if(!active||!payload?.length)return null;const d=payload[0].payload;return<div style={{background:C.card2,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 12px"}}><div style={{color:C.sub,fontSize:9}}>{d.name}</div><div style={{color:C.orange,fontSize:18,fontWeight:800,fontFamily:"monospace"}}>VDOT {payload[0].value}</div><div style={{color:C.text,fontSize:11,fontFamily:"monospace"}}>{d.time}</div></div>;};
-const LoadTip=({active,payload,label})=>{if(!active||!payload?.length)return null;return<div style={{background:C.card2,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 12px"}}><div style={{color:C.sub,fontSize:9}}>{label}</div><div style={{color:C.orange,fontSize:18,fontWeight:800,fontFamily:"monospace"}}>{payload[0].value} km</div></div>;};
 const dotColor=s=>({done:C.teal,today:C.orange,planned:C.dim,race:C.gold}[s]||C.dim);
 
 const paceRows=[
@@ -186,20 +274,10 @@ function App() {
           <ST label={`Estado Fisiológico · ${d.meta.updatedAt}`} accent={C.teal}/>
           <div style={{display:"flex",gap:8,marginBottom:8}}><Metric label="HRV" value={d.hrv} unit="ms" trend={d.hrvTrend} color={C.teal} sub="baseline OK"/><Metric label="FC Repouso" value={d.rhr} unit="bpm" trend="✓ baixo" color={C.teal} sub="perfil atleta"/></div>
           <div style={{display:"flex",gap:8,marginBottom:8}}><Metric label="Body Battery" value={d.bodyBattery} unit="%" trend="↑ carregado" color={C.z1}/><Metric label="Train. Readiness" value={d.readiness} unit="/100" color={C.z3} sub={d.readinessSub} trend="MODERATE"/></div>
-          <div style={{display:"flex",gap:8,marginBottom:18}}><Metric label="VO₂Max Garmin" value={d.vo2max} color={C.orange} sub="VDOT ref 53"/><Metric label="ACWR" value={d.acwr} color={C.z1} sub="ÓTIMO" trend="↗ carga crescente"/></div>
+          <div style={{display:"flex",gap:8,marginBottom:18}}><Metric label="VO₂Max Garmin" value={d.vo2max} color={C.orange} sub="VDOT ref 53"/><Metric label="ACWR" value={d.acwr.toFixed(2)} color={C.z1} sub="ÓTIMO" trend="↗ carga crescente"/></div>
           <ST label="Evolução VDOT · Provas 2025–26" accent={C.purple}/>
           <div style={{background:C.card,borderRadius:12,border:`1px solid ${C.border}`,padding:"14px 6px 8px",marginBottom:18}}>
-            <ResponsiveContainer width="100%" height={155}>
-              <LineChart data={d.raceTrend} margin={{left:-8,right:22,top:8,bottom:0}}>
-                <CartesianGrid stroke={C.border} strokeDasharray="3 3" vertical={false}/>
-                <XAxis dataKey="x" tick={{fill:C.sub,fontSize:8}} axisLine={false} tickLine={false}/>
-                <YAxis domain={[50,57]} tick={{fill:C.sub,fontSize:8}} axisLine={false} tickLine={false} width={26}/>
-                <Tooltip content={<VDOTTip/>}/>
-                <ReferenceLine y={d.vdot} stroke={C.orange} strokeDasharray="4 3" strokeWidth={1} label={{value:"atual",fill:C.orange,fontSize:8,position:"insideTopRight"}}/>
-                <ReferenceLine y={57} stroke={C.purple} strokeDasharray="4 3" strokeWidth={1} label={{value:"PB'16",fill:C.purple,fontSize:8,position:"insideTopRight"}}/>
-                <Line type="monotone" dataKey="vdot" stroke={C.orange} strokeWidth={2.5} dot={{fill:C.orange,r:4,strokeWidth:0}} activeDot={{r:7,fill:C.orange}}/>
-              </LineChart>
-            </ResponsiveContainer>
+            <VDOTLineChart data={d.raceTrend} vdotRef={d.vdot} pbRef={57}/>
             <div style={{display:"flex",justifyContent:"space-between",padding:"4px 10px 0"}}><span style={{color:C.sub,fontSize:9}}>Dez 2025 → Jun 2026</span><span style={{color:C.z1,fontSize:11,fontWeight:700}}>+3.2 VDOT ↑</span></div>
           </div>
           <ST label="Progresso Pace 10km → 37:00" accent={C.teal}/>
@@ -247,21 +325,13 @@ function App() {
           </div>
           <ST label="Carga Semanal · km" accent={C.teal}/>
           <div style={{background:C.card,borderRadius:12,border:`1px solid ${C.border}`,padding:"14px 6px 8px",marginBottom:16}}>
-            <ResponsiveContainer width="100%" height={130}>
-              <BarChart data={d.weeklyLoad} margin={{left:-8,right:8,top:4}} barSize={26}>
-                <CartesianGrid stroke={C.border} strokeDasharray="3 3" vertical={false}/>
-                <XAxis dataKey="w" tick={{fill:C.sub,fontSize:9}} axisLine={false} tickLine={false}/>
-                <YAxis tick={{fill:C.sub,fontSize:9}} axisLine={false} tickLine={false} width={26}/>
-                <Tooltip content={<LoadTip/>}/>
-                <Bar dataKey="km" radius={[5,5,0,0]}>{d.weeklyLoad.map((w,i)=><Cell key={i} fill={w.cur?C.orange:C.dim}/>)}</Bar>
-              </BarChart>
-            </ResponsiveContainer>
+            <LoadBarChart data={d.weeklyLoad}/>
           </div>
           <ST label="Training Status · Garmin" accent={C.purple}/>
           <div style={{background:C.card,borderRadius:12,border:`1px solid ${C.border}`,padding:"12px 14px"}}>
             <div style={{display:"flex",justifyContent:"space-between",marginBottom:12}}>
               <div><div style={{color:C.z1,fontSize:14,fontWeight:800}}>{d.trainingStatus}</div><div style={{color:C.sub,fontSize:9}}>Garmin Training Status</div></div>
-              <div style={{textAlign:"right"}}><div style={{color:C.teal,fontSize:18,fontWeight:800,fontFamily:"monospace"}}>{d.acwr}</div><div style={{color:C.sub,fontSize:9}}>ACWR · ÓTIMO</div></div>
+              <div style={{textAlign:"right"}}><div style={{color:C.teal,fontSize:18,fontWeight:800,fontFamily:"monospace"}}>{d.acwr.toFixed(2)}</div><div style={{color:C.sub,fontSize:9}}>ACWR · ÓTIMO</div></div>
             </div>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
               {[{label:"Limiar Ritmo",value:d.ltPace+"/km",col:C.orange},{label:"LTHR",value:d.lthr+" bpm",col:C.orange},{label:"VO₂Max Garmin",value:d.vo2max,col:C.purple},{label:"Peso",value:d.weight+" kg",col:C.sub}].map((m,i)=>(
@@ -286,7 +356,7 @@ function App() {
           <div style={{background:C.card,borderRadius:12,border:`2px solid ${C.orange}44`,padding:"16px 14px"}}>
             <div style={{textAlign:"center",marginBottom:16}}>
               <div style={{color:C.sub,fontSize:9,letterSpacing:"3px"}}>DIAS RESTANTES</div>
-              <div style={{color:C.orange,fontSize:60,fontWeight:900,fontFamily:"'Courier New',monospace",lineHeight:1.1}}>87</div>
+              <div style={{color:C.orange,fontSize:60,fontWeight:900,fontFamily:"'Courier New',monospace",lineHeight:1.1}}>86</div>
               <div style={{color:C.sub,fontSize:11}}>12 semanas e meia</div>
             </div>
             {d.phases.map((p,i)=>{
@@ -310,6 +380,11 @@ function App() {
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+
+} catch (e) {
+  document.getElementById("root").innerHTML =
+    '<div style="color:#FF5422;padding:24px;font-family:monospace;font-size:13px;white-space:pre-wrap;">ERRO AO CARREGAR:\n' + e.message + '\n\n' + (e.stack || '') + '</div>';
+}
   </script>
 </body>
 </html>
