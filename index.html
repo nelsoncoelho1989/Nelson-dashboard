@@ -45,14 +45,30 @@ const D = {
   weekLabel: "Semana 28 · Fase 1 · Força + Limiar",
   weekDone: 42.2, weekTarget: 58,
   sessions: [
-    { day:"Seg 6",  code:"EASY-45",       km:8.4,  status:"done",    icon:"🏃" },
-    { day:"Ter 7",  code:"6×800m pista",  km:12.1, status:"done",    icon:"⚡" },
-    { day:"Qua 8",  code:"EASY-45+STR",   km:9.2,  status:"done",    icon:"🏃" },
-    { day:"Qui 9",  code:"HILL 6/12×45",  km:5.1,  status:"done",    icon:"⛰️" },
-    { day:"Sex 10", code:"EASY-40",       km:7.3,  status:"done",    icon:"🏃" },
-    { day:"Sáb 11", code:"LONGO 14km+",   km:14.5, status:"planned", icon:"🏃" },
-    { day:"Dom 12", code:"REC-LEVE",      km:6.0,  status:"planned", icon:"😴" },
-    { day:"Ter 14", code:"T-LIM-2x15",    km:11.0, status:"planned", icon:"🎯" },
+    { day:"Seg 6",  code:"EASY-45",       km:8.4,  status:"done",    icon:"🏃",
+      mode:"Fácil/Recuperação", hrAvg:134, hrMax:151, paceReal:"5:20/km",
+      note:"Z2 limpo, sem sinais de fadiga acumulada — absorveu bem a carga da semana anterior." },
+    { day:"Ter 7",  code:"6×800m pista",  km:12.1, status:"done",    icon:"⚡",
+      mode:"Calibração (FC como variável principal)", hrMax:173, paceReal:"3:20→3:36/km (reps)", paceTarget:"3:50–3:55/km",
+      note:"Progressão cardíaca bateu certo, mas o ritmo saiu 20–30s/km mais rápido que o previsto — sinal de que o ritmo estava conservador para este formato, não de excesso. Cadência 91–96spm confirma boa mecânica em pista. Ação: confirmar pace ao 200–400m no próximo teste — o arranque rápido continua a repetir-se." },
+    { day:"Qua 8",  code:"EASY-45+STR",   km:9.2,  status:"done",    icon:"🏃",
+      mode:"Fácil/Recuperação + Força", hrAvg:137, hrMax:152, paceReal:"5:26/km",
+      note:"Absorção pós-pista perfeita, sem sinais de overload. Bloco de força (15s/45s) executado como previsto." },
+    { day:"Qui 9",  code:"HILL 6/12×45",  km:5.1,  status:"done",    icon:"⛰️",
+      mode:"Específico (força + técnica de subida)", hrAvg:138, hrMax:172, paceReal:"611–676W estável",
+      note:"Só 6 de 12 reps completadas (decisão consciente, tempo limitado) — mas cadência 91–96spm em todas, acima da banda-problema histórica de 87–88spm. Primeira confirmação objetiva de progresso real na subida (score 44→48), ainda em banda Moderado — não tratar como consolidado até repetir." },
+    { day:"Sex 10", code:"EASY-40",       km:7.3,  status:"done",    icon:"🏃",
+      mode:"Fácil/Recuperação", hrAvg:135, hrMax:154, paceReal:"5:28/km",
+      note:"Z2 total, cumprido à risca. Sem impacto extra na carga — sessão de rotina, sem alarmes." },
+    { day:"Sáb 11", code:"LONGO 14km+",   km:14.5, status:"planned", icon:"🏃",
+      mode:"Específico (resistência de base)", paceTarget:"~4:50–5:00/km controlado",
+      note:"Objetivo: manter Z2–Z3 baixo do início ao fim mesmo que o grupo acelere no final — disciplina de ritmo é o ponto a validar aqui." },
+    { day:"Dom 12", code:"REC-LEVE",      km:6.0,  status:"planned", icon:"😴",
+      mode:"Fácil/Recuperação", paceTarget:"Z1–Z2, sem pressa",
+      note:"Absorver a semana e o longo de sábado antes do T-LIM de terça." },
+    { day:"Ter 14", code:"T-LIM-2x15",    km:11.0, status:"planned", icon:"🎯",
+      mode:"Calibração (FC como variável principal)", paceTarget:"4:07–4:11/km (rua, integrado)",
+      note:"Confirma se o limiar de 4:05/km @163bpm continua ajustado antes de entrar na Fase 2 (específico 10km)." },
   ],
   raceTrend: [
     { x:"Jan'26", vdot:52.1, time:"40:49", name:"CNE 10km" },
@@ -103,6 +119,7 @@ const D = {
 };
 
 let TAB = localStorage.getItem("nc_tab") || "estado";
+let OPEN_IDX = null;
 
 const dotColor = s => ({done:C.teal,today:C.orange,planned:C.dim,race:C.gold}[s]||C.dim);
 
@@ -326,20 +343,37 @@ function panelSemana(){
 
   <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};overflow:hidden;margin-bottom:16px">
     ${D.sessions.map((s,i)=>`
-      <div style="display:flex;align-items:center;padding:10px 14px;
-        ${i<D.sessions.length-1?`border-bottom:1px solid ${C.border};`:""}
-        opacity:${s.status==="planned"?0.55:1};background:${s.status==="today"?C.orange+"08":"transparent"}">
-        <div style="color:${C.sub};font-size:9px;width:38px;flex-shrink:0">${s.day}</div>
-        <div style="width:9px;height:9px;border-radius:50%;background:${dotColor(s.status)};margin-right:10px;flex-shrink:0;
-          box-shadow:${s.status==="today"?`0 0 8px ${C.orange}`:"none"}"></div>
-        <div style="flex:1">
-          <span style="color:${s.status==="today"?C.orange:s.status==="race"?C.gold:C.text};
-            font-size:12px;font-weight:${["today","race"].includes(s.status)?700:400}">${s.icon} ${s.code}</span>
+      <div>
+        <div data-session="${i}" style="display:flex;align-items:center;padding:10px 14px;cursor:pointer;
+          ${i<D.sessions.length-1||OPEN_IDX===i?`border-bottom:1px solid ${C.border};`:""}
+          opacity:${s.status==="planned"?0.55:1};background:${s.status==="today"?C.orange+"08":OPEN_IDX===i?C.card2:"transparent"}">
+          <div style="color:${C.sub};font-size:9px;width:38px;flex-shrink:0">${s.day}</div>
+          <div style="width:9px;height:9px;border-radius:50%;background:${dotColor(s.status)};margin-right:10px;flex-shrink:0;
+            box-shadow:${s.status==="today"?`0 0 8px ${C.orange}`:"none"}"></div>
+          <div style="flex:1">
+            <span style="color:${s.status==="today"?C.orange:s.status==="race"?C.gold:C.text};
+              font-size:12px;font-weight:${["today","race"].includes(s.status)?700:400}">${s.icon} ${s.code}</span>
+          </div>
+          <span style="color:${C.sub};font-size:10px;font-family:monospace;margin-right:8px">${s.km}km</span>
+          ${s.status==="done"?`<span style="color:${C.teal};font-size:12px">✓</span>`:""}
+          ${s.status==="today"?`<span style="color:${C.orange};font-size:9px;font-weight:700;background:${C.orange}22;padding:2px 6px;border-radius:4px">HOJE</span>`:""}
+          ${s.status==="race"?`<span style="color:${C.gold};font-size:9px;font-weight:700;background:${C.gold}22;padding:2px 6px;border-radius:4px">PROVA</span>`:""}
+          <span style="color:${C.sub};font-size:10px;margin-left:8px;transform:rotate(${OPEN_IDX===i?90:0}deg);display:inline-block;transition:transform .15s">›</span>
         </div>
-        <span style="color:${C.sub};font-size:10px;font-family:monospace;margin-right:8px">${s.km}km</span>
-        ${s.status==="done"?`<span style="color:${C.teal};font-size:12px">✓</span>`:""}
-        ${s.status==="today"?`<span style="color:${C.orange};font-size:9px;font-weight:700;background:${C.orange}22;padding:2px 6px;border-radius:4px">HOJE</span>`:""}
-        ${s.status==="race"?`<span style="color:${C.gold};font-size:9px;font-weight:700;background:${C.gold}22;padding:2px 6px;border-radius:4px">PROVA</span>`:""}
+        ${OPEN_IDX===i?`
+        <div style="padding:12px 14px 14px;background:${C.card2};${i<D.sessions.length-1?`border-bottom:1px solid ${C.border};`:""}">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+            <span style="background:${C.orange}18;color:${C.orange};border-radius:5px;padding:2px 8px;font-size:9px;font-weight:700">${s.mode||""}</span>
+          </div>
+          <div style="display:flex;gap:14px;margin-bottom:8px;flex-wrap:wrap">
+            ${s.paceReal?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">RITMO REAL</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.paceReal}</div></div>`:""}
+            ${s.paceTarget?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">${s.status==="planned"?"ALVO":"PREVISTO"}</div><div style="color:${C.sub};font-size:11px;font-family:monospace">${s.paceTarget}</div></div>`:""}
+            ${s.hrAvg?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">FC MÉDIA</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.hrAvg} bpm</div></div>`:""}
+            ${s.hrMax?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">FC MÁX</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.hrMax} bpm</div></div>`:""}
+          </div>
+          <div style="color:${C.sub};font-size:8px;letter-spacing:1px;margin-bottom:3px">${s.status==="planned"?"OBJETIVO":"CONTRIBUIÇÃO PARA A EVOLUÇÃO"}</div>
+          <div style="color:${C.text};font-size:11px;line-height:1.5">${s.note||""}</div>
+        </div>`:""}
       </div>`).join("")}
   </div>
 
@@ -441,8 +475,17 @@ function render(){
     btn.addEventListener("click", ()=>{
       TAB = btn.getAttribute("data-tab");
       localStorage.setItem("nc_tab", TAB);
+      OPEN_IDX = null;
       render();
       window.scrollTo(0,0);
+    });
+  });
+
+  document.querySelectorAll("[data-session]").forEach(row=>{
+    row.addEventListener("click", ()=>{
+      const i = parseInt(row.getAttribute("data-session"), 10);
+      OPEN_IDX = OPEN_IDX===i ? null : i;
+      render();
     });
   });
 }
