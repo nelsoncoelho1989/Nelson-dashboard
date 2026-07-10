@@ -1,1578 +1,459 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
-  <meta name="theme-color" content="#07090F"/>
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-  <meta name="apple-mobile-web-app-title" content="NC Dashboard"/>
-  <title>Nelson Coelho · Dashboard</title>
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{background:#07090F;font-family:system-ui,-apple-system,sans-serif;min-height:100vh}
-    #fallback{color:#5A6B8A;font-size:13px;padding:24px;text-align:center;font-family:monospace}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#07090F">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NC Corrida">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="icon" href="icon.svg">
+<title>Nelson Coelho · Corrida</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; padding:0; background:#07090F; color:#D4E0FF;
+    font-family: system-ui, -apple-system, sans-serif;
+    -webkit-user-select:none; user-select:none; overscroll-behavior:none; }
+  #app { max-width:480px; margin:0 auto; min-height:100vh;
+    padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+  button { font-family:inherit; }
+  ::-webkit-scrollbar { display:none; }
+</style>
 </head>
 <body>
-  <div id="root"><div id="fallback">A carregar dashboard...</div></div>
-  <script>
-try {
-try {
-  const {
-    useState
-  } = React;
+<div id="app"></div>
 
-  // ── ATUALIZAR ESTES DADOS SEMPRE QUE O CLAUDE FORNECER UMA NOVA VERSÃO ──────
-  const DATA = {
-    meta: {
-      updatedAt: "19 Jun 2026 · 21:00"
-    },
-    hrv: 47,
-    hrvTrend: "→ BALANCED",
-    rhr: 47,
-    bodyBattery: 83,
-    readiness: 53,
-    readinessSub: "driver: sono hist. (LISTEN_TO_YOUR_BODY)",
-    vo2max: 57.0,
-    acwr: 1.00,
-    weight: 78.9,
-    trainingStatus: "PRODUTIVO",
-    lthr: 163,
-    ltPace: "4:05",
-    vdot: 53,
-    vdotEst: "54–55",
-    weekLabel: "Semana 25 · 14–21 Jun",
-    weekDone: 38.3,
-    weekTarget: 63,
-    sessions: [{
-      day: "Dom 14",
-      code: "REC-LEVE",
-      km: 7.5,
-      status: "done",
-      icon: "😴"
-    }, {
-      day: "Seg 15",
-      code: "EASY-45",
-      km: 8.3,
-      status: "done",
-      icon: "🏃"
-    }, {
-      day: "Ter 16",
-      code: "5 × 1000m",
-      km: 12.0,
-      status: "done",
-      icon: "⚡"
-    }, {
-      day: "Qua 17",
-      code: "EASY+STR",
-      km: 10.0,
-      status: "planned",
-      icon: "🏃"
-    }, {
-      day: "Qui 18",
-      code: "HILL 10×45",
-      km: 10.5,
-      status: "done",
-      icon: "⛰️"
-    }, {
-      day: "Sex 19",
-      code: "EASY-40",
-      km: 8.5,
-      status: "today",
-      icon: "🏃"
-    }, {
-      day: "Sáb 20",
-      code: "SHAKEOUT",
-      km: 5.5,
-      status: "planned",
-      icon: "✨"
-    }, {
-      day: "Dom 21",
-      code: "GP MANIQUE",
-      km: 7.0,
-      status: "race",
-      icon: "🏁"
-    }],
-    raceTrend: [{
-      x: "Dez'25",
-      vdot: 51.3,
-      time: "41:37",
-      name: "GP Natal"
-    }, {
-      x: "Jan'26",
-      vdot: 52.1,
-      time: "40:49",
-      name: "CNE 10km"
-    }, {
-      x: "Abr'26",
-      vdot: 52.0,
-      time: "40:56",
-      name: "Constância"
-    }, {
-      x: "Mai'26",
-      vdot: 52.7,
-      time: "40:21",
-      name: "Agualva"
-    }, {
-      x: "7 Jun",
-      vdot: 53.0,
-      time: "40:05",
-      name: "Santo António"
-    }, {
-      x: "13 Jun",
-      vdot: 54.5,
-      time: "30:21",
-      name: "Marginal Noite"
-    }],
-    weeklyLoad: [{
-      w: "S21",
-      km: 43
-    }, {
-      w: "S22",
-      km: 50
-    }, {
-      w: "S23",
-      km: 10
-    }, {
-      w: "S24",
-      km: 63.5
-    }, {
-      w: "S25",
-      km: 63,
-      cur: true
-    }, {
-      w: "S26",
-      km: 52.5
-    }, {
-      w: "S27",
-      km: 69.5
-    }],
-    calibs: [{
-      date: "11 Jun",
-      session: "T-LIM-3x8",
-      pace: "4:09→3:57",
-      fc: "FCmax 164",
-      read: "Limiar ✓ 4:05"
-    }, {
-      date: "13 Jun",
-      session: "Marginal Noite",
-      pace: "3:54/km",
-      fc: "FCm 168.6",
-      read: "VDOT est. 54–55"
-    }, {
-      date: "16 Jun",
-      session: "5 × 1000m",
-      pace: "3:44→3:33",
-      fc: "~170 final",
-      read: "Ritmo previsto conservador"
-    }],
-    races: [{
-      date: "21 Jun",
-      name: "GP Manique de Cima",
-      dist: "6.5km ⛰️",
-      days: 2,
-      prio: "Troféu",
-      col: "#FDE047"
-    }, {
-      date: "28 Jun",
-      name: "GP JOMA",
-      dist: "6–7km",
-      days: 9,
-      prio: "Troféu",
-      col: "#FDE047"
-    }, {
-      date: "13 Set",
-      name: "Corrida do Tejo ★",
-      dist: "10km",
-      days: 86,
-      prio: "PROVA A",
-      col: "#FF5422"
-    }, {
-      date: "19 Set",
-      name: "Corrida Auchan",
-      dist: "10km",
-      days: 92,
-      prio: "Follow-up",
-      col: "#5A6B8A"
-    }, {
-      date: "11 Out",
-      name: "Hyundai Meia Maratona",
-      dist: "21.1km",
-      days: 114,
-      prio: "Endurance",
-      col: "#9B59FF"
-    }],
-    phases: [{
-      label: "Ligação Sintra",
-      weeks: "S25–26",
-      km: "~58/sem",
-      status: "active"
-    }, {
-      label: "Base / Limiar",
-      weeks: "S27–29",
-      km: "~70–75/sem",
-      status: "next"
-    }, {
-      label: "Construção 10km",
-      weeks: "S30–32",
-      km: "~74–75/sem",
-      status: "future"
-    }, {
-      label: "Especificidade",
-      weeks: "S33–35",
-      km: "~74–77/sem",
-      status: "future"
-    }, {
-      label: "Afinação",
-      weeks: "S36–37",
-      km: "↓ volume",
-      status: "future"
-    }, {
-      label: "★ Corrida do Tejo",
-      weeks: "13 Set",
-      km: "PROVA A",
-      status: "race"
-    }]
-  };
-  // ─────────────────────────────────────────────────────────────────────────────
+<script>
+const C = {
+  bg:"#07090F", card:"#0D1118", card2:"#131927", border:"#1C2438",
+  orange:"#FF5422", teal:"#00D9B0", purple:"#9B59FF", gold:"#F5A623",
+  text:"#D4E0FF", sub:"#5A6B8A", dim:"#2C3550",
+  z1:"#22C55E", z2:"#86EFAC", z3:"#FDE047", z4:"#FB923C", z5:"#EF4444",
+};
 
-  const C = {
-    bg: "#07090F",
-    card: "#0D1118",
-    card2: "#131927",
-    border: "#1C2438",
-    orange: "#FF5422",
-    teal: "#00D9B0",
-    purple: "#9B59FF",
-    gold: "#F5A623",
-    text: "#D4E0FF",
-    sub: "#5A6B8A",
-    dim: "#2C3550",
-    z1: "#22C55E",
-    z2: "#86EFAC",
-    z3: "#FDE047",
-    z4: "#FB923C",
-    z5: "#EF4444"
-  };
+const D = {
+  meta: { updatedAt: "10 Jul 2026 · 20:20" },
+  hrv: 52, hrvTrend: "dentro da baseline (47–59)",
+  rhr: 46, bodyBattery: 78,
+  readiness: 66, readinessSub: "hill session recente absorvida",
+  vo2max: 57.0, acwr: 1.05, weight: 78.9,
+  trainingStatus: "PRODUTIVO", lthr: 163, ltPace: "4:05",
+  vdot: 53, vdotEst: "54–55",
+  weekLabel: "Semana 28 · Fase 1 · Força + Limiar",
+  weekDone: 42.2, weekTarget: 58,
+  sessions: [
+    { day:"Seg 6",  code:"EASY-45",       km:8.4,  status:"done",    icon:"🏃" },
+    { day:"Ter 7",  code:"6×800m pista",  km:12.1, status:"done",    icon:"⚡" },
+    { day:"Qua 8",  code:"EASY-45+STR",   km:9.2,  status:"done",    icon:"🏃" },
+    { day:"Qui 9",  code:"HILL 6/12×45",  km:5.1,  status:"done",    icon:"⛰️" },
+    { day:"Sex 10", code:"EASY-40",       km:7.3,  status:"done",    icon:"🏃" },
+    { day:"Sáb 11", code:"LONGO 14km+",   km:14.5, status:"planned", icon:"🏃" },
+    { day:"Dom 12", code:"REC-LEVE",      km:6.0,  status:"planned", icon:"😴" },
+    { day:"Ter 14", code:"T-LIM-2x15",    km:11.0, status:"planned", icon:"🎯" },
+  ],
+  raceTrend: [
+    { x:"Jan'26", vdot:52.1, time:"40:49", name:"CNE 10km" },
+    { x:"Abr'26", vdot:52.0, time:"40:56", name:"Constância" },
+    { x:"Mai'26", vdot:52.7, time:"40:21", name:"Agualva" },
+    { x:"7 Jun",  vdot:53.0, time:"40:05", name:"Santo António" },
+    { x:"13 Jun", vdot:54.5, time:"30:21", name:"Marginal Noite" },
+    { x:"Jul",    vdot:55.0, time:"—",     name:"GP JOMA (est.)" },
+  ],
+  weeklyLoad: [
+    {w:"S24",km:63.5},{w:"S25",km:63},{w:"S26",km:52.5},
+    {w:"S27",km:69.5},{w:"S28",km:58,cur:true},
+    {w:"S29",km:62},{w:"S30",km:48},
+  ],
+  paceRows: [
+    {label:"Jan '26",time:"40:49",pace:"4:04",pct:45},
+    {label:"Abr '26",time:"40:56",pace:"4:05",pct:42},
+    {label:"Mai '26",time:"40:21",pace:"4:02",pct:55},
+    {label:"7 Jun",  time:"40:05",pace:"3:59",pct:65,hot:true},
+    {label:"Target", time:"37:00",pace:"3:42",pct:100,target:true},
+  ],
+  hrZones: [
+    {z:"Z1",label:"Recuperação",  bpm:"106–130",w:72, col:C.z1},
+    {z:"Z2",label:"Easy / Volume",bpm:"131–145",w:89, col:C.z2},
+    {z:"Z3",label:"Aeróbio Ctrl.",bpm:"146–153",w:94, col:C.z3},
+    {z:"Z4",label:"Limiar",       bpm:"154–162",w:99, col:C.z4},
+    {z:"Z5",label:"10km / VO₂",   bpm:"≥163",   w:100,col:C.z5},
+  ],
+  calibs: [
+    { date:"7 Jul",  session:"6×800m pista", pace:"3:20→3:36/km", fc:"cadência 91–96spm",   read:"Arranque rápido de novo — confirmar 200–400m" },
+    { date:"9 Jul",  session:"HILL 12×45",   pace:"6/12 reps",     fc:"611–676W estável",    read:"Endurance 44→48 · ainda Moderado" },
+    { date:"8 Jul",  session:"EASY+STR",     pace:"Z2 total",      fc:"sem sinais overload", read:"Absorção pós-pista OK" },
+  ],
+  races: [
+    { date:"13 Set", name:"Corrida do Tejo ★",     dist:"10km ⛰️ 3 subidas", days:65,  prio:"PROVA A",   col:"#FF5422" },
+    { date:"19 Set", name:"Corrida Auchan",         dist:"10km",             days:71,  prio:"B-race",     col:"#5A6B8A" },
+    { date:"11 Out", name:"Meia Vasco da Gama",     dist:"21.1km",           days:93,  prio:"Endurance",  col:"#9B59FF" },
+    { date:"25 Out", name:"Volkswagen Alta Europa", dist:"10km",             days:107, prio:"Confirmada", col:"#00D9B0" },
+  ],
+  phases: [
+    { label:"Força + Limiar",     weeks:"S28–31", km:"~58–62/sem", status:"active"  },
+    { label:"10km Específico",    weeks:"S32–35", km:"~62–65/sem", status:"next"    },
+    { label:"Afinação",           weeks:"S36–37", km:"↓ ~30%",     status:"future"  },
+    { label:"★ Corrida do Tejo",  weeks:"13 Set", km:"PROVA A",    status:"race"    },
+    { label:"Corrida Auchan",     weeks:"19 Set", km:"B-race",     status:"future"  },
+    { label:"Meia Vasco da Gama", weeks:"11 Out", km:"Endurance",  status:"future"  },
+  ],
+};
 
-  // ── VDOT GAUGE (SVG puro) ──
-  function VDOTGauge({
-    vdot = 53,
-    vdotEst = "54–55"
-  }) {
-    const W = 320,
-      H = 200,
-      cx = 160,
-      cy = 175,
-      Ro = 126,
-      Ri = 96,
-      VMIN = 48,
-      VMAX = 63;
-    const vToAngle = v => Math.PI * (1 - (v - VMIN) / (VMAX - VMIN));
-    const ptAt = (v, r) => {
-      const a = vToAngle(v);
-      return [+(cx + r * Math.cos(a)).toFixed(2), +(cy - r * Math.sin(a)).toFixed(2)];
-    };
-    const arc = (v1, v2, R) => {
-      const [x1, y1] = ptAt(v1, R),
-        [x2, y2] = ptAt(v2, R);
-      const large = Math.abs(vToAngle(v2) - vToAngle(v1)) > Math.PI ? 1 : 0;
-      return `M ${x1} ${y1} A ${R} ${R} 0 ${large} 1 ${x2} ${y2}`;
-    };
-    const estEnd = parseFloat(vdotEst?.split("–")[1] || vdot + 1.5);
-    const [nx, ny] = ptAt(vdot, Ri + 6),
-      [nx2, ny2] = ptAt(vdot, Ro + 5);
-    return /*#__PURE__*/React.createElement("svg", {
-      viewBox: `0 0 ${W} ${H}`,
-      width: "100%",
-      style: {
-        display: "block",
-        overflow: "visible"
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: arc(VMIN, VMAX, Ro),
-      fill: "none",
-      stroke: C.dim,
-      strokeWidth: "20",
-      strokeLinecap: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: arc(48, 51.3, Ro),
-      fill: "none",
-      stroke: C.sub,
-      strokeWidth: "20",
-      opacity: "0.15"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: arc(51.3, 53, Ro),
-      fill: "none",
-      stroke: C.z3,
-      strokeWidth: "20",
-      opacity: "0.2"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: arc(53, 55, Ro),
-      fill: "none",
-      stroke: C.orange,
-      strokeWidth: "20",
-      opacity: "0.18"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: arc(55, 57, Ro),
-      fill: "none",
-      stroke: C.purple,
-      strokeWidth: "20",
-      opacity: "0.18"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: arc(57, 63, Ro),
-      fill: "none",
-      stroke: C.teal,
-      strokeWidth: "20",
-      opacity: "0.18"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: arc(VMIN, vdot, Ro),
-      fill: "none",
-      stroke: C.orange,
-      strokeWidth: "20",
-      strokeLinecap: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: arc(vdot, estEnd, Ro),
-      fill: "none",
-      stroke: C.orange,
-      strokeWidth: "20",
-      strokeDasharray: "6 5",
-      opacity: "0.55"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: arc(VMIN, VMAX, Ri),
-      fill: "none",
-      stroke: C.border,
-      strokeWidth: "2",
-      strokeLinecap: "round"
-    }), [48, 51, 53, 55, 57, 60, 63].map(v => {
-      const [tx, ty] = ptAt(v, Ri - 14),
-        [t1x, t1y] = ptAt(v, Ri),
-        [t2x, t2y] = ptAt(v, Ri - 6);
-      return /*#__PURE__*/React.createElement("g", {
-        key: v
-      }, /*#__PURE__*/React.createElement("line", {
-        x1: t1x,
-        y1: t1y,
-        x2: t2x,
-        y2: t2y,
-        stroke: C.sub,
-        strokeWidth: "1.5"
-      }), /*#__PURE__*/React.createElement("text", {
-        x: tx,
-        y: ty + 3,
-        textAnchor: "middle",
-        fill: C.sub,
-        fontSize: "8",
-        fontFamily: "monospace"
-      }, v));
-    }), (() => {
-      const [ax, ay] = ptAt(57, Ro + 5),
-        [bx, by] = ptAt(57, Ro + 18),
-        [lx, ly] = ptAt(57, Ro + 28);
-      return /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("line", {
-        x1: ax,
-        y1: ay,
-        x2: bx,
-        y2: by,
-        stroke: C.purple,
-        strokeWidth: "2"
-      }), /*#__PURE__*/React.createElement("text", {
-        x: lx,
-        y: ly - 5,
-        textAnchor: "middle",
-        fill: C.purple,
-        fontSize: "9",
-        fontWeight: "700"
-      }, "PB"), /*#__PURE__*/React.createElement("text", {
-        x: lx,
-        y: ly + 5,
-        textAnchor: "middle",
-        fill: C.purple,
-        fontSize: "8"
-      }, "'16"));
-    })(), (() => {
-      const [ax, ay] = ptAt(60, Ro + 5),
-        [bx, by] = ptAt(60, Ro + 18),
-        [lx, ly] = ptAt(60, Ro + 28);
-      return /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("line", {
-        x1: ax,
-        y1: ay,
-        x2: bx,
-        y2: by,
-        stroke: C.teal,
-        strokeWidth: "2"
-      }), /*#__PURE__*/React.createElement("text", {
-        x: lx,
-        y: ly - 5,
-        textAnchor: "middle",
-        fill: C.teal,
-        fontSize: "9",
-        fontWeight: "700"
-      }, "≤37'"), /*#__PURE__*/React.createElement("text", {
-        x: lx,
-        y: ly + 5,
-        textAnchor: "middle",
-        fill: C.teal,
-        fontSize: "8"
-      }, "target"));
-    })(), /*#__PURE__*/React.createElement("line", {
-      x1: nx,
-      y1: ny,
-      x2: nx2,
-      y2: ny2,
-      stroke: C.orange,
-      strokeWidth: "3",
-      strokeLinecap: "round"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: nx,
-      cy: ny,
-      r: "4",
-      fill: C.orange
-    }), /*#__PURE__*/React.createElement("text", {
-      x: cx,
-      y: cy - 52,
-      textAnchor: "middle",
-      fill: C.text,
-      fontSize: "54",
-      fontWeight: "900",
-      fontFamily: "'Courier New',monospace",
-      letterSpacing: "-2"
-    }, vdot), /*#__PURE__*/React.createElement("text", {
-      x: cx,
-      y: cy - 32,
-      textAnchor: "middle",
-      fill: C.sub,
-      fontSize: "9",
-      letterSpacing: "3"
-    }, "VDOT OFICIAL"), /*#__PURE__*/React.createElement("text", {
-      x: cx,
-      y: cy - 12,
-      textAnchor: "middle",
-      fill: C.orange,
-      fontSize: "13",
-      fontWeight: "600"
-    }, "~", vdotEst, " estimado"));
-  }
+let TAB = localStorage.getItem("nc_tab") || "estado";
 
-  // ── LINE CHART (SVG puro, substitui Recharts) ──
-  function VDOTLineChart({
-    data,
-    vdotRef,
-    pbRef
-  }) {
-    const W = 320,
-      H = 150,
-      padL = 28,
-      padR = 14,
-      padT = 14,
-      padB = 20;
-    const innerW = W - padL - padR,
-      innerH = H - padT - padB;
-    const vals = data.map(d => d.vdot);
-    const min = 50,
-      max = 57;
-    const x = i => padL + i / (data.length - 1) * innerW;
-    const y = v => padT + innerH - (v - min) / (max - min) * innerH;
-    const [hover, setHover] = useState(null);
-    const pathD = data.map((d, i) => `${i === 0 ? "M" : "L"} ${x(i)} ${y(d.vdot)}`).join(" ");
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: "relative"
-      }
-    }, /*#__PURE__*/React.createElement("svg", {
-      viewBox: `0 0 ${W} ${H}`,
-      width: "100%",
-      style: {
-        display: "block"
-      }
-    }, [50, 52, 54, 56].map(v => /*#__PURE__*/React.createElement("line", {
-      key: v,
-      x1: padL,
-      y1: y(v),
-      x2: W - padR,
-      y2: y(v),
-      stroke: C.border,
-      strokeWidth: "1",
-      strokeDasharray: "3 3"
-    })), [50, 52, 54, 56].map(v => /*#__PURE__*/React.createElement("text", {
-      key: v,
-      x: padL - 5,
-      y: y(v) + 3,
-      textAnchor: "end",
-      fill: C.sub,
-      fontSize: "8",
-      fontFamily: "monospace"
-    }, v)), /*#__PURE__*/React.createElement("line", {
-      x1: padL,
-      y1: y(vdotRef),
-      x2: W - padR,
-      y2: y(vdotRef),
-      stroke: C.orange,
-      strokeWidth: "1",
-      strokeDasharray: "4 3"
-    }), /*#__PURE__*/React.createElement("line", {
-      x1: padL,
-      y1: y(pbRef),
-      x2: W - padR,
-      y2: y(pbRef),
-      stroke: C.purple,
-      strokeWidth: "1",
-      strokeDasharray: "4 3"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: pathD,
-      fill: "none",
-      stroke: C.orange,
-      strokeWidth: "2.5",
-      strokeLinejoin: "round"
-    }), data.map((d, i) => /*#__PURE__*/React.createElement("circle", {
-      key: i,
-      cx: x(i),
-      cy: y(d.vdot),
-      r: hover === i ? 7 : 4,
-      fill: C.orange,
-      onMouseEnter: () => setHover(i),
-      onMouseLeave: () => setHover(null),
-      onTouchStart: () => setHover(i),
-      style: {
-        cursor: "pointer"
-      }
-    })), data.map((d, i) => /*#__PURE__*/React.createElement("text", {
-      key: i,
-      x: x(i),
-      y: H - 4,
-      textAnchor: "middle",
-      fill: C.sub,
-      fontSize: "8"
-    }, d.x))), hover !== null && /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        background: C.card2,
-        border: `1px solid ${C.border}`,
-        borderRadius: 8,
-        padding: "6px 10px",
-        pointerEvents: "none"
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 9
-      }
-    }, data[hover].name), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.orange,
-        fontSize: 14,
-        fontWeight: 800,
-        fontFamily: "monospace"
-      }
-    }, "VDOT ", data[hover].vdot), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.text,
-        fontSize: 10,
-        fontFamily: "monospace"
-      }
-    }, data[hover].time)));
-  }
+const dotColor = s => ({done:C.teal,today:C.orange,planned:C.dim,race:C.gold}[s]||C.dim);
 
-  // ── BAR CHART (SVG puro, substitui Recharts) ──
-  function LoadBarChart({
-    data
-  }) {
-    const W = 320,
-      H = 130,
-      padL = 24,
-      padR = 8,
-      padT = 8,
-      padB = 18;
-    const innerW = W - padL - padR,
-      innerH = H - padT - padB;
-    const max = Math.max(...data.map(d => d.km)) * 1.15;
-    const bw = innerW / data.length * 0.6;
-    const gap = innerW / data.length;
-    const [hover, setHover] = useState(null);
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: "relative"
-      }
-    }, /*#__PURE__*/React.createElement("svg", {
-      viewBox: `0 0 ${W} ${H}`,
-      width: "100%",
-      style: {
-        display: "block"
-      }
-    }, [0, 0.5, 1].map(f => {
-      const v = max * f;
-      const yy = padT + innerH - v / max * innerH;
-      return /*#__PURE__*/React.createElement("g", {
-        key: f
-      }, /*#__PURE__*/React.createElement("line", {
-        x1: padL,
-        y1: yy,
-        x2: W - padR,
-        y2: yy,
-        stroke: C.border,
-        strokeWidth: "1",
-        strokeDasharray: "3 3"
-      }), /*#__PURE__*/React.createElement("text", {
-        x: padL - 4,
-        y: yy + 3,
-        textAnchor: "end",
-        fill: C.sub,
-        fontSize: "8",
-        fontFamily: "monospace"
-      }, Math.round(v)));
-    }), data.map((d, i) => {
-      const bh = d.km / max * innerH;
-      const bx = padL + i * gap + (gap - bw) / 2;
-      const by = padT + innerH - bh;
-      return /*#__PURE__*/React.createElement("g", {
-        key: i
-      }, /*#__PURE__*/React.createElement("rect", {
-        x: bx,
-        y: by,
-        width: bw,
-        height: bh,
-        rx: "4",
-        fill: d.cur ? C.orange : C.dim,
-        onMouseEnter: () => setHover(i),
-        onMouseLeave: () => setHover(null),
-        onTouchStart: () => setHover(i),
-        style: {
-          cursor: "pointer"
-        }
-      }), /*#__PURE__*/React.createElement("text", {
-        x: bx + bw / 2,
-        y: H - 4,
-        textAnchor: "middle",
-        fill: C.sub,
-        fontSize: "9"
-      }, d.w));
-    })), hover !== null && /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        background: C.card2,
-        border: `1px solid ${C.border}`,
-        borderRadius: 8,
-        padding: "6px 10px",
-        pointerEvents: "none"
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 9
-      }
-    }, data[hover].w), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.orange,
-        fontSize: 14,
-        fontWeight: 800,
-        fontFamily: "monospace"
-      }
-    }, data[hover].km, " km")));
-  }
-  const Badge = ({
-    label,
-    color
-  }) => /*#__PURE__*/React.createElement("span", {
-    style: {
-      background: color + "22",
-      border: `1px solid ${color}55`,
-      color,
-      borderRadius: 5,
-      padding: "3px 9px",
-      fontSize: 10,
-      fontWeight: 700,
-      letterSpacing: "1px"
-    }
-  }, "● ", label);
-  const Metric = ({
-    label,
-    value,
-    unit,
-    sub,
-    color,
-    trend
-  }) => /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: C.card,
-      border: `1px solid ${C.border}`,
-      borderRadius: 10,
-      padding: "10px 12px",
-      flex: 1,
-      minWidth: 0
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: C.sub,
-      fontSize: 8,
-      letterSpacing: "1.5px",
-      textTransform: "uppercase",
-      marginBottom: 4
-    }
-  }, label), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "baseline",
-      gap: 3
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: color || C.text,
-      fontSize: 22,
-      fontWeight: 800,
-      fontFamily: "monospace",
-      lineHeight: 1
-    }
-  }, value), unit && /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: C.sub,
-      fontSize: 10
-    }
-  }, unit)), sub && /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: C.sub,
-      fontSize: 9,
-      marginTop: 3
-    }
-  }, sub), trend && /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: trend.startsWith("↑") ? C.z1 : trend.startsWith("↓") ? C.z5 : C.sub,
-      fontSize: 10,
-      marginTop: 2
-    }
-  }, trend));
-  const ST = ({
-    label,
-    accent
-  }) => /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 8,
-      marginBottom: 10
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 3,
-      height: 14,
-      background: accent || C.orange,
-      borderRadius: 2
-    }
-  }), /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: C.sub,
-      fontSize: 9,
-      fontWeight: 700,
-      letterSpacing: "2px",
-      textTransform: "uppercase"
-    }
-  }, label));
-  const dotColor = s => ({
-    done: C.teal,
-    today: C.orange,
-    planned: C.dim,
-    race: C.gold
-  })[s] || C.dim;
-  const paceRows = [{
-    label: "Dez '25",
-    time: "41:37",
-    pace: "4:09",
-    pct: 30
-  }, {
-    label: "Jan '26",
-    time: "40:49",
-    pace: "4:04",
-    pct: 45
-  }, {
-    label: "Abr '26",
-    time: "40:56",
-    pace: "4:05",
-    pct: 42
-  }, {
-    label: "Mai '26",
-    time: "40:21",
-    pace: "4:02",
-    pct: 55
-  }, {
-    label: "7 Jun",
-    time: "40:05",
-    pace: "3:59",
-    pct: 65,
-    hot: true
-  }, {
-    label: "Target",
-    time: "37:00",
-    pace: "3:42",
-    pct: 100,
-    target: true
-  }];
-  function App() {
-    const [tab, setTab] = useState("estado");
-    const d = DATA;
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.bg,
-        minHeight: "100vh",
-        color: C.text,
-        fontFamily: "system-ui,-apple-system,sans-serif",
-        maxWidth: 480,
-        margin: "0 auto"
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.card,
-        borderBottom: `1px solid ${C.border}`,
-        padding: "14px 18px 10px",
-        position: "sticky",
-        top: 0,
-        zIndex: 20
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        marginBottom: 6
-      }
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 8,
-        letterSpacing: "3px",
-        textTransform: "uppercase"
-      }
-    }, "M35 · QUELUZ"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 17,
-        fontWeight: 800,
-        letterSpacing: "-0.5px"
-      }
-    }, "Nelson Coelho")), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-end",
-        gap: 4
-      }
-    }, /*#__PURE__*/React.createElement(Badge, {
-      label: d.trainingStatus,
-      color: C.z1
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontSize: 8,
-        color: C.sub,
-        letterSpacing: "1px"
-      }
-    }, "📅 ", d.meta.updatedAt))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        gap: 6
-      }
-    }, ["estado", "semana", "provas"].map(t => /*#__PURE__*/React.createElement("button", {
-      key: t,
-      onClick: () => setTab(t),
-      style: {
-        background: tab === t ? C.orange + "20" : "transparent",
-        border: `1px solid ${tab === t ? C.orange : C.border}`,
-        color: tab === t ? C.orange : C.sub,
-        borderRadius: 6,
-        padding: "4px 12px",
-        fontSize: 10,
-        fontWeight: 700,
-        cursor: "pointer",
-        textTransform: "uppercase",
-        letterSpacing: "1px"
-      }
-    }, t)))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        padding: "16px 14px 48px"
-      }
-    }, tab === "estado" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ST, {
-      label: "Estado de Forma · VDOT",
-      accent: C.orange
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.card,
-        borderRadius: 14,
-        border: `1px solid ${C.border}`,
-        padding: "16px 6px 10px",
-        marginBottom: 18
-      }
-    }, /*#__PURE__*/React.createElement(VDOTGauge, {
-      vdot: d.vdot,
-      vdotEst: d.vdotEst
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        justifyContent: "space-around",
-        paddingTop: 6
-      }
-    }, [{
-      v: "51.3",
-      l: "Dez'25",
-      col: C.sub
-    }, {
-      v: d.vdot,
-      l: "Oficial",
-      col: C.orange
-    }, {
-      v: d.vdotEst,
-      l: "Estimado",
-      col: C.orange + "99"
-    }, {
-      v: "57",
-      l: "PB 2016",
-      col: C.purple
-    }, {
-      v: "60+",
-      l: "Target",
-      col: C.teal
-    }].map(m => /*#__PURE__*/React.createElement("div", {
-      key: m.l,
-      style: {
-        textAlign: "center"
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: m.col,
-        fontSize: 11,
-        fontWeight: 800,
-        fontFamily: "monospace"
-      }
-    }, m.v), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 8,
-        letterSpacing: "1px"
-      }
-    }, m.l.toUpperCase()))))), /*#__PURE__*/React.createElement(ST, {
-      label: `Estado Fisiológico · ${d.meta.updatedAt}`,
-      accent: C.teal
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        gap: 8,
-        marginBottom: 8
-      }
-    }, /*#__PURE__*/React.createElement(Metric, {
-      label: "HRV",
-      value: d.hrv,
-      unit: "ms",
-      trend: d.hrvTrend,
-      color: C.teal,
-      sub: "baseline OK"
-    }), /*#__PURE__*/React.createElement(Metric, {
-      label: "FC Repouso",
-      value: d.rhr,
-      unit: "bpm",
-      trend: "✓ baixo",
-      color: C.teal,
-      sub: "perfil atleta"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        gap: 8,
-        marginBottom: 8
-      }
-    }, /*#__PURE__*/React.createElement(Metric, {
-      label: "Body Battery",
-      value: d.bodyBattery,
-      unit: "%",
-      trend: "↑ carregado",
-      color: C.z1
-    }), /*#__PURE__*/React.createElement(Metric, {
-      label: "Train. Readiness",
-      value: d.readiness,
-      unit: "/100",
-      color: C.z3,
-      sub: d.readinessSub,
-      trend: "MODERATE"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        gap: 8,
-        marginBottom: 18
-      }
-    }, /*#__PURE__*/React.createElement(Metric, {
-      label: "VO₂Max Garmin",
-      value: d.vo2max,
-      color: C.orange,
-      sub: "VDOT ref 53"
-    }), /*#__PURE__*/React.createElement(Metric, {
-      label: "ACWR",
-      value: d.acwr.toFixed(2),
-      color: C.z1,
-      sub: "ÓTIMO",
-      trend: "↗ carga crescente"
-    })), /*#__PURE__*/React.createElement(ST, {
-      label: "Evolução VDOT · Provas 2025–26",
-      accent: C.purple
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.card,
-        borderRadius: 12,
-        border: `1px solid ${C.border}`,
-        padding: "14px 6px 8px",
-        marginBottom: 18
-      }
-    }, /*#__PURE__*/React.createElement(VDOTLineChart, {
-      data: d.raceTrend,
-      vdotRef: d.vdot,
-      pbRef: 57
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        justifyContent: "space-between",
-        padding: "4px 10px 0"
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.sub,
-        fontSize: 9
-      }
-    }, "Dez 2025 → Jun 2026"), /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.z1,
-        fontSize: 11,
-        fontWeight: 700
-      }
-    }, "+3.2 VDOT ↑"))), /*#__PURE__*/React.createElement(ST, {
-      label: "Progresso Pace 10km → 37:00",
-      accent: C.teal
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.card,
-        borderRadius: 12,
-        border: `1px solid ${C.border}`,
-        padding: "12px 14px",
-        marginBottom: 18
-      }
-    }, paceRows.map((r, i) => /*#__PURE__*/React.createElement("div", {
-      key: i,
-      style: {
-        marginBottom: i < paceRows.length - 1 ? 10 : 0
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        justifyContent: "space-between",
-        marginBottom: 3
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: r.target ? C.teal : r.hot ? C.orange : C.sub,
-        fontSize: 10,
-        fontWeight: r.hot ? 700 : 400
-      }
-    }, r.label), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.sub,
-        fontSize: 9
-      }
-    }, r.pace, "/km · "), /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: r.target ? C.teal : r.hot ? C.orange : C.text,
-        fontSize: 11,
-        fontWeight: 600,
-        fontFamily: "monospace"
-      }
-    }, r.time))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.border,
-        borderRadius: 4,
-        height: 5,
-        overflow: "hidden"
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: r.target ? C.teal : r.hot ? C.orange : C.dim,
-        width: `${r.pct}%`,
-        height: "100%",
-        borderRadius: 4,
-        opacity: r.target ? 0.35 : 1
-      }
-    }))))), /*#__PURE__*/React.createElement(ST, {
-      label: "Calibrações Recentes",
-      accent: C.purple
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.card,
-        borderRadius: 12,
-        border: `1px solid ${C.border}`,
-        overflow: "hidden"
-      }
-    }, d.calibs.map((c, i) => /*#__PURE__*/React.createElement("div", {
-      key: i,
-      style: {
-        padding: "10px 14px",
-        borderBottom: i < d.calibs.length - 1 ? `1px solid ${C.border}` : "none"
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        justifyContent: "space-between",
-        marginBottom: 5
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.orange,
-        fontSize: 11,
-        fontWeight: 700
-      }
-    }, c.session), /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.sub,
-        fontSize: 9
-      }
-    }, c.date)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        gap: 12
-      }
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 8,
-        letterSpacing: "1px"
-      }
-    }, "RITMO"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.text,
-        fontSize: 11,
-        fontFamily: "monospace"
-      }
-    }, c.pace)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 8,
-        letterSpacing: "1px"
-      }
-    }, "FC"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.text,
-        fontSize: 11,
-        fontFamily: "monospace"
-      }
-    }, c.fc)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 8,
-        letterSpacing: "1px"
-      }
-    }, "LEITURA"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.z1,
-        fontSize: 10
-      }
-    }, c.read))))))), tab === "semana" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ST, {
-      label: d.weekLabel,
-      accent: C.orange
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.card,
-        borderRadius: 12,
-        border: `1px solid ${C.border}`,
-        padding: "14px",
-        marginBottom: 16
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        justifyContent: "space-between",
-        marginBottom: 6
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.sub,
-        fontSize: 10
-      }
-    }, "Volume semanal"), /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.text,
-        fontSize: 13,
-        fontWeight: 700,
-        fontFamily: "monospace"
-      }
-    }, d.weekDone, /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.sub,
-        fontSize: 10
-      }
-    }, "/", d.weekTarget, " km"))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.border,
-        borderRadius: 6,
-        height: 10,
-        overflow: "hidden",
-        marginBottom: 6
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: `linear-gradient(90deg,${C.teal},${C.orange})`,
-        width: `${d.weekDone / d.weekTarget * 100}%`,
-        height: "100%",
-        borderRadius: 6
-      }
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        justifyContent: "space-between"
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.teal,
-        fontSize: 9
-      }
-    }, "✓ feito: ", d.weekDone, "km"), /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.sub,
-        fontSize: 9
-      }
-    }, "restante: ", (d.weekTarget - d.weekDone).toFixed(1), "km"))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.card,
-        borderRadius: 12,
-        border: `1px solid ${C.border}`,
-        overflow: "hidden",
-        marginBottom: 16
-      }
-    }, d.sessions.map((s, i) => /*#__PURE__*/React.createElement("div", {
-      key: i,
-      style: {
-        display: "flex",
-        alignItems: "center",
-        padding: "10px 14px",
-        borderBottom: i < d.sessions.length - 1 ? `1px solid ${C.border}` : "none",
-        opacity: s.status === "planned" ? 0.55 : 1,
-        background: s.status === "today" ? C.orange + "08" : "transparent"
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 9,
-        width: 38,
-        flexShrink: 0
-      }
-    }, s.day), /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: 9,
-        height: 9,
-        borderRadius: "50%",
-        background: dotColor(s.status),
-        marginRight: 10,
-        flexShrink: 0,
-        boxShadow: s.status === "today" ? `0 0 8px ${C.orange}` : "none"
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: s.status === "today" ? C.orange : s.status === "race" ? C.gold : C.text,
-        fontSize: 12,
-        fontWeight: ["today", "race"].includes(s.status) ? 700 : 400
-      }
-    }, s.icon, " ", s.code)), /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.sub,
-        fontSize: 10,
-        fontFamily: "monospace",
-        marginRight: 8
-      }
-    }, s.km, "km"), s.status === "done" && /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.teal,
-        fontSize: 12
-      }
-    }, "✓"), s.status === "today" && /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.orange,
-        fontSize: 9,
-        fontWeight: 700,
-        background: C.orange + "22",
-        padding: "2px 6px",
-        borderRadius: 4
-      }
-    }, "HOJE"), s.status === "race" && /*#__PURE__*/React.createElement("span", {
-      style: {
-        color: C.gold,
-        fontSize: 9,
-        fontWeight: 700,
-        background: C.gold + "22",
-        padding: "2px 6px",
-        borderRadius: 4
-      }
-    }, "PROVA")))), /*#__PURE__*/React.createElement(ST, {
-      label: "Carga Semanal · km",
-      accent: C.teal
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.card,
-        borderRadius: 12,
-        border: `1px solid ${C.border}`,
-        padding: "14px 6px 8px",
-        marginBottom: 16
-      }
-    }, /*#__PURE__*/React.createElement(LoadBarChart, {
-      data: d.weeklyLoad
-    })), /*#__PURE__*/React.createElement(ST, {
-      label: "Training Status · Garmin",
-      accent: C.purple
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.card,
-        borderRadius: 12,
-        border: `1px solid ${C.border}`,
-        padding: "12px 14px"
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        justifyContent: "space-between",
-        marginBottom: 12
-      }
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.z1,
-        fontSize: 14,
-        fontWeight: 800
-      }
-    }, d.trainingStatus), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 9
-      }
-    }, "Garmin Training Status")), /*#__PURE__*/React.createElement("div", {
-      style: {
-        textAlign: "right"
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.teal,
-        fontSize: 18,
-        fontWeight: 800,
-        fontFamily: "monospace"
-      }
-    }, d.acwr.toFixed(2)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 9
-      }
-    }, "ACWR · ÓTIMO"))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: 8
-      }
-    }, [{
-      label: "Limiar Ritmo",
-      value: d.ltPace + "/km",
-      col: C.orange
-    }, {
-      label: "LTHR",
-      value: d.lthr + " bpm",
-      col: C.orange
-    }, {
-      label: "VO₂Max Garmin",
-      value: d.vo2max,
-      col: C.purple
-    }, {
-      label: "Peso",
-      value: d.weight + " kg",
-      col: C.sub
-    }].map((m, i) => /*#__PURE__*/React.createElement("div", {
-      key: i,
-      style: {
-        background: C.card2,
-        borderRadius: 8,
-        padding: "8px 10px"
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 8,
-        letterSpacing: "1px",
-        textTransform: "uppercase"
-      }
-    }, m.label), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: m.col,
-        fontSize: 13,
-        fontWeight: 700,
-        fontFamily: "monospace"
-      }
-    }, m.value)))))), tab === "provas" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ST, {
-      label: "Calendário de Provas",
-      accent: C.gold
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.card,
-        borderRadius: 12,
-        border: `1px solid ${C.border}`,
-        overflow: "hidden",
-        marginBottom: 16
-      }
-    }, d.races.map((r, i) => /*#__PURE__*/React.createElement("div", {
-      key: i,
-      style: {
-        padding: "12px 14px",
-        borderBottom: i < d.races.length - 1 ? `1px solid ${C.border}` : "none",
-        borderLeft: `3px solid ${r.col}`
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start"
-      }
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 8,
-        letterSpacing: "1.5px",
-        textTransform: "uppercase",
-        marginBottom: 2
-      }
-    }, r.prio), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: r.prio === "PROVA A" ? C.orange : C.text,
-        fontSize: 13,
-        fontWeight: r.prio === "PROVA A" ? 800 : 600
-      }
-    }, r.name), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 10
-      }
-    }, r.dist)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        textAlign: "right",
-        flexShrink: 0
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: r.col,
-        fontSize: 12,
-        fontWeight: 700,
-        fontFamily: "monospace"
-      }
-    }, r.date), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 9
-      }
-    }, "em ", r.days, " dias")))))), /*#__PURE__*/React.createElement(ST, {
-      label: "★ Corrida do Tejo · 13 Set 2026",
-      accent: C.orange
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: C.card,
-        borderRadius: 12,
-        border: `2px solid ${C.orange}44`,
-        padding: "16px 14px"
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        textAlign: "center",
-        marginBottom: 16
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 9,
-        letterSpacing: "3px"
-      }
-    }, "DIAS RESTANTES"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.orange,
-        fontSize: 60,
-        fontWeight: 900,
-        fontFamily: "'Courier New',monospace",
-        lineHeight: 1.1
-      }
-    }, "86"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        color: C.sub,
-        fontSize: 11
-      }
-    }, "12 semanas e meia")), d.phases.map((p, i) => {
-      const pc = p.status === "active" ? C.orange : p.status === "next" ? C.z3 : p.status === "race" ? C.gold : C.dim;
-      return /*#__PURE__*/React.createElement("div", {
-        key: i,
-        style: {
-          display: "flex",
-          gap: 10,
-          alignItems: "flex-start"
-        }
-      }, /*#__PURE__*/React.createElement("div", {
-        style: {
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center"
-        }
-      }, /*#__PURE__*/React.createElement("div", {
-        style: {
-          width: 10,
-          height: 10,
-          borderRadius: "50%",
-          marginTop: 3,
-          flexShrink: 0,
-          background: pc,
-          boxShadow: p.status === "active" ? `0 0 10px ${C.orange}` : "none"
-        }
-      }), i < d.phases.length - 1 && /*#__PURE__*/React.createElement("div", {
-        style: {
-          width: 1.5,
-          height: 22,
-          background: C.border,
-          marginTop: 3
-        }
-      })), /*#__PURE__*/React.createElement("div", {
-        style: {
-          paddingBottom: 6
-        }
-      }, /*#__PURE__*/React.createElement("div", {
-        style: {
-          color: pc,
-          fontSize: 11,
-          fontWeight: ["active", "race"].includes(p.status) ? 800 : 500
-        }
-      }, p.label), /*#__PURE__*/React.createElement("div", {
-        style: {
-          color: C.sub,
-          fontSize: 9
-        }
-      }, p.weeks, " · ", p.km)));
-    }))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        textAlign: "center",
-        color: C.dim,
-        fontSize: 8,
-        letterSpacing: "1.5px",
-        marginTop: 20,
-        textTransform: "uppercase"
-      }
-    }, "Garmin · Strava · GetFast · ", d.meta.updatedAt)));
-  }
-  ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));
-} catch (e) {
-  document.getElementById("root").innerHTML = '<div style="color:#FF5422;padding:24px;font-family:monospace;font-size:13px;white-space:pre-wrap;">ERRO AO CARREGAR:\n' + e.message + '\n\n' + (e.stack || '') + '</div>';
+function ST(label, accent){
+  return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+    <div style="width:3px;height:14px;background:${accent||C.orange};border-radius:2px"></div>
+    <span style="color:${C.sub};font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase">${label}</span>
+  </div>`;
 }
-} catch (e) {
-  document.getElementById("root").innerHTML =
-    '<div style="color:#FF5422;padding:24px;font-family:monospace;font-size:13px;white-space:pre-wrap;">ERRO AO CARREGAR:\n' + e.message + '\n\n' + (e.stack || '') + '</div>';
+function Metric(label,value,unit,sub,color,trend){
+  const trendColor = trend && trend.startsWith("↑") ? C.z1 : trend && trend.startsWith("↓") ? C.z5 : C.sub;
+  return `<div style="background:${C.card};border:1px solid ${C.border};border-radius:10px;padding:10px 12px;flex:1;min-width:0">
+    <div style="color:${C.sub};font-size:8px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px">${label}</div>
+    <div style="display:flex;align-items:baseline;gap:3px">
+      <span style="color:${color||C.text};font-size:22px;font-weight:800;font-family:monospace;line-height:1">${value}</span>
+      ${unit?`<span style="color:${C.sub};font-size:10px">${unit}</span>`:""}
+    </div>
+    ${sub?`<div style="color:${C.sub};font-size:9px;margin-top:3px">${sub}</div>`:""}
+    ${trend?`<div style="color:${trendColor};font-size:10px;margin-top:2px">${trend}</div>`:""}
+  </div>`;
 }
-  </script>
+function Badge(label,color){
+  return `<span style="background:${color}22;border:1px solid ${color}55;color:${color};border-radius:5px;padding:3px 9px;font-size:10px;font-weight:700;letter-spacing:1px">● ${label}</span>`;
+}
+
+function vdotGaugeSVG(vdot, vdotEst){
+  const W=320,H=200,cx=160,cy=175,Ro=126,Ri=96,VMIN=48,VMAX=63;
+  const vToAngle = v => Math.PI*(1-(v-VMIN)/(VMAX-VMIN));
+  const ptAt = (v,r) => { const a=vToAngle(v); return [+(cx+r*Math.cos(a)).toFixed(2), +(cy-r*Math.sin(a)).toFixed(2)]; };
+  const arc = (v1,v2,R) => {
+    const [x1,y1]=ptAt(v1,R), [x2,y2]=ptAt(v2,R);
+    const large = Math.abs(vToAngle(v2)-vToAngle(v1))>Math.PI?1:0;
+    return `M ${x1} ${y1} A ${R} ${R} 0 ${large} 1 ${x2} ${y2}`;
+  };
+  const estEnd = parseFloat((vdotEst||"").split("–")[1]) || (vdot+1.5);
+  const [nx,ny]=ptAt(vdot,Ri+6), [nx2,ny2]=ptAt(vdot,Ro+5);
+  let ticks="";
+  [48,51,53,55,57,60,63].forEach(v=>{
+    const [tx,ty]=ptAt(v,Ri-14),[t1x,t1y]=ptAt(v,Ri),[t2x,t2y]=ptAt(v,Ri-6);
+    ticks += `<line x1="${t1x}" y1="${t1y}" x2="${t2x}" y2="${t2y}" stroke="${C.sub}" stroke-width="1.5"/>
+      <text x="${tx}" y="${ty+3}" text-anchor="middle" fill="${C.sub}" font-size="8" font-family="monospace">${v}</text>`;
+  });
+  const [pax,pay]=ptAt(57,Ro+5),[pbx,pby]=ptAt(57,Ro+18),[plx,ply]=ptAt(57,Ro+28);
+  const [tax,tay]=ptAt(60,Ro+5),[tbx,tby]=ptAt(60,Ro+18),[tlx,tly]=ptAt(60,Ro+28);
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;overflow:visible">
+    <path d="${arc(VMIN,VMAX,Ro)}" fill="none" stroke="${C.dim}" stroke-width="20" stroke-linecap="round"/>
+    <path d="${arc(48,51.3,Ro)}" fill="none" stroke="${C.sub}" stroke-width="20" opacity="0.15"/>
+    <path d="${arc(51.3,53,Ro)}" fill="none" stroke="${C.z3}" stroke-width="20" opacity="0.2"/>
+    <path d="${arc(53,55,Ro)}" fill="none" stroke="${C.orange}" stroke-width="20" opacity="0.18"/>
+    <path d="${arc(55,57,Ro)}" fill="none" stroke="${C.purple}" stroke-width="20" opacity="0.18"/>
+    <path d="${arc(57,63,Ro)}" fill="none" stroke="${C.teal}" stroke-width="20" opacity="0.18"/>
+    <path d="${arc(VMIN,vdot,Ro)}" fill="none" stroke="${C.orange}" stroke-width="20" stroke-linecap="round"/>
+    <path d="${arc(vdot,estEnd,Ro)}" fill="none" stroke="${C.orange}" stroke-width="20" stroke-dasharray="6 5" opacity="0.55"/>
+    <path d="${arc(VMIN,VMAX,Ri)}" fill="none" stroke="${C.border}" stroke-width="2" stroke-linecap="round"/>
+    ${ticks}
+    <line x1="${pax}" y1="${pay}" x2="${pbx}" y2="${pby}" stroke="${C.purple}" stroke-width="2"/>
+    <text x="${plx}" y="${ply-5}" text-anchor="middle" fill="${C.purple}" font-size="9" font-weight="700">PB</text>
+    <text x="${plx}" y="${ply+5}" text-anchor="middle" fill="${C.purple}" font-size="8">'16</text>
+    <line x1="${tax}" y1="${tay}" x2="${tbx}" y2="${tby}" stroke="${C.teal}" stroke-width="2"/>
+    <text x="${tlx}" y="${tly-5}" text-anchor="middle" fill="${C.teal}" font-size="9" font-weight="700">≤37'</text>
+    <text x="${tlx}" y="${tly+5}" text-anchor="middle" fill="${C.teal}" font-size="8">target</text>
+    <line x1="${nx}" y1="${ny}" x2="${nx2}" y2="${ny2}" stroke="${C.orange}" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="${nx}" cy="${ny}" r="4" fill="${C.orange}"/>
+    <text x="${cx}" y="${cy-52}" text-anchor="middle" fill="${C.text}" font-size="54" font-weight="900" font-family="'Courier New',monospace" letter-spacing="-2">${vdot}</text>
+    <text x="${cx}" y="${cy-32}" text-anchor="middle" fill="${C.sub}" font-size="9" letter-spacing="3">VDOT OFICIAL</text>
+    <text x="${cx}" y="${cy-12}" text-anchor="middle" fill="${C.orange}" font-size="13" font-weight="600">~${vdotEst} estimado</text>
+  </svg>`;
+}
+
+function lineChartSVG(data, key, vdotRef){
+  const W=300,H=140,padL=26,padR=10,padT=10,padB=18;
+  const min=50, max=57;
+  const xStep = (W-padL-padR)/(data.length-1);
+  const yOf = v => padT + (max-v)/(max-min)*(H-padT-padB);
+  const xOf = i => padL + i*xStep;
+  let path = data.map((d,i)=>`${i===0?'M':'L'} ${xOf(i).toFixed(1)} ${yOf(d[key]).toFixed(1)}`).join(" ");
+  let dots = data.map((d,i)=>`<circle cx="${xOf(i).toFixed(1)}" cy="${yOf(d[key]).toFixed(1)}" r="4" fill="${C.orange}"/>`).join("");
+  let labels = data.map((d,i)=>`<text x="${xOf(i).toFixed(1)}" y="${H-4}" text-anchor="middle" fill="${C.sub}" font-size="8">${d.x}</text>`).join("");
+  let yTicks=[50,52,54,56].map(v=>`<text x="4" y="${(yOf(v)+3).toFixed(1)}" fill="${C.sub}" font-size="8">${v}</text>
+    <line x1="${padL}" y1="${yOf(v).toFixed(1)}" x2="${W-padR}" y2="${yOf(v).toFixed(1)}" stroke="${C.border}" stroke-dasharray="3 3"/>`).join("");
+  const refY = yOf(vdotRef).toFixed(1);
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block">
+    ${yTicks}
+    <line x1="${padL}" y1="${refY}" x2="${W-padR}" y2="${refY}" stroke="${C.orange}" stroke-dasharray="4 3" stroke-width="1"/>
+    <path d="${path}" fill="none" stroke="${C.orange}" stroke-width="2.5"/>
+    ${dots}${labels}
+  </svg>`;
+}
+
+function barChartSVG(data){
+  const W=300,H=120,padL=24,padR=6,padT=6,padB=16;
+  const max = Math.max(...data.map(d=>d.km))*1.15;
+  const bw = (W-padL-padR)/data.length*0.6;
+  const step = (W-padL-padR)/data.length;
+  let bars = data.map((d,i)=>{
+    const h = (d.km/max)*(H-padT-padB);
+    const x = padL + i*step + (step-bw)/2;
+    const y = H-padB-h;
+    return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="5" fill="${d.cur?C.orange:C.dim}"/>
+      <text x="${(x+bw/2).toFixed(1)}" y="${H-4}" text-anchor="middle" fill="${C.sub}" font-size="8">${d.w}</text>`;
+  }).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block">${bars}</svg>`;
+}
+
+function renderTabs(){
+  return `<div style="display:flex;gap:6px">
+    ${["estado","semana","provas"].map(t=>`
+      <button data-tab="${t}" style="background:${TAB===t?C.orange+"20":"transparent"};
+        border:1px solid ${TAB===t?C.orange:C.border};color:${TAB===t?C.orange:C.sub};
+        border-radius:6px;padding:4px 12px;font-size:10px;font-weight:700;
+        text-transform:uppercase;letter-spacing:1px">${t}</button>`).join("")}
+  </div>`;
+}
+
+function panelEstado(){
+  return `
+  ${ST("Estado de Forma · VDOT", C.orange)}
+  <div style="background:${C.card};border-radius:14px;border:1px solid ${C.border};padding:16px 6px 10px;margin-bottom:18px">
+    ${vdotGaugeSVG(D.vdot, D.vdotEst)}
+    <div style="display:flex;justify-content:space-around;padding-top:6px">
+      ${[["52.1","Jan'26",C.sub],[D.vdot,"Oficial",C.orange],[D.vdotEst,"Estimado",C.orange+"99"],["57","PB 2016",C.purple],["60+","Target",C.teal]]
+        .map(([v,l,col])=>`<div style="text-align:center"><div style="color:${col};font-size:11px;font-weight:800;font-family:monospace">${v}</div>
+        <div style="color:${C.sub};font-size:8px;letter-spacing:1px">${l.toUpperCase()}</div></div>`).join("")}
+    </div>
+  </div>
+
+  ${ST("Estado Fisiológico · "+D.meta.updatedAt, C.teal)}
+  <div style="display:flex;gap:8px;margin-bottom:8px">
+    ${Metric("HRV", D.hrv, "ms", D.hrvTrend, C.teal)}
+    ${Metric("FC Repouso", D.rhr, "bpm", "perfil atleta", C.teal, "✓ baixo")}
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:8px">
+    ${Metric("Body Battery", D.bodyBattery, "%", "", C.z1, "↑ carregado")}
+    ${Metric("Train. Readiness", D.readiness, "/100", D.readinessSub, C.z3)}
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:18px">
+    ${Metric("VO₂Max Garmin", D.vo2max, "", "VDOT ref 53", C.orange)}
+    ${Metric("ACWR", D.acwr, "", "carga a subir", C.z1, "↗")}
+  </div>
+
+  ${ST("Evolução VDOT · Provas 2026", C.purple)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};padding:14px 6px 8px;margin-bottom:18px">
+    ${lineChartSVG(D.raceTrend, "vdot", D.vdot)}
+    <div style="display:flex;justify-content:space-between;padding:4px 10px 0">
+      <span style="color:${C.sub};font-size:9px">Jan 2026 → Jul 2026</span>
+      <span style="color:${C.z1};font-size:11px;font-weight:700">+2.9 VDOT ↑</span>
+    </div>
+  </div>
+
+  ${ST("Progresso Pace 10km → 37:00", C.teal)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};padding:12px 14px;margin-bottom:18px">
+    ${D.paceRows.map((r,i)=>`
+      <div style="margin-bottom:${i<D.paceRows.length-1?10:0}px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+          <span style="color:${r.target?C.teal:r.hot?C.orange:C.sub};font-size:10px;font-weight:${r.hot?700:400}">${r.label}</span>
+          <div><span style="color:${C.sub};font-size:9px">${r.pace}/km · </span>
+          <span style="color:${r.target?C.teal:r.hot?C.orange:C.text};font-size:11px;font-weight:600;font-family:monospace">${r.time}</span></div>
+        </div>
+        <div style="background:${C.border};border-radius:4px;height:5px;overflow:hidden">
+          <div style="background:${r.target?C.teal:r.hot?C.orange:C.dim};width:${r.pct}%;height:100%;border-radius:4px;opacity:${r.target?0.35:1}"></div>
+        </div>
+      </div>`).join("")}
+  </div>
+
+  ${ST("Zonas FC · LTHR "+D.lthr+" bpm", C.z3)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};padding:12px 14px;margin-bottom:18px">
+    ${D.hrZones.map(z=>`
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px">
+        <div style="color:${z.col};font-size:10px;font-weight:800;width:22px;flex-shrink:0">${z.z}</div>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+            <span style="color:${C.text};font-size:10px">${z.label}</span>
+            <span style="color:${C.sub};font-size:9px;font-family:monospace">${z.bpm}</span>
+          </div>
+          <div style="background:${C.border};border-radius:3px;height:6px">
+            <div style="background:${z.col};width:${z.w}%;height:100%;border-radius:3px"></div>
+          </div>
+        </div>
+      </div>`).join("")}
+    <div style="background:${C.card2};border-radius:8px;padding:8px 10px;margin-top:8px">
+      <div style="display:flex;justify-content:space-between">
+        <span style="color:${C.sub};font-size:9px">LIMIAR LACTATO</span>
+        <span style="color:${C.orange};font-size:12px;font-weight:700;font-family:monospace">${D.ltPace}/km @ ${D.lthr} bpm</span>
+      </div>
+    </div>
+  </div>
+
+  ${ST("Calibrações Recentes", C.purple)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};overflow:hidden">
+    ${D.calibs.map((c,i)=>`
+      <div style="padding:10px 14px;${i<D.calibs.length-1?`border-bottom:1px solid ${C.border};`:""}">
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+          <span style="color:${C.orange};font-size:11px;font-weight:700">${c.session}</span>
+          <span style="color:${C.sub};font-size:9px">${c.date}</span>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">RITMO</div><div style="color:${C.text};font-size:11px;font-family:monospace">${c.pace}</div></div>
+          <div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">FC</div><div style="color:${C.text};font-size:11px;font-family:monospace">${c.fc}</div></div>
+          <div style="flex:1"><div style="color:${C.sub};font-size:8px;letter-spacing:1px">LEITURA</div><div style="color:${C.z1};font-size:10px">${c.read}</div></div>
+        </div>
+      </div>`).join("")}
+  </div>`;
+}
+
+function panelSemana(){
+  return `
+  ${ST(D.weekLabel, C.orange)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};padding:14px;margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+      <span style="color:${C.sub};font-size:10px">Volume semanal</span>
+      <span style="color:${C.text};font-size:13px;font-weight:700;font-family:monospace">${D.weekDone}<span style="color:${C.sub};font-size:10px">/${D.weekTarget} km</span></span>
+    </div>
+    <div style="background:${C.border};border-radius:6px;height:10px;overflow:hidden;margin-bottom:6px">
+      <div style="background:linear-gradient(90deg,${C.teal},${C.orange});width:${(D.weekDone/D.weekTarget*100).toFixed(0)}%;height:100%;border-radius:6px"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between">
+      <span style="color:${C.teal};font-size:9px">✓ feito: ${D.weekDone}km</span>
+      <span style="color:${C.sub};font-size:9px">restante: ${(D.weekTarget-D.weekDone).toFixed(1)}km</span>
+    </div>
+  </div>
+
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};overflow:hidden;margin-bottom:16px">
+    ${D.sessions.map((s,i)=>`
+      <div style="display:flex;align-items:center;padding:10px 14px;
+        ${i<D.sessions.length-1?`border-bottom:1px solid ${C.border};`:""}
+        opacity:${s.status==="planned"?0.55:1};background:${s.status==="today"?C.orange+"08":"transparent"}">
+        <div style="color:${C.sub};font-size:9px;width:38px;flex-shrink:0">${s.day}</div>
+        <div style="width:9px;height:9px;border-radius:50%;background:${dotColor(s.status)};margin-right:10px;flex-shrink:0;
+          box-shadow:${s.status==="today"?`0 0 8px ${C.orange}`:"none"}"></div>
+        <div style="flex:1">
+          <span style="color:${s.status==="today"?C.orange:s.status==="race"?C.gold:C.text};
+            font-size:12px;font-weight:${["today","race"].includes(s.status)?700:400}">${s.icon} ${s.code}</span>
+        </div>
+        <span style="color:${C.sub};font-size:10px;font-family:monospace;margin-right:8px">${s.km}km</span>
+        ${s.status==="done"?`<span style="color:${C.teal};font-size:12px">✓</span>`:""}
+        ${s.status==="today"?`<span style="color:${C.orange};font-size:9px;font-weight:700;background:${C.orange}22;padding:2px 6px;border-radius:4px">HOJE</span>`:""}
+        ${s.status==="race"?`<span style="color:${C.gold};font-size:9px;font-weight:700;background:${C.gold}22;padding:2px 6px;border-radius:4px">PROVA</span>`:""}
+      </div>`).join("")}
+  </div>
+
+  ${ST("Carga Semanal · km", C.teal)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};padding:14px 6px 8px;margin-bottom:16px">
+    ${barChartSVG(D.weeklyLoad)}
+  </div>
+
+  ${ST("Training Status · Garmin", C.purple)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};padding:12px 14px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:12px">
+      <div>
+        <div style="color:${C.z1};font-size:14px;font-weight:800">${D.trainingStatus}</div>
+        <div style="color:${C.sub};font-size:9px">Garmin Training Status</div>
+      </div>
+      <div style="text-align:right">
+        <div style="color:${C.teal};font-size:18px;font-weight:800;font-family:monospace">${D.acwr}</div>
+        <div style="color:${C.sub};font-size:9px">ACWR · ÓTIMO</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      ${[["Limiar Ritmo",D.ltPace+"/km",C.orange],["LTHR",D.lthr+" bpm",C.orange],["VO₂Max Garmin",D.vo2max,C.purple],["Peso",D.weight+" kg",C.sub]]
+        .map(([label,value,col])=>`<div style="background:${C.card2};border-radius:8px;padding:8px 10px">
+          <div style="color:${C.sub};font-size:8px;letter-spacing:1px;text-transform:uppercase">${label}</div>
+          <div style="color:${col};font-size:13px;font-weight:700;font-family:monospace">${value}</div>
+        </div>`).join("")}
+    </div>
+  </div>`;
+}
+
+function panelProvas(){
+  return `
+  ${ST("Calendário de Provas", C.gold)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};overflow:hidden;margin-bottom:16px">
+    ${D.races.map((r,i)=>`
+      <div style="padding:12px 14px;${i<D.races.length-1?`border-bottom:1px solid ${C.border};`:""}border-left:3px solid ${r.col}">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div style="color:${C.sub};font-size:8px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px">${r.prio}</div>
+            <div style="color:${r.prio==="PROVA A"?C.orange:C.text};font-size:13px;font-weight:${r.prio==="PROVA A"?800:600}">${r.name}</div>
+            <div style="color:${C.sub};font-size:10px">${r.dist}</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="color:${r.col};font-size:12px;font-weight:700;font-family:monospace">${r.date}</div>
+            <div style="color:${C.sub};font-size:9px">em ${r.days} dias</div>
+          </div>
+        </div>
+      </div>`).join("")}
+  </div>
+
+  ${ST("★ Corrida do Tejo · 13 Set 2026", C.orange)}
+  <div style="background:${C.card};border-radius:12px;border:2px solid ${C.orange}44;padding:16px 14px">
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="color:${C.sub};font-size:9px;letter-spacing:3px">DIAS RESTANTES</div>
+      <div style="color:${C.orange};font-size:60px;font-weight:900;font-family:'Courier New',monospace;line-height:1.1">65</div>
+      <div style="color:${C.sub};font-size:11px">9 semanas e meia</div>
+    </div>
+    ${D.phases.map((p,i)=>{
+      const pc = p.status==="active"?C.orange:p.status==="next"?C.z3:p.status==="race"?C.gold:C.dim;
+      return `<div style="display:flex;gap:10px;align-items:flex-start">
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="width:10px;height:10px;border-radius:50%;margin-top:3px;flex-shrink:0;background:${pc};
+            box-shadow:${p.status==="active"?`0 0 10px ${C.orange}`:"none"}"></div>
+          ${i<D.phases.length-1?`<div style="width:1.5px;height:22px;background:${C.border};margin-top:3px"></div>`:""}
+        </div>
+        <div style="padding-bottom:6px">
+          <div style="color:${pc};font-size:11px;font-weight:${["active","race"].includes(p.status)?800:500}">${p.label}</div>
+          <div style="color:${C.sub};font-size:9px">${p.weeks} · ${p.km}</div>
+        </div>
+      </div>`;
+    }).join("")}
+  </div>`;
+}
+
+function render(){
+  const panel = TAB==="estado" ? panelEstado() : TAB==="semana" ? panelSemana() : panelProvas();
+  document.getElementById("app").innerHTML = `
+    <div style="background:${C.bg};min-height:100vh;color:${C.text}">
+      <div style="background:${C.card};border-bottom:1px solid ${C.border};padding:14px 18px 10px;position:sticky;top:0;z-index:20">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+          <div>
+            <div style="color:${C.sub};font-size:8px;letter-spacing:3px;text-transform:uppercase">M35 · QUELUZ</div>
+            <div style="font-size:17px;font-weight:800;letter-spacing:-0.5px">Nelson Coelho</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            ${Badge(D.trainingStatus, C.z1)}
+            <div style="font-size:8px;color:${C.teal};letter-spacing:1px">⟳ ${D.meta.updatedAt}</div>
+          </div>
+        </div>
+        ${renderTabs()}
+      </div>
+      <div style="padding:16px 14px 48px">${panel}</div>
+      <div style="text-align:center;color:${C.dim};font-size:8px;letter-spacing:1.5px;margin-top:0;padding-bottom:20px;text-transform:uppercase">
+        Garmin · Strava · GetFast · ${D.meta.updatedAt}
+      </div>
+    </div>`;
+
+  document.querySelectorAll("[data-tab]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      TAB = btn.getAttribute("data-tab");
+      localStorage.setItem("nc_tab", TAB);
+      render();
+      window.scrollTo(0,0);
+    });
+  });
+}
+
+render();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(()=>{});
+  });
+}
+</script>
 </body>
 </html>
