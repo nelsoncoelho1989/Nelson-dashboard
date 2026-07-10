@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#07090F"/>
+  <text x="256" y="290" font-family="'Courier New',monospace" font-weight="900" font-size="200"
+    text-anchor="middle" fill="#FF5422">NC</text>
+  <rect x="128" y="360" width="256" height="16" rx="8" fill="#00D9B0"/>
+</svg>
