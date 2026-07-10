@@ -256,25 +256,29 @@ function panelEstado(){
   </div>
 
   ${ST("Estado Fisiológico · "+D.meta.updatedAt, C.teal)}
-  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};overflow:hidden;margin-bottom:18px">
-    ${D.metrics.map((m,i)=>`
-      <div>
-        <div data-metric="${m.key}" style="display:flex;align-items:center;padding:12px 14px;cursor:pointer;
-          ${i<D.metrics.length-1||OPEN_METRIC===m.key?`border-bottom:1px solid ${C.border};`:""}
-          background:${OPEN_METRIC===m.key?C.card2:"transparent"}">
-          <div style="flex:1">
-            <div style="color:${C.sub};font-size:9px;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">${m.label}</div>
-            <div style="color:${C.sub};font-size:9px">${m.sub||""}</div>
-          </div>
-          <span style="color:${m.color};font-size:20px;font-weight:800;font-family:monospace;margin-right:6px">${m.value}<span style="color:${C.sub};font-size:11px;font-weight:400">${m.unit}</span></span>
-          <span style="color:${C.sub};font-size:10px;transform:rotate(${OPEN_METRIC===m.key?90:0}deg);display:inline-block;transition:transform .15s">›</span>
-        </div>
-        ${OPEN_METRIC===m.key?`
-        <div style="padding:4px 14px 14px;background:${C.card2};${i<D.metrics.length-1?`border-bottom:1px solid ${C.border};`:""}">
-          <div style="color:${C.text};font-size:11px;line-height:1.5">${m.detail||""}</div>
-        </div>`:""}
-      </div>`).join("")}
-  </div>
+  ${(()=>{
+    const pairs = [[0,1],[2,3],[4,5]];
+    return pairs.map(([a,b])=>{
+      const ma = D.metrics[a], mb = D.metrics[b];
+      const openInPair = OPEN_METRIC===ma.key ? ma : OPEN_METRIC===mb.key ? mb : null;
+      return `
+      <div style="display:flex;gap:8px;margin-bottom:${openInPair?0:8}px">
+        ${[ma,mb].map(m=>`
+          <div data-metric="${m.key}" style="cursor:pointer;background:${OPEN_METRIC===m.key?C.card2:C.card};border:1px solid ${OPEN_METRIC===m.key?m.color:C.border};border-radius:10px;padding:10px 12px;flex:1;min-width:0">
+            <div style="color:${C.sub};font-size:8px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px">${m.label}</div>
+            <div style="display:flex;align-items:baseline;gap:3px">
+              <span style="color:${m.color};font-size:22px;font-weight:800;font-family:monospace;line-height:1">${m.value}</span>
+              ${m.unit?`<span style="color:${C.sub};font-size:10px">${m.unit}</span>`:""}
+            </div>
+            <div style="color:${C.sub};font-size:9px;margin-top:3px">${m.sub||""}</div>
+          </div>`).join("")}
+      </div>
+      ${openInPair?`
+      <div style="background:${C.card2};border:1px solid ${C.border};border-top:none;border-radius:0 0 10px 10px;padding:10px 12px;margin-bottom:8px;margin-top:-8px">
+        <div style="color:${C.text};font-size:11px;line-height:1.5">${openInPair.detail||""}</div>
+      </div>`:""}`;
+    }).join("")+`<div style="margin-bottom:10px"></div>`;
+  })()}
 
   ${ST("Evolução VDOT · Provas 2026", C.purple)}
   <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};padding:14px 6px 8px;margin-bottom:18px">
