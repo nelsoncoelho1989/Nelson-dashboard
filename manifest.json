@@ -1,0 +1,14 @@
+{
+  "name": "Nelson Coelho · Corrida",
+  "short_name": "NC Corrida",
+  "description": "Dashboard de treino — Corrida do Tejo 2026",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07090F",
+  "theme_color": "#07090F",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
