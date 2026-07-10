@@ -459,8 +459,13 @@ function render(){
             <div style="font-size:17px;font-weight:800;letter-spacing:-0.5px">Nelson Coelho</div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-            ${Badge(D.trainingStatus, C.z1)}
-            <div style="font-size:8px;color:${C.teal};letter-spacing:1px">⟳ ${D.meta.updatedAt}</div>
+            <div style="display:flex;align-items:center;gap:6px">
+              ${Badge(D.trainingStatus, C.z1)}
+              <button data-refresh style="background:${C.card2};border:1px solid ${C.border};color:${C.teal};
+                border-radius:6px;width:22px;height:22px;font-size:12px;cursor:pointer;display:flex;
+                align-items:center;justify-content:center;padding:0">⟳</button>
+            </div>
+            <div style="font-size:8px;color:${C.teal};letter-spacing:1px">${D.meta.updatedAt}</div>
           </div>
         </div>
         ${renderTabs()}
@@ -488,13 +493,34 @@ function render(){
       render();
     });
   });
+
+  const refreshBtn = document.querySelector("[data-refresh]");
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      refreshBtn.textContent = "…";
+      try {
+        if ("caches" in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map((k) => caches.delete(k)));
+        }
+        if ("serviceWorker" in navigator) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(regs.map((r) => r.unregister()));
+        }
+      } catch (err) {}
+      location.reload(true);
+    });
+  }
 }
 
 render();
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("sw.js").catch(()=>{});
+    navigator.serviceWorker.register("sw.js").then((reg) => {
+      reg.update();
+    }).catch(()=>{});
   });
 }
 </script>
