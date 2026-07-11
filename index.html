@@ -102,7 +102,7 @@ function paceCompareSVG(tMin,tMax,rMin,rMax,color){
 }
 
 const D = {
-  meta: { updatedAt: "11 Jul 2026 · 22:15" },
+  meta: { updatedAt: "11 Jul 2026 · 22:45" },
   hrv: 52, hrvTrend: "dentro da baseline (47–59)",
   rhr: 46, bodyBattery: 78,
   readiness: 66, readinessSub: "hill session recente absorvida",
@@ -117,7 +117,7 @@ const D = {
       chart: hrZoneBarSVG(134,151),
       note:"Z2 limpo, sem sinais de fadiga acumulada — absorveu bem a carga da semana anterior." },
     { day:"Ter 7",  code:"6×800m pista",  km:12.1, status:"done",    icon:"⚡",
-      mode:"Calibração (FC como variável principal)", hrMax:173, paceReal:"3:20→3:36/km (reps)", paceTarget:"3:50–3:55/km",
+      mode:"Calibração (FC como variável principal)", hrMax:173, paceReal:"3:20→3:36/km (reps)", paceTarget:"3:50–3:55/km", cadence:"91–96spm",
       chart: paceCompareSVG(230,235,200,216,C.orange),
       note:"Progressão cardíaca bateu certo, mas o ritmo saiu 20–30s/km mais rápido que o previsto — sinal de que o ritmo estava conservador para este formato, não de excesso. Cadência 91–96spm confirma boa mecânica em pista. Ação: confirmar pace ao 200–400m no próximo teste — o arranque rápido continua a repetir-se." },
     { day:"Qua 8",  code:"EASY-45+STR",   km:9.2,  status:"done",    icon:"🏃",
@@ -125,7 +125,7 @@ const D = {
       chart: hrZoneBarSVG(137,152),
       note:"Absorção pós-pista perfeita, sem sinais de overload. Bloco de força (15s/45s) executado como previsto." },
     { day:"Qui 9",  code:"HILL 6/12×45",  km:5.1,  status:"done",    icon:"⛰️",
-      mode:"Específico (força + técnica de subida)", hrAvg:138, hrMax:172, paceReal:"611–676W estável",
+      mode:"Específico (força + técnica de subida)", hrAvg:138, hrMax:172, cadence:"91–96spm (por perna)", power:"611–676W estável",
       chart: hrZoneBarSVG(138,172),
       note:"Só 6 de 12 reps completadas (decisão consciente, tempo limitado) — mas cadência 91–96spm em todas, acima da banda-problema histórica de 87–88spm. Primeira confirmação objetiva de progresso real na subida (score 44→48), ainda em banda Moderado — não tratar como consolidado até repetir." },
     { day:"Sex 10", code:"EASY-40",       km:7.3,  status:"done",    icon:"🏃",
@@ -133,9 +133,9 @@ const D = {
       chart: hrZoneBarSVG(135,154),
       note:"Z2 total, cumprido à risca. Sem impacto extra na carga — sessão de rotina, sem alarmes." },
     { day:"Sáb 11", code:"EASY-40",       km:7.3,  status:"done",    icon:"🏃",
-      mode:"Fácil/Recuperação", hrAvg:136, hrMax:148, paceReal:"5:29/km",
+      mode:"Fácil/Recuperação", hrAvg:136, hrMax:148, paceReal:"5:29/km", gct:"269.5ms", vertOsc:"9.12cm", cadence:"166.9spm total (~83/perna)",
       chart: hrZoneBarSVG(136,148),
-      note:"Z2 baixo cumprido como previsto. GCT 269.5ms, osc. vertical 9.12cm — primeira baseline de running dynamics confirmada a funcionar no PC." },
+      note:"Z2 baixo cumprido como previsto. Primeira baseline de running dynamics confirmada a funcionar no PC — referência para comparar em sessões fáceis futuras." },
     { day:"Dom 12", code:"LR15-STEADY",  km:15.5, status:"planned", icon:"🏃",
       mode:"Específico (resistência de base)", paceTarget:"70–80' · bloco 20' a 4:25–4:35/km · Z3/Z4 baixa <157bpm",
       note:"Sessão que estava prevista para sábado, sem alteração de conteúdo — só de dia, para rentabilizar o descanso pós-ensaio de sexta." },
@@ -197,9 +197,9 @@ const D = {
       detail:"Rácio carga aguda (últimos 7 dias) / carga crónica (últimas 4 semanas). Janela saudável: 0.8–1.3. Em 1.05 a carga está a subir de forma controlada, sem risco de pico de lesão por sobrecarga súbita." },
   ],
   calibs: [
-    { date:"7 Jul",  session:"6×800m pista", pace:"3:20→3:36/km", fc:"cadência 91–96spm",   read:"Arranque rápido de novo — confirmar 200–400m" },
-    { date:"9 Jul",  session:"HILL 12×45",   pace:"6/12 reps",     fc:"611–676W estável",    read:"Endurance 44→48 · ainda Moderado" },
-    { date:"8 Jul",  session:"EASY+STR",     pace:"Z2 total",      fc:"sem sinais overload", read:"Absorção pós-pista OK" },
+    { date:"7 Jul",  session:"6×800m pista", pace:"3:20→3:36/km", metricLabel:"CADÊNCIA", fc:"91–96spm",   read:"Arranque rápido de novo — confirmar 200–400m" },
+    { date:"9 Jul",  session:"HILL 12×45",   pace:"6/12 reps",     metricLabel:"POTÊNCIA", fc:"611–676W",    read:"Endurance 44→48 · ainda Moderado" },
+    { date:"8 Jul",  session:"EASY+STR",     pace:"Z2 total",      metricLabel:"FC",       fc:"sem sinais overload", read:"Absorção pós-pista OK" },
   ],
   races: [
     { date:"13 Set", name:"Corrida do Tejo ★",     dist:"10km ⛰️ 3 subidas", days:65,  prio:"PROVA A",   col:"#FF5422" },
@@ -418,7 +418,7 @@ function panelEstado(){
         </div>
         <div style="display:flex;gap:12px">
           <div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">RITMO</div><div style="color:${C.text};font-size:11px;font-family:monospace">${c.pace}</div></div>
-          <div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">FC</div><div style="color:${C.text};font-size:11px;font-family:monospace">${c.fc}</div></div>
+          <div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">${c.metricLabel||"FC"}</div><div style="color:${C.text};font-size:11px;font-family:monospace">${c.fc}</div></div>
           <div style="flex:1"><div style="color:${C.sub};font-size:8px;letter-spacing:1px">LEITURA</div><div style="color:${C.z1};font-size:10px">${c.read}</div></div>
         </div>
       </div>`).join("")}
@@ -471,6 +471,10 @@ function panelSemana(){
             ${s.paceTarget?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">${s.status==="planned"?"ALVO":"PREVISTO"}</div><div style="color:${C.sub};font-size:11px;font-family:monospace">${s.paceTarget}</div></div>`:""}
             ${s.hrAvg?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">FC MÉDIA</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.hrAvg} bpm</div></div>`:""}
             ${s.hrMax?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">FC MÁX</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.hrMax} bpm</div></div>`:""}
+            ${s.cadence?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">CADÊNCIA</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.cadence}</div></div>`:""}
+            ${s.power?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">POTÊNCIA</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.power}</div></div>`:""}
+            ${s.gct?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">GCT</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.gct}</div></div>`:""}
+            ${s.vertOsc?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">OSC. VERTICAL</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.vertOsc}</div></div>`:""}
           </div>
           <div style="color:${C.sub};font-size:8px;letter-spacing:1px;margin-bottom:3px">${s.status==="planned"?"OBJETIVO":"CONTRIBUIÇÃO PARA A EVOLUÇÃO"}</div>
           <div style="color:${C.text};font-size:11px;line-height:1.5">${s.note||""}</div>
