@@ -100,7 +100,7 @@ function paceCompareSVG(tMin,tMax,rMin,rMax,color){
 }
 
 const D = {
-  meta: { updatedAt: "10 Jul 2026 · 20:20" },
+  meta: { updatedAt: "11 Jul 2026 · 21:50" },
   hrv: 52, hrvTrend: "dentro da baseline (47–59)",
   rhr: 46, bodyBattery: 78,
   readiness: 66, readinessSub: "hill session recente absorvida",
@@ -130,12 +130,12 @@ const D = {
       mode:"Fácil/Recuperação", hrAvg:135, hrMax:154, paceReal:"5:28/km",
       chart: hrZoneBarSVG(135,154),
       note:"Z2 total, cumprido à risca. Sem impacto extra na carga — sessão de rotina, sem alarmes." },
-    { day:"Sáb 11", code:"LONGO 14km+",   km:14.5, status:"planned", icon:"🏃",
-      mode:"Específico (resistência de base)", paceTarget:"~4:50–5:00/km controlado",
-      note:"Objetivo: manter Z2–Z3 baixo do início ao fim mesmo que o grupo acelere no final — disciplina de ritmo é o ponto a validar aqui." },
-    { day:"Dom 12", code:"REC-LEVE",      km:6.0,  status:"planned", icon:"😴",
-      mode:"Fácil/Recuperação", paceTarget:"Z1–Z2, sem pressa",
-      note:"Absorver a semana e o longo de sábado antes do T-LIM de terça." },
+    { day:"Sáb 11", code:"EASY-40",       km:8.3,  status:"today",   icon:"🏃",
+      mode:"Fácil/Recuperação", paceTarget:"Z2 baixa 131–140bpm",
+      note:"Trocado com o longo (regra fixa de fim-de-semana): ensaio de sexta comprime o sono, por isso a sessão mais exigente do fim de semana passa para domingo." },
+    { day:"Dom 12", code:"LR15-STEADY",  km:15.5, status:"planned", icon:"🏃",
+      mode:"Específico (resistência de base)", paceTarget:"70–80' · bloco 20' a 4:25–4:35/km · Z3/Z4 baixa <157bpm",
+      note:"Sessão que estava prevista para sábado, sem alteração de conteúdo — só de dia, para rentabilizar o descanso pós-ensaio de sexta." },
     { day:"Ter 14", code:"T-LIM-2x15",    km:11.0, status:"planned", icon:"🎯",
       mode:"Calibração (FC como variável principal)", paceTarget:"4:07–4:11/km (rua, integrado)",
       note:"Confirma se o limiar de 4:05/km @163bpm continua ajustado antes de entrar na Fase 2 (específico 10km)." },
