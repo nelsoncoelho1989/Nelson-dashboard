@@ -27,6 +27,7 @@
 <div id="app"></div>
 
 <script>
+// ─── TOKENS ────────────────────────────────────────────────────────────────
 const C = {
   bg:"#07090F", card:"#0D1118", card2:"#131927", border:"#1C2438",
   orange:"#FF5422", teal:"#00D9B0", purple:"#9B59FF", gold:"#F5A623",
@@ -34,6 +35,7 @@ const C = {
   z1:"#22C55E", z2:"#86EFAC", z3:"#FDE047", z4:"#FB923C", z5:"#EF4444",
 };
 
+// ─── MINI GRÁFICOS para detalhe de métricas ────────────────────────
 function rangeBarSVG(min, max, idealMin, idealMax, cur, color){
   const W=260, H=40, padX=12;
   const pct = v => padX + Math.max(0,Math.min(1,(v-min)/(max-min))) * (W-padX*2);
@@ -100,7 +102,7 @@ function paceCompareSVG(tMin,tMax,rMin,rMax,color){
 }
 
 const D = {
-  meta: { updatedAt: "11 Jul 2026 · 21:50" },
+  meta: { updatedAt: "11 Jul 2026 · 22:15" },
   hrv: 52, hrvTrend: "dentro da baseline (47–59)",
   rhr: 46, bodyBattery: 78,
   readiness: 66, readinessSub: "hill session recente absorvida",
@@ -108,7 +110,7 @@ const D = {
   trainingStatus: "PRODUTIVO", lthr: 163, ltPace: "4:05",
   vdot: 53, vdotEst: "54–55",
   weekLabel: "Semana 28 · Fase 1 · Força + Limiar",
-  weekDone: 42.2, weekTarget: 58,
+  weekDone: 49.5, weekTarget: 58,
   sessions: [
     { day:"Seg 6",  code:"EASY-45",       km:8.4,  status:"done",    icon:"🏃",
       mode:"Fácil/Recuperação", hrAvg:134, hrMax:151, paceReal:"5:20/km",
@@ -130,9 +132,10 @@ const D = {
       mode:"Fácil/Recuperação", hrAvg:135, hrMax:154, paceReal:"5:28/km",
       chart: hrZoneBarSVG(135,154),
       note:"Z2 total, cumprido à risca. Sem impacto extra na carga — sessão de rotina, sem alarmes." },
-    { day:"Sáb 11", code:"EASY-40",       km:8.3,  status:"today",   icon:"🏃",
-      mode:"Fácil/Recuperação", paceTarget:"Z2 baixa 131–140bpm",
-      note:"Trocado com o longo (regra fixa de fim-de-semana): ensaio de sexta comprime o sono, por isso a sessão mais exigente do fim de semana passa para domingo." },
+    { day:"Sáb 11", code:"EASY-40",       km:7.3,  status:"done",    icon:"🏃",
+      mode:"Fácil/Recuperação", hrAvg:136, hrMax:148, paceReal:"5:29/km",
+      chart: hrZoneBarSVG(136,148),
+      note:"Z2 baixo cumprido como previsto. GCT 269.5ms, osc. vertical 9.12cm — primeira baseline de running dynamics confirmada a funcionar no PC." },
     { day:"Dom 12", code:"LR15-STEADY",  km:15.5, status:"planned", icon:"🏃",
       mode:"Específico (resistência de base)", paceTarget:"70–80' · bloco 20' a 4:25–4:35/km · Z3/Z4 baixa <157bpm",
       note:"Sessão que estava prevista para sábado, sem alteração de conteúdo — só de dia, para rentabilizar o descanso pós-ensaio de sexta." },
@@ -218,6 +221,7 @@ let TAB = localStorage.getItem("nc_tab") || "estado";
 let OPEN_IDX = null;
 let OPEN_METRIC = null;
 
+// ─── HELPERS ──────────────────────────────────────────────────────────────
 const dotColor = s => ({done:C.teal,today:C.orange,planned:C.dim,race:C.gold}[s]||C.dim);
 
 function ST(label, accent){
