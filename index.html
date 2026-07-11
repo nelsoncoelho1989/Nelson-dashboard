@@ -34,6 +34,71 @@ const C = {
   z1:"#22C55E", z2:"#86EFAC", z3:"#FDE047", z4:"#FB923C", z5:"#EF4444",
 };
 
+function rangeBarSVG(min, max, idealMin, idealMax, cur, color){
+  const W=260, H=40, padX=12;
+  const pct = v => padX + Math.max(0,Math.min(1,(v-min)/(max-min))) * (W-padX*2);
+  const x1=pct(idealMin), x2=pct(idealMax), xc=pct(cur);
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;margin-top:6px">
+    <line x1="${padX}" y1="20" x2="${W-padX}" y2="20" stroke="${C.border}" stroke-width="4" stroke-linecap="round"/>
+    <line x1="${x1.toFixed(1)}" y1="20" x2="${x2.toFixed(1)}" y2="20" stroke="${color}" stroke-width="4" stroke-linecap="round" opacity="0.35"/>
+    <circle cx="${xc.toFixed(1)}" cy="20" r="6" fill="${color}"/>
+    <circle cx="${xc.toFixed(1)}" cy="20" r="9" fill="${color}" opacity="0.25"/>
+    <text x="${padX}" y="36" fill="${C.sub}" font-size="8" text-anchor="start">${min}</text>
+    <text x="${W-padX}" y="36" fill="${C.sub}" font-size="8" text-anchor="end">${max}</text>
+  </svg>`;
+}
+function sparklineSVG(points, color){
+  const W=260, H=54, padL=6, padR=6, padT=8, padB=14;
+  const vals = points.map(p=>p.y);
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const range = (max-min)||1;
+  const xStep = (W-padL-padR)/(points.length-1||1);
+  const yOf = v => padT + (max-v)/range*(H-padT-padB);
+  const xOf = i => padL + i*xStep;
+  const path = points.map((p,i)=>`${i===0?'M':'L'} ${xOf(i).toFixed(1)} ${yOf(p.y).toFixed(1)}`).join(" ");
+  const dots = points.map((p,i)=>`<circle cx="${xOf(i).toFixed(1)}" cy="${yOf(p.y).toFixed(1)}" r="${i===points.length-1?4:2.5}" fill="${color}"/>`).join("");
+  const labels = points.map((p,i)=>`<text x="${xOf(i).toFixed(1)}" y="${H-2}" text-anchor="middle" fill="${C.sub}" font-size="8">${p.x}</text>`).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;margin-top:6px">
+    <path d="${path}" fill="none" stroke="${color}" stroke-width="2"/>
+    ${dots}${labels}
+  </svg>`;
+}
+
+function hrZoneBarSVG(avg, maxHr){
+  const W=260, H=42, min=100, max=185, padX=10;
+  const zones = [
+    {from:100,to:130,color:C.z1},{from:130,to:145,color:C.z2},
+    {from:145,to:153,color:C.z3},{from:153,to:162,color:C.z4},{from:162,to:185,color:C.z5},
+  ];
+  const xOf = v => padX + (Math.max(min,Math.min(max,v))-min)/(max-min)*(W-padX*2);
+  const segs = zones.map(z=>`<rect x="${xOf(z.from).toFixed(1)}" y="10" width="${(xOf(z.to)-xOf(z.from)).toFixed(1)}" height="10" fill="${z.color}" opacity="0.5"/>`).join("");
+  let markers = "";
+  if (avg) markers += `<circle cx="${xOf(avg).toFixed(1)}" cy="15" r="5" fill="${C.text}" stroke="${C.bg}" stroke-width="1.5"/>
+    <text x="${xOf(avg).toFixed(1)}" y="34" text-anchor="middle" fill="${C.text}" font-size="8" font-weight="700">${avg} méd</text>`;
+  if (maxHr) markers += `<line x1="${xOf(maxHr).toFixed(1)}" y1="8" x2="${xOf(maxHr).toFixed(1)}" y2="22" stroke="${C.orange}" stroke-width="2"/>
+    <text x="${xOf(maxHr).toFixed(1)}" y="${avg?42:34}" text-anchor="middle" fill="${C.orange}" font-size="8" font-weight="700">${maxHr} máx</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;margin-top:6px">
+    ${segs}${markers}
+  </svg>`;
+}
+function paceCompareSVG(tMin,tMax,rMin,rMax,color){
+  const fmt = s => `${Math.floor(s/60)}:${String(Math.round(s%60)).padStart(2,"0")}`;
+  const vals=[tMin,tMax,rMin,rMax];
+  const lo=Math.min(...vals)-6, hi=Math.max(...vals)+6;
+  const W=260,H=54,padX=14;
+  const xOf = v => padX + (hi-v)/(hi-lo)*(W-padX*2);
+  const tx1=xOf(tMax), tx2=xOf(tMin), rx1=xOf(rMax), rx2=xOf(rMin);
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;margin-top:6px">
+    <text x="${padX}" y="10" fill="${C.sub}" font-size="8">PREVISTO</text>
+    <rect x="${tx1.toFixed(1)}" y="14" width="${(tx2-tx1).toFixed(1)}" height="8" rx="4" fill="${C.sub}" opacity="0.5"/>
+    <text x="${padX}" y="36" fill="${color}" font-size="8">REAL</text>
+    <rect x="${rx1.toFixed(1)}" y="40" width="${(rx2-rx1).toFixed(1)}" height="8" rx="4" fill="${color}"/>
+    <text x="${tx1.toFixed(1)}" y="26" text-anchor="middle" fill="${C.sub}" font-size="8" font-family="monospace">${fmt(tMax)}–${fmt(tMin)}</text>
+    <text x="${rx1.toFixed(1)}" y="52" text-anchor="middle" fill="${color}" font-size="8" font-family="monospace" font-weight="700">${fmt(rMax)}–${fmt(rMin)}</text>
+    <text x="${W-padX}" y="52" text-anchor="end" fill="${C.sub}" font-size="7">mais rápido →</text>
+  </svg>`;
+}
+
 const D = {
   meta: { updatedAt: "10 Jul 2026 · 20:20" },
   hrv: 52, hrvTrend: "dentro da baseline (47–59)",
@@ -47,18 +112,23 @@ const D = {
   sessions: [
     { day:"Seg 6",  code:"EASY-45",       km:8.4,  status:"done",    icon:"🏃",
       mode:"Fácil/Recuperação", hrAvg:134, hrMax:151, paceReal:"5:20/km",
+      chart: hrZoneBarSVG(134,151),
       note:"Z2 limpo, sem sinais de fadiga acumulada — absorveu bem a carga da semana anterior." },
     { day:"Ter 7",  code:"6×800m pista",  km:12.1, status:"done",    icon:"⚡",
       mode:"Calibração (FC como variável principal)", hrMax:173, paceReal:"3:20→3:36/km (reps)", paceTarget:"3:50–3:55/km",
+      chart: paceCompareSVG(230,235,200,216,C.orange),
       note:"Progressão cardíaca bateu certo, mas o ritmo saiu 20–30s/km mais rápido que o previsto — sinal de que o ritmo estava conservador para este formato, não de excesso. Cadência 91–96spm confirma boa mecânica em pista. Ação: confirmar pace ao 200–400m no próximo teste — o arranque rápido continua a repetir-se." },
     { day:"Qua 8",  code:"EASY-45+STR",   km:9.2,  status:"done",    icon:"🏃",
       mode:"Fácil/Recuperação + Força", hrAvg:137, hrMax:152, paceReal:"5:26/km",
+      chart: hrZoneBarSVG(137,152),
       note:"Absorção pós-pista perfeita, sem sinais de overload. Bloco de força (15s/45s) executado como previsto." },
     { day:"Qui 9",  code:"HILL 6/12×45",  km:5.1,  status:"done",    icon:"⛰️",
       mode:"Específico (força + técnica de subida)", hrAvg:138, hrMax:172, paceReal:"611–676W estável",
+      chart: hrZoneBarSVG(138,172),
       note:"Só 6 de 12 reps completadas (decisão consciente, tempo limitado) — mas cadência 91–96spm em todas, acima da banda-problema histórica de 87–88spm. Primeira confirmação objetiva de progresso real na subida (score 44→48), ainda em banda Moderado — não tratar como consolidado até repetir." },
     { day:"Sex 10", code:"EASY-40",       km:7.3,  status:"done",    icon:"🏃",
       mode:"Fácil/Recuperação", hrAvg:135, hrMax:154, paceReal:"5:28/km",
+      chart: hrZoneBarSVG(135,154),
       note:"Z2 total, cumprido à risca. Sem impacto extra na carga — sessão de rotina, sem alarmes." },
     { day:"Sáb 11", code:"LONGO 14km+",   km:14.5, status:"planned", icon:"🏃",
       mode:"Específico (resistência de base)", paceTarget:"~4:50–5:00/km controlado",
@@ -100,21 +170,27 @@ const D = {
   metrics: [
     { key:"hrv", label:"HRV", value:52, unit:"ms", color:C.teal,
       sub:"dentro da baseline (47–59)",
+      chart: rangeBarSVG(35,70,47,59,52,C.teal),
       detail:"Mede a variabilidade da frequência cardíaca durante o sono — reflete o estado do teu sistema nervoso autónomo. Quanto mais alto dentro da tua baseline pessoal, melhor a recuperação. A tua baseline é baixa para a população em geral mas estável — o que importa é o desvio face a ela própria, nunca comparação com normas externas. Queda abaixo de ~45ms é sinal de alerta." },
     { key:"rhr", label:"FC Repouso", value:46, unit:"bpm", color:C.teal,
       sub:"perfil atleta · ✓ baixo",
+      chart: sparklineSVG([{x:"Jan",y:51},{x:"Abr",y:47.5},{x:"Mai",y:46},{x:"Jun",y:46},{x:"Jul",y:46}], C.teal),
       detail:"Tendência 2026: 50–52bpm em janeiro → 45–47bpm em maio/junho. Essa queda confirma adaptação aeróbia real ao longo do bloco de treino, não é ruído de medição." },
     { key:"bb", label:"Body Battery", value:78, unit:"%", color:C.z1,
       sub:"↑ carregado",
+      chart: rangeBarSVG(0,100,50,100,78,C.z1),
       detail:"Reserva de energia estimada pela Garmin, combina sono, stress e atividade. Sobe com descanso, desce com treino e stress do dia-a-dia. Útil para decidir se um dia pede mais cautela, mas não substitui HRV e FC repouso na leitura de fundo." },
     { key:"readiness", label:"Train. Readiness", value:66, unit:"/100", color:C.z3,
       sub:"hill session recente absorvida",
+      chart: rangeBarSVG(0,100,60,100,66,C.z3),
       detail:"Score composto (HRV, sono, carga aguda/crónica, stress) que resume se o corpo está pronto para um estímulo forte hoje. 66/100 é moderado — compatível com continuar o plano normalmente, sem sinal para adiar ou intensificar." },
     { key:"vo2max", label:"VO₂Max Garmin", value:57.0, unit:"", color:C.orange,
       sub:"VDOT ref 53",
+      chart: sparklineSVG([{x:"'16",y:59},{x:"'18",y:57},{x:"'19",y:60},{x:"'25",y:54},{x:"Jun26",y:57}], C.orange),
       detail:"Arco histórico: 59 (2016) → 57 (2018) → 60 pico (2019) → 54 (2025, pós-hiato) → 57 (Jun 2026). A tendência atual está a subir de volta para os valores pré-2019, consistente com a curva de recuperação longa desde o acidente de 2016." },
     { key:"acwr", label:"ACWR", value:1.05, unit:"", color:C.z1,
       sub:"carga a subir ↗",
+      chart: rangeBarSVG(0.5,1.8,0.8,1.3,1.05,C.z1),
       detail:"Rácio carga aguda (últimos 7 dias) / carga crónica (últimas 4 semanas). Janela saudável: 0.8–1.3. Em 1.05 a carga está a subir de forma controlada, sem risco de pico de lesão por sobrecarga súbita." },
   ],
   calibs: [
@@ -275,7 +351,8 @@ function panelEstado(){
       </div>
       ${openInPair?`
       <div style="background:${C.card2};border:1px solid ${C.border};border-top:none;border-radius:0 0 10px 10px;padding:10px 12px;margin-bottom:8px;margin-top:-8px">
-        <div style="color:${C.text};font-size:11px;line-height:1.5">${openInPair.detail||""}</div>
+        ${openInPair.chart||""}
+        <div style="color:${C.text};font-size:11px;line-height:1.5;margin-top:6px">${openInPair.detail||""}</div>
       </div>`:""}`;
     }).join("")+`<div style="margin-bottom:10px"></div>`;
   })()}
@@ -393,6 +470,7 @@ function panelSemana(){
           </div>
           <div style="color:${C.sub};font-size:8px;letter-spacing:1px;margin-bottom:3px">${s.status==="planned"?"OBJETIVO":"CONTRIBUIÇÃO PARA A EVOLUÇÃO"}</div>
           <div style="color:${C.text};font-size:11px;line-height:1.5">${s.note||""}</div>
+          ${s.chart||""}
         </div>`:""}
       </div>`).join("")}
   </div>
