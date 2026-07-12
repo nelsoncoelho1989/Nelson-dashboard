@@ -102,7 +102,7 @@ function paceCompareSVG(tMin,tMax,rMin,rMax,color){
 }
 
 const D = {
-  meta: { updatedAt: "12 Jul 2026 · ajuste peso + sessão do dia" },
+  meta: { updatedAt: "12 Jul 2026 · LR15-STEADY concluído (17,1km, saiu do previsto)" },
   hrv: 51, hrvTrend: "dentro da baseline (47–59)",
   rhr: 47, bodyBattery: 51,
   readiness: 59, readinessSub: "sono moderado (63) · HRV muito bom",
@@ -110,7 +110,7 @@ const D = {
   trainingStatus: "PRODUTIVO", lthr: 163, ltPace: "4:05",
   vdot: 53, vdotEst: "54–55",
   weekLabel: "Semana 28 · Fase 1 · Força + Limiar",
-  weekDone: 49.5, weekTarget: 58,
+  weekDone: 66.6, weekTarget: 58,
   sessions: [
     { day:"Seg 6",  code:"EASY-45",       km:8.4,  status:"done",    icon:"🏃",
       mode:"Fácil/Recuperação", hrAvg:134, hrMax:151, paceReal:"5:20/km",
@@ -136,9 +136,11 @@ const D = {
       mode:"Fácil/Recuperação", hrAvg:136, hrMax:148, paceReal:"5:29/km", gct:"269.5ms", vertOsc:"9.12cm", cadence:"166.9spm total (~83/perna)",
       chart: hrZoneBarSVG(136,148),
       note:"Z2 baixo cumprido como previsto. Primeira baseline de running dynamics confirmada a funcionar no PC — referência para comparar em sessões fáceis futuras." },
-    { day:"Dom 12", code:"LR15-STEADY",  km:15.5, status:"today", icon:"🏃",
-      mode:"Específico (resistência de base)", paceTarget:"70–80' · bloco 20' a 4:25–4:35/km · Z3/Z4 baixa <157bpm",
-      note:"Sessão que estava prevista para sábado, sem alteração de conteúdo — só de dia, para rentabilizar o descanso pós-ensaio de sexta." },
+    { day:"Dom 12", code:"LR15-STEADY",  km:17.1, status:"done", icon:"🏃",
+      mode:"Específico (resistência de base)", hrAvg:150, hrMax:165, paceReal:"4:46/km méd (bloco ~4:16/km @160–164bpm, ~13min)",
+      paceTarget:"70–80' · bloco 20' a 4:25–4:35/km · Z3/Z4 baixa <157bpm",
+      chart: hrZoneBarSVG(150,165),
+      note:"Saiu do previsto nas duas variáveis: bloco atingiu 4:16/km (mais rápido que os 4:25–4:35 alvo) com FC a picar 160–164bpm (acima do teto de 157bpm) durante ~13min. Depois, em vez de recuperar, manteve-se 4:54/km a ~155–157bpm por mais ~31min — tempo total acima do teto muito superior ao previsto. Sessão saiu 81:24 e 17,1km (vs 70–80' e ~15,5km previstos). Mesmo padrão do 6×800 de 7Jul: ritmo/esforço a ultrapassar o previsto, mesmo com HRV de entrada muito boa (55ms)." },
     { day:"Ter 14", code:"T-LIM-2x15",    km:11.0, status:"planned", icon:"🎯",
       mode:"Calibração (FC como variável principal)", paceTarget:"4:07–4:11/km (rua, integrado)",
       note:"Confirma se o limiar de 4:05/km @163bpm continua ajustado antes de entrar na Fase 2 (específico 10km)." },
