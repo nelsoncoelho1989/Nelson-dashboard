@@ -102,7 +102,7 @@ function paceCompareSVG(tMin,tMax,rMin,rMax,color){
 }
 
 const D = {
-  meta: { updatedAt: "14 Jul 2026 · Semana 29 preenchida (Qua–Dom) · a confirmar Seg 13 em falta" },
+  meta: { updatedAt: "14 Jul 2026 · Regra fim-de-semana corrigida (motivo e âmbito) · Seg 13 = descanso deliberado" },
   hrv: 49, hrvTrend: "dentro da baseline (47–59), ligeiro declínio pós-fim de semana",
   rhr: 48, bodyBattery: 51,
   readiness: 59, readinessSub: "sono moderado (63) · HRV muito bom",
@@ -110,11 +110,11 @@ const D = {
   trainingStatus: "PRODUTIVO", lthr: 163, ltPace: "4:05",
   vdot: 53, vdotEst: "54–55",
   weekLabel: "Semana 29 · Fase 1 · Força + Limiar",
-  weekDone: 13.0, weekTarget: 75,
+  weekDone: 13.0, weekTarget: 65,
   sessions: [
-    { day:"Seg 13", code:"EASY-45",       km:10,  status:"planned", icon:"🏃",
-      mode:"Fácil/Recuperação", paceTarget:"5:05–5:30/km",
-      note:"⚠️ Sem dados Strava/GetFast para este dia — a confirmar com o Nelson se foi feito e não sincronizou, ou se foi saltado." },
+    { day:"Seg 13", code:"DESCANSO",     km:0,  status:"done", icon:"🛌",
+      mode:"Descanso deliberado", 
+      note:"Sem sessão — decisão consciente e combinada, por carga acumulada do longo de domingo (LR15-STEADY, desvio acima do previsto) + leitura de HRV. Substitui o EASY-45 previsto no plano base; não é sessão em falta." },
     { day:"Ter 14", code:"T-LIM-2x15",    km:13.0, status:"done", icon:"🎯",
       mode:"Calibração (ritmo programado no relógio · percurso com desnível)", hrAvg:147, hrMax:181,
       paceReal:"Bloco1 ~4:08/km (14:58, FC 149→161, grade ~-1,0%) · Bloco2 ~4:05/km (14:59, FC 161→171 pico 181, grade ~+1,1%)",
@@ -132,7 +132,7 @@ const D = {
       note:"Rotina, sem objetivo extra — dia mais pesado da semana (Alvorada + Telepizza + ensaio à noite)." },
     { day:"Sáb 18", code:"REC-35",        km:6.5, status:"planned", icon:"🏃",
       mode:"Fácil/Recuperação", paceTarget:"5:25–5:50/km · Z1 106–130bpm",
-      note:"Regra fixa de fim de semana: fácil ao sábado (sono curto sexta→sábado por causa do ensaio). Longo passa para domingo." },
+      note:"Domingo é sempre o dia do longo (descanso melhor sábado→domingo, e permite ir mais cedo para Algés sem comprometer o sono). Sábado fica com o que sobra do plano depois do longo — nesta semana calha ser recuperação; não é uma regra independente de \"sábado = fácil\"." },
     { day:"Dom 19", code:"LR16",          km:16,  status:"planned", icon:"🏃",
       mode:"Cumprir (duração + FC)", paceTarget:"5:00–5:30/km · Z2 131–145bpm",
       note:"Longo da semana, sem bloco de limiar embutido desta vez — acumular base aeróbia, terminar inteiro em Z2 estável." },
