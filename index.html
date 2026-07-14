@@ -1,1 +1,649 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#07090F">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NC Corrida">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="icon" href="icon.svg">
+<title>Nelson Coelho · Corrida</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; padding:0; background:#07090F; color:#D4E0FF;
+    font-family: system-ui, -apple-system, sans-serif;
+    -webkit-user-select:none; user-select:none; overscroll-behavior:none; }
+  #app { max-width:480px; margin:0 auto; min-height:100vh;
+    padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+  button { font-family:inherit; }
+  ::-webkit-scrollbar { display:none; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+// ─── TOKENS ────────────────────────────────────────────────────────────────
+const C = {
+  bg:"#07090F", card:"#0D1118", card2:"#131927", border:"#1C2438",
+  orange:"#FF5422", teal:"#00D9B0", purple:"#9B59FF", gold:"#F5A623",
+  text:"#D4E0FF", sub:"#5A6B8A", dim:"#2C3550",
+  z1:"#22C55E", z2:"#86EFAC", z3:"#FDE047", z4:"#FB923C", z5:"#EF4444",
+};
+
+// ─── MINI GRÁFICOS para detalhe de métricas ────────────────────────
+function rangeBarSVG(min, max, idealMin, idealMax, cur, color){
+  const W=260, H=40, padX=12;
+  const pct = v => padX + Math.max(0,Math.min(1,(v-min)/(max-min))) * (W-padX*2);
+  const x1=pct(idealMin), x2=pct(idealMax), xc=pct(cur);
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;margin-top:6px">
+    <line x1="${padX}" y1="20" x2="${W-padX}" y2="20" stroke="${C.border}" stroke-width="4" stroke-linecap="round"/>
+    <line x1="${x1.toFixed(1)}" y1="20" x2="${x2.toFixed(1)}" y2="20" stroke="${color}" stroke-width="4" stroke-linecap="round" opacity="0.35"/>
+    <circle cx="${xc.toFixed(1)}" cy="20" r="6" fill="${color}"/>
+    <circle cx="${xc.toFixed(1)}" cy="20" r="9" fill="${color}" opacity="0.25"/>
+    <text x="${padX}" y="36" fill="${C.sub}" font-size="8" text-anchor="start">${min}</text>
+    <text x="${W-padX}" y="36" fill="${C.sub}" font-size="8" text-anchor="end">${max}</text>
+  </svg>`;
+}
+function sparklineSVG(points, color){
+  const W=260, H=54, padL=6, padR=6, padT=8, padB=14;
+  const vals = points.map(p=>p.y);
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const range = (max-min)||1;
+  const xStep = (W-padL-padR)/(points.length-1||1);
+  const yOf = v => padT + (max-v)/range*(H-padT-padB);
+  const xOf = i => padL + i*xStep;
+  const path = points.map((p,i)=>`${i===0?'M':'L'} ${xOf(i).toFixed(1)} ${yOf(p.y).toFixed(1)}`).join(" ");
+  const dots = points.map((p,i)=>`<circle cx="${xOf(i).toFixed(1)}" cy="${yOf(p.y).toFixed(1)}" r="${i===points.length-1?4:2.5}" fill="${color}"/>`).join("");
+  const labels = points.map((p,i)=>`<text x="${xOf(i).toFixed(1)}" y="${H-2}" text-anchor="middle" fill="${C.sub}" font-size="8">${p.x}</text>`).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;margin-top:6px">
+    <path d="${path}" fill="none" stroke="${color}" stroke-width="2"/>
+    ${dots}${labels}
+  </svg>`;
+}
+
+function hrZoneBarSVG(avg, maxHr){
+  const W=260, H=42, min=100, max=185, padX=10;
+  const zones = [
+    {from:100,to:130,color:C.z1},{from:130,to:145,color:C.z2},
+    {from:145,to:153,color:C.z3},{from:153,to:162,color:C.z4},{from:162,to:185,color:C.z5},
+  ];
+  const xOf = v => padX + (Math.max(min,Math.min(max,v))-min)/(max-min)*(W-padX*2);
+  const segs = zones.map(z=>`<rect x="${xOf(z.from).toFixed(1)}" y="10" width="${(xOf(z.to)-xOf(z.from)).toFixed(1)}" height="10" fill="${z.color}" opacity="0.5"/>`).join("");
+  let markers = "";
+  if (avg) markers += `<circle cx="${xOf(avg).toFixed(1)}" cy="15" r="5" fill="${C.text}" stroke="${C.bg}" stroke-width="1.5"/>
+    <text x="${xOf(avg).toFixed(1)}" y="34" text-anchor="middle" fill="${C.text}" font-size="8" font-weight="700">${avg} méd</text>`;
+  if (maxHr) markers += `<line x1="${xOf(maxHr).toFixed(1)}" y1="8" x2="${xOf(maxHr).toFixed(1)}" y2="22" stroke="${C.orange}" stroke-width="2"/>
+    <text x="${xOf(maxHr).toFixed(1)}" y="${avg?42:34}" text-anchor="middle" fill="${C.orange}" font-size="8" font-weight="700">${maxHr} máx</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;margin-top:6px">
+    ${segs}${markers}
+  </svg>`;
+}
+function paceCompareSVG(tMin,tMax,rMin,rMax,color){
+  const fmt = s => `${Math.floor(s/60)}:${String(Math.round(s%60)).padStart(2,"0")}`;
+  const vals=[tMin,tMax,rMin,rMax];
+  const lo=Math.min(...vals)-6, hi=Math.max(...vals)+6;
+  const W=260,H=54,padX=14;
+  const xOf = v => padX + (hi-v)/(hi-lo)*(W-padX*2);
+  const tx1=xOf(tMax), tx2=xOf(tMin), rx1=xOf(rMax), rx2=xOf(rMin);
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;margin-top:6px">
+    <text x="${padX}" y="10" fill="${C.sub}" font-size="8">PREVISTO</text>
+    <rect x="${tx1.toFixed(1)}" y="14" width="${(tx2-tx1).toFixed(1)}" height="8" rx="4" fill="${C.sub}" opacity="0.5"/>
+    <text x="${padX}" y="36" fill="${color}" font-size="8">REAL</text>
+    <rect x="${rx1.toFixed(1)}" y="40" width="${(rx2-rx1).toFixed(1)}" height="8" rx="4" fill="${color}"/>
+    <text x="${tx1.toFixed(1)}" y="26" text-anchor="middle" fill="${C.sub}" font-size="8" font-family="monospace">${fmt(tMax)}–${fmt(tMin)}</text>
+    <text x="${rx1.toFixed(1)}" y="52" text-anchor="middle" fill="${color}" font-size="8" font-family="monospace" font-weight="700">${fmt(rMax)}–${fmt(rMin)}</text>
+    <text x="${W-padX}" y="52" text-anchor="end" fill="${C.sub}" font-size="7">mais rápido →</text>
+  </svg>`;
+}
+
+const D = {
+  meta: { updatedAt: "14 Jul 2026 · T-LIM-2x15 — bloco 2 penalizado por desnível, não falha; pista+comuta definido p/ próximas calibrações" },
+  hrv: 49, hrvTrend: "dentro da baseline (47–59), ligeiro declínio pós-fim de semana",
+  rhr: 48, bodyBattery: 51,
+  readiness: 59, readinessSub: "sono moderado (63) · HRV muito bom",
+  vo2max: 57.0, acwr: 0.9, weight: 80.4,
+  trainingStatus: "PRODUTIVO", lthr: 163, ltPace: "4:05",
+  vdot: 53, vdotEst: "54–55",
+  weekLabel: "Semana 29 · Fase 1 · Força + Limiar",
+  weekDone: 13.0, weekTarget: 62,
+  sessions: [
+    { day:"Seg 6",  code:"EASY-45",       km:8.4,  status:"done",    icon:"🏃",
+      mode:"Fácil/Recuperação", hrAvg:134, hrMax:151, paceReal:"5:20/km",
+      chart: hrZoneBarSVG(134,151),
+      note:"Z2 limpo, sem sinais de fadiga acumulada — absorveu bem a carga da semana anterior." },
+    { day:"Ter 7",  code:"6×800m pista",  km:12.1, status:"done",    icon:"⚡",
+      mode:"Calibração (FC como variável principal)", hrMax:173, paceReal:"3:20→3:36/km (reps)", paceTarget:"3:50–3:55/km", cadence:"91–96spm",
+      chart: paceCompareSVG(230,235,200,216,C.orange),
+      note:"Progressão cardíaca bateu certo, mas o ritmo saiu 20–30s/km mais rápido que o previsto — sinal de que o ritmo estava conservador para este formato, não de excesso. Cadência 91–96spm confirma boa mecânica em pista. Ação: confirmar pace ao 200–400m no próximo teste — o arranque rápido continua a repetir-se." },
+    { day:"Qua 8",  code:"EASY-45+STR",   km:9.2,  status:"done",    icon:"🏃",
+      mode:"Fácil/Recuperação + Força", hrAvg:137, hrMax:152, paceReal:"5:26/km",
+      chart: hrZoneBarSVG(137,152),
+      note:"Absorção pós-pista perfeita, sem sinais de overload. Bloco de força (15s/45s) executado como previsto." },
+    { day:"Qui 9",  code:"HILL 6/12×45",  km:5.1,  status:"done",    icon:"⛰️",
+      mode:"Específico (força + técnica de subida)", hrAvg:138, hrMax:172, cadence:"91–96spm (por perna)", power:"611–676W estável",
+      chart: hrZoneBarSVG(138,172),
+      note:"Só 6 de 12 reps completadas (decisão consciente, tempo limitado) — mas cadência 91–96spm em todas, acima da banda-problema histórica de 87–88spm. Comparação com HILL-10x45 de 18 Jun (mesma subida, streams Garmin): cadência subiu de ~86–94spm para 91–97spm por perna, potência de pico caiu de ~692–749W para 611–676W — sinal de mecânica mais eficiente na subida, não só de esforço pontual. Score 44→48, ainda banda Moderado — 2º ponto de dados, não consolidado até repetir mais vezes." },
+    { day:"Sex 10", code:"EASY-40",       km:7.3,  status:"done",    icon:"🏃",
+      mode:"Fácil/Recuperação", hrAvg:135, hrMax:154, paceReal:"5:28/km",
+      chart: hrZoneBarSVG(135,154),
+      note:"Z2 total, cumprido à risca. Sem impacto extra na carga — sessão de rotina, sem alarmes." },
+    { day:"Sáb 11", code:"EASY-40",       km:7.3,  status:"done",    icon:"🏃",
+      mode:"Fácil/Recuperação", hrAvg:136, hrMax:148, paceReal:"5:29/km", gct:"269.5ms", vertOsc:"9.12cm", cadence:"166.9spm total (~83/perna)",
+      chart: hrZoneBarSVG(136,148),
+      note:"Z2 baixo cumprido como previsto. Primeira baseline de running dynamics confirmada a funcionar no PC — referência para comparar em sessões fáceis futuras." },
+    { day:"Dom 12", code:"LR15-STEADY",  km:17.1, status:"done", icon:"🏃",
+      mode:"Específico (resistência de base)", hrAvg:150, hrMax:165, paceReal:"4:46/km méd (bloco ~4:16/km @160–164bpm, ~13min)",
+      paceTarget:"70–80' · bloco 20' a 4:25–4:35/km · Z3/Z4 baixa <157bpm",
+      chart: hrZoneBarSVG(150,165),
+      note:"Saiu do previsto nas duas variáveis: bloco atingiu 4:16/km (mais rápido que os 4:25–4:35 alvo) com FC a picar 160–164bpm (acima do teto de 157bpm) durante ~13min. Depois, em vez de recuperar, manteve-se 4:54/km a ~155–157bpm por mais ~31min — tempo total acima do teto muito superior ao previsto. Sessão saiu 81:24 e 17,1km (vs 70–80' e ~15,5km previstos). Mesmo padrão do 6×800 de 7Jul: ritmo/esforço a ultrapassar o previsto, mesmo com HRV de entrada muito boa (55ms)." },
+    { day:"Ter 14", code:"T-LIM-2x15",    km:13.0, status:"done", icon:"🎯",
+      mode:"Calibração (ritmo programado no relógio · percurso com desnível)", hrAvg:147, hrMax:181,
+      paceReal:"Bloco1 ~4:08/km (14:58, FC 149→161, grade ~-1,0%) · Bloco2 ~4:05/km (14:59, FC 161→171 pico 181, grade ~+1,1%)",
+      paceTarget:"4:07–4:11/km (rua, integrado)",
+      chart: hrZoneBarSVG(147,181),
+      note:"Percurso de casa (Jamor/Pendão) tem desnível real (~150m em 13km) — o relógio tinha alvo de RITMO (pace.zone), não de FC, por isso gerir pelo ritmo mostrado foi a decisão correta com a sessão como estava programada. Bloco 1 (a descer): 4:08/km, FC 149→161 — coerente com o LT confirmado (163@4:05). Bloco 2 (a subir): defendeu 4:05/km contra a subida e a FC disparou até 171 média (pico 181) — não é falha de execução nem regressão, é o custo físico esperado de perseguir ritmo fixo em subida. Não é uma leitura limpa de LT plano. Resolução acordada: usar o T-LIM-PISTA (bloco isolado, sem desnível) nas próximas calibrações de limiar puro, com os 16' de deslocação casa↔pista a servir de aquecimento/arrefecimento natural — formato de casa (integrado, com desnível) fica reservado para sessões ESPECÍFICO de subida." },
+  ],
+  raceTrend: [
+    { x:"Jan'26", vdot:52.1, time:"40:49", name:"CNE 10km" },
+    { x:"Abr'26", vdot:52.0, time:"40:56", name:"Constância" },
+    { x:"Mai'26", vdot:52.7, time:"40:21", name:"Agualva" },
+    { x:"7 Jun",  vdot:53.0, time:"40:05", name:"Santo António" },
+    { x:"13 Jun", vdot:54.5, time:"30:21", name:"Marginal Noite" },
+    { x:"Jul",    vdot:55.0, time:"—",     name:"GP JOMA (est.)" },
+  ],
+  weeklyLoad: [
+    {w:"S24",km:63.5},{w:"S25",km:63},{w:"S26",km:52.5},
+    {w:"S27",km:69.5},{w:"S28",km:66.6},
+    {w:"S29",km:13.0,cur:true},{w:"S30",km:48},
+  ],
+  paceRows: [
+    {label:"Jan '26",time:"40:49",pace:"4:04",pct:45},
+    {label:"Abr '26",time:"40:56",pace:"4:05",pct:42},
+    {label:"Mai '26",time:"40:21",pace:"4:02",pct:55},
+    {label:"7 Jun",  time:"40:05",pace:"3:59",pct:65,hot:true},
+    {label:"Target", time:"37:00",pace:"3:42",pct:100,target:true},
+  ],
+  hrZones: [
+    {z:"Z1",label:"Recuperação",  bpm:"106–130",w:72, col:C.z1},
+    {z:"Z2",label:"Easy / Volume",bpm:"131–145",w:89, col:C.z2},
+    {z:"Z3",label:"Aeróbio Ctrl.",bpm:"146–153",w:94, col:C.z3},
+    {z:"Z4",label:"Limiar",       bpm:"154–162",w:99, col:C.z4},
+    {z:"Z5",label:"10km / VO₂",   bpm:"≥163",   w:100,col:C.z5},
+  ],
+  metrics: [
+    { key:"hrv", label:"HRV", value:49, unit:"ms", color:C.teal,
+      sub:"dentro da baseline (47–59)",
+      chart: rangeBarSVG(35,70,47,59,49,C.teal),
+      detail:"Mede a variabilidade da frequência cardíaca durante o sono — reflete o estado do teu sistema nervoso autónomo. Quanto mais alto dentro da tua baseline pessoal, melhor a recuperação. A tua baseline é baixa para a população em geral mas estável — o que importa é o desvio face a ela própria, nunca comparação com normas externas. Queda abaixo de ~45ms é sinal de alerta." },
+    { key:"rhr", label:"FC Repouso", value:48, unit:"bpm", color:C.teal,
+      sub:"perfil atleta · ✓ baixo",
+      chart: sparklineSVG([{x:"Jan",y:51},{x:"Abr",y:47.5},{x:"Mai",y:46},{x:"Jun",y:46},{x:"Jul",y:48}], C.teal),
+      detail:"Tendência 2026: 50–52bpm em janeiro → 45–47bpm em maio/junho. Essa queda confirma adaptação aeróbia real ao longo do bloco de treino, não é ruído de medição." },
+    { key:"bb", label:"Body Battery", value:51, unit:"%", color:C.z3,
+      sub:"meio da tarde, pós-treino",
+      chart: rangeBarSVG(0,100,50,100,51,C.z3),
+      detail:"Reserva de energia estimada pela Garmin, combina sono, stress e atividade. Sobe com descanso, desce com treino e stress do dia-a-dia. Útil para decidir se um dia pede mais cautela, mas não substitui HRV e FC repouso na leitura de fundo." },
+    { key:"readiness", label:"Train. Readiness", value:59, unit:"/100", color:C.z3,
+      sub:"sono moderado (63) · HRV muito bom",
+      chart: rangeBarSVG(0,100,60,100,59,C.z3),
+      detail:"Score composto (HRV, sono, carga aguda/crónica, stress) que resume se o corpo está pronto para um estímulo forte hoje. 59/100 é moderado — compatível com continuar o plano normalmente, sem sinal para adiar ou intensificar." },
+    { key:"vo2max", label:"VO₂Max Garmin", value:57.0, unit:"", color:C.orange,
+      sub:"VDOT ref 53",
+      chart: sparklineSVG([{x:"'16",y:59},{x:"'18",y:57},{x:"'19",y:60},{x:"'25",y:54},{x:"Jul26",y:57}], C.orange),
+      detail:"Arco histórico: 59 (2016) → 57 (2018) → 60 pico (2019) → 54 (2025, pós-hiato) → 57 (Jun 2026). A tendência atual está a subir de volta para os valores pré-2019, consistente com a curva de recuperação longa desde o acidente de 2016." },
+    { key:"acwr", label:"ACWR", value:0.9, unit:"", color:C.z1,
+      sub:"carga em equilíbrio ↔ (ÓTIMO)",
+      chart: rangeBarSVG(0.5,1.8,0.8,1.3,0.9,C.z1),
+      detail:"Rácio carga aguda (últimos 7 dias) / carga crónica (últimas 4 semanas). Janela saudável: 0.8–1.3. Em 0.9 a carga está equilibrada, sem risco de sobrecarga nem sinais de destreino." },
+  ],
+  calibs: [
+    { date:"7 Jul",  session:"6×800m pista", pace:"3:20→3:36/km", metricLabel:"CADÊNCIA", fc:"91–96spm",   read:"Arranque rápido de novo — confirmar 200–400m" },
+    { date:"9 Jul",  session:"HILL 12×45",   pace:"6/12 reps",     metricLabel:"POTÊNCIA", fc:"611–676W",    read:"Endurance 44→48 · ainda Moderado" },
+    { date:"8 Jul",  session:"EASY+STR",     pace:"Z2 total",      metricLabel:"FC",       fc:"sem sinais overload", read:"Absorção pós-pista OK" },
+    { date:"14 Jul", session:"T-LIM-2x15",   pace:"4:08→4:05/km",  metricLabel:"DESNÍVEL", fc:"-1,0%→+1,1%", read:"Bloco2 penalizado pela subida — passar p/ pista" },
+  ],
+  races: [
+    { date:"13 Set", name:"Corrida do Tejo ★",     dist:"10km ⛰️ 3 subidas", days:65,  prio:"PROVA A",   col:"#FF5422" },
+    { date:"19 Set", name:"Corrida Auchan",         dist:"10km",             days:71,  prio:"B-race",     col:"#5A6B8A" },
+    { date:"11 Out", name:"Meia Vasco da Gama",     dist:"21.1km",           days:93,  prio:"Endurance",  col:"#9B59FF" },
+    { date:"25 Out", name:"Volkswagen Run",         dist:"10km · Auto-Europa", days:107, prio:"Confirmada", col:"#00D9B0" },
+  ],
+  phases: [
+    { label:"Força + Limiar",     weeks:"S28–31", km:"~58–62/sem", status:"active"  },
+    { label:"10km Específico",    weeks:"S32–35", km:"~62–65/sem", status:"next"    },
+    { label:"Afinação",           weeks:"S36–37", km:"↓ ~30%",     status:"future"  },
+    { label:"★ Corrida do Tejo",  weeks:"13 Set", km:"PROVA A",    status:"race"    },
+    { label:"Corrida Auchan",     weeks:"19 Set", km:"B-race",     status:"future"  },
+    { label:"Meia Vasco da Gama", weeks:"11 Out", km:"Endurance",  status:"future"  },
+  ],
+};
+
+let TAB = localStorage.getItem("nc_tab") || "estado";
+let OPEN_IDX = null;
+let OPEN_METRIC = null;
+
+// ─── HELPERS ──────────────────────────────────────────────────────────────
+const dotColor = s => ({done:C.teal,today:C.orange,planned:C.dim,race:C.gold}[s]||C.dim);
+
+function ST(label, accent){
+  return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+    <div style="width:3px;height:14px;background:${accent||C.orange};border-radius:2px"></div>
+    <span style="color:${C.sub};font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase">${label}</span>
+  </div>`;
+}
+function Badge(label,color){
+  return `<span style="background:${color}22;border:1px solid ${color}55;color:${color};border-radius:5px;padding:3px 9px;font-size:10px;font-weight:700;letter-spacing:1px">● ${label}</span>`;
+}
+
+function vdotGaugeSVG(vdot, vdotEst){
+  const W=320,H=200,cx=160,cy=175,Ro=126,Ri=96,VMIN=48,VMAX=63;
+  const vToAngle = v => Math.PI*(1-(v-VMIN)/(VMAX-VMIN));
+  const ptAt = (v,r) => { const a=vToAngle(v); return [+(cx+r*Math.cos(a)).toFixed(2), +(cy-r*Math.sin(a)).toFixed(2)]; };
+  const arc = (v1,v2,R) => {
+    const [x1,y1]=ptAt(v1,R), [x2,y2]=ptAt(v2,R);
+    const large = Math.abs(vToAngle(v2)-vToAngle(v1))>Math.PI?1:0;
+    return `M ${x1} ${y1} A ${R} ${R} 0 ${large} 1 ${x2} ${y2}`;
+  };
+  const estEnd = parseFloat((vdotEst||"").split("–")[1]) || (vdot+1.5);
+  const [nx,ny]=ptAt(vdot,Ri+6), [nx2,ny2]=ptAt(vdot,Ro+5);
+  let ticks="";
+  [48,51,53,55,57,60,63].forEach(v=>{
+    const [tx,ty]=ptAt(v,Ri-14),[t1x,t1y]=ptAt(v,Ri),[t2x,t2y]=ptAt(v,Ri-6);
+    ticks += `<line x1="${t1x}" y1="${t1y}" x2="${t2x}" y2="${t2y}" stroke="${C.sub}" stroke-width="1.5"/>
+      <text x="${tx}" y="${ty+3}" text-anchor="middle" fill="${C.sub}" font-size="8" font-family="monospace">${v}</text>`;
+  });
+  const [pax,pay]=ptAt(57,Ro+5),[pbx,pby]=ptAt(57,Ro+18),[plx,ply]=ptAt(57,Ro+28);
+  const [tax,tay]=ptAt(60,Ro+5),[tbx,tby]=ptAt(60,Ro+18),[tlx,tly]=ptAt(60,Ro+28);
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;overflow:visible">
+    <path d="${arc(VMIN,VMAX,Ro)}" fill="none" stroke="${C.dim}" stroke-width="20" stroke-linecap="round"/>
+    <path d="${arc(48,51.3,Ro)}" fill="none" stroke="${C.sub}" stroke-width="20" opacity="0.15"/>
+    <path d="${arc(51.3,53,Ro)}" fill="none" stroke="${C.z3}" stroke-width="20" opacity="0.2"/>
+    <path d="${arc(53,55,Ro)}" fill="none" stroke="${C.orange}" stroke-width="20" opacity="0.18"/>
+    <path d="${arc(55,57,Ro)}" fill="none" stroke="${C.purple}" stroke-width="20" opacity="0.18"/>
+    <path d="${arc(57,63,Ro)}" fill="none" stroke="${C.teal}" stroke-width="20" opacity="0.18"/>
+    <path d="${arc(VMIN,vdot,Ro)}" fill="none" stroke="${C.orange}" stroke-width="20" stroke-linecap="round"/>
+    <path d="${arc(vdot,estEnd,Ro)}" fill="none" stroke="${C.orange}" stroke-width="20" stroke-dasharray="6 5" opacity="0.55"/>
+    <path d="${arc(VMIN,VMAX,Ri)}" fill="none" stroke="${C.border}" stroke-width="2" stroke-linecap="round"/>
+    ${ticks}
+    <line x1="${pax}" y1="${pay}" x2="${pbx}" y2="${pby}" stroke="${C.purple}" stroke-width="2"/>
+    <text x="${plx}" y="${ply-5}" text-anchor="middle" fill="${C.purple}" font-size="9" font-weight="700">PB</text>
+    <text x="${plx}" y="${ply+5}" text-anchor="middle" fill="${C.purple}" font-size="8">'16</text>
+    <line x1="${tax}" y1="${tay}" x2="${tbx}" y2="${tby}" stroke="${C.teal}" stroke-width="2"/>
+    <text x="${tlx}" y="${tly-5}" text-anchor="middle" fill="${C.teal}" font-size="9" font-weight="700">≤37'</text>
+    <text x="${tlx}" y="${tly+5}" text-anchor="middle" fill="${C.teal}" font-size="8">target</text>
+    <line x1="${nx}" y1="${ny}" x2="${nx2}" y2="${ny2}" stroke="${C.orange}" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="${nx}" cy="${ny}" r="4" fill="${C.orange}"/>
+    <text x="${cx}" y="${cy-52}" text-anchor="middle" fill="${C.text}" font-size="54" font-weight="900" font-family="'Courier New',monospace" letter-spacing="-2">${vdot}</text>
+    <text x="${cx}" y="${cy-32}" text-anchor="middle" fill="${C.sub}" font-size="9" letter-spacing="3">VDOT OFICIAL</text>
+    <text x="${cx}" y="${cy-12}" text-anchor="middle" fill="${C.orange}" font-size="13" font-weight="600">~${vdotEst} estimado</text>
+  </svg>`;
+}
+
+function lineChartSVG(data, key, vdotRef){
+  const W=300,H=140,padL=26,padR=10,padT=10,padB=18;
+  const min=50, max=57;
+  const xStep = (W-padL-padR)/(data.length-1);
+  const yOf = v => padT + (max-v)/(max-min)*(H-padT-padB);
+  const xOf = i => padL + i*xStep;
+  let path = data.map((d,i)=>`${i===0?'M':'L'} ${xOf(i).toFixed(1)} ${yOf(d[key]).toFixed(1)}`).join(" ");
+  let dots = data.map((d,i)=>`<circle cx="${xOf(i).toFixed(1)}" cy="${yOf(d[key]).toFixed(1)}" r="4" fill="${C.orange}"/>`).join("");
+  let labels = data.map((d,i)=>`<text x="${xOf(i).toFixed(1)}" y="${H-4}" text-anchor="middle" fill="${C.sub}" font-size="8">${d.x}</text>`).join("");
+  let yTicks=[50,52,54,56].map(v=>`<text x="4" y="${(yOf(v)+3).toFixed(1)}" fill="${C.sub}" font-size="8">${v}</text>
+    <line x1="${padL}" y1="${yOf(v).toFixed(1)}" x2="${W-padR}" y2="${yOf(v).toFixed(1)}" stroke="${C.border}" stroke-dasharray="3 3"/>`).join("");
+  const refY = yOf(vdotRef).toFixed(1);
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block">
+    ${yTicks}
+    <line x1="${padL}" y1="${refY}" x2="${W-padR}" y2="${refY}" stroke="${C.orange}" stroke-dasharray="4 3" stroke-width="1"/>
+    <path d="${path}" fill="none" stroke="${C.orange}" stroke-width="2.5"/>
+    ${dots}${labels}
+  </svg>`;
+}
+
+function barChartSVG(data){
+  const W=300,H=120,padL=24,padR=6,padT=6,padB=16;
+  const max = Math.max(...data.map(d=>d.km))*1.15;
+  const bw = (W-padL-padR)/data.length*0.6;
+  const step = (W-padL-padR)/data.length;
+  let bars = data.map((d,i)=>{
+    const h = (d.km/max)*(H-padT-padB);
+    const x = padL + i*step + (step-bw)/2;
+    const y = H-padB-h;
+    return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="5" fill="${d.cur?C.orange:C.dim}"/>
+      <text x="${(x+bw/2).toFixed(1)}" y="${H-4}" text-anchor="middle" fill="${C.sub}" font-size="8">${d.w}</text>`;
+  }).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block">${bars}</svg>`;
+}
+
+function renderTabs(){
+  return `<div style="display:flex;gap:6px">
+    ${["estado","semana","provas"].map(t=>`
+      <button data-tab="${t}" style="background:${TAB===t?C.orange+"20":"transparent"};
+        border:1px solid ${TAB===t?C.orange:C.border};color:${TAB===t?C.orange:C.sub};
+        border-radius:6px;padding:4px 12px;font-size:10px;font-weight:700;
+        text-transform:uppercase;letter-spacing:1px">${t}</button>`).join("")}
+  </div>`;
+}
+
+function panelEstado(){
+  return `
+  ${ST("Estado de Forma · VDOT", C.orange)}
+  <div style="background:${C.card};border-radius:14px;border:1px solid ${C.border};padding:16px 6px 10px;margin-bottom:18px">
+    ${vdotGaugeSVG(D.vdot, D.vdotEst)}
+    <div style="display:flex;justify-content:space-around;padding-top:6px">
+      ${[["52.1","Jan'26",C.sub],[D.vdot,"Oficial",C.orange],[D.vdotEst,"Estimado",C.orange+"99"],["57","PB 2016",C.purple],["60+","Target",C.teal]]
+        .map(([v,l,col])=>`<div style="text-align:center"><div style="color:${col};font-size:11px;font-weight:800;font-family:monospace">${v}</div>
+        <div style="color:${C.sub};font-size:8px;letter-spacing:1px">${l.toUpperCase()}</div></div>`).join("")}
+    </div>
+  </div>
+
+  ${ST("Estado Fisiológico · "+D.meta.updatedAt, C.teal)}
+  ${(()=>{
+    const pairs = [[0,1],[2,3],[4,5]];
+    return pairs.map(([a,b])=>{
+      const ma = D.metrics[a], mb = D.metrics[b];
+      const openInPair = OPEN_METRIC===ma.key ? ma : OPEN_METRIC===mb.key ? mb : null;
+      return `
+      <div style="display:flex;gap:8px;margin-bottom:${openInPair?0:8}px">
+        ${[ma,mb].map(m=>`
+          <div data-metric="${m.key}" style="cursor:pointer;background:${OPEN_METRIC===m.key?C.card2:C.card};border:1px solid ${OPEN_METRIC===m.key?m.color:C.border};border-radius:10px;padding:10px 12px;flex:1;min-width:0">
+            <div style="color:${C.sub};font-size:8px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px">${m.label}</div>
+            <div style="display:flex;align-items:baseline;gap:3px">
+              <span style="color:${m.color};font-size:22px;font-weight:800;font-family:monospace;line-height:1">${m.value}</span>
+              ${m.unit?`<span style="color:${C.sub};font-size:10px">${m.unit}</span>`:""}
+            </div>
+            <div style="color:${C.sub};font-size:9px;margin-top:3px">${m.sub||""}</div>
+          </div>`).join("")}
+      </div>
+      ${openInPair?`
+      <div style="background:${C.card2};border:1px solid ${C.border};border-top:none;border-radius:0 0 10px 10px;padding:10px 12px;margin-bottom:8px;margin-top:-8px">
+        ${openInPair.chart||""}
+        <div style="color:${C.text};font-size:11px;line-height:1.5;margin-top:6px">${openInPair.detail||""}</div>
+      </div>`:""}`;
+    }).join("")+`<div style="margin-bottom:10px"></div>`;
+  })()}
+
+  ${ST("Evolução VDOT · Provas 2026", C.purple)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};padding:14px 6px 8px;margin-bottom:18px">
+    ${lineChartSVG(D.raceTrend, "vdot", D.vdot)}
+    <div style="display:flex;justify-content:space-between;padding:4px 10px 0">
+      <span style="color:${C.sub};font-size:9px">Jan 2026 → Jul 2026</span>
+      <span style="color:${C.z1};font-size:11px;font-weight:700">+2.9 VDOT ↑</span>
+    </div>
+  </div>
+
+  ${ST("Progresso Pace 10km → 37:00", C.teal)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};padding:12px 14px;margin-bottom:18px">
+    ${D.paceRows.map((r,i)=>`
+      <div style="margin-bottom:${i<D.paceRows.length-1?10:0}px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+          <span style="color:${r.target?C.teal:r.hot?C.orange:C.sub};font-size:10px;font-weight:${r.hot?700:400}">${r.label}</span>
+          <div><span style="color:${C.sub};font-size:9px">${r.pace}/km · </span>
+          <span style="color:${r.target?C.teal:r.hot?C.orange:C.text};font-size:11px;font-weight:600;font-family:monospace">${r.time}</span></div>
+        </div>
+        <div style="background:${C.border};border-radius:4px;height:5px;overflow:hidden">
+          <div style="background:${r.target?C.teal:r.hot?C.orange:C.dim};width:${r.pct}%;height:100%;border-radius:4px;opacity:${r.target?0.35:1}"></div>
+        </div>
+      </div>`).join("")}
+  </div>
+
+  ${ST("Zonas FC · LTHR "+D.lthr+" bpm", C.z3)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};padding:12px 14px;margin-bottom:18px">
+    ${D.hrZones.map(z=>`
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px">
+        <div style="color:${z.col};font-size:10px;font-weight:800;width:22px;flex-shrink:0">${z.z}</div>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+            <span style="color:${C.text};font-size:10px">${z.label}</span>
+            <span style="color:${C.sub};font-size:9px;font-family:monospace">${z.bpm}</span>
+          </div>
+          <div style="background:${C.border};border-radius:3px;height:6px">
+            <div style="background:${z.col};width:${z.w}%;height:100%;border-radius:3px"></div>
+          </div>
+        </div>
+      </div>`).join("")}
+    <div style="background:${C.card2};border-radius:8px;padding:8px 10px;margin-top:8px">
+      <div style="display:flex;justify-content:space-between">
+        <span style="color:${C.sub};font-size:9px">LIMIAR LACTATO</span>
+        <span style="color:${C.orange};font-size:12px;font-weight:700;font-family:monospace">${D.ltPace}/km @ ${D.lthr} bpm</span>
+      </div>
+    </div>
+  </div>
+
+  ${ST("Calibrações Recentes", C.purple)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};overflow:hidden">
+    ${D.calibs.map((c,i)=>`
+      <div style="padding:10px 14px;${i<D.calibs.length-1?`border-bottom:1px solid ${C.border};`:""}">
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+          <span style="color:${C.orange};font-size:11px;font-weight:700">${c.session}</span>
+          <span style="color:${C.sub};font-size:9px">${c.date}</span>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">RITMO</div><div style="color:${C.text};font-size:11px;font-family:monospace">${c.pace}</div></div>
+          <div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">${c.metricLabel||"FC"}</div><div style="color:${C.text};font-size:11px;font-family:monospace">${c.fc}</div></div>
+          <div style="flex:1"><div style="color:${C.sub};font-size:8px;letter-spacing:1px">LEITURA</div><div style="color:${C.z1};font-size:10px">${c.read}</div></div>
+        </div>
+      </div>`).join("")}
+  </div>`;
+}
+
+function panelSemana(){
+  return `
+  ${ST(D.weekLabel, C.orange)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};padding:14px;margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+      <span style="color:${C.sub};font-size:10px">Volume semanal</span>
+      <span style="color:${C.text};font-size:13px;font-weight:700;font-family:monospace">${D.weekDone}<span style="color:${C.sub};font-size:10px">/${D.weekTarget} km</span></span>
+    </div>
+    <div style="background:${C.border};border-radius:6px;height:10px;overflow:hidden;margin-bottom:6px">
+      <div style="background:linear-gradient(90deg,${C.teal},${C.orange});width:${(D.weekDone/D.weekTarget*100).toFixed(0)}%;height:100%;border-radius:6px"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between">
+      <span style="color:${C.teal};font-size:9px">✓ feito: ${D.weekDone}km</span>
+      <span style="color:${C.sub};font-size:9px">restante: ${(D.weekTarget-D.weekDone).toFixed(1)}km</span>
+    </div>
+  </div>
+
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};overflow:hidden;margin-bottom:16px">
+    ${D.sessions.map((s,i)=>`
+      <div>
+        <div data-session="${i}" style="display:flex;align-items:center;padding:10px 14px;cursor:pointer;
+          ${i<D.sessions.length-1||OPEN_IDX===i?`border-bottom:1px solid ${C.border};`:""}
+          opacity:${s.status==="planned"?0.55:1};background:${s.status==="today"?C.orange+"08":OPEN_IDX===i?C.card2:"transparent"}">
+          <div style="color:${C.sub};font-size:9px;width:38px;flex-shrink:0">${s.day}</div>
+          <div style="width:9px;height:9px;border-radius:50%;background:${dotColor(s.status)};margin-right:10px;flex-shrink:0;
+            box-shadow:${s.status==="today"?`0 0 8px ${C.orange}`:"none"}"></div>
+          <div style="flex:1">
+            <span style="color:${s.status==="today"?C.orange:s.status==="race"?C.gold:C.text};
+              font-size:12px;font-weight:${["today","race"].includes(s.status)?700:400}">${s.icon} ${s.code}</span>
+          </div>
+          <span style="color:${C.sub};font-size:10px;font-family:monospace;margin-right:8px">${s.km}km</span>
+          ${s.status==="done"?`<span style="color:${C.teal};font-size:12px">✓</span>`:""}
+          ${s.status==="today"?`<span style="color:${C.orange};font-size:9px;font-weight:700;background:${C.orange}22;padding:2px 6px;border-radius:4px">HOJE</span>`:""}
+          ${s.status==="race"?`<span style="color:${C.gold};font-size:9px;font-weight:700;background:${C.gold}22;padding:2px 6px;border-radius:4px">PROVA</span>`:""}
+          <span style="color:${C.sub};font-size:10px;margin-left:8px;transform:rotate(${OPEN_IDX===i?90:0}deg);display:inline-block;transition:transform .15s">›</span>
+        </div>
+        ${OPEN_IDX===i?`
+        <div style="padding:12px 14px 14px;background:${C.card2};${i<D.sessions.length-1?`border-bottom:1px solid ${C.border};`:""}">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+            <span style="background:${C.orange}18;color:${C.orange};border-radius:5px;padding:2px 8px;font-size:9px;font-weight:700">${s.mode||""}</span>
+          </div>
+          <div style="display:flex;gap:14px;margin-bottom:8px;flex-wrap:wrap">
+            ${s.paceReal?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">RITMO REAL</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.paceReal}</div></div>`:""}
+            ${s.paceTarget?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">${s.status==="planned"?"ALVO":"PREVISTO"}</div><div style="color:${C.sub};font-size:11px;font-family:monospace">${s.paceTarget}</div></div>`:""}
+            ${s.hrAvg?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">FC MÉDIA</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.hrAvg} bpm</div></div>`:""}
+            ${s.hrMax?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">FC MÁX</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.hrMax} bpm</div></div>`:""}
+            ${s.cadence?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">CADÊNCIA</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.cadence}</div></div>`:""}
+            ${s.power?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">POTÊNCIA</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.power}</div></div>`:""}
+            ${s.gct?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">GCT</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.gct}</div></div>`:""}
+            ${s.vertOsc?`<div><div style="color:${C.sub};font-size:8px;letter-spacing:1px">OSC. VERTICAL</div><div style="color:${C.text};font-size:11px;font-family:monospace">${s.vertOsc}</div></div>`:""}
+          </div>
+          <div style="color:${C.sub};font-size:8px;letter-spacing:1px;margin-bottom:3px">${s.status==="planned"?"OBJETIVO":"CONTRIBUIÇÃO PARA A EVOLUÇÃO"}</div>
+          <div style="color:${C.text};font-size:11px;line-height:1.5">${s.note||""}</div>
+          ${s.chart||""}
+        </div>`:""}
+      </div>`).join("")}
+  </div>
+
+  ${ST("Carga Semanal · km", C.teal)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};padding:14px 6px 8px;margin-bottom:16px">
+    ${barChartSVG(D.weeklyLoad)}
+  </div>
+
+  ${ST("Training Status · Garmin", C.purple)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};padding:12px 14px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:12px">
+      <div>
+        <div style="color:${C.z1};font-size:14px;font-weight:800">${D.trainingStatus}</div>
+        <div style="color:${C.sub};font-size:9px">Garmin Training Status</div>
+      </div>
+      <div style="text-align:right">
+        <div style="color:${C.teal};font-size:18px;font-weight:800;font-family:monospace">${D.acwr}</div>
+        <div style="color:${C.sub};font-size:9px">ACWR · ÓTIMO</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      ${[["Limiar Ritmo",D.ltPace+"/km",C.orange],["LTHR",D.lthr+" bpm",C.orange],["VO₂Max Garmin",D.vo2max,C.purple],["Peso",D.weight+" kg",C.sub]]
+        .map(([label,value,col])=>`<div style="background:${C.card2};border-radius:8px;padding:8px 10px">
+          <div style="color:${C.sub};font-size:8px;letter-spacing:1px;text-transform:uppercase">${label}</div>
+          <div style="color:${col};font-size:13px;font-weight:700;font-family:monospace">${value}</div>
+        </div>`).join("")}
+    </div>
+  </div>`;
+}
+
+function panelProvas(){
+  return `
+  ${ST("Calendário de Provas", C.gold)}
+  <div style="background:${C.card};border-radius:12px;border:1px solid ${C.border};overflow:hidden;margin-bottom:16px">
+    ${D.races.map((r,i)=>`
+      <div style="padding:12px 14px;${i<D.races.length-1?`border-bottom:1px solid ${C.border};`:""}border-left:3px solid ${r.col}">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div style="color:${C.sub};font-size:8px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px">${r.prio}</div>
+            <div style="color:${r.prio==="PROVA A"?C.orange:C.text};font-size:13px;font-weight:${r.prio==="PROVA A"?800:600}">${r.name}</div>
+            <div style="color:${C.sub};font-size:10px">${r.dist}</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="color:${r.col};font-size:12px;font-weight:700;font-family:monospace">${r.date}</div>
+            <div style="color:${C.sub};font-size:9px">em ${r.days} dias</div>
+          </div>
+        </div>
+      </div>`).join("")}
+  </div>
+
+  ${ST("★ Corrida do Tejo · 13 Set 2026", C.orange)}
+  <div style="background:${C.card};border-radius:12px;border:2px solid ${C.orange}44;padding:16px 14px">
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="color:${C.sub};font-size:9px;letter-spacing:3px">DIAS RESTANTES</div>
+      <div style="color:${C.orange};font-size:60px;font-weight:900;font-family:'Courier New',monospace;line-height:1.1">65</div>
+      <div style="color:${C.sub};font-size:11px">9 semanas e meia</div>
+    </div>
+    ${D.phases.map((p,i)=>{
+      const pc = p.status==="active"?C.orange:p.status==="next"?C.z3:p.status==="race"?C.gold:C.dim;
+      return `<div style="display:flex;gap:10px;align-items:flex-start">
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="width:10px;height:10px;border-radius:50%;margin-top:3px;flex-shrink:0;background:${pc};
+            box-shadow:${p.status==="active"?`0 0 10px ${C.orange}`:"none"}"></div>
+          ${i<D.phases.length-1?`<div style="width:1.5px;height:22px;background:${C.border};margin-top:3px"></div>`:""}
+        </div>
+        <div style="padding-bottom:6px">
+          <div style="color:${pc};font-size:11px;font-weight:${["active","race"].includes(p.status)?800:500}">${p.label}</div>
+          <div style="color:${C.sub};font-size:9px">${p.weeks} · ${p.km}</div>
+        </div>
+      </div>`;
+    }).join("")}
+  </div>`;
+}
+
+function render(){
+  const panel = TAB==="estado" ? panelEstado() : TAB==="semana" ? panelSemana() : panelProvas();
+  document.getElementById("app").innerHTML = `
+    <div style="background:${C.bg};min-height:100vh;color:${C.text}">
+      <div style="background:${C.card};border-bottom:1px solid ${C.border};padding:14px 18px 10px;position:sticky;top:0;z-index:20">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+          <div>
+            <div style="color:${C.sub};font-size:8px;letter-spacing:3px;text-transform:uppercase">M35 · QUELUZ</div>
+            <div style="font-size:17px;font-weight:800;letter-spacing:-0.5px">Nelson Coelho</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            <div style="display:flex;align-items:center;gap:6px">
+              ${Badge(D.trainingStatus, C.z1)}
+              <button data-refresh style="background:${C.card2};border:1px solid ${C.border};color:${C.teal};
+                border-radius:6px;width:22px;height:22px;font-size:12px;cursor:pointer;display:flex;
+                align-items:center;justify-content:center;padding:0">⟳</button>
+            </div>
+            <div style="font-size:8px;color:${C.teal};letter-spacing:1px">${D.meta.updatedAt}</div>
+          </div>
+        </div>
+        ${renderTabs()}
+      </div>
+      <div style="padding:16px 14px 48px">${panel}</div>
+      <div style="text-align:center;color:${C.dim};font-size:8px;letter-spacing:1.5px;margin-top:0;padding-bottom:20px;text-transform:uppercase">
+        Garmin · Strava · GetFast · ${D.meta.updatedAt}
+      </div>
+    </div>`;
+
+  document.querySelectorAll("[data-tab]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      TAB = btn.getAttribute("data-tab");
+      localStorage.setItem("nc_tab", TAB);
+      OPEN_IDX = null;
+      OPEN_METRIC = null;
+      render();
+      window.scrollTo(0,0);
+    });
+  });
+
+  document.querySelectorAll("[data-metric]").forEach(row=>{
+    row.addEventListener("click", ()=>{
+      const k = row.getAttribute("data-metric");
+      OPEN_METRIC = OPEN_METRIC===k ? null : k;
+      render();
+    });
+  });
+
+  document.querySelectorAll("[data-session]").forEach(row=>{
+    row.addEventListener("click", ()=>{
+      const i = parseInt(row.getAttribute("data-session"), 10);
+      OPEN_IDX = OPEN_IDX===i ? null : i;
+      render();
+    });
+  });
+
+  const refreshBtn = document.querySelector("[data-refresh]");
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      refreshBtn.textContent = "…";
+      try {
+        if ("caches" in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map((k) => caches.delete(k)));
+        }
+        if ("serviceWorker" in navigator) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(regs.map((r) => r.unregister()));
+        }
+      } catch (err) {}
+      location.reload(true);
+    });
+  }
+}
+
+render();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then((reg) => {
+      reg.update();
+    }).catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
