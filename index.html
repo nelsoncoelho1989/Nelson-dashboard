@@ -102,7 +102,7 @@ function paceCompareSVG(tMin,tMax,rMin,rMax,color){
 }
 
 const D = {
-  meta: { updatedAt: "14 Jul 2026 · Regra fim-de-semana corrigida (motivo e âmbito) · Seg 13 = descanso deliberado" },
+  meta: { updatedAt: "15 Jul 2026 · EASY+STR concluído — cadência forte nos sprints de força" },
   hrv: 49, hrvTrend: "dentro da baseline (47–59), ligeiro declínio pós-fim de semana",
   rhr: 48, bodyBattery: 51,
   readiness: 59, readinessSub: "sono moderado (63) · HRV muito bom",
@@ -110,7 +110,7 @@ const D = {
   trainingStatus: "PRODUTIVO", lthr: 163, ltPace: "4:05",
   vdot: 53, vdotEst: "54–55",
   weekLabel: "Semana 29 · Fase 1 · Força + Limiar",
-  weekDone: 13.0, weekTarget: 65,
+  weekDone: 22.27, weekTarget: 65,
   sessions: [
     { day:"Seg 13", code:"DESCANSO",     km:0,  status:"done", icon:"🛌",
       mode:"Descanso deliberado", 
@@ -121,9 +121,11 @@ const D = {
       paceTarget:"4:07–4:11/km (rua, integrado)",
       chart: hrZoneBarSVG(147,181),
       note:"Percurso de casa (Jamor/Pendão) tem desnível real (~150m em 13km) — o relógio tinha alvo de RITMO (pace.zone), não de FC, por isso gerir pelo ritmo mostrado foi a decisão correta com a sessão como estava programada. Bloco 1 (a descer): 4:08/km, FC 149→161 — coerente com o LT confirmado (163@4:05). Bloco 2 (a subir): defendeu 4:05/km contra a subida e a FC disparou até 171 média (pico 181) — não é falha de execução nem regressão, é o custo físico esperado de perseguir ritmo fixo em subida. Não é uma leitura limpa de LT plano. Resolução acordada: usar o T-LIM-PISTA (bloco isolado, sem desnível) nas próximas calibrações de limiar puro, com os 16' de deslocação casa↔pista a servir de aquecimento/arrefecimento natural — formato de casa (integrado, com desnível) fica reservado para sessões ESPECÍFICO de subida." },
-    { day:"Qua 15", code:"EASY+STR",      km:10,  status:"planned", icon:"🏃",
-      mode:"Fácil/Recuperação + Força", paceTarget:"5:05–5:30/km · Z2 131–145bpm",
-      note:"Rodagem fácil 45' + bloco de força 6×15''/45''. Objetivo: absorver carga da T-LIM de terça." },
+    { day:"Qua 15", code:"EASY+STR",      km:9.27,  status:"done", icon:"🏃",
+      mode:"Fácil/Recuperação + Força", hrAvg:134, hrMax:156, paceReal:"5:29/km",
+      cadence:"82,4spm geral · sprints 91,0–104,6spm (todos acima da banda-problema 87–88)",
+      chart: hrZoneBarSVG(134,156),
+      note:"Bloco fácil (~43') com FC a subir 115→140bpm dentro do Z2 previsto, ritmo no limite lento do alvo (absorção normal pós-T-LIM). Bloco de força 6×15''/45'' executado como prescrito — cadência nos 6 sprints: 91,0/99,2/100,3/100,5/93,5/104,6spm, todos bem acima da banda histórica problemática. Mesma tendência positiva da HILL de 9Jul e do 6×800 de 7Jul: cadência responde bem quando a intensidade sobe. Sem sinais de carga residual da T-LIM de terça." },
     { day:"Qui 16", code:"10×400m",       km:11,  status:"planned", icon:"⚡",
       mode:"Cumprir (ritmo + técnica)", paceTarget:"3:35–3:45/km nos reps · rec. 200m trote",
       note:"Velocidade controlada — cadência e economia, sem sprint. FC é só referência secundária aqui." },
@@ -148,7 +150,7 @@ const D = {
   weeklyLoad: [
     {w:"S24",km:63.5},{w:"S25",km:63},{w:"S26",km:52.5},
     {w:"S27",km:69.5},{w:"S28",km:66.6},
-    {w:"S29",km:13.0,cur:true},{w:"S30",km:48},
+    {w:"S29",km:22.27,cur:true},{w:"S30",km:48},
   ],
   paceRows: [
     {label:"Jan '26",time:"40:49",pace:"4:04",pct:45},
