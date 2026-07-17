@@ -110,7 +110,7 @@ const D = {
   trainingStatus: "PRODUTIVO", lthr: 163, ltPace: "4:05",
   vdot: 53, vdotEst: "54–55",
   weekLabel: "Semana 29 · Fase 1 · Força + Limiar",
-  weekDone: 33.67, weekTarget: 65,
+  weekDone: 41.18, weekTarget: 65,
   sessions: [
     { day:"Seg 13", code:"DESCANSO",     km:0,  status:"done", icon:"🛌",
       mode:"Descanso deliberado", 
@@ -132,9 +132,11 @@ const D = {
       paceTarget:"3:35–3:45/km · rec. 200m trote",
       chart: hrZoneBarSVG(137,170),
       note:"Padrão recorrente confirmado pela 3ª vez (após 5×1000m 30Jun e 6×800m 7Jul): ritmo consistente mas 8–15s/km acima do alvo desde a rep 1 — não é deriva, é ponto de partida errado. Controlo real nas 9 primeiras reps (dp 2,4s/400m), mas o patamar de esforço já não é 'economia sem sprint' — aproxima-se de ritmo de limiar/10km, com FC estável 156–164bpm. Rep10 acelerou para 3:10/km, sprint final claro. Recuperações também curtas (95–176m vs 200m prescrito). HRV (47ms) e RHR (50bpm) hoje já na ponta baixa/alta da baseline — carga residual do longo de domingo ainda não totalmente absorvida. Ação pendente: alerta de teto de pace no Garmin para as próximas sessões de pista/rua." },
-    { day:"Sex 17", code:"EASY-40",       km:8.5, status:"planned", icon:"🏃",
-      mode:"Fácil/Recuperação", paceTarget:"5:10–5:35/km · Z2 baixa 131–140bpm",
-      note:"Rotina, sem objetivo extra — dia mais pesado da semana (Alvorada + Telepizza + ensaio à noite)." },
+    { day:"Sex 17", code:"EASY-40",       km:7.51, status:"done", icon:"🏃",
+      mode:"Fácil/Recuperação", hrAvg:137, hrMax:151, paceReal:"5:20/km",
+      paceTarget:"5:10–5:35/km · Z2 baixa 131–140bpm",
+      chart: hrZoneBarSVG(137,151),
+      note:"Cumprido sem sinais de resíduo do 10×400m de quinta — dia mais pesado da semana (Alvorada + Telepizza + ensaio à noite), absorvido bem." },
     { day:"Sáb 18", code:"REC-35",        km:6.5, status:"planned", icon:"🏃",
       mode:"Fácil/Recuperação", paceTarget:"5:25–5:50/km · Z1 106–130bpm",
       note:"Domingo é sempre o dia do longo (descanso melhor sábado→domingo, e permite ir mais cedo para Algés sem comprometer o sono). Sábado fica com o que sobra do plano depois do longo — nesta semana calha ser recuperação; não é uma regra independente de \"sábado = fácil\"." },
@@ -153,7 +155,7 @@ const D = {
   weeklyLoad: [
     {w:"S24",km:63.5},{w:"S25",km:63},{w:"S26",km:52.5},
     {w:"S27",km:69.5},{w:"S28",km:66.6},
-    {w:"S29",km:33.67,cur:true},{w:"S30",km:48},
+    {w:"S29",km:41.18,cur:true},{w:"S30",km:48},
   ],
   paceRows: [
     {label:"Jan '26",time:"40:49",pace:"4:04",pct:45},
@@ -200,6 +202,7 @@ const D = {
     { date:"9 Jul",  session:"HILL 12×45",   pace:"6/12 reps",     metricLabel:"POTÊNCIA", fc:"611–676W",    read:"Endurance 44→48 · ainda Moderado" },
     { date:"8 Jul",  session:"EASY+STR",     pace:"Z2 total",      metricLabel:"FC",       fc:"sem sinais overload", read:"Absorção pós-pista OK" },
     { date:"14 Jul", session:"T-LIM-2x15",   pace:"4:08→4:05/km",  metricLabel:"DESNÍVEL", fc:"-1,0%→+1,1%", read:"Bloco2 penalizado pela subida — passar p/ pista" },
+    { date:"16 Jul", session:"10×400m pista", pace:"~3:30/km (alvo 3:35–3:45)", metricLabel:"RITMO", fc:"156–164bpm estável", read:"3ª confirmação do padrão: arranque rápido, não deriva" },
   ],
   races: [
     { date:"13 Set", name:"Corrida do Tejo ★",     dist:"10km ⛰️ 3 subidas", days:65,  prio:"PROVA A",   col:"#FF5422" },
