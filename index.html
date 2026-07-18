@@ -102,7 +102,7 @@ function paceCompareSVG(tMin,tMax,rMin,rMax,color){
 }
 
 const D = {
-  meta: { updatedAt: "16 Jul 2026 · 10×400m concluído — ritmo consistente mas acima do alvo, sprint na rep 10" },
+  meta: { updatedAt: "18 Jul 2026 · REC-35 concluído (8,14km) — 1ª sessão com cinta HRM, balanço GCT E/D a agravar com esforço" },
   hrv: 47, hrvTrend: "ponta baixa da baseline (47–59) — ainda sem recuperação plena pós-longo de domingo",
   rhr: 50, bodyBattery: 51,
   readiness: 59, readinessSub: "sono moderado (63) · HRV muito bom",
@@ -110,7 +110,7 @@ const D = {
   trainingStatus: "PRODUTIVO", lthr: 163, ltPace: "4:05",
   vdot: 53, vdotEst: "54–55",
   weekLabel: "Semana 29 · Fase 1 · Força + Limiar",
-  weekDone: 41.18, weekTarget: 65,
+  weekDone: 49.32, weekTarget: 65,
   sessions: [
     { day:"Seg 13", code:"DESCANSO",     km:0,  status:"done", icon:"🛌",
       mode:"Descanso deliberado", 
@@ -137,9 +137,11 @@ const D = {
       paceTarget:"5:10–5:35/km · Z2 baixa 131–140bpm",
       chart: hrZoneBarSVG(137,151),
       note:"Cumprido sem sinais de resíduo do 10×400m de quinta — dia mais pesado da semana (Alvorada + Telepizza + ensaio à noite), absorvido bem." },
-    { day:"Sáb 18", code:"REC-35",        km:6.5, status:"planned", icon:"🏃",
-      mode:"Fácil/Recuperação", paceTarget:"5:25–5:50/km · Z1 106–130bpm",
-      note:"Domingo é sempre o dia do longo (descanso melhor sábado→domingo, e permite ir mais cedo para Algés sem comprometer o sono). Sábado fica com o que sobra do plano depois do longo — nesta semana calha ser recuperação; não é uma regra independente de \"sábado = fácil\"." },
+    { day:"Sáb 18", code:"REC-35",        km:8.14, status:"done", icon:"🏃",
+      mode:"Fácil/Recuperação", hrAvg:139, hrMax:152, paceReal:"5:27→4:50/km (progressivo, FC sempre <150)",
+      paceTarget:"5:25–5:50/km · Z1 106–130bpm",
+      chart: hrZoneBarSVG(139,152),
+      note:"Km real 8,14 vs 6,5 planeado — ritmo progrediu de 5:27 a 4:50/km com FC sempre <150 (dentro de Z2, não violou o modo fácil, mas é o padrão conhecido de deslize para esforço em dia de recuperação). 1ª sessão com cinta HRM: GCT bateu com o pulso (269ms a ritmo equivalente), mas oscilação vertical leu +15% mais alta na cinta — offset de sensor, não comparar direto entre pulso e cinta sem ajuste. Balanço GCT E/D: 49,5/50,5 no início → 47,7/52,3 a meio-fim do treino (lap 8), recuperando ligeiramente no fim — assimetria aparece e agrava com esforço/fadiga, consistente com o padrão de cautela da perna esquerda (cicatriz 2022). n=1, repetir amanhã no LR16 antes de tirar conclusões." },
     { day:"Dom 19", code:"LR16",          km:16,  status:"planned", icon:"🏃",
       mode:"Cumprir (duração + FC)", paceTarget:"5:00–5:30/km · Z2 131–145bpm",
       note:"Longo da semana, sem bloco de limiar embutido desta vez — acumular base aeróbia, terminar inteiro em Z2 estável." },
