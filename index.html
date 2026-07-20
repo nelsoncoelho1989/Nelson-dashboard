@@ -102,11 +102,11 @@ function paceCompareSVG(tMin,tMax,rMin,rMax,color){
 }
 
 const D = {
-  meta: { updatedAt: "20 Jul 2026 · Semana 29 fechada (66,33km) · Semana 30 (Construção 10km) a começar" },
+  meta: { updatedAt: "20 Jul 2026 · Peso corrigido (79,6kg) · Leitura do LR16 uniformizada (calor + resolução de horário) · Semana 30 (Construção 10km) em curso" },
   hrv: 48, hrvTrend: "meio da baseline (47–59) · balanced toda a semana, sem quebra pós-pista",
   rhr: 50, bodyBattery: 60,
   readiness: 45, readinessSub: "LOW hoje — recovery time 33,6h, sono moderado (71); HRV continua boa (84%)",
-  vo2max: 57.0, acwr: 1.0, weight: 80.4,
+  vo2max: 57.0, acwr: 1.0, weight: 79.6,
   trainingStatus: "MAINTAINING", lthr: 163, ltPace: "4:05",
   vdot: 53, vdotEst: "54–55",
   weekLabel: "Semana 30 · 20–26 Jul · Construção 10km",
@@ -142,7 +142,7 @@ const D = {
       { day:"Qui 16", code:"10×400m", km:11.4, note:"3ª confirmação do padrão: ~3:30/km vs alvo 3:35–3:45/km desde a rep 1, rep10 sprint 3:10/km. Ainda por corrigir." },
       { day:"Sex 17", code:"EASY-40", km:7.51, note:"HR 137/151 — dentro de Z2. (Nota: entrada anterior do Excel com HR 167/181 estava errada, copy-paste da T-LIM de terça; corrigido 20Jul.)" },
       { day:"Sáb 18", code:"REC-35", km:8.14, note:"1ª leitura GCT Balance L/R via cinta HRM: 49,5/50,5 no início → 47,7/52,3 a meio-fim (lap 8) — assimetria agrava com fadiga dentro da própria sessão, consistente com o padrão de cautela da perna esquerda. n=1." },
-      { day:"Dom 19", code:"LR16", km:17.01, note:"17,01km em 1:22:27 (4:51/km, alvo 5:00–5:30) — mais rápido que o prescrito, FC média 147 (alvo 131–145). HR drift -4,9% (well_coupled) — boa eficiência aeróbia. Cinta HRM não captou GCT balance nesta sessão — confirmar se esteve ligada." },
+      { day:"Dom 19", code:"LR16", km:17.01, note:"17,01km em 1:22:27 (4:51/km, alvo 5:00–5:30) — mais rápido que o prescrito desde o km2, FC média 147 (alvo 131–145), subiu a 119→157bpm. HR drift -4,9% (well_coupled) — eficiência aeróbia boa NO ritmo que escolheste correr, o que não equivale a teres cumprido o alvo de FC dado. Fator agravante confirmado: ~23°C/61%hum. às 10h30, provavelmente 26-28°C ao terminar (12h00) — cardiac drift real, mas não explica o ritmo já estar acima do teto desde o km2. 2º longo 'estável' seguido a sair progressivo (após LR15-STEADY 12Jul). RESOLUÇÃO 20Jul: antecipar horário dos longos de Verão (8h30-9h) em vez de alarme de FC — próximo longo é o teste limpo sem a variável calor." },
     ]
   },
   raceTrend: [
@@ -202,7 +202,7 @@ const D = {
     { date:"14 Jul", session:"T-LIM-2x15",   pace:"4:08→4:05/km",  metricLabel:"DESNÍVEL", fc:"-1,0%→+1,1%", read:"Melhor limiar do mês — bloco2 penalizado pela subida, passar p/ pista" },
     { date:"16 Jul", session:"10×400m pista", pace:"~3:30/km (alvo 3:35–3:45)", metricLabel:"RITMO", fc:"156–164bpm estável", read:"3ª confirmação do padrão: arranque rápido, não deriva" },
     { date:"18 Jul", session:"REC-35 (cinta HRM)", pace:"5:27→4:50/km", metricLabel:"GCT BAL. E/D", fc:"49,5/50,5→47,7/52,3", read:"Assimetria agrava com fadiga dentro da sessão — n=1" },
-    { date:"19 Jul", session:"LR16",          pace:"4:51/km (alvo 5:00–5:30)", metricLabel:"HR DRIFT", fc:"-4,9% well_coupled", read:"Mais rápido que o alvo, mas boa eficiência aeróbia" },
+    { date:"19 Jul", session:"LR16",          pace:"4:51/km (alvo 5:00–5:30)", metricLabel:"HR DRIFT", fc:"-4,9% well_coupled · ~23°C→27°C", read:"2º longo seguido a deslizar; calor explica parte do drift, não o ritmo de partida. Resolução: antecipar horário no Verão." },
     { date:"20 Jul", session:"EASY45",        pace:"5:25/km",       metricLabel:"FC",       fc:"136bpm médio", read:"Dentro do alvo — sem deslize, recuperou disciplina" },
   ],
   races: [
