@@ -116,18 +116,17 @@
 
 <script>
 // ─────────────────────────────────────────────────────────────────────────
-// DADOS ATUAIS — atualizado manualmente a partir da análise Claude/Garmin
-// Última atualização de conteúdo: 23 Jul 2026
-// Zapier-GitHub indisponível até 5 Ago 2026 — este ficheiro foi preparado
-// para upload manual direto ao repositório enquanto isso.
+// DADOS ATUAIS — atualizado automaticamente via Zapier-GitHub
+// Última atualização de conteúdo: 06 Ago 2026
+// Zapier-GitHub reativado desde 05 Ago 2026.
 // ─────────────────────────────────────────────────────────────────────────
 const D = {
-  meta: { updatedAt: "23 Jul 2026 · upload manual", source: "Claude + garmin-local (PC)" },
+  meta: { updatedAt: "06 Ago 2026 · Claude (mobile, Strava+GetFast)", source: "Claude + Strava/GetFast (mobile)" },
 
   // Fisiológico — campos deste projeto (Corrida/GetFast/Strava)
-  hrv: 47, hrvTrend: "→ BALANCED (baseline 47-51ms)",
-  rhr: 46, bodyBattery: 61, weight: 79.6,
-  lthr: 163, ltPace: "4:05",
+  hrv: 47, hrvTrend: "↑ recuperado (mín 30ms 31Jul, baseline 47-59ms)",
+  rhr: 48, bodyBattery: 85, weight: 79.6,
+  lthr: 165, ltPace: "4:05",
   vdot: 53, vdotEst: "54–55",
 
   // Campos normalmente exclusivos da tarefa Cowork semanal — preenchidos aqui
@@ -140,23 +139,23 @@ const D = {
   readiness: 47,
   readinessSub: "leitura pontual 23Jul · driver: sono (episódio digestivo isolado, resolvido)",
 
-  weekLabel: "Semana 30 · 20–26 Jul 2026 (férias)",
-  weekDone: 37.6, weekTarget: 74,
+  weekLabel: "Semana 32 · 03–09 Ago 2026",
+  weekDone: 26.5, weekTarget: 75,
 
   sessions: [
-    { day:"Seg 20", code:"EASY45",              km:9.2,  status:"done",    icon:"🏃" },
-    { day:"Ter 21", code:"10K-3x2K INTEGRADO",   km:10.4, status:"done",    icon:"⚡" },
-    { day:"Qua 22", code:"EASY+STR",             km:9.5,  status:"done",    icon:"🏃" },
-    { day:"Qui 23", code:"FARTLEK-10x1",         km:8.5,  status:"today",   icon:"🔥" },
-    { day:"Sex 24", code:"EASY40",               km:8.5,  status:"planned", icon:"🏃" },
-    { day:"Sáb 25", code:"REC40-DRILL",          km:7.5,  status:"planned", icon:"🦵" },
-    { day:"Dom 26", code:"LR14",                 km:14.5, status:"planned", icon:"🌙" },
+    { day:"Seg 03", code:"EASY45",                    km:8.6,  status:"done",    icon:"🏃" },
+    { day:"Ter 04", code:"EASY (subst. 10K-4x1500)",  km:9.2,  status:"done",    icon:"🏃" },
+    { day:"Qua 05", code:"EASY+STR",                  km:8.7,  status:"done",    icon:"🏃" },
+    { day:"Qui 06", code:"T-LIM-3x8",                 km:11.0, status:"today",   icon:"⚡" },
+    { day:"Sex 07", code:"EASY40",                    km:8.5,  status:"planned", icon:"🏃" },
+    { day:"Sáb 08", code:"REC40-DRILL",               km:7.5,  status:"planned", icon:"🦵" },
+    { day:"Dom 09", code:"LR15-FINISH",               km:15.5, status:"planned", icon:"🌙" },
   ],
 
   weeklyLoad: [
-    {w:"S24",km:63.5},{w:"S25",km:63},{w:"S26",km:52.5},
-    {w:"S27",km:69.5},{w:"S28",km:66.6},{w:"S29",km:63.3},
-    {w:"S30",km:37.6,cur:true,target:74},
+    {w:"S26",km:52.5},{w:"S27",km:69.5},{w:"S28",km:66.6},
+    {w:"S29",km:63.3},{w:"S30",km:69.4},{w:"S31",km:33.7},
+    {w:"S32",km:26.5,cur:true,target:75},
   ],
 
   raceTrend: [
@@ -167,34 +166,34 @@ const D = {
   ],
 
   calibs: [
-    { date:"11 Jul", session:"HILL-12x45",         pace:"6/12 reps",  fc:"cadência 91-96spm", read:"Hill Score 44→48 confirmado" },
-    { date:"21 Jul", session:"10K-3x2K INTEGRADO",  pace:"4:00-4:03/km alvo", fc:"FCm141/máx172", read:"Cumprido" },
-    { date:"23 Jul", session:"FARTLEK-10x1",        pace:"substituiu TESTE-800-LIVRE", fc:"FCm141/máx168", read:"1ª sessão c/ cinta: GCT balance 50,1%→54,7% (deriva com fadiga)" },
+    { date:"23 Jul", session:"FARTLEK-10x1",  pace:"substituiu TESTE-800-LIVRE", fc:"FCm141/máx168", read:"1ª sessão c/ cinta: GCT balance 50,1%→54,7% (deriva com fadiga)" },
+    { date:"28 Jul", session:"T-LIM-5x5",     pace:"4:07→4:02/km (progressão limpa)", fc:"FCm149→161, máx166", read:"1ª sessão de qualidade sem arranque rápido. Sugere limiar real ~4:02-4:04/km" },
+    { date:"05 Ago", session:"Reentrada pós-paragem", pace:"HRV 30→47ms / FC rep. 57→48bpm", fc:"—", read:"3 dias parados (30Jul-02Ago). Portão HRV/FC cumprido — qualidade retomada 06Ago" },
   ],
 
   races: [
-    { date:"5 Set",  name:"Pacer · Corrida Noturna Costa da Caparica", dist:"pacer 5:00/km", days:44, prio:"Compromisso", col:"#F5A623" },
-    { date:"13 Set", name:"Corrida do Tejo ★",                        dist:"10km",          days:52, prio:"PROVA A",    col:"#FF5422" },
-    { date:"19 Set", name:"Corrida Auchan",                           dist:"10km · standby, não inscrita", days:58, prio:"Standby", col:"#5A6B8A" },
-    { date:"20 Set", name:"Pacer · Meia Loures-Odivelas-Loures",      dist:"pacer 4:30/km · 21,1km — FECHADO", days:59, prio:"Compromisso", col:"#F5A623" },
-    { date:"27 Set", name:"Pacer · Bimbo Global Race",                dist:"pacer 5:00/km", days:66, prio:"Compromisso", col:"#F5A623" },
-    { date:"11 Out", name:"Meia Vasco da Gama / Hyundai",             dist:"21,1km",        days:80, prio:"Endurance",  col:"#9B59FF" },
-    { date:"25 Out", name:"Volkswagen Run (Auto-Europa)",             dist:"10km",          days:94, prio:"Follow-up",  col:"#5A6B8A" },
+    { date:"5 Set",  name:"Pacer · Corrida Noturna Costa da Caparica", dist:"pacer 5:00/km", days:30, prio:"Compromisso", col:"#F5A623" },
+    { date:"13 Set", name:"Corrida do Tejo ★",                        dist:"10km",          days:38, prio:"PROVA A",    col:"#FF5422" },
+    { date:"19 Set", name:"Corrida Auchan",                           dist:"10km · standby, não inscrita", days:44, prio:"Standby", col:"#5A6B8A" },
+    { date:"20 Set", name:"Pacer · Meia Loures-Odivelas-Loures",      dist:"pacer 4:30/km · 21,5km — FECHADO", days:45, prio:"Compromisso", col:"#F5A623" },
+    { date:"27 Set", name:"Pacer · Bimbo Global Race",                dist:"pacer 5:00/km", days:52, prio:"Compromisso", col:"#F5A623" },
+    { date:"11 Out", name:"Meia Vasco da Gama / Hyundai",             dist:"21,1km",        days:66, prio:"Endurance",  col:"#9B59FF" },
+    { date:"25 Out", name:"Volkswagen Run (Auto-Europa)",             dist:"10km",          days:80, prio:"Follow-up",  col:"#5A6B8A" },
   ],
 
   phases: [
-    { label:"Força + Limiar",      weeks:"S28–31", km:"~70–75/sem", status:"active" },
-    { label:"10km Específico",     weeks:"S32–35", km:"~62–65/sem", status:"next"   },
-    { label:"Afinação",            weeks:"S36–37", km:"↓ ~30%",     status:"future" },
+    { label:"Força + Limiar",      weeks:"S28–31", km:"~70–75/sem", status:"done"   },
+    { label:"10km Específico",     weeks:"S32–35", km:"~74–77/sem", status:"active" },
+    { label:"Afinação",            weeks:"S36–37", km:"↓ ~30%",     status:"next" },
     { label:"★ Corrida do Tejo",   weeks:"13 Set",  km:"PROVA A",    status:"race"   },
   ],
 
   hrZones: [
-    {z:"Z1",label:"Recuperação",  bpm:"106–130",w:72, col:"var(--z1)"},
-    {z:"Z2",label:"Easy / Volume",bpm:"131–145",w:89, col:"var(--z2)"},
-    {z:"Z3",label:"Aeróbio Ctrl.",bpm:"146–153",w:94, col:"var(--z3)"},
-    {z:"Z4",label:"Limiar",       bpm:"154–162",w:99, col:"var(--z4)"},
-    {z:"Z5",label:"10km / VO₂",   bpm:"≥163",   w:100,col:"var(--z5)"},
+    {z:"Z1",label:"Recuperação",  bpm:"108–132",w:72, col:"var(--z1)"},
+    {z:"Z2",label:"Easy / Volume",bpm:"133–147",w:89, col:"var(--z2)"},
+    {z:"Z3",label:"Aeróbio Ctrl.",bpm:"148–155",w:94, col:"var(--z3)"},
+    {z:"Z4",label:"Limiar",       bpm:"156–164",w:99, col:"var(--z4)"},
+    {z:"Z5",label:"10km / VO₂",   bpm:"≥165",   w:100,col:"var(--z5)"},
   ],
 };
 
@@ -365,7 +364,7 @@ function renderSemana(){
           </div>
         `).join("")}
       </div>
-      ${D.weeklyLoad.find(w=>w.cur&&w.target)?`<div class="note">Semana atual em curso — alvo do plano: <b>${D.weeklyLoad.find(w=>w.cur).target}km</b> (Semana 30, confirmado na folha de plano).</div>`:""}
+      ${D.weeklyLoad.find(w=>w.cur&&w.target)?`<div class="note">Semana atual em curso — alvo do plano: <b>${D.weeklyLoad.find(w=>w.cur).target}km</b> (Semana 32, confirmado na folha de plano).</div>`:""}
     </div>
 
     <div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Training Status · Garmin</span></div>
@@ -440,7 +439,7 @@ function renderProvas(){
 
 // ─── INIT / TABS ────────────────────────────────────────────────────────
 document.getElementById("statusBadge").textContent = D.trainingStatus;
-document.getElementById("syncLine").textContent = "⚠ upload manual · " + D.meta.updatedAt;
+document.getElementById("syncLine").textContent = "✓ sync automático · " + D.meta.updatedAt;
 document.getElementById("footerLine").textContent = "Garmin · Strava · GetFast · " + D.meta.updatedAt;
 
 document.querySelectorAll(".tab").forEach(btn=>{
