@@ -121,7 +121,7 @@
 // Zapier-GitHub reativado desde 05 Ago 2026.
 // ─────────────────────────────────────────────────────────────────────────
 const D = {
-  meta: { updatedAt: "06 Ago 2026 · Claude (mobile, Strava+GetFast)", source: "Claude + Strava/GetFast (mobile)" },
+  meta: { updatedAt: "06 Ago 2026 (tarde) · Claude (mobile, Strava)", source: "Claude + Strava (mobile)" },
 
   // Fisiológico — campos deste projeto (Corrida/GetFast/Strava)
   hrv: 47, hrvTrend: "↑ recuperado (mín 30ms 31Jul, baseline 47-59ms)",
@@ -140,13 +140,13 @@ const D = {
   readinessSub: "leitura pontual 23Jul · driver: sono (episódio digestivo isolado, resolvido)",
 
   weekLabel: "Semana 32 · 03–09 Ago 2026",
-  weekDone: 26.5, weekTarget: 75,
+  weekDone: 36.4, weekTarget: 75,
 
   sessions: [
     { day:"Seg 03", code:"EASY45",                    km:8.6,  status:"done",    icon:"🏃" },
     { day:"Ter 04", code:"EASY (subst. 10K-4x1500)",  km:9.2,  status:"done",    icon:"🏃" },
     { day:"Qua 05", code:"EASY+STR",                  km:8.7,  status:"done",    icon:"🏃" },
-    { day:"Qui 06", code:"T-LIM-3x8",                 km:11.0, status:"today",   icon:"⚡" },
+    { day:"Qui 06", code:"T-LIM-3x8",                 km:9.9,  status:"done",    icon:"⚡" },
     { day:"Sex 07", code:"EASY40",                    km:8.5,  status:"planned", icon:"🏃" },
     { day:"Sáb 08", code:"REC40-DRILL",               km:7.5,  status:"planned", icon:"🦵" },
     { day:"Dom 09", code:"LR15-FINISH",               km:15.5, status:"planned", icon:"🌙" },
@@ -155,7 +155,7 @@ const D = {
   weeklyLoad: [
     {w:"S26",km:52.5},{w:"S27",km:69.5},{w:"S28",km:66.6},
     {w:"S29",km:63.3},{w:"S30",km:69.4},{w:"S31",km:33.7},
-    {w:"S32",km:26.5,cur:true,target:75},
+    {w:"S32",km:36.4,cur:true,target:75},
   ],
 
   raceTrend: [
@@ -166,9 +166,9 @@ const D = {
   ],
 
   calibs: [
-    { date:"23 Jul", session:"FARTLEK-10x1",  pace:"substituiu TESTE-800-LIVRE", fc:"FCm141/máx168", read:"1ª sessão c/ cinta: GCT balance 50,1%→54,7% (deriva com fadiga)" },
     { date:"28 Jul", session:"T-LIM-5x5",     pace:"4:07→4:02/km (progressão limpa)", fc:"FCm149→161, máx166", read:"1ª sessão de qualidade sem arranque rápido. Sugere limiar real ~4:02-4:04/km" },
     { date:"05 Ago", session:"Reentrada pós-paragem", pace:"HRV 30→47ms / FC rep. 57→48bpm", fc:"—", read:"3 dias parados (30Jul-02Ago). Portão HRV/FC cumprido — qualidade retomada 06Ago" },
+    { date:"06 Ago", session:"T-LIM-3x8",     pace:"4:08 / 4:04 / 4:04/km", fc:"HR147→158→162→máx168", read:"2ª sessão de qualidade seguida sem arranque rápido. Bloco1 dentro do alvo, blocos2-3 progressão coerente com FC" },
   ],
 
   races: [
