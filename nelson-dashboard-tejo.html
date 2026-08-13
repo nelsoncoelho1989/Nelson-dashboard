@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloco Corrida do Tejo · Nelson Coelho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080B12; --bg2:#0B1019; --card:#111827; --card2:#0E141F; --line:#1E2839; --line2:#2A374D;
+  --tx:#DCE4F2; --sub:#8092AE; --dim:#5A6A85;
+  --amber:#F0A81E; --blue:#5AA9FF; --green:#34D399; --red:#F0553D; --purple:#A77BFF; --teal:#2DD4BF;
+  --z1:#22C55E; --z2:#86EFAC; --z3:#FDE047; --z4:#FB923C; --z5:#EF4444;
+  --disp:Anton,'Arial Narrow','Haettenschweiler',Impact,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --body:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:
+   radial-gradient(1100px 600px at 15% -8%, #16213A 0%, transparent 60%),
+   radial-gradient(900px 500px at 95% 0%, #1A1526 0%, transparent 55%),
+   var(--bg);
+  color:var(--tx);font-family:var(--body);font-size:15px;line-height:1.5;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1360px;margin:0 auto;padding:26px 18px 80px}
+
+/* ── utilitários ─────────────────────────────── */
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.eyebrow .bar{width:26px;height:2px;background:var(--blue);display:inline-block;border-radius:2px}
+.eyebrow b{color:var(--sub);font-weight:400}
+.sechead{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+  margin:44px 0 12px;display:flex;align-items:baseline;gap:12px}
+.sechead::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.card{background:linear-gradient(180deg,var(--card) 0%,var(--card2) 100%);border:1px solid var(--line);
+  border-radius:12px;padding:16px}
+.mlabel{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.big{font-family:var(--disp);font-size:34px;line-height:.95;letter-spacing:.01em}
+.big small{font-family:var(--mono);font-size:11px;letter-spacing:0;color:var(--sub);margin-left:3px}
+.grid{display:grid;gap:12px}
+
+/* ── hero ────────────────────────────────────── */
+header.hero{padding:6px 0 4px}
+h1{font-family:var(--disp);font-size:clamp(44px,10.5vw,108px);line-height:.86;margin:14px 0 6px;
+  text-transform:uppercase;letter-spacing:.005em;
+  background:linear-gradient(180deg,#FFFFFF 20%,#9DB0D0 130%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.subline{font-family:var(--disp);font-size:clamp(17px,3.6vw,32px);letter-spacing:.02em;color:var(--amber);
+  text-transform:uppercase;margin-bottom:14px}
+.subline i{font-style:normal;color:var(--dim)}
+.lede{border-left:2px solid var(--line2);padding-left:13px;color:var(--sub);max-width:70ch;font-size:14px}
+.lede b{color:var(--tx);font-weight:600}
+.countstrip{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.count{border:1px solid var(--line);background:#0D1420;border-radius:10px;padding:9px 14px;min-width:110px}
+.count .n{font-family:var(--disp);font-size:27px;line-height:1}
+.count.a .n{color:var(--red)} .count.b .n{color:var(--amber)} .count.c .n{color:var(--blue)} .count.d .n{color:var(--teal)}
+
+/* ── KPIs ────────────────────────────────────── */
+.kpis{grid-template-columns:repeat(auto-fit,minmax(132px,1fr))}
+.kpi{background:#0D1420;border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+.kpi .v{font-family:var(--disp);font-size:29px;line-height:1.05;margin-top:3px}
+.kpi .v small{font-family:var(--mono);font-size:10.5px;color:var(--sub);margin-left:2px}
+.kpi .d{font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:3px}
+.up{color:var(--green)} .down{color:var(--red)} .flat{color:var(--sub)}
+
+/* ── alerta editorial ────────────────────────── */
+.insight{border:1px solid #4A2A22;border-left:3px solid var(--red);border-radius:12px;padding:16px 18px;
+  background:linear-gradient(100deg,rgba(240,85,61,.13),rgba(240,85,61,.03) 55%,transparent)}
+.insight.good{border-color:#1E4438;border-left-color:var(--green);
+  background:linear-gradient(100deg,rgba(52,211,153,.12),rgba(52,211,153,.03) 55%,transparent)}
+.insight .tag{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--red)}
+.insight.good .tag{color:var(--green)}
+.insight h3{font-family:var(--disp);font-size:clamp(20px,4.2vw,30px);text-transform:uppercase;margin:7px 0 8px;letter-spacing:.01em}
+.insight p{margin:0;color:var(--sub);font-size:14px}
+.insight p b{color:var(--tx)}
+
+/* ── gráficos ────────────────────────────────── */
+.charts{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card h4{margin:0;font-size:14.5px;font-weight:600}
+.card .cap{color:var(--dim);font-size:12.5px;margin:3px 0 10px}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.gl{stroke:var(--line);stroke-width:1}
+.ax{font-family:var(--mono);font-size:8.5px;fill:var(--dim)}
+.pt{font-family:var(--mono);font-size:8.5px;fill:var(--sub)}
+
+/* zonas */
+.zrow{display:grid;grid-template-columns:26px 1fr 78px;gap:9px;align-items:center;margin-bottom:7px}
+.ztrack{height:7px;background:#161F2E;border-radius:4px;overflow:hidden}
+.zfill{height:100%;border-radius:4px}
+.zr{font-family:var(--mono);font-size:10px;color:var(--sub);text-align:right}
+.zn{font-family:var(--mono);font-size:10px;color:var(--dim)}
+
+/* ── legenda de fases ────────────────────────── */
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin:6px 0 14px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.legend span{display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:2px;display:inline-block}
+
+/* ── cartões de dia (semana atual) ───────────── */
+.days{grid-template-columns:repeat(auto-fill,minmax(226px,1fr))}
+.day{position:relative;border:1px solid var(--line);border-radius:11px;padding:12px 13px 13px;
+  background:linear-gradient(180deg,#111A28,#0C1220);cursor:pointer;transition:.16s ease}
+.day:hover{border-color:var(--line2);transform:translateY(-2px)}
+.day:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.day::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;border-radius:11px 0 0 11px;background:var(--c,var(--line2))}
+.day.done{opacity:.82}
+.day.now{border-color:#2C4E7A;box-shadow:0 0 0 1px rgba(90,169,255,.25),0 8px 26px -14px rgba(90,169,255,.6)}
+.day .top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.day .dt{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+.badge{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;padding:2.5px 6px;border-radius:4px;white-space:nowrap}
+.b-done{background:rgba(52,211,153,.13);color:var(--green);border:1px solid rgba(52,211,153,.3)}
+.b-now{background:rgba(90,169,255,.14);color:var(--blue);border:1px solid rgba(90,169,255,.32)}
+.b-plan{background:#141C2A;color:var(--dim);border:1px solid var(--line)}
+.b-race{background:rgba(240,85,61,.15);color:var(--red);border:1px solid rgba(240,85,61,.35)}
+.day .code{font-family:var(--disp);font-size:22px;letter-spacing:.01em;line-height:1;text-transform:uppercase}
+.day .mode{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--c,var(--sub));margin-top:5px}
+.day .kv{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.chip{font-family:var(--mono);font-size:9.5px;background:#131C2A;border:1px solid var(--line);border-radius:5px;
+  padding:2.5px 6px;color:var(--sub)}
+.chip.hi{color:var(--amber);border-color:#3B3116}
+.chip.hr{color:var(--blue);border-color:#1E3350}
+.det{display:none;margin-top:11px;padding-top:10px;border-top:1px dashed var(--line)}
+.day.open .det{display:block}
+.det dl{margin:0;display:grid;grid-template-columns:66px 1fr;gap:4px 9px;font-size:12.5px}
+.det dt{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);padding-top:2px}
+.det dd{margin:0;color:var(--tx)}
+.det .note{margin-top:9px;color:var(--sub);font-size:12.5px;font-style:italic}
+.more{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;margin-top:9px}
+
+/* ── cartões de semana ───────────────────────── */
+.weeks{grid-template-columns:repeat(auto-fill,minmax(258px,1fr))}
+.wk{position:relative;border:1px solid var(--line);border-radius:11px;overflow:hidden;
+  background:linear-gradient(180deg,#111A28,#0B111C);cursor:pointer;transition:.16s ease;display:flex;flex-direction:column}
+.wk:hover{border-color:var(--line2);transform:translateY(-2px)}
+.wk:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.wk.done{opacity:.78}
+.wk.now{border-color:rgba(90,169,255,.45);box-shadow:0 0 0 1px rgba(90,169,255,.2),0 10px 30px -16px rgba(90,169,255,.7)}
+.wk .hd{padding:11px 13px 0;display:flex;justify-content:space-between;align-items:center}
+.wk .num{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.1em}
+.wk .body{padding:9px 13px 13px;flex:1}
+.phase{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+  padding:3px 8px;border-radius:4px;margin-bottom:6px}
+.wk .rng{font-family:var(--mono);font-size:10px;color:var(--dim);margin-bottom:9px}
+.wk .vol{font-family:var(--disp);font-size:30px;line-height:1}
+.wk .vol small{font-family:var(--mono);font-size:11px;color:var(--sub);margin-left:3px}
+.wk .sub{font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:2px}
+.wk ul{list-style:none;margin:10px 0 0;padding:0}
+.wk li{position:relative;padding-left:12px;font-size:12.4px;color:var(--sub);margin-bottom:5px;line-height:1.35}
+.wk li::before{content:"";position:absolute;left:0;top:6px;width:5px;height:5px;border-radius:50%;background:var(--c)}
+.wk li b{color:var(--tx);font-weight:600}
+.wk .prog{height:3px;background:#141C2A}
+.wk .prog i{display:block;height:100%;background:var(--c)}
+.wk .exp{display:none;border-top:1px dashed var(--line);margin:11px -13px -13px;padding:10px 13px 12px;background:#090E17}
+.wk.open .exp{display:block}
+.wk .exp .r{display:grid;grid-template-columns:38px 1fr auto;gap:8px;font-size:12.2px;padding:4px 0;border-bottom:1px solid #131B28}
+.wk .exp .r:last-child{border-bottom:0}
+.wk .exp .d{font-family:var(--mono);font-size:9.5px;color:var(--dim);padding-top:2px}
+.wk .exp .n{color:var(--tx)}
+.wk .exp .n em{display:block;font-style:normal;font-family:var(--mono);font-size:9.5px;color:var(--sub);margin-top:1px}
+.wk .exp .k{font-family:var(--mono);font-size:9.5px;color:var(--dim);white-space:nowrap;padding-top:2px}
+
+/* ── provas ──────────────────────────────────── */
+.races{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.race{border:1px solid var(--line);border-left:3px solid var(--c);border-radius:10px;padding:12px 13px;background:#0D1420}
+.race .d{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+.race .n{font-family:var(--disp);font-size:20px;text-transform:uppercase;margin:5px 0 4px;line-height:1.05}
+.race .m{font-family:var(--mono);font-size:10.5px;color:var(--sub)}
+.race .role{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--c);margin-top:7px}
+
+/* ── tabela ritmos ───────────────────────────── */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
+  text-align:left;padding:0 10px 8px 0;font-weight:400;border-bottom:1px solid var(--line)}
+td{padding:8px 10px 8px 0;border-bottom:1px solid #131B28;color:var(--sub);vertical-align:top}
+td:first-child{color:var(--tx);font-weight:500}
+td.p{font-family:var(--mono);color:var(--amber);font-size:12.5px;white-space:nowrap}
+td.h{font-family:var(--mono);color:var(--blue);font-size:12px;white-space:nowrap}
+
+footer{margin-top:52px;padding-top:16px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:640px){
+  .wrap{padding:18px 13px 60px}
+  .det dl{grid-template-columns:60px 1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ══════════ HERO ══════════ -->
+<header class="hero">
+  <div class="eyebrow"><span class="bar"></span> Plano ativo · Fase 2 <b>·</b> Especificidade Tejo <b>·</b> Claude × Garmin × Strava</div>
+  <h1>Corrida<br>do Tejo</h1>
+  <div class="subline">13 SET 2026 <i>·</i> 10 KM <i>·</i> ALVO SUB-40:00</div>
+  <p class="lede">Bloco de 11 semanas construído sobre a referência de <b>Santo António (40:05 · 3:59/km)</b>.
+  O limitador identificado não é o motor — é a <b>resistência em subida</b> e o <b>arranque</b>. Tudo o que se segue ataca esses dois pontos.</p>
+  <div class="countstrip">
+    <div class="count a"><div class="mlabel">Dias até ao Tejo</div><div class="n" id="c-days">34</div></div>
+    <div class="count b"><div class="mlabel">Semana do bloco</div><div class="n">33<span style="font-family:var(--mono);font-size:12px;color:var(--sub)"> /40</span></div></div>
+    <div class="count c"><div class="mlabel">VDOT ref.</div><div class="n">53<span style="font-family:var(--mono);font-size:12px;color:var(--sub)"> est. 54–55</span></div></div>
+    <div class="count d"><div class="mlabel">Provas até 27 Set</div><div class="n">4</div></div>
+  </div>
+</header>
+
+<!-- ══════════ ESTADO ══════════ -->
+<div class="sechead">Estado fisiológico · 10 Ago 2026</div>
+<div class="grid kpis" id="kpis"></div>
+
+<div style="margin-top:14px" class="insight" id="insight-main"></div>
+
+<!-- ══════════ GRÁFICOS ══════════ -->
+<div class="sechead">14 dias de recuperação · dados Garmin</div>
+<div class="grid charts">
+  <div class="card"><h4>HRV noturno</h4><p class="cap">Baseline pessoal 47–59 ms. Abaixo de 45 = sinal amarelo.</p><div id="ch-hrv"></div></div>
+  <div class="card"><h4>FC de repouso</h4><p class="cap">Pico de 57 bpm a 31 Jul; regresso à base em ~5 dias.</p><div id="ch-rhr"></div></div>
+  <div class="card"><h4>Sono · 7 noites</h4><p class="cap">Barra = horas totais. Número = score Garmin.</p><div id="ch-sleep"></div></div>
+  <div class="card"><h4>Volume semanal</h4><p class="cap">Cheio = real (Strava). Contorno = alvo do plano.</p><div id="ch-load"></div></div>
+  <div class="card"><h4>Zonas de FC · LTHR 165</h4><p class="cap">Fronteiras confirmadas no perfil de corrida Garmin, 23 Jul.</p><div id="ch-zones"></div></div>
+  <div class="card"><h4>Progressão competitiva</h4><p class="cap">VDOT estimado por prova. Linha a tracejado = alvo Tejo.</p><div id="ch-vdot"></div></div>
+</div>
+
+<!-- ══════════ SEMANA ATUAL ══════════ -->
+<div class="sechead">Semana 33 · 10–16 Ago · toca para abrir a sessão</div>
+<div class="grid days" id="days"></div>
+
+<!-- ══════════ PLANO ══════════ -->
+<div class="sechead">Plano do bloco · semanas 30 → 40</div>
+<div class="legend" id="legend"></div>
+<div class="grid weeks" id="weeks"></div>
+
+<!-- ══════════ PROVAS ══════════ -->
+<div class="sechead">Calendário de provas</div>
+<div class="grid races" id="races"></div>
+
+<!-- ══════════ RITMOS ══════════ -->
+<div class="sechead">Ritmos de referência · VDOT 53 · LT 4:05/km @ 165 bpm</div>
+<div class="card" style="overflow-x:auto">
+  <table id="paces"></table>
+</div>
+
+<footer>
+  <span>Fonte: Garmin Connect via Strava + GetFast</span>
+  <span id="stamp"></span>
+</footer>
+</div>
+
+<script>
+/* ═════════════ DADOS ═════════════ */
+const D = {
+  updated: "10 Ago 2026 · 16:10",
+  race: new Date(2026,8,13,9,0),
+
+  kpis: [
+    {l:"HRV noturno", v:"46", u:"ms", d:"↓ 12 vs ontem · pós-longo", c:"--amber"},
+    {l:"FC repouso",  v:"50", u:"bpm",d:"↑ 5 vs base 45–48",        c:"--amber"},
+    {l:"Sono",        v:"6:48",u:"",  d:"score 75 · padrão real",   c:"--tx"},
+    {l:"Limiar",      v:"165", u:"bpm",d:"4:05/km · confirmado",    c:"--blue"},
+    {l:"VDOT",        v:"53",  u:"",  d:"calib. 18 Ago",            c:"--green"},
+    {l:"Peso",        v:"79.6",u:"kg",d:"18 Jul · manual",          c:"--tx"},
+    {l:"Semana 32",   v:"66.4",u:"km",d:"7 sessões · absorvida",    c:"--tx"},
+    {l:"Hill score",  v:"65",  u:"",  d:"treinado · +1º objetivo",  c:"--purple"}
+  ],
+
+  insight: {
+    good:true,
+    tag:"O que os números dizem e a sensação não diz",
+    h:"A queda de julho não foi treino — foi doença, e já passou",
+    p:"Entre <b>30 Jul e 2 Ago</b> a HRV caiu para <b>30–31 ms</b> (baseline 47–59) e a FC de repouso subiu a <b>57 bpm</b>. Só 4 sessões, 33,6 km. Isso <b>não</b> é fadiga de treino: é um estressor externo. A prova está na semana seguinte — <b>66,4 km com 7 sessões</b>, LR15-FINISH com 7 recordes pessoais, e HRV de volta a 58 ms. Os 46 ms de hoje são resposta normal ao longo de ontem, não um alarme. <b>Terça mantém-se como planeada.</b>"
+  },
+
+  hrv:[{d:"27/7",v:49},{d:"28/7",v:47},{d:"29/7",v:40},{d:"30/7",v:41},{d:"31/7",v:30},{d:"1/8",v:31},
+       {d:"2/8",v:37},{d:"3/8",v:43},{d:"4/8",v:45},{d:"5/8",v:47},{d:"6/8",v:48},{d:"7/8",v:45},
+       {d:"8/8",v:48},{d:"9/8",v:58},{d:"10/8",v:46}],
+  rhr:[{d:"27/7",v:46},{d:"28/7",v:50},{d:"29/7",v:52},{d:"30/7",v:55},{d:"31/7",v:57},{d:"1/8",v:52},
+       {d:"2/8",v:54},{d:"3/8",v:52},{d:"4/8",v:51},{d:"5/8",v:48},{d:"6/8",v:47},{d:"7/8",v:48},
+       {d:"8/8",v:49},{d:"9/8",v:45},{d:"10/8",v:50}],
+  sleep:[{d:"4/8",h:6.46,s:73},{d:"5/8",h:6.33,s:75},{d:"6/8",h:6.13,s:76},{d:"7/8",h:5.65,s:71},
+         {d:"8/8",h:6.88,s:73},{d:"9/8",h:7.05,s:82},{d:"10/8",h:6.80,s:75}],
+  load:[{w:"S30",r:69.5,t:74},{w:"S31",r:33.6,t:74},{w:"S32",r:66.4,t:75},{w:"S33",r:8.5,t:77,cur:true},
+        {w:"S34",r:0,t:75.5},{w:"S35",r:0,t:74},{w:"S36",r:0,t:60.5},{w:"S37",r:0,t:51}],
+  zones:[{z:"Z1",r:"108–132",p:22,c:"--z1"},{z:"Z2",r:"133–147",p:62,c:"--z2"},
+         {z:"Z3",r:"148–155",p:34,c:"--z3"},{z:"Z4",r:"156–164",p:46,c:"--z4"},{z:"Z5",r:"≥165",p:74,c:"--z5"}],
+  vdot:[{x:"Dez 25",v:51.3,n:"GP Natal 41:37"},{x:"Jan 26",v:52.1,n:"CNE 40:49"},
+        {x:"Abr 26",v:52.0,n:"Constância 40:56"},{x:"Mai 26",v:52.7,n:"Agualva 40:21"},
+        {x:"7 Jun",v:53.0,n:"Santo António 40:05"},{x:"28 Jun",v:54.5,n:"GP JOMA"}],
+
+  /* ── Semana 33 (versão de 10 Ago — substitui o Excel) ── */
+  days:[
+    {d:"Seg 10",code:"EASY45",mode:"Fácil",st:"done",c:"--green",km:"8,46 km feitos",
+     pace:"5:19/km",hr:"Z2",wu:"45' fácil",main:"—",rec:"—",
+     note:"Cadência 84,7 · esforço relativo 34. Resposta correta a seguir ao LR15-FINISH.",
+     v1:"FC + sensação",v2:"ritmo"},
+    {d:"Ter 11",code:"10K-2x3K1K",mode:"Específico",st:"now",c:"--amber",km:"14 km",
+     pace:"3 km @ 4:03–4:00 · 1 km @ 3:55–3:52",hr:"Z5 por esforço",
+     wu:"20' fácil + técnica",main:"2 × (3 km + 1 km)",rec:"3' após 3 km · 2' após 1 km",
+     note:"Sessão dura do bloco. Se estiver pesado: 1 bloco + 2 km de limiar — e isso é decisão, não desistência. Travão: verificar ritmo aos 200 m da 1ª repetição.",
+     v1:"ritmo",v2:"FC (atrasada)"},
+    {d:"Qua 12",code:"EASY+STR",mode:"Fácil",st:"plan",c:"--green",km:"10 km",
+     pace:"5:05–5:30/km",hr:"Z2 133–147",wu:"45' fácil",main:"6 × 15'' soltos + pliometria (pogo 2×15'' · A-skip 2×20 m)",
+     rec:"45'' fácil",note:"Dia de absorção. Bloco pliométrico antes da força, nunca depois.",v1:"FC",v2:"sensação"},
+    {d:"Qui 13",code:"HILL-4xCOMPLETA+2xB",mode:"Específico",st:"plan",c:"--purple",km:"11 km",
+     pace:"forte controlado",hr:"FC secundária · força/técnica",
+     wu:"20' fácil · Rampa da Mata da GNR",main:"4 × rampa completa (309 m · 6,3% méd · 70 m finais a 10,4%) + 2 × troço B (140 m do topo)",
+     rec:"descer a trote",
+     note:"Desenhado sobre o perfil do km 9 do Tejo. Cadência em subida cai para 87–88 spm contra 94–98 no plano — é aqui que o gap para os adversários abre.",
+     v1:"execução",v2:"FC"},
+    {d:"Sex 14",code:"EASY40",mode:"Fácil",st:"plan",c:"--green",km:"8,5 km",
+     pace:"5:10–5:35/km",hr:"Z2 baixa 133–142",wu:"40–45' fácil",main:"—",rec:"—",
+     note:"Sexta é o dia mais pesado: Alvorada + Telepizza + ensaio até às 23h30. Fácil a sério.",v1:"FC",v2:"sensação"},
+    {d:"Sáb 15",code:"CAVALARICAS 5–6×21''",mode:"Neuromuscular",st:"plan",c:"--teal",km:"7 km",
+     pace:"explosivo",hr:"não aplicável",wu:"25' fácil",main:"5–6 × 20–22'' na Rampa das Cavalariças (asfalto · 6,5% · 119 m)",
+     rec:"~2' completa",
+     note:"Primeira exposição, deliberadamente curta. Classificado como estímulo neuromuscular — NÃO conta como terceiro estímulo cardiovascular da semana. Sessão completa de 8 reps fica para 22 Ago. Calçado: Boston 8, não Evo SL.",
+     v1:"execução",v2:"—"},
+    {d:"Dom 16",code:"LR17",mode:"Específico / progressivo",st:"plan",c:"--amber",km:"17 km",
+     pace:"1ª metade 5:00–5:30 · 2ª livre",hr:"Z2 na 1ª metade; sem tecto na 2ª",
+     wu:"—",main:"17 km contínuos",rec:"—",
+     note:"Reclassificado a 9 Ago: a aceleração da 2ª metade é método, não falha de RPE. Conta como um estímulo real da semana. Sem protocolo de correção.",
+     v1:"execução",v2:"FC"}
+  ],
+
+  phases:{
+    "Construção 10 km":"--blue",
+    "Especificidade Tejo":"--amber",
+    "Afinação Tejo":"--purple",
+    "Semana de prova":"--red",
+    "Pós-Tejo · pacer":"--teal",
+    "Ligação à meia":"--green"
+  },
+
+  weeks:[
+    {n:30,ph:"Construção 10 km",rng:"20–26 Jul",vol:"69,5",unit:"km",st:"done",done:100,sub:"alvo 74 km · 7 sessões",
+     bul:["<b>Ter</b> 10K-3x2K @ 4:00","<b>Qui</b> Fartlek 10×1'","<b>Dom</b> Longo 17 km"],
+     rows:[["Seg","EASY45","9,2 km"],["Ter","10K-3x2K","10,4 km"],["Qua","EASY+STR","9,4 km"],
+           ["Qui","FARTLEK-10x1","8,5 km"],["Sex","EASY40","7,3 km"],["Sáb","REC40-DRILL","7,6 km"],["Dom","LR17","17,0 km"]]},
+    {n:31,ph:"Construção 10 km",rng:"27 Jul–2 Ago",vol:"33,6",unit:"km",st:"done",done:45,sub:"alvo 74 km · paragem forçada",
+     bul:["<b>Ter</b> T-LIM-5x5 cumprido","<b>Qui</b> Rampas 8×10''","<b>Sex–Dom</b> paragem · HRV 30 ms"],
+     rows:[["Seg","EASY45","5,4 km"],["Ter","T-LIM-5x5","11,9 km"],["Qua","EASY+STR","9,3 km"],
+           ["Qui","RAMPAS 8x10''","7,1 km"],["Sex","—","paragem"],["Sáb","—","paragem"],["Dom","—","paragem"]]},
+    {n:32,ph:"Construção 10 km",rng:"3–9 Ago",vol:"66,4",unit:"km",st:"done",done:100,sub:"alvo 75 km · 7 recordes no longo",
+     bul:["<b>Qui</b> T-LIM-3x8 integrado","<b>Dom</b> LR15-FINISH · 3 km @ 4:15","Recuperação total do episódio"],
+     rows:[["Seg","EASY45","8,6 km"],["Ter","EASY+STR","9,2 km"],["Qua","EASY45","8,7 km"],
+           ["Qui","T-LIM-3x8","9,9 km"],["Sex","EASY40","7,4 km"],["Sáb","EASY45","7,5 km"],["Dom","LR15-FINISH","15,0 km"]]},
+    {n:33,ph:"Especificidade Tejo",rng:"10–16 Ago",vol:"77",unit:"km",st:"now",done:11,sub:"8,5 km feitos · 3 estímulos reais",
+     bul:["<b>Ter</b> 2×(3 km+1 km) específico","<b>Qui</b> Rampa GNR completa","<b>Dom</b> LR17 progressivo"],
+     rows:[["Seg","EASY45","8,5 km ✓"],["Ter","10K-2x3K1K","14 km"],["Qua","EASY+STR","10 km"],
+           ["Qui","HILL-4xCOMPLETA+2xB","11 km"],["Sex","EASY40","8,5 km"],["Sáb","CAVALARICAS 5–6×21''","7 km"],["Dom","LR17","17 km"]]},
+    {n:34,ph:"Especificidade Tejo",rng:"17–23 Ago",vol:"75,5",unit:"km",st:"plan",done:0,sub:"semana de calibração",
+     bul:["<b>Ter 18</b> 6×1000 @ 3:50–3:55 — <b>calibração VDOT</b>","<b>Sáb 22</b> Cavalariças 8×21'' completo","<b>Dom</b> LR15"],
+     rows:[["Seg","EASY45","10 km"],["Ter","10K-6x1K · CALIBRAÇÃO","12,5 km"],["Qua","EASY+STR","10 km"],
+           ["Qui","TEMPO25","12 km"],["Sex","EASY40","8,5 km"],["Sáb","CAVALARICAS-8x21","7,5 km"],["Dom","LR15","15 km"]]},
+    {n:35,ph:"Especificidade Tejo",rng:"24–30 Ago",vol:"74",unit:"km",st:"plan",done:0,sub:"pico específico do bloco",
+     bul:["<b>Ter</b> 3×2000 @ 3:56–4:00 — chave","<b>Qui</b> I-400×8 económico","<b>Dom</b> LR 2×10' limiar"],
+     rows:[["Seg","EASY45","10 km"],["Ter","10K-3x2K","13 km"],["Qua","EASY+STR","10 km"],
+           ["Qui","I-400x8","10 km"],["Sex","EASY40","8,5 km"],["Sáb","REC35-DRILL","6,5 km"],["Dom","LR2x10T","16 km"]]},
+    {n:36,ph:"Afinação Tejo",rng:"31 Ago–6 Set",vol:"60,5",unit:"km",st:"plan",done:0,sub:"volume −30% · pacer sexta",
+     bul:["<b>Ter 1</b> 5×1000 — versão depende da calibração de 18 Ago","<b>Sáb 5</b> Pacer Caparica 5:00/km · 21h30","<b>Dom</b> REC40 por defeito"],
+     rows:[["Seg","EASY45","9,5 km"],["Ter","10K-5x1K","11,5 km"],["Qua","EASY+STR","9,5 km"],
+           ["Qui","SHARP-6x300","8,5 km"],["Sex","EASY40","8 km"],["Sáb","PACER-CAPARICA","5,5 km"],["Dom","REC40","8 km"]]},
+    {n:37,ph:"Semana de prova",rng:"7–13 Set",vol:"51",unit:"km",st:"plan",done:0,sub:"chegar fresco, não cansado",
+     bul:["<b>Ter</b> 3×1000 + 4×200 · fresco","<b>Qui</b> SHARP20 · só sentir perna","<b>Dom 13</b> CORRIDA DO TEJO · 09h00"],
+     rows:[["Seg","REC40","7,5 km"],["Ter","10K-3x1K+200","9,5 km"],["Qua","EASY+STR","8,5 km"],
+           ["Qui","SHARP20","6,5 km"],["Sex","PRE-RACE","5 km"],["Sáb","SHAKEOUT","4 km"],["Dom","RACE-TEJO","10 km"]]},
+    {n:38,ph:"Pós-Tejo · pacer",rng:"14–20 Set",vol:"51",unit:"km",st:"plan",done:0,sub:"absorver + compromisso fechado",
+     bul:["Sem qualidade real até quinta","<b>Dom 20</b> Meia Loures pacer 4:30/km · 21,5 km","Não é treino normal na análise de carga"],
+     rows:[["Seg","REC35","6 km"],["Ter","EASY40","8 km"],["Qua","EASY+STR","9 km"],
+           ["Qui","SHARP-4x1","7 km"],["Sex","PRE-RACE","5 km"],["Sáb","EASY45","10 km"],["Dom","PACER-MEIA-LOURES","21,5 km"]]},
+    {n:39,ph:"Ligação à meia",rng:"21–27 Set",vol:"74",unit:"km",st:"plan",done:0,sub:"reintrodução de qualidade",
+     bul:["<b>Qua</b> AER60 aeróbio controlado","<b>Qui</b> T-LIM-3x8 só se recuperado","<b>Dom 27</b> Pacer Bimbo 5:00/km"],
+     rows:[["Seg","EASY45","9 km"],["Ter","EASY+STR","10 km"],["Qua","AER60","12 km"],
+           ["Qui","T-LIM-3x8","11 km"],["Sex","EASY40","8,5 km"],["Sáb","REC35-DRILL","6,5 km"],["Dom","PACER-BIMBO","10 km"]]},
+    {n:40,ph:"Ligação à meia",rng:"28–30 Set",vol:"31,5",unit:"km",st:"plan",done:0,sub:"abertura do bloco de outubro",
+     bul:["<b>Ter</b> T-LIM-4x6 sem castigar","Preparar Meia Vasco da Gama (11 Out)","Volkswagen Run 25 Out em standby"],
+     rows:[["Seg","EASY45","10 km"],["Ter","T-LIM-4x6","11,5 km"],["Qua","EASY+STR","10 km"]]}
+  ],
+
+  races:[
+    {d:"Sáb 5 Set · 21h30",n:"Noturna Costa da Caparica",m:"Pacer 5:00/km",role:"Estímulo principal da semana",c:"--teal"},
+    {d:"Dom 13 Set · 09h00",n:"Corrida do Tejo",m:"10 km · estrada · sub-40:00",role:"Prova A",c:"--red"},
+    {d:"Dom 20 Set · 09h00",n:"Meia Loures–Odivelas",m:"21,5 km · pacer 4:30/km · D+124 m",role:"Compromisso fechado",c:"--purple"},
+    {d:"Dom 27 Set · 09h45",n:"Bimbo Global Race",m:"10 km · pacer 5:00/km",role:"Percurso do Santo António",c:"--teal"},
+    {d:"Dom 11 Out",n:"Meia Vasco da Gama",m:"21,1 km · PB 1:27:04 (2016)",role:"Bloco de outubro",c:"--blue"},
+    {d:"Dom 25 Out",n:"Volkswagen Run",m:"Palmela · Auto-Europa",role:"Follow-up pós-meia",c:"--dim"}
+  ],
+
+  paces:[
+    ["Recuperação","5:20–5:45/km","Z1–Z2 · 108–139","Pós-prova, dias leves"],
+    ["Easy","5:05–5:30/km","Z2 · 133–147","Volume normal"],
+    ["Aeróbio controlado","4:45–5:05/km","Z2 alta/Z3 · 143–152","Ligação à meia"],
+    ["Limiar (T)","4:07–4:11/km","Z4 alta · 162–166","3×8, 4×8, 2×15"],
+    ["Ritmo 10 km atual","3:58–4:02/km","Z5 baixa · 166–172","1000 / 1500 / 2000"],
+    ["Ritmo 10 km ambicioso","3:50–3:55/km","Z5 · 167–174","Blocos curtos específicos"],
+    ["VO2 / 800 m","3:50–3:55/km","Z5 · FC secundária","Séries curtas"],
+    ["400 m","1:30–1:33","FC secundária","Economia"],
+    ["300 m","65–68 s","FC secundária","Cadência"],
+    ["200 m","43–44 s","FC secundária","Afinação"]
+  ]
+};
+
+/* ═════════════ HELPERS ═════════════ */
+const $=s=>document.querySelector(s), el=(t,c)=>{const e=document.createElement(t); if(c)e.className=c; return e;};
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim()||n;
+const esc=s=>String(s);
+
+/* ── contagem decrescente ── */
+(function(){
+  const ms=D.race-new Date();
+  $('#c-days').textContent=Math.max(0,Math.ceil(ms/86400000));
+  $('#stamp').textContent="Atualizado "+D.updated;
+})();
+
+/* ── KPIs ── */
+$('#kpis').innerHTML=D.kpis.map(k=>`
+  <div class="kpi">
+    <div class="mlabel">${k.l}</div>
+    <div class="v" style="color:${cv(k.c)}">${k.v}<small>${k.u}</small></div>
+    <div class="d">${k.d}</div>
+  </div>`).join('');
+
+/* ── insight ── */
+const ins=D.insight;
+$('#insight-main').className='insight'+(ins.good?' good':'');
+$('#insight-main').innerHTML=`<div class="tag">▲ ${ins.tag}</div><h3>${ins.h}</h3><p>${ins.p}</p>`;
+
+/* ═════════════ GRÁFICOS SVG ═════════════ */
+function lineChart(host,data,{color,band,alert,fmt=v=>v,h=150}={}){
+  const W=520,H=h,P={t:16,r:14,b:24,l:30};
+  const vs=data.map(d=>d.v), lo=Math.min(...vs,band?band[0]:1e9), hi=Math.max(...vs,band?band[1]:-1e9);
+  const min=Math.floor(lo-4), max=Math.ceil(hi+4);
+  const X=i=>P.l+i*(W-P.l-P.r)/(data.length-1);
+  const Y=v=>P.t+(max-v)*(H-P.t-P.b)/(max-min);
+  let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="gráfico">`;
+  for(let g=0;g<4;g++){const y=P.t+g*(H-P.t-P.b)/3;
+    s+=`<line class="gl" x1="${P.l}" y1="${y}" x2="${W-P.r}" y2="${y}"/>`;
+    s+=`<text class="ax" x="2" y="${y+3}">${Math.round(max-g*(max-min)/3)}</text>`;}
+  if(band) s+=`<rect x="${P.l}" y="${Y(band[1])}" width="${W-P.l-P.r}" height="${Y(band[0])-Y(band[1])}"
+     fill="${cv(color)}" opacity=".07"/>`;
+  if(alert!=null) s+=`<line x1="${P.l}" y1="${Y(alert)}" x2="${W-P.r}" y2="${Y(alert)}"
+     stroke="${cv('--red')}" stroke-width="1" stroke-dasharray="4 4" opacity=".55"/>`;
+  const pts=data.map((d,i)=>`${X(i)},${Y(d.v)}`).join(' ');
+  s+=`<polyline points="${pts}" fill="none" stroke="${cv(color)}" stroke-width="2" stroke-linejoin="round"/>`;
+  data.forEach((d,i)=>{
+    const bad=alert!=null&&d.v<alert;
+    s+=`<circle cx="${X(i)}" cy="${Y(d.v)}" r="${bad?3.6:2.8}" fill="${bad?cv('--red'):cv(color)}"/>`;
+    if(i%2===0||i===data.length-1) s+=`<text class="ax" x="${X(i)}" y="${H-6}" text-anchor="middle">${d.d}</text>`;
+  });
+  const last=data.length-1;
+  s+=`<text class="pt" x="${X(last)}" y="${Y(data[last].v)-9}" text-anchor="end">${fmt(data[last].v)}</text>`;
+  s+='</svg>';
+  host.innerHTML=s;
+}
+lineChart($('#ch-hrv'),D.hrv,{color:'--teal',band:[47,59],alert:45,fmt:v=>v+' ms'});
+lineChart($('#ch-rhr'),D.rhr,{color:'--blue',band:[45,48],fmt:v=>v+' bpm'});
+
+/* sono */
+(function(){
+  const d=D.sleep,W=520,H=150,P={t:18,r:12,b:26,l:26},max=8;
+  const bw=(W-P.l-P.r)/d.length;
+  let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
+  [0,2,4,6,8].forEach(g=>{const y=P.t+(max-g)*(H-P.t-P.b)/max;
+    s+=`<line class="gl" x1="${P.l}" y1="${y}" x2="${W-P.r}" y2="${y}"/><text class="ax" x="2" y="${y+3}">${g}h</text>`;});
+  s+=`<line x1="${P.l}" y1="${P.t+(max-7)*(H-P.t-P.b)/max}" x2="${W-P.r}" y2="${P.t+(max-7)*(H-P.t-P.b)/max}"
+      stroke="${cv('--amber')}" stroke-dasharray="4 4" stroke-width="1" opacity=".5"/>`;
+  d.forEach((r,i)=>{
+    const hgt=(r.h/max)*(H-P.t-P.b), x=P.l+i*bw+bw*.22, y=H-P.b-hgt, w=bw*.56;
+    const col=r.s>=80?cv('--green'):r.s>=74?cv('--teal'):cv('--amber');
+    s+=`<rect x="${x}" y="${y}" width="${w}" height="${hgt}" rx="3" fill="${col}" opacity=".8"/>`;
+    s+=`<text class="pt" x="${x+w/2}" y="${y-5}" text-anchor="middle">${r.s}</text>`;
+    s+=`<text class="ax" x="${x+w/2}" y="${H-8}" text-anchor="middle">${r.d}</text>`;
+  });
+  s+='</svg>'; $('#ch-sleep').innerHTML=s;
+})();
+
+/* carga semanal */
+(function(){
+  const d=D.load,W=520,H=150,P={t:18,r:12,b:26,l:30},max=85;
+  const bw=(W-P.l-P.r)/d.length;
+  let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
+  [0,25,50,75].forEach(g=>{const y=P.t+(max-g)*(H-P.t-P.b)/max;
+    s+=`<line class="gl" x1="${P.l}" y1="${y}" x2="${W-P.r}" y2="${y}"/><text class="ax" x="2" y="${y+3}">${g}</text>`;});
+  d.forEach((r,i)=>{
+    const x=P.l+i*bw+bw*.2, w=bw*.6;
+    const ht=(r.t/max)*(H-P.t-P.b), hr=(r.r/max)*(H-P.t-P.b);
+    s+=`<rect x="${x}" y="${H-P.b-ht}" width="${w}" height="${ht}" rx="3" fill="none"
+        stroke="${cv('--line2')}" stroke-dasharray="3 3"/>`;
+    if(r.r>0){const col=r.cur?cv('--amber'):r.r<40?cv('--red'):cv('--blue');
+      s+=`<rect x="${x}" y="${H-P.b-hr}" width="${w}" height="${hr}" rx="3" fill="${col}" opacity=".85"/>`;
+      s+=`<text class="pt" x="${x+w/2}" y="${H-P.b-Math.max(hr,ht)-5}" text-anchor="middle">${r.r}</text>`;}
+    s+=`<text class="ax" x="${x+w/2}" y="${H-8}" text-anchor="middle">${r.w}</text>`;
+  });
+  s+='</svg>'; $('#ch-load').innerHTML=s;
+})();
+
+/* zonas */
+$('#ch-zones').innerHTML=D.zones.map(z=>`
+  <div class="zrow">
+    <span class="zn">${z.z}</span>
+    <span class="ztrack"><span class="zfill" style="width:${z.p}%;background:${cv(z.c)}"></span></span>
+    <span class="zr">${z.r} bpm</span>
+  </div>`).join('')+
+  `<p class="cap" style="margin:9px 0 0">Zonas por %LTHR. Séries curtas: a FC chega atrasada — é referência secundária, não comando.</p>`;
+
+/* vdot */
+(function(){
+  const d=D.vdot,W=520,H=150,P={t:18,r:14,b:26,l:30},min=50.5,max=56;
+  const X=i=>P.l+i*(W-P.l-P.r)/(d.length-1), Y=v=>P.t+(max-v)*(H-P.t-P.b)/(max-min);
+  let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
+  [51,52,53,54,55,56].forEach(g=>{const y=Y(g);
+    s+=`<line class="gl" x1="${P.l}" y1="${y}" x2="${W-P.r}" y2="${y}"/><text class="ax" x="2" y="${y+3}">${g}</text>`;});
+  s+=`<line x1="${P.l}" y1="${Y(54.8)}" x2="${W-P.r}" y2="${Y(54.8)}" stroke="${cv('--red')}" stroke-dasharray="5 4" stroke-width="1"/>`;
+  s+=`<text class="pt" x="${W-P.r}" y="${Y(54.8)-6}" text-anchor="end" fill="${cv('--red')}">sub-40 ≈ VDOT 54,8</text>`;
+  s+=`<polyline points="${d.map((r,i)=>`${X(i)},${Y(r.v)}`).join(' ')}" fill="none" stroke="${cv('--amber')}" stroke-width="2"/>`;
+  d.forEach((r,i)=>{s+=`<circle cx="${X(i)}" cy="${Y(r.v)}" r="3" fill="${cv('--amber')}"/>
+    <text class="ax" x="${X(i)}" y="${H-8}" text-anchor="middle">${r.x}</text>`;});
+  s+='</svg>'; $('#ch-vdot').innerHTML=s;
+})();
+
+/* ═════════════ DIAS ═════════════ */
+const badge={done:['b-done','Feito'],now:['b-now','Hoje / a seguir'],plan:['b-plan','Planeado'],race:['b-race','Prova']};
+$('#days').innerHTML=D.days.map((s,i)=>{
+  const [bc,bt]=badge[s.st];
+  return `<article class="day ${s.st}" style="--c:${cv(s.c)}" tabindex="0" data-i="${i}" role="button" aria-expanded="false">
+    <div class="top"><span class="dt">${s.d}</span><span class="badge ${bc}">${bt}</span></div>
+    <div class="code">${s.code}</div>
+    <div class="mode">${s.mode}</div>
+    <div class="kv"><span class="chip">${s.km}</span><span class="chip hi">${s.pace}</span><span class="chip hr">${s.hr}</span></div>
+    <div class="det">
+      <dl>
+        <dt>Aquec.</dt><dd>${s.wu}</dd>
+        <dt>Bloco</dt><dd>${s.main}</dd>
+        <dt>Recup.</dt><dd>${s.rec}</dd>
+        <dt>Var. 1ª</dt><dd>${s.v1}</dd>
+        <dt>Var. 2ª</dt><dd>${s.v2}</dd>
+      </dl>
+      <p class="note">${s.note}</p>
+    </div>
+    <div class="more">Toca para detalhe ↓</div>
+  </article>`;}).join('');
+
+/* ═════════════ LEGENDA + SEMANAS ═════════════ */
+$('#legend').innerHTML=Object.entries(D.phases)
+  .map(([k,v])=>`<span><i class="dot" style="background:${cv(v)}"></i>${k}</span>`).join('');
+
+$('#weeks').innerHTML=D.weeks.map((w,i)=>{
+  const c=cv(D.phases[w.ph]||'--line2');
+  const [bc,bt]=w.st==='done'?['b-done','✓ Feito']:w.st==='now'?['b-now','Agora']:['b-plan','Planeado'];
+  return `<article class="wk ${w.st}" style="--c:${c}" tabindex="0" data-w="${i}" role="button" aria-expanded="false">
+    <div class="hd"><span class="num">#${String(w.n).padStart(2,'0')}</span><span class="badge ${bc}">${bt}</span></div>
+    <div class="body">
+      <div class="phase" style="background:${c}1F;color:${c};border:1px solid ${c}3D">${w.ph}</div>
+      <div class="rng">${w.rng}</div>
+      <div class="vol">${w.vol}<small>${w.unit}</small></div>
+      <div class="sub">${w.sub}</div>
+      <ul>${w.bul.map(b=>`<li>${b}</li>`).join('')}</ul>
+      <div class="exp">${w.rows.map(r=>`<div class="r"><span class="d">${r[0]}</span><span class="n">${r[1]}</span><span class="k">${r[2]}</span></div>`).join('')}</div>
+    </div>
+    <div class="prog"><i style="width:${w.done}%"></i></div>
+  </article>`;}).join('');
+
+/* ═════════════ PROVAS + RITMOS ═════════════ */
+$('#races').innerHTML=D.races.map(r=>`
+  <div class="race" style="--c:${cv(r.c)}">
+    <div class="d">${r.d}</div><div class="n">${r.n}</div>
+    <div class="m">${r.m}</div><div class="role">${r.role}</div>
+  </div>`).join('');
+
+$('#paces').innerHTML=`<thead><tr><th>Zona / uso</th><th>Ritmo</th><th>FC</th><th>Aplicação</th></tr></thead>
+  <tbody>${D.paces.map(p=>`<tr><td>${p[0]}</td><td class="p">${p[1]}</td><td class="h">${p[2]}</td><td>${p[3]}</td></tr>`).join('')}</tbody>`;
+
+/* ═════════════ INTERAÇÃO ═════════════ */
+function toggle(node){
+  const open=node.classList.toggle('open');
+  node.setAttribute('aria-expanded',open);
+  const m=node.querySelector('.more'); if(m) m.textContent=open?'Fechar ↑':'Toca para detalhe ↓';
+}
+document.addEventListener('click',e=>{const n=e.target.closest('.day,.wk'); if(n) toggle(n);});
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  const n=e.target.closest('.day,.wk'); if(n){e.preventDefault(); toggle(n);}
+});
+</script>
+</body>
+</html>
