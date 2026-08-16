@@ -65,7 +65,7 @@ h1{font-family:var(--disp);font-size:clamp(44px,10.5vw,108px);line-height:.86;ma
 .kpi .d{font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:3px}
 .up{color:var(--green)} .down{color:var(--red)} .flat{color:var(--sub)}
 
-/* ── alerta editorial ────────────────────────── */
+/* ── alerta editorial ─────────────────────────── */
 .insight{border:1px solid #4A2A22;border-left:3px solid var(--red);border-radius:12px;padding:16px 18px;
   background:linear-gradient(100deg,rgba(240,85,61,.13),rgba(240,85,61,.03) 55%,transparent)}
 .insight.good{border-color:#1E4438;border-left-color:var(--green);
@@ -200,15 +200,15 @@ footer{margin-top:52px;padding-top:16px;border-top:1px solid var(--line);
   <p class="lede">Bloco de 11 semanas construído sobre a referência de <b>Santo António (40:05 · 3:59/km)</b>.
   O limitador identificado não é o motor — é a <b>resistência em subida</b> e o <b>arranque</b>. Tudo o que se segue ataca esses dois pontos.</p>
   <div class="countstrip">
-    <div class="count a"><div class="mlabel">Dias até ao Tejo</div><div class="n" id="c-days">34</div></div>
-    <div class="count b"><div class="mlabel">Semana do bloco</div><div class="n">33<span style="font-family:var(--mono);font-size:12px;color:var(--sub)"> /40</span></div></div>
+    <div class="count a"><div class="mlabel">Dias até ao Tejo</div><div class="n" id="c-days">28</div></div>
+    <div class="count b"><div class="mlabel">Semana do bloco</div><div class="n">34<span style="font-family:var(--mono);font-size:12px;color:var(--sub)"> /40</span></div></div>
     <div class="count c"><div class="mlabel">VDOT ref.</div><div class="n">53<span style="font-family:var(--mono);font-size:12px;color:var(--sub)"> est. 54–55</span></div></div>
     <div class="count d"><div class="mlabel">Provas até 27 Set</div><div class="n">4</div></div>
   </div>
 </header>
 
 <!-- ══════════ ESTADO ══════════ -->
-<div class="sechead">Estado fisiológico · 10 Ago 2026</div>
+<div class="sechead">Estado fisiológico · 16 Ago 2026 (checkpoint semanal, garmin-local PC)</div>
 <div class="grid kpis" id="kpis"></div>
 
 <div style="margin-top:14px" class="insight" id="insight-main"></div>
@@ -225,7 +225,7 @@ footer{margin-top:52px;padding-top:16px;border-top:1px solid var(--line);
 </div>
 
 <!-- ══════════ SEMANA ATUAL ══════════ -->
-<div class="sechead">Semana 33 · 10–16 Ago · toca para abrir a sessão</div>
+<div class="sechead">Semana 33 · 10–16 Ago · fechada, 70,7km · toca para abrir a sessão</div>
 <div class="grid days" id="days"></div>
 
 <!-- ══════════ PLANO ══════════ -->
@@ -252,75 +252,75 @@ footer{margin-top:52px;padding-top:16px;border-top:1px solid var(--line);
 <script>
 /* ═════════════ DADOS ═════════════ */
 const D = {
-  updated: "10 Ago 2026 · 16:10",
+  updated: "16 Ago 2026 · checkpoint semanal (garmin-local PC)",
   race: new Date(2026,8,13,9,0),
 
   kpis: [
-    {l:"HRV noturno", v:"46", u:"ms", d:"↓ 12 vs ontem · pós-longo", c:"--amber"},
-    {l:"FC repouso",  v:"50", u:"bpm",d:"↑ 5 vs base 45–48",        c:"--amber"},
-    {l:"Sono",        v:"6:48",u:"",  d:"score 75 · padrão real",   c:"--tx"},
+    {l:"HRV noturno", v:"46", u:"ms", d:"estável 46-48ms desde 8Ago", c:"--green"},
+    {l:"FC repouso",  v:"50", u:"bpm",d:"pós-LR17, base 45–48",        c:"--tx"},
+    {l:"Readiness",   v:"14→64",u:"", d:"pós-treino→acordar · normal",c:"--amber"},
     {l:"Limiar",      v:"165", u:"bpm",d:"4:05/km · confirmado",    c:"--blue"},
     {l:"VDOT",        v:"53",  u:"",  d:"calib. 18 Ago",            c:"--green"},
-    {l:"Peso",        v:"79.6",u:"kg",d:"18 Jul · manual",          c:"--tx"},
-    {l:"Semana 32",   v:"66.4",u:"km",d:"7 sessões · absorvida",    c:"--tx"},
-    {l:"Hill score",  v:"65",  u:"",  d:"treinado · +1º objetivo",  c:"--purple"}
+    {l:"ACWR",        v:"1.3", u:"",  d:"ótimo · limite superior",  c:"--amber"},
+    {l:"Semana 33",   v:"70.7",u:"km",d:"7 sessões · fechada",      c:"--green"},
+    {l:"VO₂Max",      v:"57.4",u:"",  d:"tendência a subir",        c:"--purple"}
   ],
 
   insight: {
     good:true,
     tag:"O que os números dizem e a sensação não diz",
-    h:"A queda de julho não foi treino — foi doença, e já passou",
-    p:"Entre <b>30 Jul e 2 Ago</b> a HRV caiu para <b>30–31 ms</b> (baseline 47–59) e a FC de repouso subiu a <b>57 bpm</b>. Só 4 sessões, 33,6 km. Isso <b>não</b> é fadiga de treino: é um estressor externo. A prova está na semana seguinte — <b>66,4 km com 7 sessões</b>, LR15-FINISH com 7 recordes pessoais, e HRV de volta a 58 ms. Os 46 ms de hoje são resposta normal ao longo de ontem, não um alarme. <b>Terça mantém-se como planeada.</b>"
+    h:"Semana 33 fechada em 70,7km — o maior volume do bloco, sem sinal de sobrecarga",
+    p:"Sete sessões, três estímulos reais (10K-2x3K1K, HILL-4xCOMPLETA, LR17), duas sessões de força/técnica (HILL, CAVALARICAS) e o longo mais bem executado do bloco: <b>negative split de 5:12/km a 4:41/km</b>, FC de 127 a 170, sem degradação. ACWR subiu para <b>1,3</b> — ainda ótimo, mas no limite superior, esperado depois de uma semana de recuperação total (S31, 33,7km). O Garmin sinaliza <b>défice anaeróbio</b> face ao volume aeróbio acumulado — é exatamente o que o 6x1000 de terça e a fase de especificidade vêm resolver. Único ponto de atenção real: a recuperação recomendada do LR17 só fecha quarta-feira — entrar em terça a monitorizar sensação, não só o relógio."
   },
 
-  hrv:[{d:"27/7",v:49},{d:"28/7",v:47},{d:"29/7",v:40},{d:"30/7",v:41},{d:"31/7",v:30},{d:"1/8",v:31},
-       {d:"2/8",v:37},{d:"3/8",v:43},{d:"4/8",v:45},{d:"5/8",v:47},{d:"6/8",v:48},{d:"7/8",v:45},
-       {d:"8/8",v:48},{d:"9/8",v:58},{d:"10/8",v:46}],
+  hrv:[{d:"3/8",v:38},{d:"4/8",v:38},{d:"5/8",v:39},{d:"6/8",v:40},{d:"7/8",v:42},{d:"8/8",v:45},
+       {d:"9/8",v:47},{d:"10/8",v:48},{d:"11/8",v:48},{d:"12/8",v:48},{d:"13/8",v:48},{d:"14/8",v:48},
+       {d:"15/8",v:48},{d:"16/8",v:46}],
   rhr:[{d:"27/7",v:46},{d:"28/7",v:50},{d:"29/7",v:52},{d:"30/7",v:55},{d:"31/7",v:57},{d:"1/8",v:52},
        {d:"2/8",v:54},{d:"3/8",v:52},{d:"4/8",v:51},{d:"5/8",v:48},{d:"6/8",v:47},{d:"7/8",v:48},
-       {d:"8/8",v:49},{d:"9/8",v:45},{d:"10/8",v:50}],
+       {d:"8/8",v:49},{d:"9/8",v:45},{d:"10/8",v:50},{d:"16/8",v:50}],
   sleep:[{d:"4/8",h:6.46,s:73},{d:"5/8",h:6.33,s:75},{d:"6/8",h:6.13,s:76},{d:"7/8",h:5.65,s:71},
          {d:"8/8",h:6.88,s:73},{d:"9/8",h:7.05,s:82},{d:"10/8",h:6.80,s:75}],
-  load:[{w:"S30",r:69.5,t:74},{w:"S31",r:33.6,t:74},{w:"S32",r:66.4,t:75},{w:"S33",r:8.5,t:77,cur:true},
-        {w:"S34",r:0,t:75.5},{w:"S35",r:0,t:74},{w:"S36",r:0,t:60.5},{w:"S37",r:0,t:51}],
+  load:[{w:"S30",r:69.5,t:74},{w:"S31",r:33.6,t:74},{w:"S32",r:66.4,t:75},{w:"S33",r:70.7,t:76},
+        {w:"S34",r:0,t:75.5,cur:true},{w:"S35",r:0,t:74},{w:"S36",r:0,t:60.5},{w:"S37",r:0,t:51}],
   zones:[{z:"Z1",r:"108–132",p:22,c:"--z1"},{z:"Z2",r:"133–147",p:62,c:"--z2"},
          {z:"Z3",r:"148–155",p:34,c:"--z3"},{z:"Z4",r:"156–164",p:46,c:"--z4"},{z:"Z5",r:"≥165",p:74,c:"--z5"}],
   vdot:[{x:"Dez 25",v:51.3,n:"GP Natal 41:37"},{x:"Jan 26",v:52.1,n:"CNE 40:49"},
         {x:"Abr 26",v:52.0,n:"Constância 40:56"},{x:"Mai 26",v:52.7,n:"Agualva 40:21"},
         {x:"7 Jun",v:53.0,n:"Santo António 40:05"},{x:"28 Jun",v:54.5,n:"GP JOMA"}],
 
-  /* ── Semana 33 (versão de 10 Ago — substitui o Excel) ── */
+  /* ── Semana 33 (fechada, dados reais de todas as sessões) ── */
   days:[
     {d:"Seg 10",code:"EASY45",mode:"Fácil",st:"done",c:"--green",km:"8,46 km feitos",
      pace:"5:19/km",hr:"Z2",wu:"45' fácil",main:"—",rec:"—",
      note:"Cadência 84,7 · esforço relativo 34. Resposta correta a seguir ao LR15-FINISH.",
      v1:"FC + sensação",v2:"ritmo"},
-    {d:"Ter 11",code:"10K-2x3K1K",mode:"Específico",st:"now",c:"--amber",km:"14 km",
-     pace:"3 km @ 4:03–4:00 · 1 km @ 3:55–3:52",hr:"Z5 por esforço",
+    {d:"Ter 11",code:"10K-2x3K1K",mode:"Específico",st:"done",c:"--amber",km:"13,71 km feitos",
+     pace:"bloco1 ~4:22/km · bloco2 3:49 e 3:38/km",hr:"máx 163",
      wu:"20' fácil + técnica",main:"2 × (3 km + 1 km)",rec:"3' após 3 km · 2' após 1 km",
-     note:"Sessão dura do bloco. Se estiver pesado: 1 bloco + 2 km de limiar — e isso é decisão, não desistência. Travão: verificar ritmo aos 200 m da 1ª repetição.",
+     note:"Percurso (Ciclovia Massamá) contaminou o bloco 1 com desnível não previsto no arranque. Bloco 2 saiu forte, FC baixa para o ritmo — confirma capacidade, não falta de forma. VDOT mantém-se, não recalibrado por esta sessão.",
      v1:"ritmo",v2:"FC (atrasada)"},
-    {d:"Qua 12",code:"EASY+STR",mode:"Fácil",st:"plan",c:"--green",km:"10 km",
-     pace:"5:05–5:30/km",hr:"Z2 133–147",wu:"45' fácil",main:"6 × 15'' soltos + pliometria (pogo 2×15'' · A-skip 2×20 m)",
-     rec:"45'' fácil",note:"Dia de absorção. Bloco pliométrico antes da força, nunca depois.",v1:"FC",v2:"sensação"},
-    {d:"Qui 13",code:"HILL-4xCOMPLETA+2xB",mode:"Específico",st:"plan",c:"--purple",km:"11 km",
-     pace:"forte controlado",hr:"FC secundária · força/técnica",
-     wu:"20' fácil · Rampa da Mata da GNR",main:"4 × rampa completa (309 m · 6,3% méd · 70 m finais a 10,4%) + 2 × troço B (140 m do topo)",
-     rec:"descer a trote",
-     note:"Desenhado sobre o perfil do km 9 do Tejo. Cadência em subida cai para 87–88 spm contra 94–98 no plano — é aqui que o gap para os adversários abre.",
+    {d:"Qua 12",code:"EASY+STR",mode:"Fácil",st:"done",c:"--green",km:"10,06 km feitos",
+     pace:"~5:03/km",hr:"média 141,7 · Z2",wu:"45' fácil",main:"strides + drills",
+     rec:"—",note:"Ficou fácil de verdade, sem virar progressivo escondido.",v1:"FC",v2:"sensação"},
+    {d:"Qui 13",code:"HILL-4xCOMPLETA+2xB",mode:"Específico",st:"done",c:"--purple",km:"9,01 km feitos",
+     pace:"potência 612–646W",hr:"máx 168",
+     wu:"20' fácil · Rampa da Mata da GNR",main:"4 × rampa completa + 2 × troço B",
+     rec:"trote controlado",
+     note:"Execução perfeita: cadência ≥89spm em todas as reps, nunca abaixo do alvo. 4ª rampa (simula km9 em fadiga) teve a MELHOR cadência das quatro (93,5spm) — sem degradação técnica sob fadiga.",
      v1:"execução",v2:"FC"},
-    {d:"Sex 14",code:"EASY40",mode:"Fácil",st:"plan",c:"--green",km:"8,5 km",
-     pace:"5:10–5:35/km",hr:"Z2 baixa 133–142",wu:"40–45' fácil",main:"—",rec:"—",
-     note:"Sexta é o dia mais pesado: Alvorada + Telepizza + ensaio até às 23h30. Fácil a sério.",v1:"FC",v2:"sensação"},
-    {d:"Sáb 15",code:"CAVALARICAS 5–6×21''",mode:"Neuromuscular",st:"plan",c:"--teal",km:"7 km",
-     pace:"explosivo",hr:"não aplicável",wu:"25' fácil",main:"5–6 × 20–22'' na Rampa das Cavalariças (asfalto · 6,5% · 119 m)",
+    {d:"Sex 14",code:"EASY40",mode:"Fácil",st:"done",c:"--green",km:"7,50 km feitos",
+     pace:"~5:20/km",hr:"média 136,5",wu:"40' fácil",main:"—",rec:"—",
+     note:"Dia mais pesado da semana (Alvorada+Telepizza+ensaio) bem gerido.",v1:"FC",v2:"sensação"},
+    {d:"Sáb 15",code:"CAVALARICAS 6×21''",mode:"Neuromuscular",st:"done",c:"--teal",km:"5,02 km feitos",
+     pace:"potência 688–775W",hr:"máx 160",wu:"25' fácil",main:"6 × 20–21'' na Rampa das Cavalariças",
      rec:"~2' completa",
-     note:"Primeira exposição, deliberadamente curta. Classificado como estímulo neuromuscular — NÃO conta como terceiro estímulo cardiovascular da semana. Sessão completa de 8 reps fica para 22 Ago. Calçado: Boston 8, não Evo SL.",
+     note:"Estreia excelente: cadência 100–110spm em todas as reps, muito acima do défice crónico de corrida normal (80–84spm). Sem degradação nas últimas reps. Sessão completa de 8 reps fica para 22 Ago.",
      v1:"execução",v2:"—"},
-    {d:"Dom 16",code:"LR17",mode:"Específico / progressivo",st:"plan",c:"--amber",km:"17 km",
-     pace:"1ª metade 5:00–5:30 · 2ª livre",hr:"Z2 na 1ª metade; sem tecto na 2ª",
+    {d:"Dom 16",code:"LR17",mode:"Específico / progressivo",st:"done",c:"--amber",km:"17,02 km feitos",
+     pace:"5:12→4:41/km · negative split",hr:"127→170",
      wu:"—",main:"17 km contínuos",rec:"—",
-     note:"Reclassificado a 9 Ago: a aceleração da 2ª metade é método, não falha de RPE. Conta como um estímulo real da semana. Sem protocolo de correção.",
+     note:"Execução exemplar: 1ª metade em zona (4:44–4:53/km), 2ª acelera progressivamente até 4:35–4:41/km sem degradação. Fecho quase Z5. Garmin sinaliza ANAEROBIC_SHORTAGE — relevante para o 6x1000 de terça.",
      v1:"execução",v2:"FC"}
   ],
 
@@ -346,11 +346,11 @@ const D = {
      bul:["<b>Qui</b> T-LIM-3x8 integrado","<b>Dom</b> LR15-FINISH · 3 km @ 4:15","Recuperação total do episódio"],
      rows:[["Seg","EASY45","8,6 km"],["Ter","EASY+STR","9,2 km"],["Qua","EASY45","8,7 km"],
            ["Qui","T-LIM-3x8","9,9 km"],["Sex","EASY40","7,4 km"],["Sáb","EASY45","7,5 km"],["Dom","LR15-FINISH","15,0 km"]]},
-    {n:33,ph:"Especificidade Tejo",rng:"10–16 Ago",vol:"77",unit:"km",st:"now",done:11,sub:"8,5 km feitos · 3 estímulos reais",
-     bul:["<b>Ter</b> 2×(3 km+1 km) específico","<b>Qui</b> Rampa GNR completa","<b>Dom</b> LR17 progressivo"],
-     rows:[["Seg","EASY45","8,5 km ✓"],["Ter","10K-2x3K1K","14 km"],["Qua","EASY+STR","10 km"],
-           ["Qui","HILL-4xCOMPLETA+2xB","11 km"],["Sex","EASY40","8,5 km"],["Sáb","CAVALARICAS 5–6×21''","7 km"],["Dom","LR17","17 km"]]},
-    {n:34,ph:"Especificidade Tejo",rng:"17–23 Ago",vol:"75,5",unit:"km",st:"plan",done:0,sub:"semana de calibração",
+    {n:33,ph:"Especificidade Tejo",rng:"10–16 Ago",vol:"70,7",unit:"km",st:"done",done:100,sub:"fechada · 3 estímulos reais, LR17 negative split exemplar",
+     bul:["<b>Ter</b> 2×(3km+1km) — bloco1 contaminado por percurso, bloco2 forte","<b>Qui</b> Rampa GNR — execução perfeita, cadência sempre ≥89spm","<b>Dom</b> LR17 — 5:12→4:41/km, negative split exemplar"],
+     rows:[["Seg","EASY45","8,46 km ✓"],["Ter","10K-2x3K1K","13,71 km ✓"],["Qua","EASY+STR","10,06 km ✓"],
+           ["Qui","HILL-4xCOMPLETA+2xB","9,01 km ✓"],["Sex","EASY40","7,50 km ✓"],["Sáb","CAVALARICAS 6×21''","5,02 km ✓"],["Dom","LR17","17,02 km ✓"]]},
+    {n:34,ph:"Especificidade Tejo",rng:"17–23 Ago",vol:"75,5",unit:"km",st:"now",done:0,sub:"semana de calibração",
      bul:["<b>Ter 18</b> 6×1000 @ 3:50–3:55 — <b>calibração VDOT</b>","<b>Sáb 22</b> Cavalariças 8×21'' completo","<b>Dom</b> LR15"],
      rows:[["Seg","EASY45","10 km"],["Ter","10K-6x1K · CALIBRAÇÃO","12,5 km"],["Qua","EASY+STR","10 km"],
            ["Qui","TEMPO25","12 km"],["Sex","EASY40","8,5 km"],["Sáb","CAVALARICAS-8x21","7,5 km"],["Dom","LR15","15 km"]]},
