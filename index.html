@@ -119,18 +119,18 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "15 Ago 2026 · sync mobile (Strava+GetFast) · métricas Garmin PC de 09 Ago", source: "Claude + Strava/GetFast" },
-hrv: 46, hrvTrend: "↓ 46ms pós-LR15 (baseline 47-59ms; mín 30ms 31Jul)",
-rhr: 50, bodyBattery: 85, weight: 79.6,
+meta: { updatedAt: "16 Ago 2026 · sync PC (garmin-local) · checkpoint semanal", source: "Claude + Garmin local" },
+hrv: 46, hrvTrend: "↑ 46ms · recuperação total confirmada (38-40ms 3-7Ago → 46-48ms estável desde 8Ago)",
+rhr: 50, bodyBattery: 59, weight: 79.6,
 lthr: 165, ltPace: "4:05",
 vdot: 53, vdotEst: "54–55",
-trainingStatus: "PRODUTIVO (Nível 3)",
-acwr: 0.8,
-vo2max: 57.0,
-readiness: 85,
-readinessSub: "manhã 09Ago (acordar) · sono 74% bom, HRV 100% muito bom — bem recuperado",
-weekLabel: "Semana 33 · 10–16 Ago 2026 (em curso) · Especificidade Tejo",
-weekDone: 53.7, weekTarget: 76,
+trainingStatus: "PRODUTIVO (Nível 2)",
+acwr: 1.3,
+vo2max: 57.4,
+readiness: 64,
+readinessSub: "manhã 16Ago (acordar) · pós-LR17: 14/100, recuperação 73h recomendada — normal após fecho quase Z5",
+weekLabel: "Semana 33 · 10–16 Ago 2026 (fechada) · Especificidade Tejo",
+weekDone: 70.7, weekTarget: 76,
 sessions: [
 { day:"Seg 10", code:"EASY45", km:8.5, status:"done", icon:"🏃" },
 { day:"Ter 11", code:"10K-2x3K1K · específico", km:13.7, status:"done", icon:"⚡" },
@@ -138,12 +138,12 @@ sessions: [
 { day:"Qui 13", code:"HILL-4xCOMPLETA+2xB · Mata da GNR", km:9.0, status:"done", icon:"⛰️" },
 { day:"Sex 14", code:"EASY40", km:7.5, status:"done", icon:"🏃" },
 { day:"Sáb 15", code:"CAVALARICAS 5–6x21'' · neuromuscular", km:5.0, status:"done", icon:"🦵" },
-{ day:"Dom 16", code:"LR17 → específico/progressivo", km:17.0, status:"planned", icon:"🌙" },
+{ day:"Dom 16", code:"LR17 → específico/progressivo", km:17.0, status:"done", icon:"🌙" },
 ],
 weeklyLoad: [
 {w:"S27",km:69.5},{w:"S28",km:66.6},{w:"S29",km:63.3},
 {w:"S30",km:69.4},{w:"S31",km:33.7},{w:"S32",km:66.8},
-{w:"S33",km:53.7,cur:true,target:76},
+{w:"S33",km:70.7,cur:true,target:76},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -156,7 +156,8 @@ calibs: [
 { date:"11 Ago", session:"10K-2x3K1K", pace:"13,71km · D+179m · bloco2: 3:49 e 3:38/km", fc:"máx 163", read:"Bloco 1 abaixo do alvo (percurso da Ciclovia contaminou os 3km). Bloco 2 forte com FC baixa para o ritmo. VDOT 53 mantém-se — não recalibrar com esta sessão" },
 { date:"13 Ago", session:"HILL-4xCOMPLETA+2xB", pace:"9,0km · D+177m · potência 612-646W", fc:"máx 168", read:"Execução perfeita: cadência ≥89spm em todas as reps, nunca abaixo do alvo (85spm). 4ª rampa (simula km9 do Tejo em fadiga) teve a melhor cadência das quatro (93,5spm) — sem degradação técnica sob fadiga" },
 { date:"15 Ago", session:"CAVALARICAS 6x21''", pace:"5,02km · D+116m · potência 688-775W", fc:"máx 160", read:"Estreia excelente: cadência 100-110spm em todas as reps — muito acima do défice crónico de 80-84spm em corrida normal. Sem degradação nas últimas reps. Boa base para progressão a 8 reps em 22 Ago" },
-{ date:"18 Ago", session:"6x1000 (agendada)", pace:"alvo 3:50-3:55/km", fc:"Z5 controlada", read:"CALIBRAÇÃO: decide se VDOT sobe de 53 para 54-55 e qual a sessão de 1 Set (5x1K normal vs FORTE)" },
+{ date:"16 Ago", session:"LR17 progressivo", pace:"17,02km · 4:48/km médio · fecho 4:35-4:41/km", fc:"127→170 (negative split)", read:"Execução exemplar do método: 1ª metade em zona, 2ª acelera progressivamente sem degradação. Semana 33 fecha em 70,7km. ANAEROBIC_SHORTAGE sinalizado pelo Garmin — relevante para o 6x1000 de terça" },
+{ date:"18 Ago", session:"6x1000 (agendada)", pace:"alvo 3:50-3:55/km", fc:"Z5 controlada", read:"CALIBRAÇÃO: decide se VDOT sobe de 53 para 54-55 e qual a sessão de 1 Set (5x1K normal vs FORTE). Atenção: recuperação recomendada do LR17 só completa quarta — monitorizar sensação em terça" },
 ],
 races: [
 { dateISO:"2026-09-05", date:"5 Set", name:"Pacer · Corrida Noturna Costa da Caparica", dist:"pacer 5:00/km · 21h30", prio:"Compromisso", col:"#F5A623" },
@@ -244,15 +245,15 @@ ${renderVDOTGauge(D.vdot, D.vdotEst)}
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Estado Fisiológico · ${D.meta.updatedAt}</span></div>
 <div class="metrics-row">
 <div class="metric"><div class="mlabel">HRV</div><div><span class="mval" style="color:var(--z3)">${D.hrv}</span><span class="munit">ms</span></div><div class="msub">${D.hrvTrend}</div></div>
-<div class="metric"><div class="mlabel">FC Repouso</div><div><span class="mval" style="color:var(--z3)">${D.rhr}</span><span class="munit">bpm</span></div><div class="msub">base 45-48 · +5 pós-longo</div></div>
+<div class="metric"><div class="mlabel">FC Repouso</div><div><span class="mval" style="color:var(--z3)">${D.rhr}</span><span class="munit">bpm</span></div><div class="msub">base 45-48</div></div>
 </div>
 <div class="metrics-row">
-<div class="metric"><div class="mlabel">Body Battery</div><div><span class="mval" style="color:var(--z1)">${D.bodyBattery}</span><span class="munit">%</span></div><div class="msub">leitura 09Ago (PC)</div></div>
+<div class="metric"><div class="mlabel">Body Battery</div><div><span class="mval" style="color:var(--z1)">${D.bodyBattery}</span><span class="munit">%</span></div><div class="msub">pós-LR17</div></div>
 <div class="metric"><div class="mlabel">Train. Readiness</div><div><span class="mval" style="color:var(--z3)">${D.readiness}</span><span class="munit">/100</span></div><div class="msub">${D.readinessSub}</div></div>
 </div>
 <div class="metrics-row" style="margin-bottom:18px">
 <div class="metric"><div class="mlabel">VO₂Max Garmin</div><div><span class="mval" style="color:var(--orange)">${D.vo2max}</span></div><div class="msub">plano ~2 meses</div></div>
-<div class="metric"><div class="mlabel">ACWR</div><div><span class="mval" style="color:var(--z1)">${D.acwr}</span></div><div class="msub">ÓTIMO</div></div>
+<div class="metric"><div class="mlabel">ACWR</div><div><span class="mval" style="color:var(--z1)">${D.acwr}</span></div><div class="msub">ÓTIMO (limite superior)</div></div>
 </div>
 <div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Evolução VDOT · Provas calibradas</span></div>
 <div class="card">
@@ -324,7 +325,7 @@ ${s.status==='done'?'<span style="color:var(--teal);font-size:12px">✓</span>':
 ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#FF542222">HOJE</span>':''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px">3 estímulos reais esta semana: <b>Ter (específico, feito)</b>, <b>Qui (subidas, feito)</b> e <b>Dom (longo progressivo)</b>. Sábado (Cavalariças, 1ª exposição 6 reps, feito) é <b>neuromuscular</b> — não conta como quarto estímulo cardiovascular. Sessão completa 8x21'' fica para 22 Ago.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px">Semana 33 <b>fechada em 70,7km</b> — 3 estímulos reais: <b>Ter (específico)</b>, <b>Qui (subidas)</b>, <b>Dom (longo progressivo, negative split exemplar)</b>. Sábado (Cavalariças, 1ª exposição 6 reps) foi <b>neuromuscular</b>, não contou como 4º estímulo. Sessão completa 8x21'' fica para 22 Ago.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
@@ -337,18 +338,18 @@ ${D.weeklyLoad.map(w=>`
 </div>
 `).join("")}
 </div>
-${D.weeklyLoad.find(w=>w.cur&&w.target)?`<div class="note">Semana 33 em curso — <b>${D.weeklyLoad.find(w=>w.cur).km}km</b> de ${D.weeklyLoad.find(w=>w.cur).target}km alvo. S32 fechou em 66,8km com recuperação total do episódio de 31Jul-02Ago (HRV 30ms, FC rep. 57bpm).</div>`:""}
+<div class="note">Semana 33 <b>fechada em 70,7km</b> de 76km alvo — o maior volume do bloco até agora. Recuperação total do episódio de 31Jul-02Ago confirmada durante toda a semana (HRV estável 46-48ms desde 8Ago).</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Training Status · Garmin</span></div>
 <div class="card">
 <div style="display:flex;justify-content:space-between;margin-bottom:12px">
 <div>
 <div style="color:var(--z1);font-size:14px;font-weight:800">${D.trainingStatus}</div>
-<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 09Ago (PC)</div>
+<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 16Ago (PC)</div>
 </div>
 <div style="text-align:right">
 <div style="color:var(--teal);font-size:18px;font-weight:800;font-family:monospace">${D.acwr}</div>
-<div style="color:var(--sub);font-size:9px">ACWR · ÓTIMO</div>
+<div style="color:var(--sub);font-size:9px">ACWR · ÓTIMO (limite superior)</div>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
