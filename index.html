@@ -130,20 +130,27 @@ vo2max: 57.4,
 readiness: 64,
 readinessSub: "manhã 16Ago (acordar) · pós-LR17: 14/100, recuperação 73h recomendada — normal após fecho quase Z5",
 weekLabel: "Semana 34 · 17–23 Ago 2026 (em curso) · Especificidade Tejo",
-weekDone: 21.2, weekTarget: 75.5,
+weekDone: 30.4, weekTarget: 75.5,
 sessions: [
-{ day:"Seg 17", code:"EASY45", km:8.5, status:"done", icon:"🏃" },
-{ day:"Ter 18", code:"10K-6x1K · CALIBRAÇÃO", km:12.65, status:"done", icon:"🔥" },
-{ day:"Qua 19", code:"EASY+STR", km:10, status:"planned", icon:"🏃" },
-{ day:"Qui 20", code:"TEMPO25 · contínuo", km:12, status:"planned", icon:"⚡" },
-{ day:"Sex 21", code:"EASY40", km:8.5, status:"planned", icon:"🏃" },
-{ day:"Sáb 22", code:"REC40-DRILL · fácil+técnica", km:7.5, status:"planned", icon:"🦵" },
-{ day:"Dom 23", code:"LR15 · longo fácil", km:15, status:"planned", icon:"🌙" },
+{ day:"Seg 17", code:"EASY45", km:8.5, status:"done", icon:"🏃",
+  detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45-50' contínuos, fácil", real:"Feito: 8,54km em 45:02 (5:16/km), HR média 138/máx 156, cadência 84,0. Progressão suave 116→150bpm, sem sair do fácil." } },
+{ day:"Ter 18", code:"10K-6x1K · CALIBRAÇÃO", km:12.65, status:"done", icon:"🔥",
+  detail:{ ritmo:"3:50-3:55/km", fc:"Z5 baixa 167-174 bpm", estrutura:"20' fácil+técnica + 6 x 1000m (90'' trote) + arrefecimento", real:"Feito: 3:49/3:50/3:50/3:48/3:48/3:46/km — mais rápido que o alvo. FC 154→158→160→167→165→164 (máx 171), estabilizou sem disparar. Teto real ~3:46-3:48/km. 01 Set sobe para 10K-5x1K-FORTE." } },
+{ day:"Qua 19", code:"EASY+STR", km:9.23, status:"done", icon:"🏃",
+  detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45' contínuos, com 4-6 strides de 15'' (recup. ~45'' entre eles) integrados no percurso — não é aquecimento + bloco + recuperação empilhados", real:"Feito: 9,23km em 51:00 (5:31/km médio), HR média 136/máx 159, cadência 82 base / 90-103 nos strides. Laps principais 5:13-5:26/km — dentro do alvo. Estrutura confirmada: strides integrados, não empilhados." } },
+{ day:"Qui 20", code:"TEMPO25 · contínuo", km:12, status:"planned", icon:"⚡",
+  detail:{ ritmo:"4:08-4:05/km no bloco de tempo", fc:"Z4 alta/Z5 baixa 162-166 bpm", estrutura:"20' aquecimento fácil + 25' contínuos a ritmo + 10' arrefecimento = 55' total", real:null } },
+{ day:"Sex 21", code:"EASY40", km:8.5, status:"planned", icon:"🏃",
+  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 baixa 133-142 bpm", estrutura:"40-45' contínuos, fácil", real:null } },
+{ day:"Sáb 22", code:"REC40-DRILL · fácil+técnica", km:7.5, status:"planned", icon:"🦵",
+  detail:{ ritmo:"5:20-5:45/km", fc:"Z1-Z2 108-147 bpm", estrutura:"40' muito fácil, com skippings 3-4x20-30m + excêntrico do gémeo (calf raise, descida lenta 3-4s) integrados", real:null } },
+{ day:"Dom 23", code:"LR15 · longo fácil", km:15, status:"planned", icon:"🌙",
+  detail:{ ritmo:"5:05-5:35/km", fc:"Z2 133-147 bpm", estrutura:"80-85' contínuos, longo fácil. Sem heroísmo.", real:null } },
 ],
 weeklyLoad: [
 {w:"S28",km:66.6},{w:"S29",km:63.3},{w:"S30",km:69.4},
 {w:"S31",km:33.7},{w:"S32",km:66.8},{w:"S33",km:70.7},
-{w:"S34",km:21.2,cur:true,target:75.5},
+{w:"S34",km:30.4,cur:true,target:75.5},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -299,6 +306,13 @@ ${D.calibs.map(c=>`
 </div>
 `;
 }
+function toggleSessionDetail(i){
+const d = document.getElementById("sdetail-"+i);
+const c = document.getElementById("chev-"+i);
+const isOpen = d.style.display === "block";
+d.style.display = isOpen ? "none" : "block";
+c.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
+}
 function renderSemana(){
 const p = document.getElementById("pane-semana");
 const maxLoad = Math.max(...D.weeklyLoad.map(w=>w.km), D.weekTarget);
@@ -318,17 +332,24 @@ p.innerHTML = `
 </div>
 </div>
 <div class="card" style="padding:0">
-${D.sessions.map(s=>`
-<div class="session-row ${s.status==='planned'?'planned':''} ${s.status==='today'?'today':''}">
+${D.sessions.map((s,i)=>`
+<div class="session-row ${s.status==='planned'?'planned':''} ${s.status==='today'?'today':''}" onclick="toggleSessionDetail(${i})" style="cursor:pointer">
 <div class="sday">${s.day}</div>
 <div class="sdot" style="background:${dotColor(s.status)}${s.status==='today'?';box-shadow:0 0 8px var(--orange)':''}"></div>
 <div style="flex:1"><span class="scode" style="color:${s.status==='today'?'var(--orange)':s.status==='race'?'var(--gold)':'var(--text)'};font-weight:${['today','race'].includes(s.status)?700:400}">${s.icon} ${s.code}</span></div>
 <span class="skm">${s.km}km</span>
-${s.status==='done'?'<span style="color:var(--teal);font-size:12px">✓</span>':''}
-${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#FF542222">HOJE</span>':''}
+${s.status==='done'?'<span style="color:var(--teal);font-size:12px;margin-right:4px">✓</span>':''}
+${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#FF542222;margin-right:4px">HOJE</span>':''}
+<span id="chev-${i}" style="color:var(--sub);font-size:10px;transition:transform .15s;display:inline-block">▾</span>
+</div>
+<div id="sdetail-${i}" style="display:none;background:var(--card2);padding:10px 14px 12px 52px;font-size:11px;line-height:1.7;border-bottom:1px solid var(--border)">
+<div style="display:flex;justify-content:space-between"><span style="color:var(--sub)">Ritmo</span><span style="font-family:monospace;color:var(--orange)">${s.detail.ritmo}</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:var(--sub)">FC alvo</span><span style="font-family:monospace">${s.detail.fc}</span></div>
+<div style="margin-top:4px"><span style="color:var(--sub)">Estrutura</span><div style="margin-top:2px">${s.detail.estrutura}</div></div>
+${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px">Semana 34 <b>em curso</b> — Seg e Ter fechados. Ter foi calibração 6x1000: alvo 3:50-3:55/km, saiu 3:46-3:50/km com FC controlada (máx 171). Confirma 01 Set como <b>10K-5x1K-FORTE</b>. Falta: Qua fácil, Qui TEMPO25, Sáb REC40-DRILL, Dom LR15.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px">Semana 34 <b>em curso</b> — Seg, Ter e Qua fechados. Ter foi calibração 6x1000: alvo 3:50-3:55/km, saiu 3:46-3:50/km com FC controlada (máx 171). Confirma 01 Set como <b>10K-5x1K-FORTE</b>. Falta: Qui TEMPO25, Sex EASY40, Sáb REC40-DRILL, Dom LR15. Toca numa sessão para ver detalhes.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
@@ -341,7 +362,7 @@ ${D.weeklyLoad.map(w=>`
 </div>
 `).join("")}
 </div>
-<div class="note">Semana 34 <b>em curso</b>: 21,2km feitos de 75,5km alvo. Semana 33 fechou em 70,7km — o maior volume do bloco até agora. HRV estável 46-48ms desde 8Ago.</div>
+<div class="note">Semana 34 <b>em curso</b>: 30,4km feitos de 75,5km alvo. Semana 33 fechou em 70,7km — o maior volume do bloco até agora. HRV estável 46-48ms desde 8Ago.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Training Status · Garmin</span></div>
 <div class="card">
