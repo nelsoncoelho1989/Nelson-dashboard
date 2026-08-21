@@ -119,7 +119,7 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "20 Ago 2026 · sync via chat · Vasco da Gama confirmada", source: "Claude + Strava" },
+meta: { updatedAt: "21 Ago 2026 · sync via chat · Semana 34 (Seg-Sex fechados)", source: "Claude + Strava" },
 hrv: 46, hrvTrend: "↑ 46ms · recuperação total confirmada (38-40ms 3-7Ago → 46-48ms estável desde 8Ago)",
 rhr: 50, bodyBattery: 59, weight: 79.0,
 lthr: 165, ltPace: "4:05",
@@ -130,7 +130,7 @@ vo2max: 57.4,
 readiness: 64,
 readinessSub: "manhã 16Ago (acordar) · pós-LR17: 14/100, recuperação 73h recomendada — normal após fecho quase Z5",
 weekLabel: "Semana 34 · 17–23 Ago 2026 (em curso) · Especificidade Tejo",
-weekDone: 30.4, weekTarget: 75.5,
+weekDone: 49.3, weekTarget: 75.5,
 sessions: [
 { day:"Seg 17", code:"EASY45", km:8.5, status:"done", icon:"🏃",
   detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45-50' contínuos, fácil", real:"Feito: 8,54km em 45:02 (5:16/km), HR média 138/máx 156, cadência 84,0. Progressão suave 116→150bpm, sem sair do fácil." } },
@@ -138,10 +138,10 @@ sessions: [
   detail:{ ritmo:"3:50-3:55/km", fc:"Z5 baixa 167-174 bpm", estrutura:"20' fácil+técnica + 6 x 1000m (90'' trote) + arrefecimento", real:"Feito: 3:49/3:50/3:50/3:48/3:48/3:46/km — mais rápido que o alvo. FC 154→158→160→167→165→164 (máx 171), estabilizou sem disparar. Teto real ~3:46-3:48/km. 01 Set sobe para 10K-5x1K-FORTE." } },
 { day:"Qua 19", code:"EASY+STR", km:9.23, status:"done", icon:"🏃",
   detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45' contínuos, com 4-6 strides de 15'' (recup. ~45'' entre eles) integrados no percurso — não é aquecimento + bloco + recuperação empilhados", real:"Feito: 9,23km em 51:00 (5:31/km médio), HR média 136/máx 159, cadência 82 base / 90-103 nos strides. Laps principais 5:13-5:26/km — dentro do alvo. Estrutura confirmada: strides integrados, não empilhados." } },
-{ day:"Qui 20", code:"TEMPO25 · contínuo", km:12, status:"planned", icon:"⚡",
-  detail:{ ritmo:"4:08-4:05/km no bloco de tempo", fc:"Z4 alta/Z5 baixa 162-166 bpm", estrutura:"20' aquecimento fácil + 25' contínuos a ritmo + 10' arrefecimento = 55' total", real:null } },
-{ day:"Sex 21", code:"EASY40", km:8.5, status:"planned", icon:"🏃",
-  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 baixa 133-142 bpm", estrutura:"40-45' contínuos, fácil", real:null } },
+{ day:"Qui 20", code:"TEMPO25 · contínuo", km:11.05, status:"done", icon:"⚡",
+  detail:{ ritmo:"4:08-4:05/km no bloco de tempo", fc:"Z4 alta/Z5 baixa 162-166 bpm", estrutura:"20' aquecimento fácil + 25' contínuos a ritmo + 10' arrefecimento = 55' total", real:"Feito: 11,05km em 55:02. Percurso ondulado/técnico (não Eixo Verde Azul) — ritmo ficou 4:15-4:32/km (alvo 4:05-4:08) e FC subiu a 172 (teto previsto 162-166), ambos explicados pelo terreno, não fadiga. Sessão completa como planeada, sem cortar. 2ª ocorrência do mesmo erro de percurso (1ª: 11/08) — regra reforçada: Eixo Verde Azul por defeito para blocos/tempo." } },
+{ day:"Sex 21", code:"EASY40", km:7.81, status:"done", icon:"🏃",
+  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 baixa 133-142 bpm", estrutura:"40-45' contínuos, fácil", real:"Feito: 7,81km em 40:03 (5:07/km), HR média 138/máx 157, cadência 84. Decisão consciente de não repetir o TEMPO25 (critério de sensação limpa não cumprido) — execução exemplar em Z2 mesmo com 91m D+ (Jamor, Parque Queluz)." } },
 { day:"Sáb 22", code:"REC40-DRILL · fácil+técnica", km:7.5, status:"planned", icon:"🦵",
   detail:{ ritmo:"5:20-5:45/km", fc:"Z1-Z2 108-147 bpm", estrutura:"40' muito fácil, com skippings 3-4x20-30m + excêntrico do gémeo (calf raise, descida lenta 3-4s) integrados", real:null } },
 { day:"Dom 23", code:"LR15 · longo fácil", km:15, status:"planned", icon:"🌙",
@@ -150,7 +150,7 @@ sessions: [
 weeklyLoad: [
 {w:"S28",km:66.6},{w:"S29",km:63.3},{w:"S30",km:69.4},
 {w:"S31",km:33.7},{w:"S32",km:66.8},{w:"S33",km:70.7},
-{w:"S34",km:30.4,cur:true,target:75.5},
+{w:"S34",km:49.3,cur:true,target:75.5},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -349,7 +349,7 @@ ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#
 ${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px">Semana 34 <b>em curso</b> — Seg, Ter e Qua fechados. Ter foi calibração 6x1000: alvo 3:50-3:55/km, saiu 3:46-3:50/km com FC controlada (máx 171). Confirma 01 Set como <b>10K-5x1K-FORTE</b>. Falta: Qui TEMPO25, Sex EASY40, Sáb REC40-DRILL, Dom LR15. Toca numa sessão para ver detalhes.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px">Semana 34 <b>em curso</b> — Seg a Sex fechados. Ter foi calibração 6x1000: alvo 3:50-3:55/km, saiu 3:46-3:50/km com FC controlada (máx 171) — confirma 01 Set como <b>10K-5x1K-FORTE</b>. Qui TEMPO25 saiu do alvo por percurso ondulado (não fadiga) — 2ª vez, Eixo Verde Azul passa a defeito para blocos/tempo. Sex fácil bem executado, sem repetir o tempo. Falta: Sáb REC40-DRILL, Dom LR15. Toca numa sessão para ver detalhes.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
@@ -362,7 +362,7 @@ ${D.weeklyLoad.map(w=>`
 </div>
 `).join("")}
 </div>
-<div class="note">Semana 34 <b>em curso</b>: 30,4km feitos de 75,5km alvo. Semana 33 fechou em 70,7km — o maior volume do bloco até agora. HRV estável 46-48ms desde 8Ago.</div>
+<div class="note">Semana 34 <b>em curso</b>: 49,3km feitos de 75,5km alvo. Semana 33 fechou em 70,7km — o maior volume do bloco até agora. HRV estável 46-48ms desde 8Ago.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Training Status · Garmin</span></div>
 <div class="card">
