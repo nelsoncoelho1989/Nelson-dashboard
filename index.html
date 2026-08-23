@@ -119,7 +119,7 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "22 Ago 2026 · sync via chat (PC) · Semana 34 (Seg-Sáb fechados)", source: "Claude + Strava" },
+meta: { updatedAt: "23 Ago 2026 · sync via chat (PC) · Semana 34 FECHADA (71,7km)", source: "Claude + Strava" },
 hrv: 46, hrvTrend: "↑ 46ms · recuperação total confirmada (38-40ms 3-7Ago → 46-48ms estável desde 8Ago)",
 rhr: 50, bodyBattery: 59, weight: 79.0,
 lthr: 165, ltPace: "4:05",
@@ -129,8 +129,8 @@ acwr: 1.3,
 vo2max: 57.4,
 readiness: 64,
 readinessSub: "manhã 16Ago (acordar) · pós-LR17: 14/100, recuperação 73h recomendada — normal após fecho quase Z5",
-weekLabel: "Semana 34 · 17–23 Ago 2026 (em curso) · Especificidade Tejo",
-weekDone: 56.7, weekTarget: 75.5,
+weekLabel: "Semana 34 · 17–23 Ago 2026 (fechada) · Especificidade Tejo",
+weekDone: 71.7, weekTarget: 75.5,
 sessions: [
 { day:"Seg 17", code:"EASY45", km:8.5, status:"done", icon:"🏃",
   detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45-50' contínuos, fácil", real:"Feito: 8,54km em 45:02 (5:16/km), HR média 138/máx 156, cadência 84,0. Progressão suave 116→150bpm, sem sair do fácil." } },
@@ -144,13 +144,13 @@ sessions: [
   detail:{ ritmo:"5:10-5:35/km", fc:"Z2 baixa 133-142 bpm", estrutura:"40-45' contínuos, fácil", real:"Feito: 7,81km em 40:03 (5:07/km), HR média 138/máx 157, cadência 84. Decisão consciente de não repetir o TEMPO25 (critério de sensação limpa não cumprido) — execução exemplar em Z2 mesmo com 91m D+ (Jamor, Parque Queluz)." } },
 { day:"Sáb 22", code:"REC40-DRILL · fácil+técnica", km:7.41, status:"done", icon:"🦵",
   detail:{ ritmo:"5:20-5:45/km", fc:"Z2 133-147 bpm (corrigido)", estrutura:"40' fácil, com skippings 3-4x20-30m + excêntrico do gémeo (calf raise, descida lenta 3-4s) integrados", real:"Feito: 7,41km em 40:03 (5:24/km), HR média 139/máx 159, cadência 83. CORREÇÃO ESTRUTURAL: teto de FC subiu de Z1-Z2 (108-147) para Z2 completa (133-147) — o alvo antigo obrigava a andar (6:14/km no arranque) para não ultrapassar 147bpm. Desde a troca do longo para domingo, sábado já não vem a seguir a dia duro, não faz sentido tratá-lo como recuperação forçada." } },
-{ day:"Dom 23", code:"LR15 · longo fácil", km:15, status:"planned", icon:"🌙",
-  detail:{ ritmo:"5:05-5:35/km", fc:"Z2 133-147 bpm", estrutura:"80-85' contínuos, longo fácil. Sem heroísmo.", real:null } },
+{ day:"Dom 23", code:"LR15 · longo puxado", km:15.0, status:"done", icon:"🌙",
+  detail:{ ritmo:"5:05-5:35/km", fc:"Z2 133-147 bpm", estrutura:"80-85' contínuos, longo fácil. Sem heroísmo.", real:"Feito: 15,0km em 69:28 (4:38/km médio) — SOZINHO (grupo encontrou-se antes do combinado). Puxou para compensar TEMPO25 falhado de quinta. Progressão limpa 5:20/km@130bpm → 4:01/km@171bpm no último km, 23 PRs de segmento. Confirma outra vez o padrão de longo ESPECÍFICO/PROGRESSIVO. LT do relógio baixou para 161bpm após esta sessão (efeito de correr rápido já com fadiga acumulada + percurso técnico, não teste limpo) — LT oficial mantém-se 165bpm@4:05/km." } },
 ],
 weeklyLoad: [
 {w:"S28",km:66.6},{w:"S29",km:63.3},{w:"S30",km:69.4},
 {w:"S31",km:33.7},{w:"S32",km:66.8},{w:"S33",km:70.7},
-{w:"S34",km:56.7,cur:true,target:75.5},
+{w:"S34",km:71.7,cur:true,target:75.5},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -349,7 +349,7 @@ ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#
 ${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px">Semana 34 <b>em curso</b> — Seg a Sáb fechados. Ter foi calibração 6x1000: alvo 3:50-3:55/km, saiu 3:46-3:50/km com FC controlada (máx 171) — confirma 01 Set como <b>10K-5x1K-FORTE</b>. Qui TEMPO25 saiu do alvo por percurso ondulado (não fadiga) — Eixo Verde Azul passa a defeito para blocos/tempo. Sáb REC40-DRILL revelou zona de FC desatualizada (corrigida para Z2 133-147, ver detalhe). Falta: Dom LR15. Toca numa sessão para ver detalhes.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px">Semana 34 <b>fechada em 71,7km</b> de 75,5km alvo — a maior semana do bloco. Ter calibração confirmou 10K-5x1K-FORTE para 01 Set. Qui TEMPO25 saiu do alvo por percurso (não fadiga) — Eixo Verde Azul passa a defeito. Sáb corrigiu zona de FC desatualizada (Z2 133-147). Dom longo puxado sozinho, negative split forte (23 PRs) — LT do relógio oscilou para baixo por efeito de fadiga acumulada + terreno, LT oficial mantém-se 165bpm. Toca numa sessão para ver detalhes.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
@@ -362,7 +362,7 @@ ${D.weeklyLoad.map(w=>`
 </div>
 `).join("")}
 </div>
-<div class="note">Semana 34 <b>em curso</b>: 56,7km feitos de 75,5km alvo. Semana 33 fechou em 70,7km — o maior volume do bloco até agora. HRV estável 46-48ms desde 8Ago.</div>
+<div class="note">Semana 34 <b>fechada em 71,7km</b> de 75,5km alvo — supera a Semana 33 (70,7km), novo pico do bloco. HRV estável 46-48ms desde 8Ago.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Training Status · Garmin</span></div>
 <div class="card">
