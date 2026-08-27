@@ -119,8 +119,8 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "26 Ago 2026 · sync via chat (mobile) · EASY+STR feito (relógio esquecido no arranque)", source: "Claude + Strava + GetFast" },
-hrv: 53, hrvTrend: "53ms (noite 25→26) · leve descida de 56ms pós-chave do bloco · dentro da baseline 47-59ms, sem alerta",
+meta: { updatedAt: "27 Ago 2026 · sync via chat (mobile) · I-400x8 feito — alvo de 01/Set subiu para 3:44-3:48/km", source: "Claude + Strava + GetFast" },
+hrv: 56, hrvTrend: "56ms (noite 26→27) · topo da baseline 47-59ms · recuperação excelente antes do I-400x8",
 rhr: 47, bodyBattery: 59, weight: 79.0,
 lthr: 165, ltPace: "4:05",
 vdot: 53, vdotEst: "54–55",
@@ -130,7 +130,7 @@ vo2max: 57.4,
 readiness: 64,
 readinessSub: "última leitura PC 16Ago (pós-LR17: 14/100, recuperação 73h) — Body Battery/Readiness/ACWR/VO2max não disponíveis via mobile, por atualizar na próxima sessão PC",
 weekLabel: "Semana 35 · 24–30 Ago 2026 · Especificidade Tejo",
-weekDone: 30.75, weekTarget: 74,
+weekDone: 40.07, weekTarget: 74,
 sessions: [
 { day:"Seg 24", code:"EASY45", km:8.64, status:"done", icon:"🏃",
   detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45-50' contínuos, fácil", real:"Feito: 8,64km em 44:59 (5:21/km), HR média 139/máx 161. Z2 controlada, sem exageros — boa base antes da chave do bloco de terça." } },
@@ -140,8 +140,9 @@ sessions: [
 { day:"Qua 26", code:"EASY+STR", km:10.68, status:"done", icon:"🏃",
   detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45' fácil com 6 x 15'' strides integrados (45'' recuperação entre eles)",
   real:"Esqueceu-se de iniciar o relógio — ~1,4km percorridos antes do registo (confirmado pelo próprio: no ponto onde normalmente bate os 4km, o relógio marcava 2,6km). Watch: 9,28km em 50:54 (5:29/km), HR média 138/máx 163. Distância real estimada ~10,68km (9,28 + 1,4 por conta do Nelson) — bate com o alvo de 10km. Estrutura toda registada nos laps: 8km contínuos com drift normal de FC (128→146 ao longo dos 8 laps de 1km, dentro de Z2 quase todo o percurso) seguidos dos 6 strides de 15'' claramente visíveis (cadência 102-109spm vs ~83-85spm base). HRV 53ms e FC repouso 47bpm esta manhã — recuperação normal pós-chave do bloco de ontem." } },
-{ day:"Qui 27", code:"I-400x8", km:10, status:"planned", icon:"🔥",
-  detail:{ ritmo:"3:30-3:40/km", fc:"referência secundária; rápido controlado", estrutura:"20' fácil + 8 x 400m (200m trote) — curto, rápido e económico" } },
+{ day:"Qui 27", code:"I-400x8", km:9.32, status:"done", icon:"🔥",
+  detail:{ ritmo:"3:30-3:40/km", fc:"referência secundária; rápido controlado", estrutura:"20' fácil + 8 x 400m (200m trote) — curto, rápido e económico",
+  real:"Rep1 disparou (77s=3:12/km) — alerta de ritmo não tocou no Garmin (4ª ocorrência documentada deste padrão em pista). Nelson mudou o ecrã e passou a controlar visualmente a partir do rep2. Reps 2-8: 82/81/80/80/78/78/73s (3:25/3:22/3:20/3:20/3:15/3:15/3:02 min/km) — todos bem abaixo do alvo 3:30-3:40/km, fechando mais rápido no rep8. FC média por rep de trabalho: 146→150→149→152→156→155→158bpm — nunca ultrapassou 158 mesmo no rep mais rápido. Cadência 93-100spm (vs baseline 83-85spm em estrada). HRV 56ms de manhã. 4ª sessão consecutiva (5x1000, 6x1000, 3x2000, agora I-400x8) com FC atrás do ritmo — regra pré-decidida acionada: 01/Set 10K-5x1K sobe de FORTE (3:50-3:55/km) para 3:44-3:48/km." } },
 { day:"Sex 28", code:"EASY40", km:8.5, status:"planned", icon:"🏃",
   detail:{ ritmo:"5:10-5:35/km", fc:"Z2 baixa 133-142 bpm", estrutura:"40-45' contínuos, fácil" } },
 { day:"Sáb 29", code:"REC35-DRILL", km:6.5, status:"planned", icon:"🦵",
@@ -153,7 +154,7 @@ weeklyLoad: [
 {w:"S28",km:66.6},{w:"S29",km:63.3},{w:"S30",km:69.4},
 {w:"S31",km:33.7},{w:"S32",km:66.8},{w:"S33",km:70.7},
 {w:"S34",km:71.7},
-{w:"S35",km:30.75,cur:true,target:74},
+{w:"S35",km:40.07,cur:true,target:74},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -169,6 +170,7 @@ calibs: [
 { date:"16 Ago", session:"LR17 progressivo", pace:"17,02km · 4:48/km médio · fecho 4:35-4:41/km", fc:"127→170 (negative split)", read:"Execução exemplar do método: 1ª metade em zona, 2ª acelera progressivamente sem degradação. Semana 33 fecha em 70,7km. ANAEROBIC_SHORTAGE sinalizado pelo Garmin — relevante para o 6x1000 de terça" },
 { date:"18 Ago", session:"6x1000 (feito)", pace:"3:49/3:50/3:50/3:48/3:48/3:46/km — mais rápido que o alvo, acelerando", fc:"154→158→160→167→165→164 (máx 171)", read:"CALIBRAÇÃO CONFIRMADA: FC estabilizou nas últimas 2 reps mesmo com o ritmo a continuar a melhorar — sem disparar. Teto real ~3:46-3:48/km, mais rápido que o alvo de 3:50-3:55. 01 Set sobe para 10K-5x1K-FORTE (3:50-3:55/km). VDOT 54-55 fica como referência, a confirmar antes de mudar a tabela oficial." },
 { date:"25 Ago", session:"3x2000 (feito)", pace:"3:50/3:48/3:42/km — negative split, todos abaixo do alvo (3:56-4:00)", fc:"160,6→161,1→163,4 (máx 175, só nos últimos 20m)", read:"Pista do Real, HRV 56ms de manhã (bem recuperado). FC quase plana apesar do ritmo a descer 8s/km — economia real, não adrenalina. Terceira sessão seguida com este padrão (5x1000, 6x1000 18Ago, agora 3x2000). O FORTE de 1/Set (3:50-3:55) já pode estar conservador — Qui (I-400x8) é o próximo ponto de confirmação antes de mexer no alvo." },
+{ date:"27 Ago", session:"I-400x8 (feito)", pace:"3:25/3:22/3:20/3:20/3:15/3:15/3:02/km — reps 2-8 (rep1 disparou por falha de alerta)", fc:"146→150→149→152→156→155→158 (máx 158 no rep mais rápido)", read:"4ª sessão consecutiva com FC atrás do ritmo (5x1000, 6x1000, 3x2000, agora I-400x8). Regra pré-decidida acionada: 01/Set 10K-5x1K sobe de FORTE (3:50-3:55) para 3:44-3:48/km. Alerta de pista falhou de novo — 4ª ocorrência documentada, problema operacional a corrigir." },
 ],
 races: [
 { dateISO:"2026-09-05", date:"5 Set", name:"Pacer · Corrida Noturna Costa da Caparica", dist:"pacer 5:00/km · 21h30", prio:"Compromisso", col:"#F5A623" },
@@ -353,7 +355,7 @@ ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#
 ${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px">Semana 35: Seg, Ter (chave do bloco) e Qua cumpridas — 30,75km de 74km. Ter saiu bem mais rápida que o alvo (3:50/3:48/3:42) com FC quase plana — sinal de calibração, não excesso. Qua: relógio esquecido no arranque (~1,4km não registados), sem impacto na sessão em si. Quinta (I-400x8) confirma se o alvo de 1/Set sobe. Toca numa sessão para ver detalhes.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px">Semana 35: Seg, Ter, Qua e Qui cumpridas — 40,07km de 74km. Ter e Qui confirmam o mesmo padrão: ritmo dispara, FC fica para trás. Decisão tomada: 01/Set sobe de FORTE (3:50-3:55) para 3:44-3:48/km. Toca numa sessão para ver detalhes.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
@@ -366,7 +368,7 @@ ${D.weeklyLoad.map(w=>`
 </div>
 `).join("")}
 </div>
-<div class="note">Semana 34 <b>fechou em 71,7km</b> de 75,5km alvo. Semana 35 arranca forte: 30,75km em 3 dias, chave do bloco (3x2000) já calibrada — ritmo bem acima do alvo com FC controlada.</div>
+<div class="note">Semana 34 <b>fechou em 71,7km</b> de 75,5km alvo. Semana 35 arranca forte: 40,07km em 4 dias, com 2 sessões de qualidade (3x2000, I-400x8) ambas confirmando o mesmo sinal — ritmo acima do alvo, FC controlada.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Training Status · Garmin</span></div>
 <div class="card">
