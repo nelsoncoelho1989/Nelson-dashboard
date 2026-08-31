@@ -119,9 +119,9 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "30 Ago 2026 · sync via chat · LR2x10T feito (17,93km, blocos 4:07→4:04/km) — semana 35 fechada em 72,31km", source: "Claude + Strava + GetFast" },
-hrv: 53, hrvTrend: "53ms (méd. 7d, noite 28→29) · banda alta da baseline 47-59ms · subida sustentada desde 16Ago (46→53ms)",
-rhr: 47, bodyBattery: 68, weight: 79.0,
+meta: { updatedAt: "31 Ago 2026 · sync via chat · início Semana 36 (Afinação) — Semana 35 fechada em 72,31km/74km", source: "Claude + Strava + GetFast" },
+hrv: 52, hrvTrend: "56ms (méd. 7d) · dentro/acima da banda alta 47-59ms · pico 64ms na noite pré-longo (29→30Ago), hoje 52ms — recuperação normal pós-LR2x10T",
+rhr: 47, bodyBattery: 86, weight: 79.0,
 lthr: 165, ltPace: "4:05",
 vdot: 53, vdotEst: "54–55",
 trainingStatus: "PRODUTIVO (Nível 2)",
@@ -129,35 +129,30 @@ acwr: 1.3,
 vo2max: 57.4,
 readiness: 64,
 readinessSub: "última leitura PC 16Ago (pós-LR17: 14/100, recuperação 73h) — Body Battery/Readiness/ACWR/VO2max não disponíveis via mobile, por atualizar na próxima sessão PC",
-weekLabel: "Semana 35 · 24–30 Ago 2026 · Especificidade Tejo",
-weekDone: 72.31, weekTarget: 74,
+weekLabel: "Semana 36 · 31 Ago–6 Set 2026 · Afinação Corrida do Tejo",
+weekDone: 0, weekTarget: 60.5,
 sessions: [
-{ day:"Seg 24", code:"EASY45", km:8.64, status:"done", icon:"🏃",
-  detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45-50' contínuos, fácil", real:"Feito: 8,64km em 44:59 (5:21/km), HR média 139/máx 161. Z2 controlada, sem exageros — boa base antes da chave do bloco de terça." } },
-{ day:"Ter 25", code:"10K-3x2K", km:11.43, status:"done", icon:"🔥",
-  detail:{ ritmo:"3:56-4:00/km", fc:"Z5 baixa no fim 168-173 bpm", estrutura:"20' fácil+técnica + 3 x 2000m (3' trote) + arrefecimento — chave do bloco: ritmo forte com cabeça fria",
-  real:"Feito na Pista do Real. Splits: 3:50 / 3:48 / 3:42/km — negative split, todos mais rápidos que o alvo. FC média 160,6→161,1→163,4, pico 175 só nos últimos 20m — FC quase não acompanhou a aceleração. HRV 56ms de manhã, bem recuperado. Sinal de calibração forte: reforça e provavelmente ultrapassa o FORTE (3:50-3:55) já decidido para 1/Set — Qui (I-400x8) confirma." } },
-{ day:"Qua 26", code:"EASY+STR", km:10.68, status:"done", icon:"🏃",
-  detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45' fácil com 6 x 15'' strides integrados (45'' recuperação entre eles)",
-  real:"Esqueceu-se de iniciar o relógio — ~1,4km percorridos antes do registo (confirmado pelo próprio: no ponto onde normalmente bate os 4km, o relógio marcava 2,6km). Watch: 9,28km em 50:54 (5:29/km), HR média 138/máx 163. Distância real estimada ~10,68km (9,28 + 1,4 por conta do Nelson) — bate com o alvo de 10km. Estrutura toda registada nos laps: 8km contínuos com drift normal de FC (128→146 ao longo dos 8 laps de 1km, dentro de Z2 quase todo o percurso) seguidos dos 6 strides de 15'' claramente visíveis (cadência 102-109spm vs ~83-85spm base). HRV 53ms e FC repouso 47bpm esta manhã — recuperação normal pós-chave do bloco de ontem." } },
-{ day:"Qui 27", code:"I-400x8", km:9.32, status:"done", icon:"🔥",
-  detail:{ ritmo:"3:30-3:40/km", fc:"referência secundária; rápido controlado", estrutura:"20' fácil + 8 x 400m (200m trote) — curto, rápido e económico",
-  real:"Rep1 disparou (77s=3:12/km) — o alerta de ritmo não estava configurado no treino (erro de configuração, não falha do relógio). Nelson mudou o ecrã e passou a controlar visualmente a partir do rep2. Reps 2-8: 82/81/80/80/78/78/73s (3:25/3:22/3:20/3:20/3:15/3:15/3:02 min/km) — todos bem abaixo do alvo 3:30-3:40/km, fechando mais rápido no rep8. FC média por rep de trabalho: 146→150→149→152→156→155→158bpm — nunca ultrapassou 158 mesmo no rep mais rápido. Cadência 93-100spm (vs baseline 83-85spm em estrada). HRV 56ms de manhã. 4ª sessão consecutiva (5x1000, 6x1000, 3x2000, agora I-400x8) com FC atrás do ritmo — regra pré-decidida acionada: 01/Set 10K-5x1K sobe de FORTE (3:50-3:55/km) para 3:44-3:48/km." } },
-{ day:"Sex 28", code:"EASY40", km:7.63, status:"done", icon:"🏃",
-  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 baixa 133-142 bpm", estrutura:"40-45' contínuos, fácil",
-  real:"Feito: 7,63km em 40:04 (5:15/km), HR média 135/máx 154. Percurso do Parque de Queluz com subidas embutidas (Av. Dr. Francisco Sá Carneiro, Subida para o parque, Fonte-Fonte up) — progressão de ritmo 5:49→4:58/km e FC 114→148bpm explicada pelo terreno, não por esforço crescente; sempre dentro de Z2, só a tocar Z3 baixa nos últimos metros de subida. Sessão fácil cumprida como previsto." } },
-{ day:"Sáb 29", code:"REC35-DRILL", km:6.68, status:"done", icon:"🦵",
-  detail:{ ritmo:"5:25-5:50/km", fc:"Z2 completa 133-147 bpm", estrutura:"30-40' muito fácil + skippings 3-4x20-30m + excêntrico do gémeo (calf raise, descida lenta 3-4s)",
-  real:"Feito: 6,68km em 35:25 (5:18/km), HR média 141/máx 153. Percurso com D+92m (Sintra/Parque de Queluz) — splits sobem de 5:49→5:10/km e HR de 123→147bpm por causa do terreno, dentro do teto Z2 completo (133-147), só a tocar 147-153 nos últimos ~100m. Skippings e excêntrico do gémeo no fim não isolados no GPS por serem curtos/parados — assumir cumpridos conforme plano, confirmar com o Nelson se não." } },
-{ day:"Dom 30", code:"LR2x10T", km:17.93, status:"done", icon:"🌙",
-  detail:{ ritmo:"4:08-4:03/km no bloco de limiar", fc:"Z4 alta/Z5 baixa 162-166 bpm", estrutura:"80-90' total, com 2 x 10' a ritmo de limiar (3' fácil entre blocos)",
-  real:"Feito: 17,93km em 1:30:03, HR média 148,7/máx 168. ~6,2km base fácil (FC 128-149) + Bloco 1 a 4:07/km (FC 158→162, dentro do alvo) + 3' fácil + Bloco 2 a 4:04/km (FC 161→167) — mais rápido que o bloco 1 com FC a subir coerentemente, sem disparar. ~5,6km base final fácil (FC 146-152). Fecho forte: bloco 2 mais rápido e mais forte que o bloco 1 mesmo em fadiga acumulada — boa capacidade de limiar sustentada." } },
+{ day:"Seg 31", code:"EASY45", km:9.5, status:"today", icon:"🏃",
+  detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45' fácil — entrar na afinação sem acumular." } },
+{ day:"Ter 01", code:"10K-5x1K", km:11.5, status:"planned", icon:"🔥",
+  detail:{ ritmo:"3:44-3:48/km (atualizado — Excel/Garmin ainda têm 3:50-3:55, a corrigir)", fc:"Z5 controlada 165-174 bpm — referência secundária, ritmo manda", estrutura:"20' fácil+técnica + 5 x 1000m (90'' trote) + arrefecimento. Último treino específico mais sério antes do Tejo. NÃO transformar em teste. Configurar alerta de pace antes de sair (padrão de arranque rápido em pista, 3x confirmado)." } },
+{ day:"Qua 02", code:"EASY+STR", km:9.5, status:"planned", icon:"🏃",
+  detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45' fácil + 4-6 x 15'' strides (45'' recuperação)." } },
+{ day:"Qui 03", code:"SHARP-6x300", km:8.5, status:"planned", icon:"⚡",
+  detail:{ ritmo:"3:30-3:43/km", fc:"referência secundária; rápido leve", estrutura:"20' fácil + 6 x 300m (1'30'' fácil) — só abrir a passada, sem acumular carga." } },
+{ day:"Sex 04", code:"EASY40", km:8.0, status:"planned", icon:"🏃",
+  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 baixa 133-142 bpm", estrutura:"35-45' fácil." } },
+{ day:"Sáb 05", code:"PACER-CAPARICA", km:5.5, status:"planned", icon:"🎽",
+  detail:{ ritmo:"solto — pacer 5:00/km", fc:"referência secundária; sem carga", estrutura:"Corrida Noturna Costa da Caparica, partida 21h30. Compromisso confirmado e não-negociável — substitui o PRE-RACE originalmente previsto para esta semana." } },
+{ day:"Dom 06", code:"RACE-B?", km:8.0, status:"planned", icon:"❔",
+  detail:{ ritmo:"controlado; não all-out", fc:"não entrar em Z5 alto cedo", estrutura:"Corrida do Avante ou sessão equivalente — DECISÃO PENDENTE (ponto combinado para decidir era 'fim de agosto', que é agora). A 1 semana do Tejo, só serve se não estragar." } },
 ],
 weeklyLoad: [
 {w:"S28",km:66.6},{w:"S29",km:63.3},{w:"S30",km:69.4},
 {w:"S31",km:33.7},{w:"S32",km:66.8},{w:"S33",km:70.7},
 {w:"S34",km:71.7},
-{w:"S35",km:72.31,cur:true,target:74},
+{w:"S35",km:72.31},
+{w:"S36",km:0,cur:true,target:60.5},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -186,8 +181,8 @@ races: [
 ],
 phases: [
 { label:"Força + Limiar", weeks:"S28–31", km:"~70–75/sem", status:"done" },
-{ label:"10km Específico", weeks:"S32–35", km:"~74–77/sem", status:"active" },
-{ label:"Afinação", weeks:"S36–37", km:"↓ ~30%", status:"next" },
+{ label:"10km Específico", weeks:"S32–35", km:"~74–77/sem", status:"done" },
+{ label:"Afinação", weeks:"S36–37", km:"↓ ~30%", status:"active" },
 { label:"★ Corrida do Tejo", weeks:"13 Set", km:"PROVA A", status:"race" },
 ],
 hrZones: [
@@ -264,7 +259,7 @@ ${renderVDOTGauge(D.vdot, D.vdotEst)}
 <div class="metric"><div class="mlabel">FC Repouso</div><div><span class="mval" style="color:var(--z3)">${D.rhr}</span><span class="munit">bpm</span></div><div class="msub">base 47-52 esta semana · normal</div></div>
 </div>
 <div class="metrics-row">
-<div class="metric"><div class="mlabel">Body Battery</div><div><span class="mval" style="color:var(--z1)">${D.bodyBattery}</span><span class="munit">%</span></div><div class="msub">pós-LR17</div></div>
+<div class="metric"><div class="mlabel">Body Battery</div><div><span class="mval" style="color:var(--z1)">${D.bodyBattery}</span><span class="munit">%</span></div><div class="msub">pico de hoje · boa recuperação</div></div>
 <div class="metric"><div class="mlabel">Train. Readiness</div><div><span class="mval" style="color:var(--z3)">${D.readiness}</span><span class="munit">/100</span></div><div class="msub">${D.readinessSub}</div></div>
 </div>
 <div class="metrics-row" style="margin-bottom:18px">
@@ -358,7 +353,7 @@ ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#
 ${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px">Semana 35 <b>fechada em 72,31km</b> de 74km alvo — 7 sessões cumpridas. Ter e Qui confirmaram ritmo à frente da FC, base para 01/Set subir a 3:44-3:48/km. Domingo fechou forte: bloco 2 do LR2x10T mais rápido que o bloco 1 mesmo em fadiga acumulada. Toca numa sessão para ver detalhes.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px">Semana 36 iniciada — <b>Afinação</b> (↓ ~18% face à S35, ↓ ~30% face à base do bloco). Ter 1/Set é o último específico sério antes do Tejo, já a 3:44-3:48/km (calibração confirmada por 4 sessões seguidas). Sáb 5/Set: pacer Caparica, compromisso fechado. Dom 6/Set: Avante em aberto — decisão a tomar esta semana. Toca numa sessão para ver detalhes.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
@@ -371,7 +366,7 @@ ${D.weeklyLoad.map(w=>`
 </div>
 `).join("")}
 </div>
-<div class="note">Semana 34 <b>fechou em 71,7km</b> de 75,5km alvo. Semana 35 <b>fecha em 72,31km</b> de 74km alvo — quase no ponto, com 2 sessões de qualidade (3x2000, I-400x8) a confirmar ritmo acima do alvo com FC controlada, e o LR2x10T de domingo a fechar com o bloco 2 mais rápido que o bloco 1.</div>
+<div class="note">Semana 35 <b>fechou em 72,31km</b> de 74km alvo — 7 sessões cumpridas, bloco "10km Específico" (S32-35) terminado. Semana 36 abre a fase de Afinação com alvo de 60,5km — volume reduzido de propósito, sem longo esta semana.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Training Status · Garmin</span></div>
 <div class="card">
