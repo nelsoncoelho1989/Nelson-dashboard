@@ -119,7 +119,7 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "01 Set 2026 · sync via chat · 10K-5x1K feito (negative split 3:44→3:33/km, FC teto 172 estável) · VDOT estimado sobe para 55-56", source: "Claude + Strava + GetFast" },
+meta: { updatedAt: "02 Set 2026 · sync via chat · EASY+STR feito (8,96km, 5:41/km, FC 132,8)", source: "Claude + Strava + GetFast" },
 hrv: 52, hrvTrend: "56ms (méd. 7d) · dentro/acima da banda alta 47-59ms · pico 64ms na noite pré-longo (29→30Ago), hoje 52ms — recuperação normal pós-LR2x10T",
 rhr: 47, bodyBattery: 86, weight: 79.0,
 lthr: 165, ltPace: "4:05",
@@ -130,7 +130,7 @@ vo2max: 57.4,
 readiness: 64,
 readinessSub: "última leitura PC 16Ago (pós-LR17: 14/100, recuperação 73h) — Body Battery/Readiness/ACWR/VO2max não disponíveis via mobile, por atualizar na próxima sessão PC",
 weekLabel: "Semana 36 · 31 Ago–6 Set 2026 · Afinação Corrida do Tejo",
-weekDone: 18.38, weekTarget: 64.5,
+weekDone: 27.34, weekTarget: 64.5,
 sessions: [
 { day:"Seg 31", code:"EASY45", km:8.37, status:"done", icon:"🏃",
   detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45' fácil — entrar na afinação sem acumular.",
@@ -138,8 +138,9 @@ sessions: [
 { day:"Ter 01", code:"10K-5x1K", km:10.01, status:"done", icon:"🔥",
   detail:{ ritmo:"3:44-3:48/km", fc:"Z5 controlada 165-174 bpm — referência secundária, ritmo manda", estrutura:"20' fácil+técnica + 5 x 1000m (90'' trote) + arrefecimento. Último treino específico mais sério antes do Tejo.",
   real:"Feito na Pista do Real. Splits: 3:44/3:38/3:35/3:37/3:33/km — negative split completo, só a 1ª rep bateu no alvo, as restantes 4 mais rápidas. FC média 153→155→159→159→161, máx 165→168→172→169→172. Sem arranque disparado — alerta de pace funcionou. 5ª sessão consecutiva com FC atrás do ritmo. Teto de FC estável ~172 nas últimas 3 sessões a ritmos diferentes — patamar real. Alvo de 3:44-3:48 (decidido há 4 dias) já ficou conservador na 1ª confirmação. VDOT estimado sobe para 55-56." } },
-{ day:"Qua 02", code:"EASY+STR", km:9.5, status:"planned", icon:"🏃",
-  detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45' fácil + 4-6 x 15'' strides (45'' recuperação)." } },
+{ day:"Qua 02", code:"EASY+STR", km:8.96, status:"done", icon:"🏃",
+  detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45' fácil + 4-6 x 15'' strides (45'' recuperação).",
+  real:"Feito às 07h26: 8,96km em 50:59 (5:41/km), HR média 132,8/máx 153. Percurso Sintra/Jamor/Queluz com D+119m — 8km base contínuos, FC a subir naturalmente com o terreno (113→139), sempre dentro de Z2, seguidos de 6x15'' strides bem visíveis (cadência 90-105spm vs 65-85spm nos 45'' de trote). Estrutura cumprida como previsto." } },
 { day:"Qui 03", code:"SHARP-6x300", km:8.5, status:"planned", icon:"⚡",
   detail:{ ritmo:"3:30-3:43/km", fc:"referência secundária; rápido leve", estrutura:"20' fácil + 6 x 300m (1'30'' fácil) — só abrir a passada, sem acumular carga." } },
 { day:"Sex 04", code:"EASY40", km:8.0, status:"planned", icon:"🏃",
@@ -154,7 +155,7 @@ weeklyLoad: [
 {w:"S31",km:33.7},{w:"S32",km:66.8},{w:"S33",km:70.7},
 {w:"S34",km:71.7},
 {w:"S35",km:72.31},
-{w:"S36",km:18.38,cur:true,target:64.5},
+{w:"S36",km:27.34,cur:true,target:64.5},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -173,6 +174,7 @@ calibs: [
 { date:"27 Ago", session:"I-400x8 (feito)", pace:"3:25/3:22/3:20/3:20/3:15/3:15/3:02/km — reps 2-8 (rep1 disparou, alerta não estava configurado)", fc:"146→150→149→152→156→155→158 (máx 158 no rep mais rápido)", read:"4ª sessão consecutiva com FC atrás do ritmo (5x1000, 6x1000, 3x2000, agora I-400x8). Regra pré-decidida acionada: 01/Set 10K-5x1K sobe de FORTE (3:50-3:55) para 3:44-3:48/km. Rep1 saiu rápido por o alerta não estar configurado — checklist pré-treino de pista atualizado." },
 { date:"29 Ago", session:"REC35-DRILL (feito)", pace:"6,68km em 35:25 (5:18/km) — splits 5:49→5:10/km", fc:"123→147 (máx 153, só nos últimos ~100m)", read:"Sessão de recuperação verdadeira, não calibração. HR dentro do teto Z2 completo (133-147) apesar do D+92m no Parque de Queluz. Sem sinais de fadiga acumulada antes do longo de domingo." },
 { date:"01 Set", session:"10K-5x1K (feito)", pace:"3:44/3:38/3:35/3:37/3:33/km — negative split completo, só a 1ª rep no alvo", fc:"153→155→159→159→161 (máx 165→168→172→169→172)", read:"Pista do Real, execução limpa — sem arranque disparado, alerta de pace funcionou. 5ª sessão consecutiva com FC atrás do ritmo. Teto de FC estável ~172 nas últimas 3 sessões a ritmos diferentes — sinal forte de patamar real, não ruído. Alvo de 3:44-3:48 (decidido há só 4 dias) já ficou conservador na 1ª confirmação. VDOT estimado sobe para 55-56. Último específico sério antes do Tejo — não repetir teste, deixar a afinação atuar." },
+{ date:"02 Set", session:"EASY+STR (feito)", pace:"8,96km em 50:59 (5:41/km)", fc:"113→139 (máx 153, terreno)", read:"Sessão fácil verdadeira, sem sinais de fadiga acumulada pós-10K-5x1K. Estrutura completa cumprida — base + strides bem definidos." },
 ],
 races: [
 { dateISO:"2026-09-05", date:"5 Set", name:"Pacer · Corrida Noturna Costa da Caparica", dist:"pacer 5:00/km · 21h30", prio:"Compromisso", col:"#F5A623" },
