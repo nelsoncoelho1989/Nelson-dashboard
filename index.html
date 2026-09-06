@@ -119,7 +119,7 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "04 Set 2026 · sync via chat · EASY40 feito (7,60km, 5:17/km) — 4 dias de Afinação cumpridos", source: "Claude + Strava + GetFast" },
+meta: { updatedAt: "05 Set 2026 · sync via chat · Pacer Caparica feito — condições extremas (maré alta, areal instável), FC pinada 160-172 durante 50min", source: "Claude + Strava + GetFast" },
 hrv: 52, hrvTrend: "56ms (méd. 7d) · dentro/acima da banda alta 47-59ms · pico 64ms na noite pré-longo (29→30Ago), hoje 52ms — recuperação normal pós-LR2x10T",
 rhr: 47, bodyBattery: 86, weight: 79.0,
 lthr: 165, ltPace: "4:05",
@@ -130,7 +130,7 @@ vo2max: 57.4,
 readiness: 64,
 readinessSub: "última leitura PC 16Ago (pós-LR17: 14/100, recuperação 73h) — Body Battery/Readiness/ACWR/VO2max não disponíveis via mobile, por atualizar na próxima sessão PC",
 weekLabel: "Semana 36 · 31 Ago–6 Set 2026 · Afinação Corrida do Tejo",
-weekDone: 41.85, weekTarget: 64.5,
+weekDone: 52.05, weekTarget: 64.5,
 sessions: [
 { day:"Seg 31", code:"EASY45", km:8.37, status:"done", icon:"🏃",
   detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45' fácil — entrar na afinação sem acumular.",
@@ -147,17 +147,18 @@ sessions: [
 { day:"Sex 04", code:"EASY40", km:7.60, status:"done", icon:"🏃",
   detail:{ ritmo:"5:10-5:35/km", fc:"Z2 baixa 133-142 bpm", estrutura:"35-45' fácil.",
   real:"Feito às 07h15: 7,60km em 40:10 (5:17/km), HR média 137,6/máx 155. Percurso Sintra/Jamor/Queluz com D+73m e subida final ao Palácio — progressão de FC (119→150) explicada pelo terreno, só tocou 155 no último troço de subida. Sessão fácil cumprida, última antes do pacer de amanhã à noite." } },
-{ day:"Sáb 05", code:"PACER-CAPARICA", km:5.5, status:"planned", icon:"🎽",
-  detail:{ ritmo:"solto — pacer 5:00/km", fc:"referência secundária; sem carga", estrutura:"Corrida Noturna Costa da Caparica, partida 21h30. Compromisso confirmado e não-negociável — substitui o PRE-RACE originalmente previsto para esta semana." } },
-{ day:"Dom 06", code:"LR12-SOFT", km:12.0, status:"planned", icon:"🌙",
-  detail:{ ritmo:"5:05-5:35/km", fc:"Z2 133-147 bpm", estrutura:"70-75' totalmente fácil, sem blocos nem progressão. Substitui o Avante — decisão tomada 31Ago: a 1 semana do Tejo, o risco não compensava. Mantém volume aeróbio útil sem comprometer a recuperação para a semana final." } },
+{ day:"Sáb 05", code:"PACER-CAPARICA", km:10.2, status:"done", icon:"🎽",
+  detail:{ ritmo:"solto — pacer 5:00/km", fc:"referência secundária; sem carga (previsto)", estrutura:"Corrida Noturna Costa da Caparica, partida 21h30.",
+  real:"Feito: 10,2km em 50:31 (4:57/km médio) — pacing quase perfeito. MAS condições extremas: maré alta, ziguezague constante para evitar ondas, areal solto/instável. FC média 161,9/máx 172 — o mesmo teto das sessões de qualidade mais duras, sustentado 50min (não reps curtas). Esforço relativo 137. NÃO foi o pacer 'sem carga' previsto — foi na prática esforço de limiar/VO2max pela instabilidade do terreno. Estímulo grande e não planeado a 8 dias do Tejo. LR12-SOFT de domingo ajustado (encurtado ou substituído por descanso) consoante recuperação." } },
+{ day:"Dom 06", code:"LR12-SOFT?", km:12.0, status:"planned", icon:"🌙",
+  detail:{ ritmo:"5:05-5:35/km (a rever)", fc:"Z2 133-147 bpm", estrutura:"Plano original: 70-75' totalmente fácil. AJUSTAR consoante recuperação — o pacer da Caparica saiu muito mais duro que o previsto (FC pinada 160-172 por 50min). Prioridade agora é recuperação para o Tejo, não completar o volume planeado. Decidir pela manhã com base em como o corpo responde." } },
 ],
 weeklyLoad: [
 {w:"S28",km:66.6},{w:"S29",km:63.3},{w:"S30",km:69.4},
 {w:"S31",km:33.7},{w:"S32",km:66.8},{w:"S33",km:70.7},
 {w:"S34",km:71.7},
 {w:"S35",km:72.31},
-{w:"S36",km:41.85,cur:true,target:64.5},
+{w:"S36",km:52.05,cur:true,target:64.5},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -179,6 +180,7 @@ calibs: [
 { date:"02 Set", session:"EASY+STR (feito)", pace:"8,96km em 50:59 (5:41/km)", fc:"113→139 (máx 153, terreno)", read:"Sessão fácil verdadeira, sem sinais de fadiga acumulada pós-10K-5x1K. Estrutura completa cumprida — base + strides bem definidos." },
 { date:"03 Set", session:"SHARP-6x300 (feito)", pace:"58/56/55/55/52/49s (2:43-3:13/km)", fc:"média 130, máx 163", read:"Pista do Real. FC baixa o tempo todo, longe do teto de 172 — sessão neuromuscular, não aeróbia. Cadência 94-103spm nas séries. Sessão de afiar cumprida sem stress cardiovascular." },
 { date:"04 Set", session:"EASY40 (feito)", pace:"7,60km em 40:10 (5:17/km)", fc:"119→150 (máx 155, terreno)", read:"Última fácil antes do pacer de sábado. FC dentro do razoável, subida explicada pelo terreno (D+73m). Sem sinais de fadiga acumulada." },
+{ date:"05 Set", session:"PACER-CAPARICA (feito)", pace:"10,2km em 50:31 (4:57/km) — pacing quase perfeito", fc:"média 161,9/máx 172, pinada 160-167 por ~7km", read:"Maré alta, ziguezague para evitar ondas, areal instável. Esforço relativo 137 — NÃO foi 'sem carga'; foi 50min a esforço de limiar/VO2max pela instabilidade do terreno. Estímulo grande e não planeado a 8 dias do Tejo. Ajustar LR12-SOFT de domingo — prioridade recuperação sobre volume." },
 ],
 races: [
 { dateISO:"2026-09-05", date:"5 Set", name:"Pacer · Corrida Noturna Costa da Caparica", dist:"pacer 5:00/km · 21h30", prio:"Compromisso", col:"#F5A623" },
@@ -362,7 +364,7 @@ ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#
 ${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px">Semana 36 em curso — <b>Afinação</b>, 4 dias já cumpridos (Seg-Ter-Qua-Qui-Sex). Restam apenas o pacer da Caparica (sábado) e o LR12-SOFT (domingo) — nenhum trabalho de qualidade adicional planeado antes do Tejo. Toca numa sessão para ver detalhes.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px">Pacer da Caparica veio MUITO mais duro que o previsto — FC pinada 160-172bpm por ~50min devido a maré alta e areal instável, não o "sem carga" planeado. <b>LR12-SOFT de domingo por ajustar</b> consoante recuperação — prioridade é chegar fresco ao Tejo, não completar volume. Toca numa sessão para ver detalhes.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
@@ -375,7 +377,7 @@ ${D.weeklyLoad.map(w=>`
 </div>
 `).join("")}
 </div>
-<div class="note">Semana 35 <b>fechou em 72,31km</b> de 74km alvo — 7 sessões cumpridas, bloco "10km Específico" (S32-35) terminado. Semana 36 abre a fase de Afinação com alvo de 64,5km — inclui LR12-SOFT ao domingo (substitui o Avante), sem intensidade extra.</div>
+<div class="note">Semana 35 <b>fechou em 72,31km</b> de 74km alvo. Semana 36: pacer da Caparica saiu bem mais exigente que o previsto (FC de esforço, não "solto") — LR12-SOFT de domingo a rever para não comprometer a chegada fresca ao Tejo.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Training Status · Garmin</span></div>
 <div class="card">
