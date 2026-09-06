@@ -119,7 +119,7 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "06 Set 2026 · sync MCP semanal", source: "Claude + Strava + GetFast" },
+meta: { updatedAt: "06 Set 2026 · sync chat (sessões fechadas) + sync MCP PC (Garmin/Training Status/Readiness)", source: "Claude + Strava + GetFast + Garmin MCP" },
 hrv: 52, hrvTrend: "56ms (méd. 7d) · dentro/acima da banda alta 47-59ms · pico 64ms na noite pré-longo (29→30Ago), hoje 52ms — recuperação normal pós-LR2x10T",
 rhr: 47, bodyBattery: 86, weight: 79.0,
 lthr: 165, ltPace: "4:05",
@@ -130,7 +130,7 @@ vo2max: 57.0,
 readiness: 9,
 readinessSub: "leitura PC 06Set (AFTER_WAKEUP_RESET): recuperação em falta (fator POOR 23%, 55,7h) e sono moderado (score 71, fator 56%) — HRV continua muito boa (100%, 51ms méd. semanal)",
 weekLabel: "Semana 36 · 31 Ago–6 Set 2026 · Afinação Corrida do Tejo",
-weekDone: 52.05, weekTarget: 64.5,
+weekDone: 59.27, weekTarget: 64.5,
 sessions: [
 { day:"Seg 31", code:"EASY45", km:8.37, status:"done", icon:"🏃",
   detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45' fácil — entrar na afinação sem acumular.",
@@ -149,16 +149,17 @@ sessions: [
   real:"Feito às 07h15: 7,60km em 40:10 (5:17/km), HR média 137,6/máx 155. Percurso Sintra/Jamor/Queluz com D+73m e subida final ao Palácio — progressão de FC (119→150) explicada pelo terreno, só tocou 155 no último troço de subida. Sessão fácil cumprida, última antes do pacer de amanhã à noite." } },
 { day:"Sáb 05", code:"PACER-CAPARICA", km:10.2, status:"done", icon:"🎽",
   detail:{ ritmo:"solto — pacer 5:00/km", fc:"referência secundária; sem carga (previsto)", estrutura:"Corrida Noturna Costa da Caparica, partida 21h30.",
-  real:"Feito: 10,2km em 50:31 (4:57/km médio) — pacing quase perfeito. MAS condições extremas: maré alta, ziguezague constante para evitar ondas, areal solto/instável. FC média 161,9/máx 172 — o mesmo teto das sessões de qualidade mais duras, sustentado 50min (não reps curtas). Esforço relativo 137. NÃO foi o pacer 'sem carga' previsto — foi na prática esforço de limiar/VO2max pela instabilidade do terreno. Estímulo grande e não planeado a 8 dias do Tejo. LR12-SOFT de domingo ajustado (encurtado ou substituído por descanso) consoante recuperação." } },
-{ day:"Dom 06", code:"LR12-SOFT?", km:12.0, status:"planned", icon:"🌙",
-  detail:{ ritmo:"5:05-5:35/km (a rever)", fc:"Z2 133-147 bpm", estrutura:"Plano original: 70-75' totalmente fácil. AJUSTAR consoante recuperação — o pacer da Caparica saiu muito mais duro que o previsto (FC pinada 160-172 por 50min). Prioridade agora é recuperação para o Tejo, não completar o volume planeado. Decidir pela manhã com base em como o corpo responde." } },
+  real:"Feito: 10,2km em 50:31 (4:57/km médio) — pacing quase perfeito. MAS condições extremas: maré alta, ziguezague constante para evitar ondas, areal solto/instável. FC média 161,9/máx 172 — o mesmo teto das sessões de qualidade mais duras, sustentado 50min (não reps curtas). Esforço relativo 137. NÃO foi o pacer 'sem carga' previsto — foi na prática esforço de limiar/VO2max pela instabilidade do terreno. Splits por km confirmam o mecanismo: km1 (asfalto) 139,8bpm, km2-9 (areia) 160-172bpm, troço final (asfalto) 159bpm — a FC seguiu o piso, não o ritmo." } },
+{ day:"Dom 06", code:"SHAKEOUT", km:7.22, status:"done", icon:"🌙",
+  detail:{ ritmo:"5:30-6:00/km", fc:"Z2 baixa", estrutura:"Substituiu o LR12-SOFT original (70-75', 12km) por decisão consciente — o pacer da Caparica saiu muito mais duro que o previsto, prioridade passou a ser recuperação, não volume.",
+  real:"Feito às 11h55: 7,22km em 40:03 (5:33/km), HR média 135,5/máx 149 — dentro de Z2, D+101m, sem sinais de fadiga residual do pacer. Decisão correta: fechar a semana com o corpo a descomprimir, não a acumular mais carga a 7 dias do Tejo." } },
 ],
 weeklyLoad: [
 {w:"S28",km:66.6},{w:"S29",km:63.3},{w:"S30",km:69.4},
 {w:"S31",km:33.7},{w:"S32",km:66.8},{w:"S33",km:70.7},
 {w:"S34",km:71.7},
 {w:"S35",km:72.31},
-{w:"S36",km:52.05,cur:true,target:64.5},
+{w:"S36",km:59.27,target:64.5},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -180,10 +181,10 @@ calibs: [
 { date:"02 Set", session:"EASY+STR (feito)", pace:"8,96km em 50:59 (5:41/km)", fc:"113→139 (máx 153, terreno)", read:"Sessão fácil verdadeira, sem sinais de fadiga acumulada pós-10K-5x1K. Estrutura completa cumprida — base + strides bem definidos." },
 { date:"03 Set", session:"SHARP-6x300 (feito)", pace:"58/56/55/55/52/49s (2:43-3:13/km)", fc:"média 130, máx 163", read:"Pista do Real. FC baixa o tempo todo, longe do teto de 172 — sessão neuromuscular, não aeróbia. Cadência 94-103spm nas séries. Sessão de afiar cumprida sem stress cardiovascular." },
 { date:"04 Set", session:"EASY40 (feito)", pace:"7,60km em 40:10 (5:17/km)", fc:"119→150 (máx 155, terreno)", read:"Última fácil antes do pacer de sábado. FC dentro do razoável, subida explicada pelo terreno (D+73m). Sem sinais de fadiga acumulada." },
-{ date:"05 Set", session:"PACER-CAPARICA (feito)", pace:"10,2km em 50:31 (4:57/km) — pacing quase perfeito", fc:"média 161,9/máx 172, pinada 160-167 por ~7km", read:"Maré alta, ziguezague para evitar ondas, areal instável. Esforço relativo 137 — NÃO foi 'sem carga'; foi 50min a esforço de limiar/VO2max pela instabilidade do terreno. Estímulo grande e não planeado a 8 dias do Tejo. Ajustar LR12-SOFT de domingo — prioridade recuperação sobre volume." },
+{ date:"05 Set", session:"PACER-CAPARICA (feito)", pace:"10,2km em 50:31 (4:57/km) — pacing quase perfeito", fc:"km1 asfalto 139,8 · km2-9 areia 160-172 · final asfalto 159", read:"Maré alta, ziguezague para evitar ondas, areal instável. Esforço relativo 137. Splits por piso confirmam o mecanismo: FC seguiu o terreno, não o ritmo — 50min a esforço de limiar/VO2max pela instabilidade. Estímulo grande e não planeado a 8 dias do Tejo. Motivou ajuste do domingo." },
+{ date:"06 Set", session:"SHAKEOUT (feito)", pace:"7,22km em 40:03 (5:33/km)", fc:"média 135,5/máx 149", read:"Substituiu o LR12-SOFT original. Sem sinais de fadiga residual do pacer apesar de D+101m. Semana 36 fechada em 59,27km (91,9% do alvo 64,5km) — decisão de priorizar recuperação sobre volume nos últimos 2 dias validada pelos dados." },
 ],
 races: [
-{ dateISO:"2026-09-05", date:"5 Set", name:"Pacer · Corrida Noturna Costa da Caparica", dist:"pacer 5:00/km · 21h30", prio:"Compromisso", col:"#F5A623" },
 { dateISO:"2026-09-13", date:"13 Set", name:"Corrida do Tejo ★", dist:"10km · 09h00", prio:"PROVA A", col:"#FF5422" },
 { dateISO:"2026-09-20", date:"20 Set", name:"Pacer · Meia Loures-Odivelas-Loures", dist:"pacer 4:30/km · 21,5km — FECHADO", prio:"Compromisso", col:"#F5A623" },
 { dateISO:"2026-09-27", date:"27 Set", name:"Pacer · Bimbo Global Race", dist:"pacer 5:00/km · 09h45", prio:"Compromisso", col:"#F5A623" },
@@ -342,8 +343,8 @@ p.innerHTML = `
 <div style="background:linear-gradient(90deg,var(--teal),var(--orange));width:${Math.min(100,(D.weekDone/D.weekTarget)*100)}%;height:100%"></div>
 </div>
 <div style="display:flex;justify-content:space-between">
-<span style="color:var(--teal);font-size:9px">✓ feito: ${D.weekDone}km</span>
-<span style="color:var(--sub);font-size:9px">planeado restante: ${(D.weekTarget-D.weekDone).toFixed(1)}km</span>
+<span style="color:var(--teal);font-size:9px">✓ SEMANA FECHADA: ${D.weekDone}km</span>
+<span style="color:var(--sub);font-size:9px">${(D.weekDone/D.weekTarget*100).toFixed(1)}% do alvo</span>
 </div>
 </div>
 <div class="card" style="padding:0">
@@ -364,7 +365,7 @@ ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#
 ${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px">Pacer da Caparica veio MUITO mais duro que o previsto — FC pinada 160-172bpm por ~50min devido a maré alta e areal instável, não o "sem carga" planeado. <b>LR12-SOFT de domingo por ajustar</b> consoante recuperação — prioridade é chegar fresco ao Tejo, não completar volume. Toca numa sessão para ver detalhes.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 36 FECHADA</b> — 59,27km de 64,5km (91,9%), 7 sessões. Pacer da Caparica saiu muito mais duro que o previsto (FC de esforço 160-172 por terreno instável); LR12-SOFT de domingo foi corretamente substituído por shakeout leve. Readiness caiu para 9/100 hoje (recuperação em falta, sono moderado) — natural após o esforço do pacer, a monitorizar nos próximos dias antes do Tejo (7 dias).</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
@@ -377,18 +378,18 @@ ${D.weeklyLoad.map(w=>`
 </div>
 `).join("")}
 </div>
-<div class="note">Semana 35 <b>fechou em 72,31km</b> de 74km alvo. Semana 36: pacer da Caparica saiu bem mais exigente que o previsto (FC de esforço, não "solto") — LR12-SOFT de domingo a rever para não comprometer a chegada fresca ao Tejo.</div>
+<div class="note">Semana 36 <b>fechou em 59,27km</b> de 64,5km alvo (91,9%) — 7 sessões, taper a decorrer como planeado apesar do imprevisto do pacer. Semana 37 (7-13 Set) é a semana da prova: volume mínimo, foco total em chegar fresco ao Tejo no domingo.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Training Status · Garmin</span></div>
 <div class="card">
 <div style="display:flex;justify-content:space-between;margin-bottom:12px">
 <div>
 <div style="color:var(--z1);font-size:14px;font-weight:800">${D.trainingStatus}</div>
-<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 16Ago (PC)</div>
+<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 06Set (PC)</div>
 </div>
 <div style="text-align:right">
 <div style="color:var(--teal);font-size:18px;font-weight:800;font-family:monospace">${D.acwr}</div>
-<div style="color:var(--sub);font-size:9px">ACWR · ÓTIMO (carga em equilíbrio)</div>
+<div style="color:var(--sub);font-size:9px">ACWR · carga em equilíbrio</div>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
