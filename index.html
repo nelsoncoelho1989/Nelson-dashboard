@@ -119,16 +119,16 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "05 Set 2026 · sync via chat · Pacer Caparica feito — condições extremas (maré alta, areal instável), FC pinada 160-172 durante 50min", source: "Claude + Strava + GetFast" },
+meta: { updatedAt: "06 Set 2026 · sync MCP semanal", source: "Claude + Strava + GetFast" },
 hrv: 52, hrvTrend: "56ms (méd. 7d) · dentro/acima da banda alta 47-59ms · pico 64ms na noite pré-longo (29→30Ago), hoje 52ms — recuperação normal pós-LR2x10T",
 rhr: 47, bodyBattery: 86, weight: 79.0,
 lthr: 165, ltPace: "4:05",
 vdot: 53, vdotEst: "55–56",
-trainingStatus: "PRODUTIVO (Nível 2)",
-acwr: 1.3,
-vo2max: 57.4,
-readiness: 64,
-readinessSub: "última leitura PC 16Ago (pós-LR17: 14/100, recuperação 73h) — Body Battery/Readiness/ACWR/VO2max não disponíveis via mobile, por atualizar na próxima sessão PC",
+trainingStatus: "MANTER (Nível 4)",
+acwr: 0.9,
+vo2max: 57.0,
+readiness: 9,
+readinessSub: "leitura PC 06Set (AFTER_WAKEUP_RESET): recuperação em falta (fator POOR 23%, 55,7h) e sono moderado (score 71, fator 56%) — HRV continua muito boa (100%, 51ms méd. semanal)",
 weekLabel: "Semana 36 · 31 Ago–6 Set 2026 · Afinação Corrida do Tejo",
 weekDone: 52.05, weekTarget: 64.5,
 sessions: [
@@ -388,7 +388,7 @@ ${D.weeklyLoad.map(w=>`
 </div>
 <div style="text-align:right">
 <div style="color:var(--teal);font-size:18px;font-weight:800;font-family:monospace">${D.acwr}</div>
-<div style="color:var(--sub);font-size:9px">ACWR · ÓTIMO (limite superior)</div>
+<div style="color:var(--sub);font-size:9px">ACWR · ÓTIMO (carga em equilíbrio)</div>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
