@@ -119,9 +119,9 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "06 Set 2026 · sync chat (sessões fechadas) + sync MCP PC (Garmin/Training Status/Readiness)", source: "Claude + Strava + GetFast + Garmin MCP" },
-hrv: 52, hrvTrend: "56ms (méd. 7d) · dentro/acima da banda alta 47-59ms · pico 64ms na noite pré-longo (29→30Ago), hoje 52ms — recuperação normal pós-LR2x10T",
-rhr: 47, bodyBattery: 86, weight: 79.0,
+meta: { updatedAt: "07 Set 2026 · sync chat (semana do Tejo) + Strava + GetFast", source: "Claude + Strava + GetFast + Garmin MCP" },
+hrv: 54, hrvTrend: "6Set (noite pós-pacer) caiu a 46ms, hoje recupera a 54ms — dentro da banda alta 47-59ms, sem sinal de stress autonómico residual do pacer de Caparica",
+rhr: 46, bodyBattery: 86, weight: 79.0,
 lthr: 165, ltPace: "4:05",
 vdot: 53, vdotEst: "55–56",
 trainingStatus: "MANTER (Nível 4)",
@@ -129,30 +129,24 @@ acwr: 0.9,
 vo2max: 57.0,
 readiness: 9,
 readinessSub: "leitura PC 06Set (AFTER_WAKEUP_RESET): recuperação em falta (fator POOR 23%, 55,7h) e sono moderado (score 71, fator 56%) — HRV continua muito boa (100%, 51ms méd. semanal)",
-weekLabel: "Semana 36 · 31 Ago–6 Set 2026 · Afinação Corrida do Tejo",
-weekDone: 59.27, weekTarget: 64.5,
+weekLabel: "Semana 37 · 7–13 Set 2026 · Semana do Tejo (PROVA A domingo)",
+weekDone: 7.49, weekTarget: 51.0,
 sessions: [
-{ day:"Seg 31", code:"EASY45", km:8.37, status:"done", icon:"🏃",
-  detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45' fácil — entrar na afinação sem acumular.",
-  real:"Feito às 07h35: 8,37km em 45:03 (5:23/km), HR média 133,7/máx 150. Percurso Sintra/Jamor/Queluz com D+92m — progressão de FC (115→146) explicada pelo terreno, sempre dentro do teto Z2. Primeiro treino da Afinação cumprido como previsto, sem exageros." } },
-{ day:"Ter 01", code:"10K-5x1K", km:10.01, status:"done", icon:"🔥",
-  detail:{ ritmo:"3:44-3:48/km", fc:"Z5 controlada 165-174 bpm — referência secundária, ritmo manda", estrutura:"20' fácil+técnica + 5 x 1000m (90'' trote) + arrefecimento. Último treino específico mais sério antes do Tejo.",
-  real:"Feito na Pista do Real. Splits: 3:44/3:38/3:35/3:37/3:33/km — negative split completo, só a 1ª rep bateu no alvo, as restantes 4 mais rápidas. FC média 153→155→159→159→161, máx 165→168→172→169→172. Sem arranque disparado — alerta de pace funcionou. 5ª sessão consecutiva com FC atrás do ritmo. Teto de FC estável ~172 nas últimas 3 sessões a ritmos diferentes — patamar real. Alvo de 3:44-3:48 (decidido há 4 dias) já ficou conservador na 1ª confirmação. VDOT estimado sobe para 55-56." } },
-{ day:"Qua 02", code:"EASY+STR", km:8.96, status:"done", icon:"🏃",
-  detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"45' fácil + 4-6 x 15'' strides (45'' recuperação).",
-  real:"Feito às 07h26: 8,96km em 50:59 (5:41/km), HR média 132,8/máx 153. Percurso Sintra/Jamor/Queluz com D+119m — 8km base contínuos, FC a subir naturalmente com o terreno (113→139), sempre dentro de Z2, seguidos de 6x15'' strides bem visíveis (cadência 90-105spm vs 65-85spm nos 45'' de trote). Estrutura cumprida como previsto." } },
-{ day:"Qui 03", code:"SHARP-6x300", km:6.91, status:"done", icon:"⚡",
-  detail:{ ritmo:"3:30-3:43/km", fc:"referência secundária; rápido leve", estrutura:"20' fácil + 6 x 300m (1'30'' fácil) — só abrir a passada, sem acumular carga.",
-  real:"Feito na Pista do Real: 6,91km (3,05 aquecimento + 2,37 séries + 1,50 arrefecimento). Splits 300m: 58/56/55/55/52/49s (2:43-3:13/km) — bem mais rápido que os 3:30-3:43/km previstos, mas correto para este tipo de sessão: FC ficou baixa o tempo todo (média 130, máx 163, nunca perto do teto de 172), cadência subiu para 94-103spm nas séries. Sessão de afiar sem stress cardiovascular, como previsto — só abriu a passada." } },
-{ day:"Sex 04", code:"EASY40", km:7.60, status:"done", icon:"🏃",
-  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 baixa 133-142 bpm", estrutura:"35-45' fácil.",
-  real:"Feito às 07h15: 7,60km em 40:10 (5:17/km), HR média 137,6/máx 155. Percurso Sintra/Jamor/Queluz com D+73m e subida final ao Palácio — progressão de FC (119→150) explicada pelo terreno, só tocou 155 no último troço de subida. Sessão fácil cumprida, última antes do pacer de amanhã à noite." } },
-{ day:"Sáb 05", code:"PACER-CAPARICA", km:10.2, status:"done", icon:"🎽",
-  detail:{ ritmo:"solto — pacer 5:00/km", fc:"referência secundária; sem carga (previsto)", estrutura:"Corrida Noturna Costa da Caparica, partida 21h30.",
-  real:"Feito: 10,2km em 50:31 (4:57/km médio) — pacing quase perfeito. MAS condições extremas: maré alta, ziguezague constante para evitar ondas, areal solto/instável. FC média 161,9/máx 172 — o mesmo teto das sessões de qualidade mais duras, sustentado 50min (não reps curtas). Esforço relativo 137. NÃO foi o pacer 'sem carga' previsto — foi na prática esforço de limiar/VO2max pela instabilidade do terreno. Splits por km confirmam o mecanismo: km1 (asfalto) 139,8bpm, km2-9 (areia) 160-172bpm, troço final (asfalto) 159bpm — a FC seguiu o piso, não o ritmo." } },
-{ day:"Dom 06", code:"SHAKEOUT", km:7.22, status:"done", icon:"🌙",
-  detail:{ ritmo:"5:30-6:00/km", fc:"Z2 baixa", estrutura:"Substituiu o LR12-SOFT original (70-75', 12km) por decisão consciente — o pacer da Caparica saiu muito mais duro que o previsto, prioridade passou a ser recuperação, não volume.",
-  real:"Feito às 11h55: 7,22km em 40:03 (5:33/km), HR média 135,5/máx 149 — dentro de Z2, D+101m, sem sinais de fadiga residual do pacer. Decisão correta: fechar a semana com o corpo a descomprimir, não a acumular mais carga a 7 dias do Tejo." } },
+{ day:"Seg 07", code:"REC40", km:7.49, status:"done", icon:"🏃",
+  detail:{ ritmo:"5:20-5:45/km", fc:"Z1-Z2 108-147 bpm", estrutura:"35-45' muito fácil — abre a semana do Tejo, absorver o pacer de Caparica.",
+  real:"Feito às 07h41: 7,49km em 40:04 (5:21/km), HR média 134,2/máx 151. Percurso Sintra/Jamor/Queluz com D+85m — HR tocou 151 nos troços de subida (acima do teto Z2 de 147, mas breve). Ritmo no limite rápido do intervalo (5:21 vs alvo 5:20-5:45/km). HRV recuperou de 46ms (6Set, pós-pacer) para 54ms hoje; FC repouso voltou a 46bpm (baseline) — sem stress autonómico residual. Nota de percurso: para os próximos dias fáceis desta semana, preferir terreno mais plano (Eixo Verde Azul) — menos subidas/descidas, poupa o quadricípete excêntrico e mantém a FC mais estável em Z1-Z2." } },
+{ day:"Ter 08", code:"10K-3x1K+200", km:9.5, status:"planned", icon:"🔥",
+  detail:{ ritmo:"1000 @3:55-4:00/km + 200 @3:25-3:40/km", fc:"Z4/Z5 controlado 160-172 bpm", estrutura:"20' fácil+técnica + 3 x 1000m + 4 x 200m (2' trote/rec total). Fresco, não cansado — modo CUMPRIR, não teste." } },
+{ day:"Qua 09", code:"EASY+STR", km:8.5, status:"planned", icon:"🏃",
+  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 baixa 133-142 bpm", estrutura:"40-45' fácil + 4 x 15'' strides (45'' recuperação)." } },
+{ day:"Qui 10", code:"SHARP20", km:6.5, status:"planned", icon:"⚡",
+  detail:{ ritmo:"solto", fc:"referência secundária; sem acumular", estrutura:"25-30' fácil + 4 x 20'' progressivos (1' fácil). Só sentir a perna viva." } },
+{ day:"Sex 11", code:"PRE-RACE", km:5, status:"planned", icon:"🏃",
+  detail:{ ritmo:"5:20-5:45/km", fc:"Z1 108-132 bpm", estrutura:"20-25' muito fácil. Se estiver cansado do ensaio de sexta à noite anterior, preferir descanso." } },
+{ day:"Sáb 12", code:"SHAKEOUT", km:4, status:"planned", icon:"🌙",
+  detail:{ ritmo:"solto", fc:"referência secundária; sem carga", estrutura:"15-20' muito fácil + 3 x 10''. Opcional — só se fizer sentir melhor." } },
+{ day:"Dom 13", code:"RACE-TEJO", km:10, status:"race", icon:"⭐",
+  detail:{ ritmo:"objetivo principal · sub-40", fc:"1º terço Z4 ≤164bpm; depois competir", estrutura:"Corrida do Tejo, 10km estrada, partida confirmada 09h00. Estratégia: não ganhar a prova no km1 — controlar até 3,1km (~4:00/km), checkpoint na inversão (150-155bpm verde), cuidado na descida até 4,5km, 2º checkpoint ~km7 (160-163bpm), fechar a 3:48-3:52/km." } },
 ],
 weeklyLoad: [
 {w:"S28",km:66.6},{w:"S29",km:63.3},{w:"S30",km:69.4},
@@ -268,10 +262,10 @@ ${renderVDOTGauge(D.vdot, D.vdotEst)}
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Estado Fisiológico · ${D.meta.updatedAt}</span></div>
 <div class="metrics-row">
 <div class="metric"><div class="mlabel">HRV</div><div><span class="mval" style="color:var(--z3)">${D.hrv}</span><span class="munit">ms</span></div><div class="msub">${D.hrvTrend}</div></div>
-<div class="metric"><div class="mlabel">FC Repouso</div><div><span class="mval" style="color:var(--z3)">${D.rhr}</span><span class="munit">bpm</span></div><div class="msub">base 47-52 esta semana · normal</div></div>
+<div class="metric"><div class="mlabel">FC Repouso</div><div><span class="mval" style="color:var(--z3)">${D.rhr}</span><span class="munit">bpm</span></div><div class="msub">46-52 esta semana · hoje na baseline</div></div>
 </div>
 <div class="metrics-row">
-<div class="metric"><div class="mlabel">Body Battery</div><div><span class="mval" style="color:var(--z1)">${D.bodyBattery}</span><span class="munit">%</span></div><div class="msub">pico de hoje · boa recuperação</div></div>
+<div class="metric"><div class="mlabel">Body Battery</div><div><span class="mval" style="color:var(--z1)">${D.bodyBattery}</span><span class="munit">%</span></div><div class="msub">último registo 06Set (PC) · sem dado móvel hoje</div></div>
 <div class="metric"><div class="mlabel">Train. Readiness</div><div><span class="mval" style="color:var(--z3)">${D.readiness}</span><span class="munit">/100</span></div><div class="msub">${D.readinessSub}</div></div>
 </div>
 <div class="metrics-row" style="margin-bottom:18px">
@@ -343,7 +337,7 @@ p.innerHTML = `
 <div style="background:linear-gradient(90deg,var(--teal),var(--orange));width:${Math.min(100,(D.weekDone/D.weekTarget)*100)}%;height:100%"></div>
 </div>
 <div style="display:flex;justify-content:space-between">
-<span style="color:var(--teal);font-size:9px">✓ SEMANA FECHADA: ${D.weekDone}km</span>
+<span style="color:var(--orange);font-size:9px">● SEMANA EM CURSO: ${D.weekDone}km</span>
 <span style="color:var(--sub);font-size:9px">${(D.weekDone/D.weekTarget*100).toFixed(1)}% do alvo</span>
 </div>
 </div>
@@ -365,7 +359,7 @@ ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#
 ${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 36 FECHADA</b> — 59,27km de 64,5km (91,9%), 7 sessões. Pacer da Caparica saiu muito mais duro que o previsto (FC de esforço 160-172 por terreno instável); LR12-SOFT de domingo foi corretamente substituído por shakeout leve. Readiness caiu para 9/100 hoje (recuperação em falta, sono moderado) — natural após o esforço do pacer, a monitorizar nos próximos dias antes do Tejo (7 dias).</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 37 — SEMANA DO TEJO</b>. Segunda cumprida (REC40, 5:21/km, HR média 134). HRV e FC repouso já recuperados do pacer de Caparica (46→54ms; 52→46bpm) — sinal verde para manter o plano de afinação como está. Terça mantém 10K-3x1K+200 em modo CUMPRIR (não teste): o objetivo é sentir a perna fresca, não confirmar tetos. Domingo: Corrida do Tejo, PROVA A, sub-40, partida 09h00.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
@@ -378,7 +372,7 @@ ${D.weeklyLoad.map(w=>`
 </div>
 `).join("")}
 </div>
-<div class="note">Semana 36 <b>fechou em 59,27km</b> de 64,5km alvo (91,9%) — 7 sessões, taper a decorrer como planeado apesar do imprevisto do pacer. Semana 37 (7-13 Set) é a semana da prova: volume mínimo, foco total em chegar fresco ao Tejo no domingo.</div>
+<div class="note">Semana 36 fechou em <b>59,27km</b> de 64,5km alvo (91,9%) — taper a decorrer como planeado apesar do imprevisto do pacer. Semana 37 (7-13 Set) é a <b>semana da prova</b>: volume mínimo (~51km previstos), foco total em chegar fresco ao Tejo no domingo. Corrida do Tejo conta como sessão forte — a semana seguinte (38) já entra em modo de absorção.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Training Status · Garmin</span></div>
 <div class="card">
