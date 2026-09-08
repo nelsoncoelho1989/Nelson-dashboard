@@ -119,7 +119,7 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "07 Set 2026 · sync chat (semana do Tejo) + Strava + GetFast", source: "Claude + Strava + GetFast + Garmin MCP" },
+meta: { updatedAt: "08 Set 2026 · sync chat (semana do Tejo) + Strava", source: "Claude + Strava + GetFast + Garmin MCP" },
 hrv: 54, hrvTrend: "6Set (noite pós-pacer) caiu a 46ms, hoje recupera a 54ms — dentro da banda alta 47-59ms, sem sinal de stress autonómico residual do pacer de Caparica",
 rhr: 46, bodyBattery: 86, weight: 79.0,
 lthr: 165, ltPace: "4:05",
@@ -130,13 +130,14 @@ vo2max: 57.0,
 readiness: 9,
 readinessSub: "leitura PC 06Set (AFTER_WAKEUP_RESET): recuperação em falta (fator POOR 23%, 55,7h) e sono moderado (score 71, fator 56%) — HRV continua muito boa (100%, 51ms méd. semanal)",
 weekLabel: "Semana 37 · 7–13 Set 2026 · Semana do Tejo (PROVA A domingo)",
-weekDone: 7.49, weekTarget: 51.0,
+weekDone: 16.61, weekTarget: 51.0,
 sessions: [
 { day:"Seg 07", code:"REC40", km:7.49, status:"done", icon:"🏃",
   detail:{ ritmo:"5:20-5:45/km", fc:"Z1-Z2 108-147 bpm", estrutura:"35-45' muito fácil — abre a semana do Tejo, absorver o pacer de Caparica.",
   real:"Feito às 07h41: 7,49km em 40:04 (5:21/km), HR média 134,2/máx 151. Percurso Sintra/Jamor/Queluz com D+85m — HR tocou 151 nos troços de subida (acima do teto Z2 de 147, mas breve). Ritmo no limite rápido do intervalo (5:21 vs alvo 5:20-5:45/km). HRV recuperou de 46ms (6Set, pós-pacer) para 54ms hoje; FC repouso voltou a 46bpm (baseline) — sem stress autonómico residual. Nota de percurso: para os próximos dias fáceis desta semana, preferir terreno mais plano (Eixo Verde Azul) — menos subidas/descidas, poupa o quadricípete excêntrico e mantém a FC mais estável em Z1-Z2." } },
-{ day:"Ter 08", code:"10K-3x1K+200", km:9.5, status:"planned", icon:"🔥",
-  detail:{ ritmo:"1000 @3:55-4:00/km + 200 @3:25-3:40/km", fc:"Z4/Z5 controlado 160-172 bpm", estrutura:"20' fácil+técnica + 3 x 1000m + 4 x 200m (2' trote/rec total). Fresco, não cansado — modo CUMPRIR, não teste." } },
+{ day:"Ter 08", code:"10K-3x1K+200", km:9.12, status:"done", icon:"🔥",
+  detail:{ ritmo:"1000 @3:55-4:00/km + 200 @3:25-3:40/km", fc:"Z4/Z5 controlado 160-172 bpm", estrutura:"20' fácil+técnica + 3 x 1000m + 4 x 200m (2' trote/rec total). Fresco, não cansado — modo CUMPRIR, não teste.",
+  real:"NÃO CUMPRIDO COMO PRESCRITO. Aquec. 3,10km/20:21 + bloco 4,63km/24:54 + arref. 1,39km/10:06. Splits 1000m: 3:44/3:46/3:42/km — 10-18s/km mais rápido que o alvo, quase ao nível do teste real de 01Set (3:44-3:33). FC média 154,7/156,2/157,7 (máx 171/164/164) — abaixo do piso da zona-alvo mesmo a ritmo mais rápido: 6ª+ sessão consecutiva com FC atrás do ritmo. Splits 200m: 33/33/31/30s (2:45-2:30/km) — muito acima do alvo, vel. máx 7,5m/s, cadência 100-105spm: sprint a sério, não remate leve. O próprio Nelson escreveu \"foi tudo acima\". A 5 dias do Tejo, sessão que devia ser priming ficou com carga de teste — sem tempo de adaptar até domingo, só custo de fadiga. A vigiar: HRV/RHR nos próximos 1-2 dias." } },
 { day:"Qua 09", code:"EASY+STR", km:8.5, status:"planned", icon:"🏃",
   detail:{ ritmo:"5:10-5:35/km", fc:"Z2 baixa 133-142 bpm", estrutura:"40-45' fácil + 4 x 15'' strides (45'' recuperação)." } },
 { day:"Qui 10", code:"SHARP20", km:6.5, status:"planned", icon:"⚡",
@@ -177,6 +178,7 @@ calibs: [
 { date:"04 Set", session:"EASY40 (feito)", pace:"7,60km em 40:10 (5:17/km)", fc:"119→150 (máx 155, terreno)", read:"Última fácil antes do pacer de sábado. FC dentro do razoável, subida explicada pelo terreno (D+73m). Sem sinais de fadiga acumulada." },
 { date:"05 Set", session:"PACER-CAPARICA (feito)", pace:"10,2km em 50:31 (4:57/km) — pacing quase perfeito", fc:"km1 asfalto 139,8 · km2-9 areia 160-172 · final asfalto 159", read:"Maré alta, ziguezague para evitar ondas, areal instável. Esforço relativo 137. Splits por piso confirmam o mecanismo: FC seguiu o terreno, não o ritmo — 50min a esforço de limiar/VO2max pela instabilidade. Estímulo grande e não planeado a 8 dias do Tejo. Motivou ajuste do domingo." },
 { date:"06 Set", session:"SHAKEOUT (feito)", pace:"7,22km em 40:03 (5:33/km)", fc:"média 135,5/máx 149", read:"Substituiu o LR12-SOFT original. Sem sinais de fadiga residual do pacer apesar de D+101m. Semana 36 fechada em 59,27km (91,9% do alvo 64,5km) — decisão de priorizar recuperação sobre volume nos últimos 2 dias validada pelos dados." },
+{ date:"08 Set", session:"10K-3x1K+200 (feito, não como prescrito)", pace:"1000m: 3:44/3:46/3:42/km · 200m: 33/33/31/30s", fc:"1000m 154,7→156,2→157,7 (máx 171→164→164)", read:"Sessão era modo CUMPRIR ('fresco, não cansado'), saiu como teste: 1000m 10-18s/km mais rápido que o alvo, 200m em sprint a sério (vel. máx 7,5m/s). FC continua abaixo do piso da zona mesmo mais rápido — 6ª+ sessão consecutiva com este padrão, sinal real de patamar a subir. Mas a 5 dias do Tejo isto é custo de fadiga sem tempo de adaptação — não é o momento para mais confirmações. Vigiar HRV/RHR nos próximos 1-2 dias." },
 ],
 races: [
 { dateISO:"2026-09-13", date:"13 Set", name:"Corrida do Tejo ★", dist:"10km · 09h00", prio:"PROVA A", col:"#FF5422" },
@@ -359,7 +361,7 @@ ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#
 ${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 37 — SEMANA DO TEJO</b>. Segunda cumprida (REC40, 5:21/km, HR média 134). HRV e FC repouso já recuperados do pacer de Caparica (46→54ms; 52→46bpm) — sinal verde para manter o plano de afinação como está. Terça mantém 10K-3x1K+200 em modo CUMPRIR (não teste): o objetivo é sentir a perna fresca, não confirmar tetos. Domingo: Corrida do Tejo, PROVA A, sub-40, partida 09h00.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 37 — SEMANA DO TEJO</b>. Segunda cumprida bem (REC40). <b>Terça NÃO cumprida como prescrito</b>: 10K-3x1K+200 era modo CUMPRIR ("fresco, não cansado") e saiu como esforço de teste — 1000m a 3:42-3:46/km (alvo 3:55-4:00) e 200m a 2:30-2:45/km (alvo 3:25-3:40, sprint a sério). A 5 dias do Tejo isto é custo de fadiga sem tempo de adaptar. Resto da semana precisa de disciplina real: quarta e sexta genuinamente fáceis, quinta (SHARP20) sem repetir o erro. Domingo: Corrida do Tejo, PROVA A, sub-40, partida 09h00.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
