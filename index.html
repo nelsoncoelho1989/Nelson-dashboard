@@ -119,7 +119,7 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "10 Set 2026 · sync chat (semana do Tejo) + Strava", source: "Claude + Strava + GetFast + Garmin MCP" },
+meta: { updatedAt: "11 Set 2026 · sync chat (semana do Tejo) + Strava", source: "Claude + Strava + GetFast + Garmin MCP" },
 hrv: 54, hrvTrend: "6Set (noite pós-pacer) caiu a 46ms, hoje recupera a 54ms — dentro da banda alta 47-59ms, sem sinal de stress autonómico residual do pacer de Caparica",
 rhr: 46, bodyBattery: 86, weight: 79.0,
 lthr: 165, ltPace: "4:05",
@@ -130,7 +130,7 @@ vo2max: 57.0,
 readiness: 9,
 readinessSub: "leitura PC 06Set (AFTER_WAKEUP_RESET): recuperação em falta (fator POOR 23%, 55,7h) e sono moderado (score 71, fator 56%) — HRV continua muito boa (100%, 51ms méd. semanal)",
 weekLabel: "Semana 37 · 7–13 Set 2026 · Semana do Tejo (PROVA A domingo)",
-weekDone: 32.41, weekTarget: 51.0,
+weekDone: 38.27, weekTarget: 51.0,
 sessions: [
 { day:"Seg 07", code:"REC40", km:7.49, status:"done", icon:"🏃",
   detail:{ ritmo:"5:20-5:45/km", fc:"Z1-Z2 108-147 bpm", estrutura:"35-45' muito fácil — abre a semana do Tejo, absorver o pacer de Caparica.",
@@ -144,8 +144,9 @@ sessions: [
 { day:"Qui 10", code:"SHARP20", km:6.37, status:"done", icon:"⚡",
   detail:{ ritmo:"solto", fc:"referência secundária; sem acumular", estrutura:"25-30' fácil + 4 x 20'' progressivos (1' fácil). Só sentir a perna viva.",
   real:"CUMPRIDO como prescrito. 6,37km em 35:21, D+41,9m (percurso finalmente mais plano). Base 5km em 26:57 (5:35→5:21→5:24→5:18→5:19/km), HR progressiva e controlada 120→132→132→133→139 (máx 146). Bloco de acelerações: exatamente 4x20'' como prescrito (não 6 como na quarta), 1' rec entre elas, velocidade máxima a subir em cada rep (17,0 / 19,2 / 20,6 / 24,6 km/h) — progressão correta, cadência a subir para 88-104spm nos picos. Esforço relativo 17 — o mais baixo da semana, muito abaixo de terça e quarta. Melhor sessão executada da semana: estrutura certa, esforço controlado, terreno adequado." } },
-{ day:"Sex 11", code:"PRE-RACE", km:5, status:"planned", icon:"🏃",
-  detail:{ ritmo:"5:20-5:45/km", fc:"Z1 108-132 bpm", estrutura:"20-25' muito fácil de manhã. Sexta à noite há ensaio (21h-23h30) — se a perna estiver pesada, preferir descanso e poupar para o ensaio." } },
+{ day:"Sex 11", code:"PRE-RACE", km:5.86, status:"done", icon:"🏃",
+  detail:{ ritmo:"5:20-5:45/km", fc:"Z1 108-132 bpm", estrutura:"20-25' muito fácil de manhã. Sexta à noite há ensaio (21h-23h30) — se a perna estiver pesada, preferir descanso e poupar para o ensaio.",
+  real:"NÃO CUMPRIDO COMO PRESCRITO. Era 20-25' muito fácil, sem estrutura. Feito: 5,86km em 34:00 — quase 50% acima do teto de 25min. D+86,4m no resumo Strava (Avenida Dr. Francisco Sá Carneiro Climb 48,2m + Up Jamor 55,2m) — Nelson reportou que o relógio parecia não ter registado elevação; os dados por lap confirmam uma falha do altimetro do dispositivo nos primeiros laps (elevation_gain=0/2,5m apesar de subida real), mas o total do Strava foi recalculado por GPS/terreno e bate com os segmentos conhecidos: a subida foi real, só a leitura ao vivo do relógio falhou. Base 5km em ~28min, FC 112→124→131→132→134 (máx 139 no lap da subida do Jamor) — razoável para terreno ondulado. Depois, bloco NÃO prescrito de 4x15'' em subida (declive até 10%), FC a subir para 140-144 média/máx 150 — isto não fazia parte do PRE-RACE. A 2 dias do Tejo, sessão saiu quase o dobro do tempo previsto com um bloco de qualidade extra não pedido. Recomendação: sábado deve ser genuinamente opcional (ou pular) dado este acréscimo." } },
 { day:"Sáb 12", code:"SHAKEOUT", km:4, status:"planned", icon:"🌙",
   detail:{ ritmo:"solto", fc:"referência secundária; sem carga", estrutura:"15-20' muito fácil + 3 x 10''. Opcional — só se fizer sentir melhor." } },
 { day:"Dom 13", code:"RACE-TEJO", km:10, status:"race", icon:"⭐",
@@ -363,7 +364,7 @@ ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#
 ${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 37 — SEMANA DO TEJO</b>. Segunda boa. Terça e quarta saíram mais carregadas que o previsto (intensidade e terreno/volume). <b>Quinta corrigiu o rumo</b>: SHARP20 cumprido à risca — 4 acelerações (não 6), terreno plano, esforço relativo 17 (o mais baixo da semana). Falta sexta (leve, ensaio à noite) e domingo: Corrida do Tejo, PROVA A, sub-40, partida 09h00.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 37 — SEMANA DO TEJO</b>. Segunda boa, quinta corrigiu o rumo depois de terça/quarta mais carregadas. <b>Sexta (PRE-RACE) saiu outra vez maior que o previsto</b>: 34min em vez de 20-25', com bloco extra de 4x15'' em subida não pedido (FC até 150). D+86,4m reais apesar do relógio parecer não ter registado — falha do altimetro, não da rota. A 2 dias do Tejo: sábado deve ser genuinamente opcional/mínimo, sem mais nenhum estímulo. Domingo: Corrida do Tejo, PROVA A, sub-40, partida 09h00.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
