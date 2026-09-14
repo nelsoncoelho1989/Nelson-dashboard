@@ -119,16 +119,16 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "14 Set 2026 · diploma oficial Tejo + Garmin", source: "Claude + Strava + GetFast + Garmin MCP" },
-hrv: 52, hrvTrend: "Semana pré-Tejo estável em BALANCED, 50-52ms — dentro da baseline 47-59ms, sem sinal de fadiga residual à entrada da prova",
-rhr: 44, bodyBattery: 58, weight: 79.0,
+meta: { updatedAt: "14 Set 2026 · leitura live Garmin MCP cloud", source: "Claude + Strava + GetFast + Garmin MCP" },
+hrv: 43, hrvTrend: "Hoje 43ms — abaixo do piso de alerta (45ms), mas dentro da méd. semanal (51ms). Leitura isolada pós-Tejo, esperada, não é tendência.",
+rhr: 51, bodyBattery: 60, weight: 79.0,
 lthr: 165, ltPace: "4:05",
 vdot: 54, vdotEst: "55–56",
 trainingStatus: "MANTER (Nível 4)",
-acwr: 0.9,
+acwr: 0.7,
 vo2max: 57.0,
-readiness: 9,
-readinessSub: "leitura PC 06Set (AFTER_WAKEUP_RESET): recuperação em falta (fator POOR 23%, 55,7h) e sono moderado (score 71, fator 56%) — HRV continua muito boa (100%, 51ms méd. semanal)",
+readiness: 45,
+readinessSub: "leitura 14Set (AFTER_WAKEUP_RESET, Garmin MCP cloud): recovery time 37,7h (fator POOR 39%), sono 72 (fator MODERATE 58%), HRV excelente (fator 100%, méd. semanal 51ms). Atualização intradiária (11h24) já subiu para 50/100 MODERATE.",
 weekLabel: "Semana 38 · 14–20 Set 2026 · Absorção pós-Tejo — pacer Loures no domingo (compromisso fechado)",
 weekDone: 0, weekTarget: 60.5,
 sessions: [
@@ -268,15 +268,15 @@ ${renderVDOTGauge(D.vdot, D.vdotEst)}
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Estado Fisiológico · ${D.meta.updatedAt}</span></div>
 <div class="metrics-row">
 <div class="metric"><div class="mlabel">HRV</div><div><span class="mval" style="color:var(--z3)">${D.hrv}</span><span class="munit">ms</span></div><div class="msub">${D.hrvTrend}</div></div>
-<div class="metric"><div class="mlabel">FC Repouso</div><div><span class="mval" style="color:var(--z3)">${D.rhr}</span><span class="munit">bpm</span></div><div class="msub">46-52 esta semana · hoje na baseline</div></div>
+<div class="metric"><div class="mlabel">FC Repouso</div><div><span class="mval" style="color:var(--z3)">${D.rhr}</span><span class="munit">bpm</span></div><div class="msub">+4 vs méd. 47 (7 dias) · dia seguinte à prova</div></div>
 </div>
 <div class="metrics-row">
-<div class="metric"><div class="mlabel">Body Battery</div><div><span class="mval" style="color:var(--z1)">${D.bodyBattery}</span><span class="munit">%</span></div><div class="msub">último registo 06Set (PC) · sem dado móvel hoje</div></div>
+<div class="metric"><div class="mlabel">Body Battery</div><div><span class="mval" style="color:var(--z1)">${D.bodyBattery}</span><span class="munit">%</span></div><div class="msub">mínimo 18% esta noite · atual 60%</div></div>
 <div class="metric"><div class="mlabel">Train. Readiness</div><div><span class="mval" style="color:var(--z3)">${D.readiness}</span><span class="munit">/100</span></div><div class="msub">${D.readinessSub}</div></div>
 </div>
 <div class="metrics-row" style="margin-bottom:18px">
 <div class="metric"><div class="mlabel">VO₂Max Garmin</div><div><span class="mval" style="color:var(--orange)">${D.vo2max}</span></div><div class="msub">plano ~2 meses</div></div>
-<div class="metric"><div class="mlabel">ACWR</div><div><span class="mval" style="color:var(--z1)">${D.acwr}</span></div><div class="msub">ÓTIMO</div></div>
+<div class="metric"><div class="mlabel">ACWR</div><div><span class="mval" style="color:var(--z3)">${D.acwr}</span></div><div class="msub">BAIXO (pós-taper+prova, normal)</div></div>
 </div>
 <div class="metrics-row" style="margin-bottom:18px">
 <div class="metric"><div class="mlabel">Peso</div><div><span class="mval" style="color:var(--text)">${D.weight}</span><span class="munit">kg</span></div><div class="msub">último registo manual</div></div>
@@ -385,11 +385,11 @@ ${D.weeklyLoad.map(w=>`
 <div style="display:flex;justify-content:space-between;margin-bottom:12px">
 <div>
 <div style="color:var(--z1);font-size:14px;font-weight:800">${D.trainingStatus}</div>
-<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 06Set (PC)</div>
+<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 14Set (Garmin MCP cloud)</div>
 </div>
 <div style="text-align:right">
 <div style="color:var(--teal);font-size:18px;font-weight:800;font-family:monospace">${D.acwr}</div>
-<div style="color:var(--sub);font-size:9px">ACWR · carga em equilíbrio</div>
+<div style="color:var(--sub);font-size:9px">ACWR · baixo, pós-taper+prova</div>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
