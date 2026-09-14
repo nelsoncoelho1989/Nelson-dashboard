@@ -184,18 +184,29 @@ calibs: [
 { date:"13 Set", session:"Corrida do Tejo (prova)", pace:"10,06km · 40:13 · splits 3:54/3:51/4:07/3:44/3:46/3:57/4:07/4:18/4:13/4:05", fc:"média 164/máx 178 · 68% do tempo em Z5", read:"Diploma oficial (14Set): chip 40:13 (=Garmin), bruto 40:26, 198º geral, 35º M35, km5 oficial 19:35 (2ª metade 20:38 → positive split real 1:03, mais curto que a estimativa Garmin de 1:18). Checkpoints de FC (150-155/160-163bpm) ultrapassados desde o km3, mas o ecrã não mostrava BPM — impossível monitorizar em tempo real. Pior km foi o 8º (plano), não a subida. Calor forte + queda de FC no km9-10 coincide com pórtico de água. vs 2025: -2:28 com FC mais baixa. vs 2019 (mesmo perfil, 38:34): 1:39 mais lento, mas 2019 teve pacing quase perfeito (FC monótona, cadência estável) — gap é tático, não físico. VDOT sobe cautelosamente para 54 (oficial); 55-56 fica por confirmar. Loures (20Set) e Bimbo (27Set) são pacer submáximo — não validam. Entre Bimbo e a Vasco da Gama (11Out) há só o fim de semana de 3-4Out livre, insuficiente para um teste máximo sem comprometer o taper da meia. Confirmação real fica para a Volkswagen Run (25Out, prova própria, já recuperado da meia)." },
 ],
 races: [
-{ dateISO:"2026-09-13", date:"13 Set", name:"Corrida do Tejo ★", dist:"10km · 40:13 chip · 198º geral / 35º M35", prio:"PROVA A", col:"#FF5422" },
+{ dateISO:"2026-09-13", date:"13 Set", name:"Corrida do Tejo ★", dist:"10km · 40:13 chip · 198º geral / 35º M35", prio:"Concluída", col:"#FF5422" },
 { dateISO:"2026-09-20", date:"20 Set", name:"Pacer · Meia Loures-Odivelas-Loures", dist:"pacer 4:30/km · 21,5km — FECHADO", prio:"Compromisso", col:"#F5A623" },
-{ dateISO:"2026-09-27", date:"27 Set", name:"Pacer · Bimbo Global Race", dist:"pacer 5:00/km · 09h45", prio:"Compromisso", col:"#F5A623" },
-{ dateISO:"2026-10-11", date:"11 Out", name:"Meia Vasco da Gama / Hyundai — CONFIRMADA", dist:"21,1km · inscrição confirmada 20Ago", prio:"Compromisso", col:"#9B59FF" },
-{ dateISO:"2026-10-25", date:"25 Out", name:"Volkswagen Run (Auto-Europa)", dist:"10km", prio:"Follow-up", col:"#5A6B8A" },
+{ dateISO:"2026-09-27", date:"27 Set", name:"Pacer · Bimbo Global Race", dist:"pacer 5:00/km · 09h45 · +5-6km fácil (~15-16km total)", prio:"Compromisso", col:"#F5A623" },
+{ dateISO:"2026-10-11", date:"11 Out", name:"Meia Vasco da Gama / Hyundai ★", dist:"21,1km · objetivo 1:30-1:31", prio:"PROVA A", col:"#9B59FF" },
+{ dateISO:"2026-10-25", date:"25 Out", name:"Volkswagen Run (Auto-Europa)", dist:"10km · confirmação de VDOT", prio:"PROVA B", col:"#9B59FF" },
+{ dateISO:"2026-11-01", date:"01 Nov", name:"Corrida da Água (Aqueduto)", dist:"10km · sem objetivo de tempo", prio:"Follow-up", col:"#5A6B8A" },
+{ dateISO:"2026-11-29", date:"29 Nov", name:"Meia Maratona dos Descobrimentos (10km)", dist:"10km · tentativa de RP · percurso plano", prio:"PROVA B", col:"#9B59FF" },
 { dateISO:"2026-12-13", date:"13 Dez", name:"Pacer · São Silvestre El Corte Inglês", dist:"pacer 4:00/km", prio:"Compromisso", col:"#F5A623" },
 ],
 phases: [
 { label:"Força + Limiar", weeks:"S28–31", km:"~70–75/sem", status:"done" },
 { label:"10km Específico", weeks:"S32–35", km:"~74–77/sem", status:"done" },
-{ label:"Afinação", weeks:"S36–37", km:"↓ ~30%", status:"active" },
-{ label:"★ Corrida do Tejo", weeks:"13 Set", km:"PROVA A", status:"race" },
+{ label:"Afinação", weeks:"S36–37", km:"↓ ~30%", status:"done" },
+{ label:"★ Corrida do Tejo (40:13)", weeks:"13 Set", km:"PROVA A", status:"race" },
+{ label:"Absorção pós-Tejo", weeks:"S38", km:"~55-60/sem", status:"active" },
+{ label:"Retoma + Bimbo", weeks:"S39", km:"~60-65/sem", status:"next" },
+{ label:"Construção Meia", weeks:"S40", km:"~70-75/sem", status:"next" },
+{ label:"Taper Vasco da Gama", weeks:"S41", km:"~45-50/sem", status:"next" },
+{ label:"★ Meia Vasco da Gama", weeks:"11 Out", km:"objetivo 1:30-1:31", status:"race" },
+{ label:"Ponte + Afiar", weeks:"S42-43", km:"~50-55/sem", status:"next" },
+{ label:"★ Volkswagen Run", weeks:"25 Out", km:"confirmação VDOT", status:"race" },
+{ label:"Base longa", weeks:"S44-50", km:"progressivo 65→80/sem", status:"next" },
+{ label:"★ Pacer São Silvestre", weeks:"13 Dez", km:"fecho de época", status:"race" },
 ],
 hrZones: [
 {z:"Z1",label:"Recuperação", bpm:"108–132",w:72, col:"var(--z1)"},
@@ -423,12 +434,12 @@ ${D.races.map(r=>`
 </div>
 `).join("")}
 </div>
-<div class="st"><div class="bar" style="background:var(--orange)"></div><span class="label">★ Corrida do Tejo · 13 Set 2026</span></div>
+<div class="st"><div class="bar" style="background:var(--orange)"></div><span class="label">★ Meia Vasco da Gama · 11 Out 2026</span></div>
 <div class="card" style="border:2px solid #FF542244;padding:16px 14px">
 <div style="text-align:center;margin-bottom:16px">
 <div style="color:var(--sub);font-size:9px;letter-spacing:3px">DIAS RESTANTES</div>
 <div style="color:var(--orange);font-size:60px;font-weight:900;font-family:'Courier New',monospace;line-height:1.1">${tejo?daysUntil(tejo.dateISO):'--'}</div>
-<div style="color:var(--sub);font-size:11px">sub-40 · objetivo A</div>
+<div style="color:var(--sub);font-size:11px">1:30-1:31 · objetivo A</div>
 </div>
 ${D.phases.map((ph,i)=>{
 const pc = ph.status==='active'?'var(--orange)':ph.status==='next'?'var(--z3)':ph.status==='race'?'var(--gold)':'var(--dim)';
