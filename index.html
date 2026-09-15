@@ -119,24 +119,25 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "14 Set 2026 · leitura live Garmin MCP cloud", source: "Claude + Strava + GetFast + Garmin MCP" },
-hrv: 43, hrvTrend: "Hoje 43ms — abaixo do piso de alerta (45ms), mas dentro da méd. semanal (51ms). Leitura isolada pós-Tejo, esperada, não é tendência.",
-rhr: 51, bodyBattery: 60, weight: 79.0,
+meta: { updatedAt: "15 Set 2026 · leitura live Garmin MCP cloud", source: "Claude + Strava + GetFast + Garmin MCP" },
+hrv: 50, hrvTrend: "Méd. semanal 50ms — dentro da baseline (47-59ms), fator HRV 100% (MUITO BOM) na Training Readiness. Recuperação normalizada após o pico do Tejo (Seg. tinha estado a 43ms na leitura noturna isolada).",
+rhr: 47, bodyBattery: 73, weight: 79.0,
 lthr: 165, ltPace: "4:05",
 vdot: 54, vdotEst: "55–56",
-trainingStatus: "MANTER (Nível 4)",
+trainingStatus: "RECUPERAÇÃO (Nível 2)",
 acwr: 0.7,
 vo2max: 57.0,
-readiness: 45,
-readinessSub: "leitura 14Set (AFTER_WAKEUP_RESET, Garmin MCP cloud): recovery time 37,7h (fator POOR 39%), sono 72 (fator MODERATE 58%), HRV excelente (fator 100%, méd. semanal 51ms). Atualização intradiária (11h24) já subiu para 50/100 MODERATE.",
+readiness: 57,
+readinessSub: "leitura 15Set (AFTER_POST_EXERCISE_RESET, Garmin MCP cloud): 66 ao acordar (GOOD_SLEEP_HISTORY) → 57 após o EASY40 (WELL_DONE, queda esperada pós-treino). Sono 78 (fator 67% MODERATE), HRV 100% (MUITO BOM), carga 100% (MUITO BOM), recovery time 23,3h.",
 weekLabel: "Semana 38 · 14–20 Set 2026 · Absorção pós-Tejo — pacer Loures no domingo (compromisso fechado)",
-weekDone: 0, weekTarget: 60.5,
+weekDone: 7.6, weekTarget: 60.5,
 sessions: [
-{ day:"Seg 14", code:"DESCANSO", km:0, status:"today", icon:"😴",
+{ day:"Seg 14", code:"DESCANSO", km:0, status:"done", icon:"😴",
   detail:{ ritmo:"—", fc:"—", estrutura:"Descanso total — substitui o REC35 prescrito no plano.",
-  real:"Decisão validada pelos dados desta manhã: HRV noturna 43ms (abaixo do piso de alerta de 45ms), RHR 51bpm (+4 vs média de 47 dos últimos 7 dias), Body Battery mínimo 18% durante a noite, ACWR 0,7 (LOW). Padrão esperado no dia seguinte a uma prova com 68% do tempo em Z5 e calor forte." } },
-{ day:"Ter 15", code:"EASY40", km:8, status:"planned", icon:"🏃",
-  detail:{ ritmo:"5:15-5:40/km", fc:"Z1-Z2", estrutura:"8km fácil, sem qualidade. Modo FÁCIL/RECUPERAÇÃO — reavaliar HRV/RHR de manhã antes de confirmar o ritmo." } },
+  real:"Decisão validada pelos dados: HRV noturna 43ms (abaixo do piso de alerta de 45ms), RHR 51bpm (+4 vs média de 47 dos últimos 7 dias), Body Battery mínimo 18% durante a noite, ACWR 0,7 (LOW). Padrão esperado no dia seguinte a uma prova com 68% do tempo em Z5 e calor forte." } },
+{ day:"Ter 15", code:"EASY40", km:7.6, status:"done", icon:"🏃",
+  detail:{ ritmo:"5:15-5:40/km", fc:"Z1-Z2", estrutura:"8km fácil, sem qualidade. Modo FÁCIL/RECUPERAÇÃO.",
+  real:"Feito: 7,62km em 40:03 (5:16/km) · FC média 139/máx 157 · D+82m/D-112m (Sintra). Dentro do alvo de ritmo e de FC. RHR voltou a 47bpm (=méd. 7 dias), Body Battery mín. 29% esta noite, Training Readiness 57 — sem resíduo do Tejo. Início efetivo da semana 38." } },
 { day:"Qua 16", code:"EASY+STR", km:9, status:"planned", icon:"🏃",
   detail:{ ritmo:"5:10-5:35/km + strides", fc:"Z2 baixa", estrutura:"9km fácil + strides — só abrir passada se recuperado. Terreno plano preferencial." } },
 { day:"Qui 17", code:"SHARP-4x1", km:7, status:"planned", icon:"⚡",
@@ -155,7 +156,7 @@ weeklyLoad: [
 {w:"S35",km:72.31},
 {w:"S36",km:59.27,target:64.5},
 {w:"S37",km:53.51},
-{w:"S38",km:0,target:60.5},
+{w:"S38",km:7.6,target:60.5},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -396,7 +397,7 @@ ${D.weeklyLoad.map(w=>`
 <div style="display:flex;justify-content:space-between;margin-bottom:12px">
 <div>
 <div style="color:var(--z1);font-size:14px;font-weight:800">${D.trainingStatus}</div>
-<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 14Set (Garmin MCP cloud)</div>
+<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 15Set (Garmin MCP cloud)</div>
 </div>
 <div style="text-align:right">
 <div style="color:var(--teal);font-size:18px;font-weight:800;font-family:monospace">${D.acwr}</div>
