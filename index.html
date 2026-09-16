@@ -119,7 +119,7 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "15 Set 2026 · leitura live Garmin MCP cloud", source: "Claude + Strava + GetFast + Garmin MCP" },
+meta: { updatedAt: "16 Set 2026 · Claude (recalibração VDOT54 + Auchan removida)", source: "Claude + Strava + GetFast + Garmin MCP" },
 hrv: 50, hrvTrend: "Méd. semanal 50ms — dentro da baseline (47-59ms), fator HRV 100% (MUITO BOM) na Training Readiness. Recuperação normalizada após o pico do Tejo (Seg. tinha estado a 43ms na leitura noturna isolada).",
 rhr: 47, bodyBattery: 73, weight: 79.0,
 lthr: 165, ltPace: "4:05",
@@ -141,11 +141,11 @@ sessions: [
 { day:"Qua 16", code:"EASY+STR", km:9, status:"planned", icon:"🏃",
   detail:{ ritmo:"5:10-5:35/km + strides", fc:"Z2 baixa", estrutura:"9km fácil + strides — só abrir passada se recuperado. Terreno plano preferencial." } },
 { day:"Qui 17", code:"SHARP-4x1", km:7, status:"planned", icon:"⚡",
-  detail:{ ritmo:"solto + 4x1min ativação", fc:"referência secundária", estrutura:"7km, modo Fácil/Ativação. Se o Tejo ainda deixou marcas: trocar por 30' fácil (regra já definida no calendário). Auchan (19Set) continua em standby — não inscrito." } },
+  detail:{ ritmo:"solto + 4x1min a 3:56-4:00/km (VDOT54)", fc:"referência secundária", estrutura:"7km, modo Fácil/Ativação. Se o Tejo ainda deixou marcas: trocar por 30' fácil (regra já definida no calendário)." } },
 { day:"Sex 18", code:"PRE-RACE", km:5, status:"planned", icon:"🏃",
   detail:{ ritmo:"muito leve", fc:"Z1", estrutura:"5km muito leve, guardar pernas. Sexta pesada (Alvorada + Telepizza + ensaio 21h-23h30) — na última semana esta sessão saiu quase o dobro do previsto (34min vs 20-25', + bloco extra não pedido). Hoje é para ficar mesmo curta." } },
 { day:"Sáb 19", code:"EASY45", km:10, status:"planned", icon:"🏃",
-  detail:{ ritmo:"fácil", fc:"Z1-Z2", estrutura:"10km fácil. Auchan está em standby, não inscrito — não correr como prova. Véspera do pacer de Loures: minimizar, nunca maximizar." } },
+  detail:{ ritmo:"fácil", fc:"Z1-Z2", estrutura:"10km fácil. Véspera do pacer de Loures: minimizar, nunca maximizar." } },
 { day:"Dom 20", code:"PACER-LOURES", km:21.5, status:"planned", icon:"🏁",
   detail:{ ritmo:"pacer 4:30/km", fc:"referência, não objetivo", estrutura:"Meia Loures-Odivelas-Loures, 21,5km, compromisso fechado e não-negociável. Modo ESPECÍFICO/pacer — variável principal é o ritmo do grupo, sensação é secundária. Zona crítica: subida sustentada km8,6-13 (pico 41m); desconto vem naturalmente na descida final (~4,5km)." } },
 ],
@@ -183,6 +183,7 @@ calibs: [
 { date:"06 Set", session:"SHAKEOUT (feito)", pace:"7,22km em 40:03 (5:33/km)", fc:"média 135,5/máx 149", read:"Substituiu o LR12-SOFT original. Sem sinais de fadiga residual do pacer apesar de D+101m. Semana 36 fechada em 59,27km (91,9% do alvo 64,5km) — decisão de priorizar recuperação sobre volume nos últimos 2 dias validada pelos dados." },
 { date:"08 Set", session:"10K-3x1K+200 (feito, não como prescrito)", pace:"1000m: 3:44/3:46/3:42/km · 200m: 33/33/31/30s", fc:"1000m 154,7→156,2→157,7 (máx 171→164→164)", read:"Sessão era modo CUMPRIR ('fresco, não cansado'), saiu como teste: 1000m 10-18s/km mais rápido que o alvo, 200m em sprint a sério (vel. máx 7,5m/s). FC continua abaixo do piso da zona mesmo mais rápido — 6ª+ sessão consecutiva com este padrão, sinal real de patamar a subir. Mas a 5 dias do Tejo isto é custo de fadiga sem tempo de adaptação — não é o momento para mais confirmações. Vigiar HRV/RHR nos próximos 1-2 dias." },
 { date:"13 Set", session:"Corrida do Tejo (prova)", pace:"10,06km · 40:13 · splits 3:54/3:51/4:07/3:44/3:46/3:57/4:07/4:18/4:13/4:05", fc:"média 164/máx 178 · 68% do tempo em Z5", read:"Diploma oficial (14Set): chip 40:13 (=Garmin), bruto 40:26, 198º geral, 35º M35, km5 oficial 19:35 (2ª metade 20:38 → positive split real 1:03, mais curto que a estimativa Garmin de 1:18). Checkpoints de FC (150-155/160-163bpm) ultrapassados desde o km3, mas o ecrã não mostrava BPM — impossível monitorizar em tempo real. Pior km foi o 8º (plano), não a subida. Calor forte + queda de FC no km9-10 coincide com pórtico de água. vs 2025: -2:28 com FC mais baixa. vs 2019 (mesmo perfil, 38:34): 1:39 mais lento, mas 2019 teve pacing quase perfeito (FC monótona, cadência estável) — gap é tático, não físico. VDOT sobe cautelosamente para 54 (oficial); 55-56 fica por confirmar. Loures (20Set) e Bimbo (27Set) são pacer submáximo — não validam. Entre Bimbo e a Vasco da Gama (11Out) há só o fim de semana de 3-4Out livre, insuficiente para um teste máximo sem comprometer o taper da meia. Confirmação real fica para a Volkswagen Run (25Out, prova própria, já recuperado da meia)." },
+{ date:"16 Set", session:"Recalibração VDOT53→VDOT54 (biblioteca Garmin)", pace:"T-LIM (rua) 4:03-4:07/km · T-LIM-PISTA 3:59-4:04/km · I-400 1:29-1:32/400m · SHARP-300 64-67s", fc:"—", read:"Toda a biblioteca de qualidade no relógio (T-LIM rua+pista, I-400, SHARP-300) recalibrada para VDOT54, confirmado pelo Tejo. Corrida Auchan (19Set) removida de vez do calendário e do plano — decisão do Nelson." },
 ],
 races: [
 { dateISO:"2026-09-13", date:"13 Set", name:"Corrida do Tejo ★", dist:"10km · 40:13 chip · 198º geral / 35º M35", prio:"Concluída", col:"#FF5422" },
@@ -377,7 +378,7 @@ ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#
 ${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 38 — ABSORÇÃO PÓS-TEJO</b>. Segunda: descanso total (substituiu REC35, decisão validada pelos dados). Quinta condicional — vira fácil se ainda houver marcas do Tejo. Sábado é véspera do pacer: Auchan continua em standby, não é para correr como prova. Domingo: pacer Loures 4:30/km, 21,5km, compromisso fechado — sessão forte da semana, sem margem para negociar.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 38 — ABSORÇÃO PÓS-TEJO</b>. Segunda: descanso total (substituiu REC35, decisão validada pelos dados). Quinta condicional — vira fácil se ainda houver marcas do Tejo. Sábado é véspera do pacer: fácil, sem correr prova. Domingo: pacer Loures 4:30/km, 21,5km, compromisso fechado — sessão forte da semana, sem margem para negociar.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
