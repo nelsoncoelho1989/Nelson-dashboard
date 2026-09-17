@@ -119,7 +119,7 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "17 Set 2026 · atualização manual (Zapier sem tasks até ~1 Out)", source: "Claude + Strava + GetFast + Garmin MCP" },
+meta: { updatedAt: "17 Set 2026 · sync automático (GitHub PAT)", source: "Claude + Strava + GetFast + Garmin MCP" },
 hrv: 50, hrvTrend: "Méd. semanal 50ms — dentro da baseline (47-59ms). Recuperação normalizada após o pico do Tejo.",
 rhr: 44, bodyBattery: 88, weight: 79.0,
 lthr: 165, ltPace: "4:05",
@@ -464,7 +464,7 @@ ${i<D.phases.length-1?'<div class="phase-line"></div>':''}
 `;
 }
 document.getElementById("statusBadge").textContent = D.trainingStatus;
-document.getElementById("syncLine").textContent = "✓ atualizado manualmente · " + D.meta.updatedAt;
+document.getElementById("syncLine").textContent = "✓ sync automático (GitHub PAT) · " + D.meta.updatedAt;
 document.getElementById("footerLine").textContent = "Garmin · Strava · GetFast · " + D.meta.updatedAt;
 document.getElementById("forceRefreshBtn").addEventListener("click", ()=>{
 window.location.href = window.location.pathname + "?t=" + Date.now();
