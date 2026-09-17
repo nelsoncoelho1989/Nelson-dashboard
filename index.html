@@ -119,16 +119,16 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "16 Set 2026 · Claude (plano Out fechado: sem taper 10km, fases corrigidas)", source: "Claude + Strava + GetFast + Garmin MCP" },
-hrv: 50, hrvTrend: "Méd. semanal 50ms — dentro da baseline (47-59ms), fator HRV 100% (MUITO BOM) na Training Readiness. Recuperação normalizada após o pico do Tejo (Seg. tinha estado a 43ms na leitura noturna isolada).",
-rhr: 47, bodyBattery: 73, weight: 79.0,
+meta: { updatedAt: "17 Set 2026 · atualização manual (Zapier sem tasks até ~1 Out)", source: "Claude + Strava + GetFast + Garmin MCP" },
+hrv: 50, hrvTrend: "Méd. semanal 50ms — dentro da baseline (47-59ms). Recuperação normalizada após o pico do Tejo.",
+rhr: 44, bodyBattery: 88, weight: 79.0,
 lthr: 165, ltPace: "4:05",
 vdot: 54, vdotEst: "55–56",
-trainingStatus: "RECUPERAÇÃO (Nível 2)",
-acwr: 0.7,
+trainingStatus: "MANTER (Nível 4)",
+acwr: 0.8,
 vo2max: 57.0,
 readiness: 57,
-readinessSub: "leitura 15Set (AFTER_POST_EXERCISE_RESET, Garmin MCP cloud): 66 ao acordar (GOOD_SLEEP_HISTORY) → 57 após o EASY40 (WELL_DONE, queda esperada pós-treino). Sono 78 (fator 67% MODERATE), HRV 100% (MUITO BOM), carga 100% (MUITO BOM), recovery time 23,3h.",
+readinessSub: "RHR 44bpm — abaixo da méd. de 46 dos últimos 7 dias, sem resíduo do Tejo. Body Battery atual 88% (pico 90%, mín. 25% esta noite).",
 weekLabel: "Semana 38 · 14–20 Set 2026 · Absorção pós-Tejo — pacer Loures no domingo (compromisso fechado)",
 weekDone: 7.6, weekTarget: 60.5,
 sessions: [
@@ -138,10 +138,12 @@ sessions: [
 { day:"Ter 15", code:"EASY40", km:7.6, status:"done", icon:"🏃",
   detail:{ ritmo:"5:15-5:40/km", fc:"Z1-Z2", estrutura:"8km fácil, sem qualidade. Modo FÁCIL/RECUPERAÇÃO.",
   real:"Feito: 7,62km em 40:03 (5:16/km) · FC média 139/máx 157 · D+82m/D-112m (Sintra). Dentro do alvo de ritmo e de FC. RHR voltou a 47bpm (=méd. 7 dias), Body Battery mín. 29% esta noite, Training Readiness 57 — sem resíduo do Tejo. Início efetivo da semana 38." } },
-{ day:"Qua 16", code:"EASY+STR", km:9, status:"planned", icon:"🏃",
-  detail:{ ritmo:"5:10-5:35/km + strides", fc:"Z2 baixa", estrutura:"9km fácil + strides — só abrir passada se recuperado. Terreno plano preferencial." } },
-{ day:"Qui 17", code:"SHARP-4x1", km:7, status:"planned", icon:"⚡",
-  detail:{ ritmo:"solto + 4x1min a 3:56-4:00/km (VDOT54)", fc:"referência secundária", estrutura:"7km, modo Fácil/Ativação. Se o Tejo ainda deixou marcas: trocar por 30' fácil (regra já definida no calendário)." } },
+{ day:"Qua 16", code:"EASY+STR", km:9.27, status:"done", icon:"🏃",
+  detail:{ ritmo:"5:10-5:35/km + strides", fc:"Z2 baixa", estrutura:"9km fácil + strides — só abrir passada se recuperado. Terreno plano preferencial.",
+  real:"Feito: 9,27km em 51:01 (5:30/km) · FC média 138/máx 154 · D+132m/D-155m. Dentro do alvo (5:10-5:35/km). FC em Z2 baixa, pico nos strides — normal." } },
+{ day:"Qui 17", code:"SHARP-4x1", km:7.79, status:"done", icon:"⚡",
+  detail:{ ritmo:"solto + 4x1min a 3:56-4:00/km (VDOT54)", fc:"referência secundária", estrutura:"7km, modo Fácil/Ativação.",
+  real:"Feito na rua, versão integrada (\"SHARP-4x1 RUA\", contínua): 7,79km em 40:03 (5:08/km) · FC média 137/máx 157 · D+107m/D-107m. Sem marcas residuais do Tejo — ACWR subiu para 0,8 (ótimo), Training Status passou a MAINTAINING_4." } },
 { day:"Sex 18", code:"PRE-RACE", km:5, status:"planned", icon:"🏃",
   detail:{ ritmo:"muito leve", fc:"Z1", estrutura:"5km muito leve, guardar pernas. Sexta pesada (Alvorada + Telepizza + ensaio 21h-23h30) — na última semana esta sessão saiu quase o dobro do previsto (34min vs 20-25', + bloco extra não pedido). Hoje é para ficar mesmo curta." } },
 { day:"Sáb 19", code:"EASY45", km:10, status:"planned", icon:"🏃",
@@ -156,7 +158,7 @@ weeklyLoad: [
 {w:"S35",km:72.31},
 {w:"S36",km:59.27,target:64.5},
 {w:"S37",km:53.51},
-{w:"S38",km:7.6,target:60.5},
+{w:"S38",km:24.66,target:60.5},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -380,7 +382,7 @@ ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#
 ${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 38 — ABSORÇÃO PÓS-TEJO</b>. Segunda: descanso total (substituiu REC35, decisão validada pelos dados). Quinta condicional — vira fácil se ainda houver marcas do Tejo. Sábado é véspera do pacer: fácil, sem correr prova. Domingo: pacer Loures 4:30/km, 21,5km, compromisso fechado — sessão forte da semana, sem margem para negociar.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 38 — ABSORÇÃO PÓS-TEJO</b>. Segunda: descanso total (substituiu REC35, decisão validada pelos dados). Quinta feita na rua, versão integrada, sem marcas do Tejo. Sábado é véspera do pacer: fácil, sem correr prova. Domingo: pacer Loures 4:30/km, 21,5km, compromisso fechado — sessão forte da semana, sem margem para negociar.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
@@ -400,11 +402,11 @@ ${D.weeklyLoad.map(w=>`
 <div style="display:flex;justify-content:space-between;margin-bottom:12px">
 <div>
 <div style="color:var(--z1);font-size:14px;font-weight:800">${D.trainingStatus}</div>
-<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 15Set (Garmin MCP cloud)</div>
+<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 17Set (Garmin MCP cloud)</div>
 </div>
 <div style="text-align:right">
 <div style="color:var(--teal);font-size:18px;font-weight:800;font-family:monospace">${D.acwr}</div>
-<div style="color:var(--sub);font-size:9px">ACWR · baixo, pós-taper+prova</div>
+<div style="color:var(--sub);font-size:9px">ACWR · ótimo, retoma normal pós-prova</div>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
@@ -462,7 +464,7 @@ ${i<D.phases.length-1?'<div class="phase-line"></div>':''}
 `;
 }
 document.getElementById("statusBadge").textContent = D.trainingStatus;
-document.getElementById("syncLine").textContent = "✓ sync automático · " + D.meta.updatedAt;
+document.getElementById("syncLine").textContent = "✓ atualizado manualmente · " + D.meta.updatedAt;
 document.getElementById("footerLine").textContent = "Garmin · Strava · GetFast · " + D.meta.updatedAt;
 document.getElementById("forceRefreshBtn").addEventListener("click", ()=>{
 window.location.href = window.location.pathname + "?t=" + Date.now();
