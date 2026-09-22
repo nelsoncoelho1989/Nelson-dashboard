@@ -120,15 +120,15 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 <script>
 const D = {
 meta: { updatedAt: "22 Set 2026 · sync automático (GitHub PAT)", source: "Claude + Strava + GetFast + Garmin MCP" },
-hrv: 50, hrvTrend: "Méd. semanal 50ms — BALANCED toda a semana pós-Tejo (50–52), dentro da baseline (47-59ms).",
-rhr: 50, bodyBattery: 18, weight: 79.0,
+hrv: 49, hrvTrend: "Méd. semanal 49ms — BALANCED, no fim baixo da baseline (47-59ms) mas sem sinal de queda por fadiga; HRV factor 100% VERY_GOOD na leitura de hoje.",
+rhr: 49, bodyBattery: 38, weight: 79.0,
 lthr: 165, ltPace: "4:05",
 vdot: 54, vdotEst: "55–56",
 trainingStatus: "MANTER (Nível 4)",
-acwr: 1.1,
-vo2max: 57.0,
-readiness: 2,
-readinessSub: "Acordou nos 58 (sono 60, só 4h45) → reset pós-meia para 2 (POOR): recuperação Garmin 92h (até ~24 Set de manhã). HRV 100% VERY_GOOD, carga 83% GOOD.",
+acwr: 0.9,
+vo2max: 57.1,
+readiness: 30,
+readinessSub: "LOW / HIGH_RECOVERY_NEEDS esta manhã (08h08, pós-corrida): recovery_time ainda em 45,5h (POOR 32%) — algoritmo a contar a partir do pacer de domingo. HRV 100% VERY_GOOD, sono 68% MODERATE (score 79), carga 92% GOOD. Readiness baixo explica (não só o parceiro) o ritmo/FC tão abaixo do alvo no treino de hoje.",
 weekLabel: "Semana 39 · 21–27 Set 2026 · Retoma pós-Loures + Bimbo (pacer 5:00) a caminho",
 weekDone: 8.19, weekTarget: 58.0,
 sessions: [
@@ -184,7 +184,7 @@ calibs: [
 { date:"08 Set", session:"10K-3x1K+200 (feito, não como prescrito)", pace:"1000m: 3:44/3:46/3:42/km · 200m: 33/33/31/30s", fc:"1000m 154,7→156,2→157,7 (máx 171→164→164)", read:"Sessão era modo CUMPRIR ('fresco, não cansado'), saiu como teste: 1000m 10-18s/km mais rápido que o alvo, 200m em sprint a sério (vel. máx 7,5m/s). FC continua abaixo do piso da zona mesmo mais rápido — 6ª+ sessão consecutiva com este padrão, sinal real de patamar a subir. Mas a 5 dias do Tejo isto é custo de fadiga sem tempo de adaptação — não é o momento para mais confirmações. Vigiar HRV/RHR nos próximos 1-2 dias." },
 { date:"13 Set", session:"Corrida do Tejo (prova)", pace:"10,06km · 40:13 · splits 3:54/3:51/4:07/3:44/3:46/3:57/4:07/4:18/4:13/4:05", fc:"média 164/máx 178 · 68% do tempo em Z5", read:"Diploma oficial (14Set): chip 40:13 (=Garmin), bruto 40:26, 198º geral, 35º M35, km5 oficial 19:35 (2ª metade 20:38 → positive split real 1:03, mais curto que a estimativa Garmin de 1:18). Checkpoints de FC (150-155/160-163bpm) ultrapassados desde o km3, mas o ecrã não mostrava BPM — impossível monitorizar em tempo real. Pior km foi o 8º (plano), não a subida. Calor forte + queda de FC no km9-10 coincide com pórtico de água. vs 2025: -2:28 com FC mais baixa. vs 2019 (mesmo perfil, 38:34): 1:39 mais lento, mas 2019 teve pacing quase perfeito (FC monótona, cadência estável) — gap é tático, não físico. VDOT sobe cautelosamente para 54 (oficial); 55-56 fica por confirmar. Loures (20Set) e Bimbo (27Set) são pacer submáximo — não validam. Entre Bimbo e a Vasco da Gama (11Out) há só o fim de semana de 3-4Out livre, insuficiente para um teste máximo sem comprometer o taper da meia. Confirmação real fica para a Volkswagen Run (25Out, prova própria, já recuperado da meia)." },
 { date:"16 Set", session:"Recalibração VDOT53→VDOT54 (biblioteca Garmin)", pace:"T-LIM (rua) 4:03-4:07/km · T-LIM-PISTA 3:59-4:04/km · I-400 1:29-1:32/400m · SHARP-300 64-67s · 10K-6x1K/2x3K1K/4x1500 também", fc:"—", read:"Toda a biblioteca de qualidade no relógio recalibrada para VDOT54, confirmado pelo Tejo, incluindo templates que tinham ficado esquecidos numa primeira passagem (TEMPO25, LR2x10T, 10K-6x1K, 10K-2x3K1K, 10K-4x1500). Corrida Auchan removida de vez. Plano de Out (semanas 40-43) escrito no Excel e no relógio: sem taper de semana inteira para a Volkswagen (regra nova — provas de 10km ou menos só levam shakeout no dia anterior)." },
-{ date:"20 Set", session:"Meia Loures-Odivelas-Loures (pacer 4:30 · feita)", pace:"21,14km · 1:34:27 (Garmin) · 4:28/km · km entre 4:22 e 4:34, km21 a 4:16 · oficial: chip 1:34:28 (final 1:34:38) · 149.º geral · 26.º escalão", fc:"média 165/máx 179 · km1 143 → km2-8 157-162 → km13-16 169 → km19-21 173-176 · desacoplamento ~6% (potência ~420W constante)", read:"Pacing limpo (km 2-20 a 4:28,7, desvio ~3s), split negativo (4:29→4:28); km 20+21 somam 4:25 (4:34/4:16 = provável artefacto de marcação, potência 414/422W), sprint real só nos últimos 137m. Chip 29s abaixo dos 1:34:57 que 4:30 fixos dariam em 21,0975km (o Garmin, 21,14km, confirma percurso de ~21,1km e não 21,5). FC muito acima do esperado para 4:28: a média iguala o LTHR (165) e é igual à do Tejo a 4:00 (164); TE 5.0, carga 538, 93min vigorosos — mas esforço percebido 6/10 e sensação 'muito forte'. Partida com contexto fraco: sono de 4h45 (score 60) e 5h54 na noite anterior, Body Battery a 52% ao acordar (vs ~90 na véspera), RHR 50 (+3 vs 47), readiness 58; HRV balanced (50-52) e ACWR 1,1 normais. Calor forte segundo o Nelson (o Garmin só tem a leitura das 9h no aeroporto — 21°C, 60% humidade — e a prova acabou às 10h36); abastecimentos da organização em copos (pouco úteis); levou flask de 250ml com Powerade (+250ml da garrafa 25min antes da partida) e géis (SIS aos ~35min, PowerBar no km 14) — combustível razoável; líquido em prova só ~250ml do flask (~160ml/h) + copos, provável défice de hidratação com calor. Pós-meia: readiness 2, recuperação 91,9h (até ~24 Set de manhã). Leitura em aberto: não dá para separar défice de resistência aos 90min de ruído de contexto (sono curto, calor e hidratação limitada, adrenalina de pacer, mochila, cafeína, sensor de pulso). Meta 1:30-1:31 da Vasco da Gama (4:16-4:18/km) não fica validada nem desmentida — decisão por tomar." },,
+{ date:"20 Set", session:"Meia Loures-Odivelas-Loures (pacer 4:30 · feita)", pace:"21,14km · 1:34:27 (Garmin) · 4:28/km · km entre 4:22 e 4:34, km21 a 4:16 · oficial: chip 1:34:28 (final 1:34:38) · 149.º geral · 26.º escalão", fc:"média 165/máx 179 · km1 143 → km2-8 157-162 → km13-16 169 → km19-21 173-176 · desacoplamento ~6% (potência ~420W constante)", read:"Pacing limpo (km 2-20 a 4:28,7, desvio ~3s), split negativo (4:29→4:28); km 20+21 somam 4:25 (4:34/4:16 = provável artefacto de marcação, potência 414/422W), sprint real só nos últimos 137m. Chip 29s abaixo dos 1:34:57 que 4:30 fixos dariam em 21,0975km (o Garmin, 21,14km, confirma percurso de ~21,1km e não 21,5). FC muito acima do esperado para 4:28: a média iguala o LTHR (165) e é igual à do Tejo a 4:00 (164); TE 5.0, carga 538, 93min vigorosos — mas esforço percebido 6/10 e sensação 'muito forte'. Partida com contexto fraco: sono de 4h45 (score 60) e 5h54 na noite anterior, Body Battery a 52% ao acordar (vs ~90 na véspera), RHR 50 (+3 vs 47), readiness 58; HRV balanced (50-52) e ACWR 1,1 normais. Calor forte segundo o Nelson (o Garmin só tem a leitura das 9h no aeroporto — 21°C, 60% humidade — e a prova acabou às 10h36); abastecimentos da organização em copos (pouco úteis); levou flask de 250ml com Powerade (+250ml da garrafa 25min antes da partida) e géis (SIS aos ~35min, PowerBar no km 14) — combustível razoável; líquido em prova só ~250ml do flask (~160ml/h) + copos, provável défice de hidratação com calor. Pós-meia: readiness 2, recuperação 91,9h (até ~24 Set de manhã). Leitura em aberto: não dá para separar défice de resistência aos 90min de ruído de contexto (sono curto, calor e hidratação limitada, adrenalina de pacer, mochila, cafeína, sensor de pulso). Meta 1:30-1:31 da Vasco da Gama (4:16-4:18/km) não fica validada nem desmentida — decisão por tomar." },
 { date:"22 Set", session:"EASY+STR (feito)", pace:"8,19km em 52:09 (6:23/km, splits 6:51→6:01/km)", fc:"média 123/máx 148 (pico nos strides)", read:"Primeira sessão da semana 39, dia seguinte ao pacer de Loures. Ritmo e FC bem abaixo do alvo (Z1, não Z2) — treino acompanhado, não fadiga: nas subidas do percurso (Cavalariças, Mata) a FC não disparou, sinal de zero resíduo muscular do domingo (relatado pelo próprio Nelson e consistente com os dados). Strides limpos, sem excesso. Ponto de atenção para a frente: este padrão de deixar o parceiro ditar o ritmo é aceitável em dia FÁCIL/RECUPERAÇÃO — não pode infiltrar-se no T-LIM de quinta nem no específico." }
 ],
 races: [
@@ -285,15 +285,15 @@ ${renderVDOTGauge(D.vdot, D.vdotEst)}
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Estado Fisiológico · ${D.meta.updatedAt}</span></div>
 <div class="metrics-row">
 <div class="metric"><div class="mlabel">HRV</div><div><span class="mval" style="color:var(--z3)">${D.hrv}</span><span class="munit">ms</span></div><div class="msub">${D.hrvTrend}</div></div>
-<div class="metric"><div class="mlabel">FC Repouso</div><div><span class="mval" style="color:var(--z3)">${D.rhr}</span><span class="munit">bpm</span></div><div class="msub">+3 vs méd. 47 (7 dias) · manhã da meia, sono 4h45</div></div>
+<div class="metric"><div class="mlabel">FC Repouso</div><div><span class="mval" style="color:var(--z3)">${D.rhr}</span><span class="munit">bpm</span></div><div class="msub">méd. 7 dias 48bpm — ligeiramente acima da baseline pós-Tejo (45-47), resíduo do pacer de domingo</div></div>
 </div>
 <div class="metrics-row">
-<div class="metric"><div class="mlabel">Body Battery</div><div><span class="mval" style="color:var(--z1)">${D.bodyBattery}</span><span class="munit">%</span></div><div class="msub">acordou nos 52% · mín. 13% · −21 na meia · atual 18%</div></div>
+<div class="metric"><div class="mlabel">Body Battery</div><div><span class="mval" style="color:var(--z1)">${D.bodyBattery}</span><span class="munit">%</span></div><div class="msub">carregou 60 · drenou 46 hoje · corrida marcada MAINTAINING_AEROBIC_BASE (não overreaching)</div></div>
 <div class="metric"><div class="mlabel">Train. Readiness</div><div><span class="mval" style="color:var(--z3)">${D.readiness}</span><span class="munit">/100</span></div><div class="msub">${D.readinessSub}</div></div>
 </div>
 <div class="metrics-row" style="margin-bottom:18px">
 <div class="metric"><div class="mlabel">VO₂Max Garmin</div><div><span class="mval" style="color:var(--orange)">${D.vo2max}</span></div><div class="msub">plano ~2 meses</div></div>
-<div class="metric"><div class="mlabel">ACWR</div><div><span class="mval" style="color:var(--z3)">${D.acwr}</span></div><div class="msub">ÓTIMO (carga aguda 1392 / crónica 1177)</div></div>
+<div class="metric"><div class="mlabel">ACWR</div><div><span class="mval" style="color:var(--z3)">${D.acwr}</span></div><div class="msub">ÓTIMO (carga aguda 1078 / crónica 1108) · 38% da faixa ótima</div></div>
 </div>
 <div class="metrics-row" style="margin-bottom:18px">
 <div class="metric"><div class="mlabel">Peso</div><div><span class="mval" style="color:var(--text)">${D.weight}</span><span class="munit">kg</span></div><div class="msub">último registo manual</div></div>
@@ -402,7 +402,7 @@ ${D.weeklyLoad.map(w=>`
 <div style="display:flex;justify-content:space-between;margin-bottom:12px">
 <div>
 <div style="color:var(--z1);font-size:14px;font-weight:800">${D.trainingStatus}</div>
-<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 20Set (Garmin MCP cloud)</div>
+<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 22Set (Garmin MCP cloud)</div>
 </div>
 <div style="text-align:right">
 <div style="color:var(--teal);font-size:18px;font-weight:800;font-family:monospace">${D.acwr}</div>
