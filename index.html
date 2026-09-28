@@ -119,7 +119,7 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "28 Set 2026 · S40 iniciada — prova 10km seg 5 Out (Brandoa), longo passa para sábado 3 Out", source: "Claude + Strava + Garmin MCP (cloud restabelecido)" },
+meta: { updatedAt: "28 Set 2026 · terça 29 passa a T-LIM-4x6-PISTA (pista)", source: "Claude + Strava + Garmin MCP (cloud restabelecido)" },
 hrv: 57, hrvTrend: "57ms esta noite (méd. semanal 51ms) — BALANCED, dentro da baseline 47-59ms; HRV factor 100% VERY_GOOD. Mínimo recente: 38ms na noite pós-Loures (21 Set), recuperado em 2 dias.",
 rhr: 45, bodyBattery: 81, weight: 79.0,
 lthr: 165, ltPace: "4:05",
@@ -135,8 +135,8 @@ sessions: [
 { day:"Seg 28", code:"EASY45", km:8.25, status:"done", icon:"🏃",
   detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"Rodagem fácil pós-pacer (Sintra).",
   real:"Feito: 8,25km em 45:02 (5:27/km) · FC média 132 — fácil de verdade, no limite lento do alvo de ritmo e na fronteira Z1/Z2, esperado no dia seguinte a 16,3km. Readiness antes do treino 60, HRV 57ms, RHR 45." } },
-{ day:"Ter 29", code:"T-LIM-4x6", km:11.5, status:"planned", icon:"⚡",
-  detail:{ ritmo:"4:03-4:07/km (VDOT54; T-LIM rua/integrado)", fc:"esperado 156-164 bpm (alvo escrito 162-166)", estrutura:"Modo CUMPRIR: ritmo é a variável principal, FC só confirma. Se FC baixa para o ritmo = dado de calibração, não motivo para acelerar. Eixo Verde Azul. Se estiver pesado: 3 blocos e fecha. Sinal de excesso: rep abaixo de 4:00 ou FC >166 antes do bloco 3. (O valor 4:07-4:11 que ficou no Excel é o VDOT53 antigo.)" } },
+{ day:"Ter 29", code:"T-LIM-4x6-PISTA", km:12, status:"planned", icon:"⚡",
+  detail:{ ritmo:"3:56-3:59/km (alvo pista, VDOT54)", fc:"esperado 158-164 bpm (LTHR 165)", estrutura:"Versão PISTA/isolada (mudança de 28 Set): aquecimento em modo Corrida (AQUECIMENTO 20' + drills) → 4x6' com 2' de recuperação em modo Pista → arrefecimento em modo Corrida ~10'. Modo CUMPRIR: ritmo é a variável principal, FC só confirma. Na pista de quinta saíram 3:52-3:56 contra 3:59-4:04 prescritos: cuidado com o arranque rápido. Se estiver pesado: 3 blocos e fecha. Sinal de excesso: rep abaixo de 3:54 ou FC >166 antes do bloco 3." } },
 { day:"Qua 30", code:"EASY STR", km:10, status:"planned", icon:"🏃",
   detail:{ ritmo:"5:05-5:30/km + strides", fc:"Z2 133-147 bpm", estrutura:"Fácil + strides curtos. Fácil de verdade." } },
 { day:"Qui 1", code:"TEMPO25", km:9, status:"planned", icon:"⚡",
@@ -387,7 +387,7 @@ ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#
 ${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 40 — CONSTRUÇÃO MEIA + PROVA 5 OUT</b>. Segunda: EASY45 feito (8,25km, FC 132) com fadiga real baixa (HRV 57, RHR 45, sono 94). Terça T-LIM-4x6 e quinta TEMPO25, ambos a 4:03-4:07 em modo CUMPRIR. Sábado passa a ser o longo fácil (14,5km, sem progressivo), domingo só EASY30. Segunda 5 Out: 1ª Corrida Santa Teresinha (9,95km, D+~116m, último km a subir) como esforço ESPECÍFICO, não máximo — último estímulo antes da Meia Vasco da Gama (11 Out). Volume ~66km, todo o extra é fácil; se quinta estiver pesada corta-se o TEMPO25, não o longo.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 40 — CONSTRUÇÃO MEIA + PROVA 5 OUT</b>. Segunda: EASY45 feito (8,25km, FC 132) com fadiga real baixa (HRV 57, RHR 45, sono 94). Terça T-LIM-4x6-PISTA (3:56-3:59, na pista) e quinta TEMPO25 (4:03-4:07 em rua), ambos em modo CUMPRIR. Sábado passa a ser o longo fácil (14,5km, sem progressivo), domingo só EASY30. Segunda 5 Out: 1ª Corrida Santa Teresinha (9,95km, D+~116m, último km a subir) como esforço ESPECÍFICO, não máximo — último estímulo antes da Meia Vasco da Gama (11 Out). Volume ~66km, todo o extra é fácil; se quinta estiver pesada corta-se o TEMPO25, não o longo.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
