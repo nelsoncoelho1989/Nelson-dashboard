@@ -119,7 +119,7 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "30 Set 2026 · EASY STR feito, tranquilo (dia sonolento, conservador de propósito)", source: "Claude + Strava + Garmin MCP (cloud restabelecido)" },
+meta: { updatedAt: "01 Out 2026 · TEMPO25 feito exatamente no alvo (4:04/km) — CUMPRIR respeitado", source: "Claude + Strava + Garmin MCP (cloud restabelecido)" },
 hrv: 57, hrvTrend: "57ms esta noite (méd. semanal 51ms) — BALANCED, dentro da baseline 47-59ms; HRV factor 100% VERY_GOOD. Mínimo recente: 38ms na noite pós-Loures (21 Set), recuperado em 2 dias.",
 rhr: 45, bodyBattery: 81, weight: 79.0,
 lthr: 165, ltPace: "4:05",
@@ -130,7 +130,7 @@ vo2max: 57.1,
 readiness: 57,
 readinessSub: "MODERATE 57 (08h20, pós-rodagem; 60 ao acordar, BOOSTED_BY_GOOD_SLEEP). Sono 94 (7h28) e HRV 100% VERY_GOOD, carga 90% GOOD; único fator mau: recovery_time ~41h (POOR 36%), reflexo dos 16,3km de domingo, não do sistema autónomo. ACWR 1.0 (ótimo, carga aguda 1123 / crónica 1094). Sem sinal de fadiga real.",
 weekLabel: "Semana 40 · 28 Set–4 Out 2026 · Construção Meia + prova 10km seg 5 Out",
-weekDone: 30.2, weekTarget: 66.0,
+weekDone: 41.28, weekTarget: 66.0,
 sessions: [
 { day:"Seg 28", code:"EASY45", km:8.25, status:"done", icon:"🏃",
   detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"Rodagem fácil pós-pacer (Sintra).",
@@ -141,8 +141,9 @@ sessions: [
 { day:"Qua 30", code:"EASY STR", km:8.45, status:"done", icon:"🏃",
   detail:{ ritmo:"alvo 5:05-5:30/km + strides", fc:"alvo Z2 133-147 bpm", estrutura:"Fácil + strides curtos.",
   real:"Feito: 7,53km fácil a ~5:59/km, FC 125-133 (abaixo do teto de Z2) + 6 strides curtos de ~80m. Nelson estava sonolento e manteve-se conservador de propósito — dia bem executado, contraste directo com a terça." } },
-{ day:"Qui 1", code:"TEMPO25", km:9, status:"planned", icon:"⚡",
-  detail:{ ritmo:"4:03-4:07/km", fc:"Z4 alta/Z5 baixa 162-166 bpm", estrutura:"Última qualidade antes da prova de 5 Out. Modo CUMPRIR: nem um segundo mais rápido que o prescrito. Percurso plano. Se quinta estiver pesada, encurta-se o TEMPO25 (o longo de sábado mantém-se)." } },
+{ day:"Qui 1", code:"TEMPO25", km:11.08, status:"done", icon:"⚡",
+  detail:{ ritmo:"alvo 4:03-4:07/km", fc:"alvo Z4 alta/Z5 baixa 162-166 bpm", estrutura:"Última qualidade antes da prova de 5 Out.",
+  real:"Feito: 25min exatos a 4:04/km (6,14km) — mesmo no meio do alvo, modo CUMPRIR respeitado à letra. FC média 155 (abaixo do alvo, troço com declive líquido -49m), máx 168. Contraste direto com a terça (T-LIM-4x6-PISTA), que tinha saído sistematicamente mais rápido que o prescrito." } },
 { day:"Sex 2", code:"EASY40", km:7, status:"planned", icon:"🏃",
   detail:{ ritmo:"5:10-5:35/km", fc:"Z2 133-147 bpm (alerta só acima de 147)", estrutura:"Rodagem fácil. Dia mais pesado da semana (Alvorada + Telepizza + ensaio): sem extras. Boa altura para reconhecer a rampa do percurso da prova, sem esforço." } },
 { day:"Sáb 3", code:"LR14-EASY", km:14.5, status:"planned", icon:"🏃",
@@ -159,7 +160,7 @@ weeklyLoad: [
 {w:"S35",km:72.31},
 {w:"S36",km:59.27,target:64.5},
 {w:"S37",km:53.51},
-{w:"S38",km:59.87,target:60.5},{w:"S39",km:60.12,target:55.0},{w:"S40",km:30.2,target:66.0,cur:true},
+{w:"S38",km:59.87,target:60.5},{w:"S39",km:60.12,target:55.0},{w:"S40",km:41.28,target:66.0,cur:true},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -192,7 +193,8 @@ calibs: [
 { date:"24 Set", session:"T-LIM-3x8-PISTA (feito)", pace:"3x8min a ~3:52-3:56/km (alvo pista 3:59-4:04) · 3º bloco a acelerar até ~3:45/km", fc:"blocos fecham em 161 / 164 / 168 (LTHR 165)", read:"4-12s/km mais rápido que o alvo com FC no LTHR — a FC no limiar está ~12s/km melhor que o 4:05@165 do perfil Garmin. Em rua vale ~3:56-3:58. 7ª sessão com FC atrás do ritmo, reforça VDOT 55-56 (por confirmar em prova). Custo real: recovery_time subiu para ~67h. Para T-LIM em rua na S40 mantém-se o alvo 4:03-4:07 em modo CUMPRIR." },
 { date:"27 Set", session:"Pacer Bimbo Global Race (feito)", pace:"9,96km em 49:16 · 4:57/km médio (alvo 5:00, ~3s/km mais rápido)", fc:"média 151 · 144→159, só 164 no fecho", read:"Pacing limpo, sem arranque disparado. Total do dia 16,26km com aquecimento (3,59km) e arrefecimento (2,71km). Sem custo de fadiga visível: HRV 57ms e RHR 45 na manhã seguinte." },
 { date:"28 Set", session:"EASY45 (feito)", pace:"8,25km em 45:02 · 5:27/km", fc:"média 132", read:"Dia seguinte ao pacer: fácil de verdade, sem progressivo escondido. Estado da manhã: HRV 57, RHR 45, sono 94, readiness 60 (57 pós-treino), ACWR 1.0. Fadiga real baixa; o recovery_time (~41h) é reflexo dos 16,3km, não sinal autónomo." },
-{ date:"29 Set", session:"T-LIM-4x6-PISTA (feito)", pace:"4 blocos de 6min: 3:49 / 3:54 / 3:51 / 3:43/km (alvo pista 3:56-3:59)", fc:"165 / 159 / 160 / 163 bpm (LTHR 165, alerta de excesso 166)", read:"8ª sessão de qualidade seguida mais rápida que o prescrito — já não é um desvio pontual, é o padrão. O 1º bloco já cruzou o critério de excesso definido (abaixo de 3:54/km) e o 4º fechou a 3:43, quase 15s/km abaixo do alvo. A FC ficou sempre controlada e a técnica melhorou a acelerar (cadência 177→185, contacto no solo a descer), o que sugere capacidade aeróbia real e não apenas adrenalina — mas a disciplina de ritmo em modo CUMPRIR continua a falhar. A 6 dias da prova da Amadora e a 12 da Vasco da Gama, mais uma sessão de limiar acima do prescrito é carga extra que não estava orçamentada." }
+{ date:"29 Set", session:"T-LIM-4x6-PISTA (feito)", pace:"4 blocos de 6min: 3:49 / 3:54 / 3:51 / 3:43/km (alvo pista 3:56-3:59)", fc:"165 / 159 / 160 / 163 bpm (LTHR 165, alerta de excesso 166)", read:"8ª sessão de qualidade seguida mais rápida que o prescrito — já não é um desvio pontual, é o padrão. O 1º bloco já cruzou o critério de excesso definido (abaixo de 3:54/km) e o 4º fechou a 3:43, quase 15s/km abaixo do alvo. A FC ficou sempre controlada e a técnica melhorou a acelerar (cadência 177→185, contacto no solo a descer), o que sugere capacidade aeróbia real e não apenas adrenalina — mas a disciplina de ritmo em modo CUMPRIR continua a falhar. A 6 dias da prova da Amadora e a 12 da Vasco da Gama, mais uma sessão de limiar acima do prescrito é carga extra que não estava orçamentada." },
+{ date:"01 Out", session:"TEMPO25 (feito)", pace:"25min contínuos a 4:04/km (alvo 4:03-4:07)", fc:"média 155, máx 168 (alvo 162-166; troço com declive líquido -49m explica a FC mais baixa)", read:"Execução exemplar do modo CUMPRIR — ritmo mesmo no meio do alvo, sem nenhuma das derrapagens da terça. Última qualidade antes da prova de 5 Out feita com disciplina." }
 ],
 races: [
 { dateISO:"2026-09-13", date:"13 Set", name:"Corrida do Tejo ★", dist:"10km · 40:13 chip · 198º geral / 35º M35", prio:"Concluída", col:"#FF5422" },
