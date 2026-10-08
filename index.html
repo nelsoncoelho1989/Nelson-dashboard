@@ -119,39 +119,37 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <script>
 const D = {
-meta: { updatedAt: "01 Out 2026 · TEMPO25 feito — média no alvo (4:04/km) mas fecho acima do prescrito, mesmo padrão de terça", source: "Claude + Strava + Garmin MCP (cloud restabelecido)" },
-hrv: 57, hrvTrend: "57ms esta noite (méd. semanal 51ms) — BALANCED, dentro da baseline 47-59ms; HRV factor 100% VERY_GOOD. Mínimo recente: 38ms na noite pós-Loures (21 Set), recuperado em 2 dias.",
-rhr: 45, bodyBattery: 81, weight: 79.0,
+meta: { updatedAt: "08 Out 2026 · SHARP-4x1 feito — Brandoa 9,65km em 39:27 (5 Out), HRV 50 dentro da baseline, pacer maratona sáb 10 + Meia dom 11", source: "Claude + Garmin MCP local" },
+hrv: 50, hrvTrend: "50ms esta noite (méd. semanal 53ms) — BALANCED, dentro da baseline 47-59ms (faixa Garmin 46-60); pico de 5 min 80ms. Sono 6h16 (00h12-06h28), score 77. Desce vs 57 de 1 Out mas sem sair da baseline; abaixo de ~45 é o alarme.",
+rhr: 45, bodyBattery: 66, weight: 79.0,
 lthr: 165, ltPace: "4:05",
 vdot: 54, vdotEst: "55–56",
 trainingStatus: "MANTER (Nível 4)",
-acwr: 1.0,
-vo2max: 57.1,
-readiness: 57,
-readinessSub: "MODERATE 57 (08h20, pós-rodagem; 60 ao acordar, BOOSTED_BY_GOOD_SLEEP). Sono 94 (7h28) e HRV 100% VERY_GOOD, carga 90% GOOD; único fator mau: recovery_time ~41h (POOR 36%), reflexo dos 16,3km de domingo, não do sistema autónomo. ACWR 1.0 (ótimo, carga aguda 1123 / crónica 1094). Sem sinal de fadiga real.",
-weekLabel: "Semana 40 · 28 Set–4 Out 2026 · Construção Meia + prova 10km seg 5 Out",
-weekDone: 41.28, weekTarget: 66.0,
+acwr: 0.9,
+vo2max: 57.2,
+readiness: 50,
+readinessSub: "MODERATE 50 (15h24, LISTEN_TO_YOUR_BODY). Era 68-69 ao acordar, caiu para 41 após o SHARP-4x1 e recuperou para 50 durante o dia. Fatores: sono 65% MODERATE (score 77, 6h16; histórico de sono 63% MODERATE), HRV 99% GOOD, carga 93% GOOD, stress 92% GOOD; recovery_time 36,7h (40% MODERATE). ACWR 0,9 (carga aguda 1041 / crónica 1104, 38% da faixa ótima). O único travão real é o sono curto repetido, não o sistema autónomo.",
+weekLabel: "Semana 41 · 5–11 Out 2026 · Taper Vasco da Gama + pacer Maratona (sáb 10) + Meia (dom 11)",
+weekDone: 30.04, weekTarget: 77.0,
 sessions: [
-{ day:"Seg 28", code:"EASY45", km:8.25, status:"done", icon:"🏃",
-  detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm", estrutura:"Rodagem fácil pós-pacer (Sintra).",
-  real:"Feito: 8,25km em 45:02 (5:27/km) · FC média 132 — fácil de verdade, no limite lento do alvo de ritmo e na fronteira Z1/Z2, esperado no dia seguinte a 16,3km. Readiness antes do treino 60, HRV 57ms, RHR 45." } },
-{ day:"Ter 29", code:"T-LIM-4x6-PISTA", km:10.2, status:"done", icon:"⚡",
-  detail:{ ritmo:"alvo 3:56-3:59/km", fc:"alvo 158-164 bpm (LTHR 165)", estrutura:"Versão PISTA/isolada: aquecimento (3,79km) + 4x6' pista + arrefecimento (1,33km).",
-  real:"Feito: 4 blocos a 3:49/165bpm · 3:54/159bpm · 3:51/160bpm · 3:43/163bpm — todos mais rápidos que o alvo, incluindo o 1º logo abaixo do teto de excesso (3:54). Recuperações de 2' cumpridas à letra. FC controlada (máx 165, nunca chegou ao alerta de 166), mas o padrão de ritmo é o de sempre: sai rápido e não recupera para o alvo. É a 8ª sessão seguida mais rápida que o prescrito." } },
-{ day:"Qua 30", code:"EASY STR", km:8.45, status:"done", icon:"🏃",
-  detail:{ ritmo:"alvo 5:05-5:30/km + strides", fc:"alvo Z2 133-147 bpm", estrutura:"Fácil + strides curtos.",
-  real:"Feito: 7,53km fácil a ~5:59/km, FC 125-133 (abaixo do teto de Z2) + 6 strides curtos de ~80m. Nelson estava sonolento e manteve-se conservador de propósito — dia bem executado, contraste directo com a terça." } },
-{ day:"Qui 1", code:"TEMPO25", km:11.08, status:"done", icon:"⚡",
-  detail:{ ritmo:"alvo 4:03-4:07/km", fc:"alvo Z4 alta/Z5 baixa 162-166 bpm", estrutura:"Última qualidade antes da prova de 5 Out.",
-  real:"Feito: 25min/6,14km, média 4:04/km — mas estrutura interna não uniforme: km1 4:12,5 e km2 4:09,9 (mais lentos que o alvo), km3 4:02,9 (no alvo), km4 4:01,9, km5 3:56,8, km6 3:58,9 (mais rápidos, km6 a subir +11m — esforço empurrado, não só a descida). FC sobe de 145 para 163 (máx168), 70s em Z5 no fecho. Mesmo padrão comportamental de terça (fecho mais forte que o prescrito), agora em contínuo em vez de blocos." } },
-{ day:"Sex 2", code:"EASY40", km:7, status:"planned", icon:"🏃",
-  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 133-147 bpm (alerta só acima de 147)", estrutura:"Rodagem fácil. Dia mais pesado da semana (Alvorada + Telepizza + ensaio): sem extras. Boa altura para reconhecer a rampa do percurso da prova, sem esforço." } },
-{ day:"Sáb 3", code:"LR14-EASY", km:14.5, status:"planned", icon:"🏃",
-  detail:{ ritmo:"5:05-5:30/km", fc:"Z2 133-147 bpm (alerta só acima de 147)", estrutura:"Longo fácil, sem progressivo nem blocos, 48h antes da prova. O longo passa de domingo para sábado só nesta semana (decisão do Nelson, 28 Set: REC no sábado não é regra). LR2x10T saiu da semana." } },
-{ day:"Dom 4", code:"EASY30", km:6, status:"planned", icon:"🏃",
-  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 133-147 bpm", estrutura:"Véspera de prova, fácil de verdade (mínimo 30 min)." } },
-{ day:"Seg 5", code:"RACE-AMADORA-10K", km:9.95, status:"race", icon:"🏁",
-  detail:{ ritmo:"volta 1: 4:00-4:03 em plano; alerta se <3:50", fc:"FC no km 6: ≤163 volta 2 normal, >166 gerir", estrutura:"1ª Corrida Santa Teresinha e S. Francisco (Torneio Cidade da Amadora), 09h30, 2x4,975km, D+~58m/volta. Modo ESPECÍFICO, não máximo. Desce -6% nos 1ºs 500m (não lançar); rampa km 4-5 (+29m em 500m, pico ~8%) repete-se nos km 9-10, o último km é a subir. Rampa por esforço/FC, não por ritmo. Expectativa 40:15-40:45 (não é teste de VDOT; esse é a Volkswagen, 25 Out)." } },
+{ day:"Seg 5", code:"BRANDOA-10K", km:9.65, status:"done", icon:"🏁",
+  detail:{ ritmo:"alvo 4:00-4:03 em plano; alerta se <3:50", fc:"FC no km 6: ≤163 volta 2 normal, >166 gerir", estrutura:"1ª Corrida Santa Teresinha e S. Francisco (Torneio Cidade da Amadora), 09h30, 2 voltas. Modo ESPECÍFICO, não máximo; esperado 40:15-40:45.",
+  real:"Feito: 9,65km em 39:27 (4:05/km) — distância Garmin confirmada como a certa. Parciais 3:42 / 3:54 / 3:56 / 3:40 / 4:33 / 4:05 / 4:10 / 4:11 / 4:04 / últimos 654m a 4:53 (km1 e km4 em descida -32/-35m; km5 e final em subida +43/+33m). Positive split: 1ºs 5km a 3:57/km, restantes 4,65km a 4:14/km. FC média 169, máx 178 (igual ao Tejo), 149 no km1, 166-169 já nos km2-3, 173-175 no fecho. Foi mais rápido que o esperado, mas à custa de arranque a 3:42 (o plano dizia não lançar na descida) e FC média 5bpm acima do Tejo — custo alto para um específico." } },
+{ day:"Ter 6", code:"EASY+STR", km:8.28, status:"done", icon:"🏃",
+  detail:{ ritmo:"5:05-5:30/km + strides", fc:"Z2 133-147 bpm", estrutura:"Fácil + strides curtos, dia seguinte à prova.",
+  real:"Feito: 8,28km em 51:05 (6:10/km), FC média 124 / máx 145 (Z1) — mais lento que o alvo de ritmo mas é o que se pretende no dia seguinte a uma prova. Sem sinais de fadiga muscular." } },
+{ day:"Qua 7", code:"EASY30", km:6.19, status:"done", icon:"⚠️",
+  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 133-147 bpm (alerta só acima de 147)", estrutura:"Rodagem fácil de 30 min.",
+  real:"Feito, mas NÃO foi fácil: 6,19km em 30:04 (4:51/km), FC média 140 / máx 164. Km a km 5:26 / 4:57 / 4:48 / 4:50 / 4:42 / 4:29, com FC 119→134→140→146→147→157 e fecho a ~4:21/km e 161-164 bpm (Z4). É um progressivo escondido num dia FÁCIL — viola o modo da sessão, a 3 dias do pacer e 4 da meia. Mesmo padrão de fecho acima do prescrito de 29 Set e 1 Out." } },
+{ day:"Qui 8", code:"SHARP-4x1", km:5.92, status:"done", icon:"⚡",
+  detail:{ ritmo:"4 reps de 1 min rápidas, recuperação 2 min", fc:"afinação neuromuscular — FC baixa, não cardiovascular", estrutura:"Aquecimento (3,02km) + 4x1min em pista + arrefecimento (1,35km). Afiar sem custo antes de sábado/domingo.",
+  real:"Feito: 4 reps de 60s a ~3:20 / 3:01 / 3:07 / 3:01 /km (300-330m cada), recuperações 2min cumpridas. FC máx por rep 157 / 148 / 158 / 150 (nunca perto de Z5 sustentado), FC média das reps 117-142 — sessão neuromuscular limpa, sem stress cardiovascular. Readiness caiu para 41 após a sessão e voltou a 50 ao fim do dia; HRV 50 de manhã." } },
+{ day:"Sex 9", code:"EASY30", km:5, status:"planned", icon:"🏃",
+  detail:{ ritmo:"5:10-5:35/km", fc:"Z1-Z2, teto 140 bpm", estrutura:"Fácil de verdade (esta é a que tem de sair fácil), 5km. Sem ensaio: Nelson não vai ao ensaio de sexta para descansar. Cama às 22h30. Dorsais levantados." } },
+{ day:"Sáb 10", code:"PACER-MARATONA-4h45", km:21, status:"planned", icon:"🚩",
+  detail:{ ritmo:"6:45/km (grupo 4h45)", fc:"teto 135 bpm, cadência ≥168", estrutura:"Pacer da 2ª metade da EDP Maratona de Lisboa: Parede (Av. Marginal, mesmo ponto do ano passado) → Praça do Comércio, ~21km. Troca à estafeta EM ANDAMENTO (mochila + bandeira passadas em movimento). Hora de passagem depende da vaga do pacer 4h45 (a confirmar; janela 10h22-10h57). Aquecer no local, 3-4 progressivos, esperar o grupo ≥30 min antes. Géis, flask e telemóvel na bolsa de cinta. Regresso de comboio no Cais do Sodré. Critério da manhã: HRV <45 ou RHR ≥52 → reduzir/reavaliar o pacer. Alerta: se a FC passar de 135 nos 2 primeiros km, estás a correr atrás do grupo." } },
+{ day:"Dom 11", code:"MEIA-VASCO-DA-GAMA", km:21.1, status:"race", icon:"🏁",
+  detail:{ ritmo:"4:15-4:20/km (objetivo 1:30-1:31)", fc:"vigiar km 1-5 — não abrir acima do ritmo", estrutura:"Hyundai Meia Maratona Vasco da Gama, partida 09h20 na Ponte; metro ~06h45 (logística habitual). Nutrição: 2:1 ao km 7 + PowerBar Hydro Cola (cafeína) ao km 14 + flask de Powerade, abastecimentos da organização. A pacer de véspera (21km a 6:45) conta como carga no dia anterior." } },
 ],
 weeklyLoad: [
 {w:"S28",km:66.6},{w:"S29",km:63.3},{w:"S30",km:69.4},
@@ -160,7 +158,7 @@ weeklyLoad: [
 {w:"S35",km:72.31},
 {w:"S36",km:59.27,target:64.5},
 {w:"S37",km:53.51},
-{w:"S38",km:59.87,target:60.5},{w:"S39",km:60.12,target:55.0},{w:"S40",km:41.28,target:66.0,cur:true},
+{w:"S38",km:59.87,target:60.5},{w:"S39",km:60.12,target:55.0},{w:"S40",km:60.95,target:66.0},{w:"S41",km:30.04,target:77.0,cur:true},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -194,14 +192,21 @@ calibs: [
 { date:"27 Set", session:"Pacer Bimbo Global Race (feito)", pace:"9,96km em 49:16 · 4:57/km médio (alvo 5:00, ~3s/km mais rápido)", fc:"média 151 · 144→159, só 164 no fecho", read:"Pacing limpo, sem arranque disparado. Total do dia 16,26km com aquecimento (3,59km) e arrefecimento (2,71km). Sem custo de fadiga visível: HRV 57ms e RHR 45 na manhã seguinte." },
 { date:"28 Set", session:"EASY45 (feito)", pace:"8,25km em 45:02 · 5:27/km", fc:"média 132", read:"Dia seguinte ao pacer: fácil de verdade, sem progressivo escondido. Estado da manhã: HRV 57, RHR 45, sono 94, readiness 60 (57 pós-treino), ACWR 1.0. Fadiga real baixa; o recovery_time (~41h) é reflexo dos 16,3km, não sinal autónomo." },
 { date:"29 Set", session:"T-LIM-4x6-PISTA (feito)", pace:"4 blocos de 6min: 3:49 / 3:54 / 3:51 / 3:43/km (alvo pista 3:56-3:59)", fc:"165 / 159 / 160 / 163 bpm (LTHR 165, alerta de excesso 166)", read:"8ª sessão de qualidade seguida mais rápida que o prescrito — já não é um desvio pontual, é o padrão. O 1º bloco já cruzou o critério de excesso definido (abaixo de 3:54/km) e o 4º fechou a 3:43, quase 15s/km abaixo do alvo. A FC ficou sempre controlada e a técnica melhorou a acelerar (cadência 177→185, contacto no solo a descer), o que sugere capacidade aeróbia real e não apenas adrenalina — mas a disciplina de ritmo em modo CUMPRIR continua a falhar. A 6 dias da prova da Amadora e a 12 da Vasco da Gama, mais uma sessão de limiar acima do prescrito é carga extra que não estava orçamentada." },
-{ date:"01 Out", session:"TEMPO25 (feito)", pace:"média 4:04/km (alvo), mas km a km: 4:12,5 / 4:09,9 / 4:02,9 / 4:01,9 / 3:56,8 / 3:58,9 (km6 a subir)", fc:"145→163bpm progressivo, máx168, 70s em Z5 no fecho (alvo 162-166)", read:"A média no alvo escondeu uma estrutura em V: 2km mais lentos, 1 no alvo, 3 mais rápidos com o último a subir — esforço empurrado, não só terreno. É o mesmo padrão comportamental de terça (fecho mais forte que o prescrito), só que em contínuo. Última qualidade antes da Amadora (5 Out), 4 dias de distância." }
+{ date:"01 Out", session:"TEMPO25 (feito)", pace:"média 4:04/km (alvo), mas km a km: 4:12,5 / 4:09,9 / 4:02,9 / 4:01,9 / 3:56,8 / 3:58,9 (km6 a subir)", fc:"145→163bpm progressivo, máx168, 70s em Z5 no fecho (alvo 162-166)", read:"A média no alvo escondeu uma estrutura em V: 2km mais lentos, 1 no alvo, 3 mais rápidos com o último a subir — esforço empurrado, não só terreno. É o mesmo padrão comportamental de terça (fecho mais forte que o prescrito), só que em contínuo. Última qualidade antes da Amadora (5 Out), 4 dias de distância." },
+{ date:"02-04 Out", session:"EASY40 + Lisboa Corrida + EASY30 (feitos)", pace:"2 Out 7,42km 5:24/km · 3 Out 10,02km em 54:27 (5:26/km) · 4 Out 5,54km 5:26/km", fc:"131 / 134 / 134 médias (máx 145-148)", read:"Três dias fáceis de verdade, sem progressivo: FC sempre em Z1-Z2, ritmo no limite lento do alvo. O longo de sábado ficou em 10,02km (plano original: LR14,5). Semana 40 fecha em 60,95km (92% do alvo 66km)." },
+{ date:"05 Out", session:"Brandoa 10K (prova · ESPECÍFICO)", pace:"9,65km em 39:27 · 4:05/km · 3:42/3:54/3:56/3:40/4:33/4:05/4:10/4:11/4:04 + 654m a 4:53", fc:"média 169/máx 178 · 149→166→169→168→173→170→171→173→171→175", read:"Modo ESPECÍFICO (não teste). Distância certa confirmada (9,65km). Resultado melhor que os 40:15-40:45 esperados, mas por um caminho que o plano pedia para evitar: km1 a 3:42 (descida) e km4 a 3:40 (descida) pagos com km5 a 4:33 (subida, FC 173) e a segunda metade 17s/km mais lenta (4:14 vs 3:57). FC média 169 vs 164 no Tejo — esforço alto. Não conta como teste de VDOT (esse é a Volkswagen, 25 Out). Sensação: pernas bem; Nelson quer incluir força de subida no plano pós-Vasco da Gama." },
+{ date:"06 Out", session:"EASY+STR (feito)", pace:"8,28km em 51:05 (6:10/km)", fc:"média 124 / máx 145", read:"Dia seguinte à prova, fácil de verdade em Z1. Sem fadiga muscular residual relatada." },
+{ date:"07 Out", session:"EASY30 (feito, progressivo escondido)", pace:"6,19km em 30:04 (4:51/km) · 5:26/4:57/4:48/4:50/4:42/4:29 + fecho ~4:21/km", fc:"média 140 / máx 164 · 119→134→140→146→147→157→161", read:"Treino FÁCIL que acabou em Z4. A média de FC (140) engana: o começo lento escondeu um fecho a 4:21/km e 161-164 bpm. Repete o padrão de fecho acima do prescrito de 29 Set e 1 Out, agora num dia em modo FÁCIL e não só em qualidade. A 3 dias do pacer e 4 da meia, é carga extra sem objetivo. Na sexta (EASY30, teto 140 bpm) tem de ser fácil de verdade." },
+{ date:"08 Out", session:"SHARP-4x1 (feito)", pace:"4 reps de 1min a ~3:20/3:01/3:07/3:01 por km (300-330m) · aquec. 3,02km, arref. 1,35km", fc:"máx por rep 157/148/158/150 · média das reps 117-142", read:"Sessão neuromuscular limpa, sem stress cardiovascular e com recuperações cumpridas. Readiness: 68-69 ao acordar, 41 após a sessão, 50 ao fim do dia; HRV 50 (baseline), RHR 45, ACWR 0,9. Critérios de quinta cumpridos; sem sinal de fadiga acumulada preocupante, mas sono curto (6h16) continua a ser o ponto fraco antes de sáb+dom." }
 ],
 races: [
 { dateISO:"2026-09-13", date:"13 Set", name:"Corrida do Tejo ★", dist:"10km · 40:13 chip · 198º geral / 35º M35", prio:"Concluída", col:"#FF5422" },
 { dateISO:"2026-09-20", date:"20 Set", name:"Pacer · Meia Loures-Odivelas-Loures", dist:"pacer 4:30/km · 21,14km · chip 1:34:28 (final 1:34:38) · 149.º geral · 26.º escalão", prio:"Concluída", col:"#FF5422" },
 { dateISO:"2026-09-27", date:"27 Set", name:"Pacer · Bimbo Global Race", dist:"pacer 5:00/km · 9,96km em 49:16 (4:57/km) · FC média 151", prio:"Concluída", col:"#FF5422" },
-{ dateISO:"2026-10-05", date:"05 Out", name:"1ª Corrida Santa Teresinha e S. Francisco (Torneio Cidade da Amadora)", dist:"9,95km (2 voltas) · D+~116m · 09h30 · modo ESPECÍFICO, não máximo · esperado 40:15-40:45", prio:"Específico", col:"#F5A623" },
-{ dateISO:"2026-10-11", date:"11 Out", name:"Meia Vasco da Gama / Hyundai ★", dist:"21,1km · objetivo 1:30-1:31", prio:"PROVA A", col:"#9B59FF" },
+{ dateISO:"2026-10-05", date:"05 Out", name:"1ª Corrida Santa Teresinha e S. Francisco (Brandoa · Torneio Cidade da Amadora)", dist:"9,65km (Garmin, distância certa) · 39:27 · 4:05/km · FC média 169/máx 178 · modo ESPECÍFICO", prio:"Concluída", col:"#FF5422" },
+{ dateISO:"2026-10-10", date:"10 Out", name:"Pacer · EDP Maratona de Lisboa (4h45, 2ª metade)", dist:"~21km Parede → Praça do Comércio · 6:45/km · FC ≤135 · troca em andamento · hora a confirmar", prio:"Compromisso", col:"#F5A623" },
+{ dateISO:"2026-10-11", date:"11 Out", name:"Meia Vasco da Gama / Hyundai ★", dist:"21,1km · 09h20 · objetivo 1:30-1:31 (4:15-4:20/km) · pacer de véspera no dia anterior", prio:"PROVA A", col:"#9B59FF" },
+{ dateISO:"2026-10-18", date:"18 Out", name:"Torneio (prova integrada no treino)", dist:"substitui o LR14-15 desse domingo · detalhes por confirmar", prio:"Follow-up", col:"#5A6B8A" },
 { dateISO:"2026-10-25", date:"25 Out", name:"Volkswagen Run (Auto-Europa)", dist:"10km · confirmação de VDOT · sem taper, só shakeout véspera", prio:"PROVA A", col:"#9B59FF" },
 { dateISO:"2026-11-01", date:"01 Nov", name:"Corrida da Água (Aqueduto)", dist:"10km · sem objetivo de tempo", prio:"Follow-up", col:"#5A6B8A" },
 { dateISO:"2026-11-29", date:"29 Nov", name:"Meia Maratona dos Descobrimentos (10km)", dist:"10km · consolidação/confirmação, não RP a todo custo", prio:"PROVA B", col:"#9B59FF" },
@@ -214,8 +219,8 @@ phases: [
 { label:"★ Corrida do Tejo (40:13)", weeks:"13 Set", km:"PROVA A", status:"race" },
 { label:"Absorção pós-Tejo", weeks:"S38", km:"59,87/60,5 km", status:"done" },
 { label:"Retoma + Bimbo", weeks:"S39", km:"60,12/55 km", status:"done" },
-{ label:"Construção Meia + prova 10km (5 Out)", weeks:"S40", km:"~66/sem", status:"active" },
-{ label:"Taper Vasco da Gama", weeks:"S41", km:"↓ ~20-25%", status:"next" },
+{ label:"Construção Meia + prova 10km (5 Out)", weeks:"S40", km:"60,95/66 km", status:"done" },
+{ label:"Taper Vasco da Gama (+ pacer Maratona 10 Out)", weeks:"S41", km:"~77 km (pacer 21 + meia 21)", status:"active" },
 { label:"★ Meia Vasco da Gama", weeks:"11 Out", km:"objetivo 1:30-1:31", status:"race" },
 { label:"Recuperação pós-meia", weeks:"S42", km:"~45-50/sem", status:"next" },
 { label:"Semana normal (sem taper)", weeks:"S43", km:"~55-60/sem", status:"next" },
@@ -295,15 +300,15 @@ ${renderVDOTGauge(D.vdot, D.vdotEst)}
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Estado Fisiológico · ${D.meta.updatedAt}</span></div>
 <div class="metrics-row">
 <div class="metric"><div class="mlabel">HRV</div><div><span class="mval" style="color:var(--z3)">${D.hrv}</span><span class="munit">ms</span></div><div class="msub">${D.hrvTrend}</div></div>
-<div class="metric"><div class="mlabel">FC Repouso</div><div><span class="mval" style="color:var(--z3)">${D.rhr}</span><span class="munit">bpm</span></div><div class="msub">méd. 7 dias 47bpm — de volta à baseline pós-Tejo (45-47)</div></div>
+<div class="metric"><div class="mlabel">FC Repouso</div><div><span class="mval" style="color:var(--z3)">${D.rhr}</span><span class="munit">bpm</span></div><div class="msub">méd. 7 dias 47bpm — baseline 45-47, sem desvio</div></div>
 </div>
 <div class="metrics-row">
-<div class="metric"><div class="mlabel">Body Battery</div><div><span class="mval" style="color:var(--z1)">${D.bodyBattery}</span><span class="munit">%</span></div><div class="msub">pico 99 ao acordar · carregou 62 · drenou 18 até às 08h (rodagem fácil já feita) · stress médio 12</div></div>
+<div class="metric"><div class="mlabel">Body Battery</div><div><span class="mval" style="color:var(--z1)">${D.bodyBattery}</span><span class="munit">%</span></div><div class="msub">pico 77 · mínimo 22 · carregou 55 · drenou 11 (até às 15h) · stress médio 18</div></div>
 <div class="metric"><div class="mlabel">Train. Readiness</div><div><span class="mval" style="color:var(--z3)">${D.readiness}</span><span class="munit">/100</span></div><div class="msub">${D.readinessSub}</div></div>
 </div>
 <div class="metrics-row" style="margin-bottom:18px">
 <div class="metric"><div class="mlabel">VO₂Max Garmin</div><div><span class="mval" style="color:var(--orange)">${D.vo2max}</span></div><div class="msub">plano ~2 meses</div></div>
-<div class="metric"><div class="mlabel">ACWR</div><div><span class="mval" style="color:var(--z3)">${D.acwr}</span></div><div class="msub">ÓTIMO (carga aguda 1078 / crónica 1108) · 38% da faixa ótima</div></div>
+<div class="metric"><div class="mlabel">ACWR</div><div><span class="mval" style="color:var(--z3)">${D.acwr}</span></div><div class="msub">ÓTIMO (carga aguda 1041 / crónica 1104) · 38% da faixa ótima</div></div>
 </div>
 <div class="metrics-row" style="margin-bottom:18px">
 <div class="metric"><div class="mlabel">Peso</div><div><span class="mval" style="color:var(--text)">${D.weight}</span><span class="munit">kg</span></div><div class="msub">último registo manual</div></div>
@@ -392,7 +397,7 @@ ${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#
 ${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
 </div>
 `).join("")}
-<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 40 — CONSTRUÇÃO MEIA + PROVA 5 OUT</b>. Segunda: EASY45 feito (8,25km, FC 132) com fadiga real baixa (HRV 57, RHR 45, sono 94). Terça T-LIM-4x6-PISTA (3:56-3:59, na pista) e quinta TEMPO25 (4:03-4:07 em rua), ambos em modo CUMPRIR. Sábado passa a ser o longo fácil (14,5km, sem progressivo), domingo só EASY30. Segunda 5 Out: 1ª Corrida Santa Teresinha (9,95km, D+~116m, último km a subir) como esforço ESPECÍFICO, não máximo — último estímulo antes da Meia Vasco da Gama (11 Out). Volume ~66km, todo o extra é fácil; se quinta estiver pesada corta-se o TEMPO25, não o longo.</div>
+<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 41 — TAPER VASCO DA GAMA (com pacer de véspera)</b>. Seg 5: Brandoa 9,65km em 39:27 (positive split, FC média 169/máx 178). Ter 6 EASY+STR em Z1. Qua 7 EASY30 saiu progressivo até Z4 (fecho a 4:21/km). Qui 8 SHARP-4x1 limpo (FC máx 157-160). Sex 9: EASY30 com teto de 140 bpm, cama 22h30, sem ensaio. Sáb 10: pacer 4h45 da Maratona (~21km a 6:45, FC ≤135, troca em andamento em Parede). Dom 11: Meia Vasco da Gama (objetivo 1:30-1:31). O volume real da semana é ~77km: é taper de intensidade, não de volume — o ponto de risco é a carga de sábado a 24h da meia. Critério de sábado de manhã: HRV <45 ou RHR ≥52 reduz o pacer.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
 <div class="card">
@@ -405,18 +410,18 @@ ${D.weeklyLoad.map(w=>`
 </div>
 `).join("")}
 </div>
-<div class="note">Semana 36 fechou em <b>59,27km</b> de 64,5km alvo (91,9%) — taper a decorrer como planeado apesar do imprevisto do pacer. Semana 37 (7-13 Set) é a <b>semana da prova</b>: volume mínimo (~51km previstos), foco total em chegar fresco ao Tejo no domingo. Corrida do Tejo conta como sessão forte — a semana seguinte (38) já entra em modo de absorção.</div>
+<div class="note">Semana 40 fechou em <b>60,95km</b> de 66km alvo (92%). Semana 41 leva ~<b>77km</b> planeados (pacer de 21km no sábado + meia de 21,1km no domingo): é a semana mais pesada desde a S35 em volume total, apesar de ser taper de intensidade. A Meia e o pacer contam como estímulo forte; a S42 entra em recuperação.</div>
 </div>
 <div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Training Status · Garmin</span></div>
 <div class="card">
 <div style="display:flex;justify-content:space-between;margin-bottom:12px">
 <div>
 <div style="color:var(--z1);font-size:14px;font-weight:800">${D.trainingStatus}</div>
-<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 22Set (Garmin MCP cloud)</div>
+<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 08 Out (Garmin MCP local)</div>
 </div>
 <div style="text-align:right">
 <div style="color:var(--teal);font-size:18px;font-weight:800;font-family:monospace">${D.acwr}</div>
-<div style="color:var(--sub);font-size:9px">ACWR · ótimo (1,1) após a meia</div>
+<div style="color:var(--sub);font-size:9px">ACWR · ótimo (0,9) · aguda 1041 / crónica 1104</div>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
