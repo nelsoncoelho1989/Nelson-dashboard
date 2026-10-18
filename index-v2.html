@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#07090F">
+<title>Nelson Coelho · Dashboard de Treino</title>
+<style>
+:root{
+--bg:#07090F; --card:#0D1118; --card2:#131927; --border:#1C2438;
+--orange:#FF5422; --teal:#00D9B0; --purple:#9B59FF; --gold:#F5A623;
+--text:#D4E0FF; --sub:#5A6B8A; --dim:#2C3550;
+--z1:#22C55E; --z2:#86EFAC; --z3:#FDE047; --z4:#FB923C; --z5:#EF4444;
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;margin:0;}
+.wrap{max-width:480px;margin:0 auto;min-height:100vh;}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:14px 18px 10px;position:sticky;top:0;z-index:20;}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.eyebrow{color:var(--sub);font-size:8px;letter-spacing:3px;text-transform:uppercase;}
+.name{font-size:17px;font-weight:800;letter-spacing:-0.5px;}
+.badge{background:#22C55E22;border:1px solid #22C55E55;color:var(--z1);border-radius:5px;padding:3px 9px;font-size:10px;font-weight:700;letter-spacing:1px;white-space:nowrap;}
+.sync{font-size:8px;color:var(--sub);letter-spacing:1px;text-align:right;margin-top:4px;}
+.refreshBtn{background:transparent;border:1px solid var(--border);color:var(--sub);border-radius:5px;padding:3px 8px;font-size:10px;cursor:pointer;margin-top:4px;}
+.refreshBtn:active{color:var(--orange);border-color:var(--orange);}
+.tabs{display:flex;gap:6px;}
+.tab{background:transparent;border:1px solid var(--border);color:var(--sub);border-radius:6px;padding:4px 12px;font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;}
+.tab.active{background:#FF542220;border-color:var(--orange);color:var(--orange);}
+.content{padding:16px 14px 48px;}
+.pane{display:none;}
+.pane.active{display:block;}
+.st{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.st .bar{width:3px;height:14px;border-radius:2px;}
+.st .label{color:var(--sub);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.card{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:14px;margin-bottom:16px;}
+.card2{background:var(--card2);border-radius:8px;padding:8px 10px;}
+.metrics-row{display:flex;gap:8px;margin-bottom:8px;}
+.metric{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;flex:1;min-width:0;}
+.metric .mlabel{color:var(--sub);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
+.metric .mval{font-size:22px;font-weight:800;font-family:monospace;line-height:1;}
+.metric .munit{color:var(--sub);font-size:10px;margin-left:3px;}
+.metric .msub{color:var(--sub);font-size:9px;margin-top:3px;}
+.metric .mtrend{font-size:10px;margin-top:2px;}
+.gauge-wrap{background:var(--card);border-radius:14px;border:1px solid var(--border);padding:16px 6px 10px;margin-bottom:18px;}
+.gauge-legend{display:flex;justify-content:space-around;padding-top:6px;}
+.gauge-legend div{text-align:center;}
+.gauge-legend .gv{font-size:11px;font-weight:800;font-family:monospace;}
+.gauge-legend .gl{color:var(--sub);font-size:8px;letter-spacing:1px;}
+.zonebar-row{display:flex;align-items:center;gap:8px;margin-bottom:9px;}
+.zonebar-z{font-size:10px;font-weight:800;width:22px;flex-shrink:0;}
+.zonebar-track{background:var(--border);border-radius:3px;height:6px;}
+.zonebar-fill{height:100%;border-radius:3px;}
+.session-row{display:flex;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);}
+.session-row:last-child{border-bottom:none;}
+.session-row.planned{opacity:.55;}
+.session-row.today{background:#FF542208;}
+.sday{color:var(--sub);font-size:9px;width:38px;flex-shrink:0;}
+.sdot{width:9px;height:9px;border-radius:50%;margin-right:10px;flex-shrink:0;}
+.scode{font-size:12px;}
+.skm{color:var(--sub);font-size:10px;font-family:monospace;margin-right:8px;}
+.stag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;}
+.race-row{padding:12px 14px;border-bottom:1px solid var(--border);}
+.race-row:last-child{border-bottom:none;}
+.race-top{display:flex;justify-content:space-between;align-items:flex-start;}
+.race-prio{color:var(--sub);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;}
+.race-name{font-size:13px;font-weight:600;}
+.race-dist{color:var(--sub);font-size:10px;}
+.race-date{font-size:12px;font-weight:700;font-family:monospace;text-align:right;}
+.race-days{color:var(--sub);font-size:9px;text-align:right;}
+.calib-row{padding:10px 14px;border-bottom:1px solid var(--border);}
+.calib-row:last-child{border-bottom:none;}
+.calib-top{display:flex;justify-content:space-between;margin-bottom:5px;}
+.calib-session{color:var(--orange);font-size:11px;font-weight:700;}
+.calib-date{color:var(--sub);font-size:9px;}
+.calib-cols{display:flex;gap:12px;}
+.calib-col-label{color:var(--sub);font-size:8px;letter-spacing:1px;}
+.calib-col-val{color:var(--text);font-size:11px;font-family:monospace;}
+.calib-read{color:var(--z1);font-size:10px;}
+.phase-item{display:flex;gap:10px;align-items:flex-start;}
+.phase-dot-col{display:flex;flex-direction:column;align-items:center;}
+.phase-dot{width:10px;height:10px;border-radius:50%;margin-top:3px;flex-shrink:0;}
+.phase-line{width:1.5px;height:22px;background:var(--border);margin-top:3px;}
+.phase-label{font-size:11px;}
+.phase-sub{color:var(--sub);font-size:9px;}
+.footer{text-align:center;color:var(--dim);font-size:8px;letter-spacing:1.5px;margin-top:20px;text-transform:uppercase;}
+.note{background:var(--card2);border-radius:8px;padding:10px 12px;margin-top:8px;font-size:10px;color:var(--sub);line-height:1.5;}
+.note b{color:var(--orange);}
+
+body{padding-bottom:78px;}
+.header{padding:12px 16px 10px;}
+.header-top{margin-bottom:0;align-items:center;}
+.stamp{font-size:9px;color:var(--sub);letter-spacing:.5px;margin-top:2px;}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);border-top:1px solid var(--border);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom);}
+.nav-in{display:flex;width:100%;max-width:480px;}
+.nav button{flex:1;background:transparent;border:0;color:var(--sub);padding:9px 0 10px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.nav button .ic{font-size:17px;line-height:1;}
+.nav button.active{color:var(--orange);}
+.verdict{border-radius:14px;padding:16px;margin-bottom:12px;border:1px solid var(--border);background:var(--card);}
+.verdict .vk{color:var(--sub);font-size:9px;letter-spacing:2px;text-transform:uppercase;}
+.verdict .vv{font-size:30px;font-weight:900;letter-spacing:-.5px;line-height:1.1;margin:4px 0 6px;}
+.verdict .vr{color:var(--sub);font-size:11px;line-height:1.5;}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.tile{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 8px;text-align:center;}
+.tile .tl{color:var(--sub);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;}
+.tile .tv{font-size:26px;font-weight:900;font-family:'Courier New',monospace;line-height:1.15;margin-top:3px;}
+.tile .ts{color:var(--sub);font-size:9px;margin-top:2px;}
+.alert{background:#F5A62315;border:1px solid #F5A62344;color:var(--gold);border-radius:10px;padding:10px 12px;font-size:11px;line-height:1.5;margin-bottom:12px;}
+.today{border:1px solid #FF542266;background:linear-gradient(180deg,#FF542210,var(--card));border-radius:14px;padding:14px;margin-bottom:12px;}
+.today .k{color:var(--orange);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;}
+.today .code{font-size:22px;font-weight:800;margin:4px 0 2px;}
+.today .meta{color:var(--sub);font-size:11px;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chip{background:var(--card2);border-radius:6px;padding:5px 8px;font-size:11px;font-family:'Courier New',monospace;}
+.chip small{display:block;color:var(--sub);font-size:8px;letter-spacing:1px;font-family:system-ui;text-transform:uppercase;}
+.mode{display:inline-block;font-size:9px;font-weight:800;letter-spacing:1px;padding:2px 7px;border-radius:5px;margin-left:6px;vertical-align:middle;}
+.weekstrip{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:6px;}
+.wd{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:6px 0;text-align:center;}
+.wd.now{border-color:var(--orange);box-shadow:0 0 0 1px #FF542244;}
+.wd .d{color:var(--sub);font-size:8px;letter-spacing:1px;text-transform:uppercase;}
+.wd .dot{width:9px;height:9px;border-radius:50%;margin:5px auto 3px;}
+.wd .k{font-size:9px;font-family:monospace;color:var(--text);}
+details{margin-bottom:10px;}
+details>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:12px;font-size:12px;font-weight:700;}
+details>summary::-webkit-details-marker{display:none;}
+details>summary::after{content:"▾";color:var(--sub);font-size:11px;transition:transform .15s;}
+details[open]>summary{border-bottom-left-radius:0;border-bottom-right-radius:0;}
+details[open]>summary::after{transform:rotate(180deg);}
+details>.body{background:var(--card);border:1px solid var(--border);border-top:0;border-radius:0 0 12px 12px;padding:12px 14px;}
+details.sess>summary{border-radius:0;border:0;border-bottom:1px solid var(--border);background:transparent;padding:11px 14px;font-weight:400;}
+details.sess{margin:0;}
+details.sess>.body{border:0;border-radius:0;background:var(--card2);font-size:11px;line-height:1.6;}
+.kv{display:flex;justify-content:space-between;gap:10px;margin-bottom:3px;}
+.kv span:first-child{color:var(--sub);}
+.rule{background:var(--card2);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:11px;line-height:1.55;}
+.rule b{color:var(--orange);}
+.ok{color:var(--z1);} .am{color:var(--z3);} .rd{color:var(--z5);}
+.lastsess{border-left:3px solid var(--orange);}
+.small{color:var(--sub);font-size:10px;line-height:1.5;}
+.calib-cols{flex-direction:column;gap:6px;}
+.race-date{white-space:nowrap;}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+<div class="header">
+<div class="header-top">
+<div>
+<div class="eyebrow">M35 · QUELUZ</div>
+<div class="name">Nelson Coelho</div>
+<div class="stamp" id="stamp"></div>
+</div>
+<div style="text-align:right">
+<span class="badge" id="statusBadge"></span><br>
+<button class="refreshBtn" id="forceRefreshBtn" title="Forçar atualização (limpa cache)">↻ Atualizar</button>
+</div>
+</div>
+</div>
+<div class="content">
+<div class="pane active" id="pane-hoje"></div>
+<div class="pane" id="pane-semana"></div>
+<div class="pane" id="pane-analise"></div>
+<div class="pane" id="pane-provas"></div>
+</div>
+</div>
+<div class="nav"><div class="nav-in">
+<button class="active" data-tab="hoje"><span class="ic">◉</span>Hoje</button>
+<button data-tab="semana"><span class="ic">▤</span>Semana</button>
+<button data-tab="analise"><span class="ic">◭</span>Análise</button>
+<button data-tab="provas"><span class="ic">⚑</span>Provas</button>
+</div></div>
+
+<div id="__notes" style="display:none"><div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 42 — RECUPERAÇÃO PÓS-MEIA</b>. Seg 12 descanso total. Ter 13 EASY40 em Sintra: 7,69km em 40:12 (5:14/km), FC média 140/máx 159, saiu progressivo (últimos ~2,6km em Z3, Garmin TEMPO, carga 131) apesar de percebido 3/10. Qua 14 EASY STR em Sintra: 8,93km em 51:01, FC 127-136 (máx 145 no corpo do treino), teto de 147 cumprido, 6 strides progressivos até ~3:01/km, eficiência igual à de terça (~0,0225 vs 0,0228 m/s/bpm). Fadiga real baixa e só autónoma: HRV 44 (2.ª noite abaixo de 45 em 3) e RHR 50 (a subir 48→49→50) = resíduo da meia, sem sinal muscular; ACWR 0,9, TSB +54. Qui 15 EASY STR sem strides (adormeceu): 8,59km em 45:00, progressivo 5:25 → 4:58/km com FC 132 → 153, ~2km acima do teto de 147 (2 dos 3 fáceis desde a meia acabaram em Z3), HRV 48 e RHR 49 já dentro do critério de domingo, Sex 16 EASY40 que virou 10,01km a 4:55/km (49:16), FC 148→161 e máx 168, ~5km acima do teto de 147, 2 dias antes da prova (recovery_time 26,4h, carga aguda 834→1035; HRV 49, RHR 48 de manhã), Sáb 17 REC35-DRILL feito (6,56km em 35:04, FC média 142 vs ≤135 combinado, sem prejuízo: RHR 44 e HRV 52 na manhã da prova), Dom 18 SFRAA City Run: 40:06 no Garmin (10,10km, 3:58/km, FC média 169/máx 179), sub-40 falhado por ~6 s, com a menor diferença entre metades vs Brandoa e Tejo (19:44 + 3:59/km); 31.º geral e 6.º M35 (tempo oficial inflado pelo registo do código de barras; referência Garmin); distância real por confirmar. Custo: readiness 13, recovery_time 74h, carga aguda 841→1300, ACWR 1,1. Ter 20 por decidir na terça de manhã pela regra combinada (manter 3×2 km só com Torneio ≤RPE 8 ou ≤5 km, HRV ≥47, FC repouso ≤ +2, dor ≤2/10 e sono ≥6h30; um âmbar = 2×2 km; dois âmbares = EASY40 + strides), Qui 22 SHARP-4x1, Dom 25 Volkswagen Run. A S41 fechou em 77,6km (pacer 21 + meia 21,25).</div><div class="note">Semana 40 fechou em <b>60,95km</b> de 66km alvo (92%). Semana 41 fechou em <b>77,6km</b> (100,8% do alvo de 77km) com o pacer de 21km no sábado e a meia de 21,25km (GPS) no domingo: a semana mais pesada desde a S35 em volume total, apesar de ser taper de intensidade. A meia e o pacer contam como estímulo forte; a S42 entra em recuperação (alvo ~45-50km, 53,74km feitos até dom 18, incluindo aquecimento da prova).</div></div>
+<script>
+const D = {
+meta: { updatedAt: "18 Out 2026 · SFRAA City Run feita: 40:06 no Garmin (10,10 km, 3:58/km, FC média 169/máx 179), sub-40 falhado por ~6 s; 31.º geral e 6.º M35; tempo de referência = Garmin (o oficial ficou inflado pelo registo do código de barras); distância real por confirmar · Sáb 17 REC35-DRILL feito (6,56 km, FC média 142) · próximo: Seg 19 EASY45, decisão Ter 20 (EASY40 vs 2x2 km)", source: "Claude + Garmin MCP cloud" },
+hrv: 52, hrvTrend: "52ms na manhã da prova (18 Out; média semanal Garmin 47ms), dentro da baseline 47-59ms. Sono score 91 (VERY_GOOD), ~7h47.",
+rhr: 44, bodyBattery: "MODERATE", weight: 79.0,
+lthr: 163, ltPace: "4:05",
+vdot: 54, vdotEst: "55–56",
+trainingStatus: "MANTER (Nível 4)",
+acwr: 1.1,
+vo2max: 57.0,
+readiness: 13,
+readinessSub: "POOR 13 às 10h13, após a prova (WELL_DONE, recovery_time 73,8h, fator recuperação 10% POOR). Era HIGH 78 ao acordar (07h25) e HIGH 76 às 09h20, antes da prova. Fatores: sono 91% VERY_GOOD, HRV 62% MODERATE (média semanal 47), carga 85% GOOD, stress 87% GOOD, histórico de sono 64% MODERATE. ACWR 1,1 (carga aguda 1300 / crónica 1135, 47% da faixa ótima).",
+weekLabel: "Semana 42 · 12–18 Out 2026 · Recuperação pós-meia + SFRAA City Run (dom 18)",
+weekDone: 53.74, weekTarget: 47.5,
+sessions: [
+{ day:"Seg 12", code:"DESCANSO", km:0, status:"done", icon:"😴",
+  detail:{ ritmo:"—", fc:"—", estrutura:"Descanso total pós-meia (REC40 que ainda consta no calendário Garmin foi substituído por descanso).",
+  real:"Descanso. HRV da noite 42ms (abaixo do alerta de 45, pico isolado 24h pós-meia; recuperou para 54 na noite seguinte)." } },
+{ day:"Ter 13", code:"EASY40", km:7.69, status:"done", icon:"⚠️",
+  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 133-147 bpm (teto 147)", estrutura:"Primeiro treino pós-meia, em Sintra, modo FÁCIL/RECUPERAÇÃO.",
+  real:"Feito, mas deriva para Z3: 7,69km em 40:12 (5:14/km), FC média 140 / máx 159. Km a km 5:46 / 5:19 / 5:13 / 5:16 / 5:09 / 5:10 / 4:55 / 4:53 (últimos 650m), FC 120→136→139→142→144→148→150→151. Passou o teto de 147 a partir do km 6 (~2,6km em Z3). Garmin classificou TEMPO (TE 3,4, carga 131). Percebido 3/10, sensação boa, D+100m (relevo ondulado, ritmo pouco comparável, FC é a variável). Eficiência 5:14@140 ≈ REC40 de 7 Set (5:21@134), sem regressão. Fadiga real baixa: HRV 54, RHR 49, ACWR 0,9. O alerta de 147 apitou e foi ignorado (decisão, não configuração). Padrão repetido (29 Set, 1 Out, 7 Out): fecho acima do prescrito em dia fácil." } },
+{ day:"Qua 14", code:"EASY STR", km:8.93, status:"done", icon:"🏃",
+  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 133-147 bpm (teto 147 a sério)", estrutura:"Rotina de quarta (decisão do Nelson, 13 Out), agendado no relógio. Modo FÁCIL: depois da deriva de terça tem de ser fácil de verdade; se o alerta apitar, abrandar. Strides só com pernas soltas.",
+  real:"Feito e fácil de verdade: 8,93km em 51:01 (5:42/km com strides), Sintra. Km 2-8 a 5:29-5:41/km (km1 a 6:00 de aquecimento), FC 127-136 por km, máx 145 no corpo do treino: nunca tocou o teto de 147 (ontem foram ~2,6km acima). FC média 132 / máx 153 (só na recuperação pós-stride). 6x15'' strides com 45'' de recuperação: ~3:32 / 3:32 / 3:15 / 3:22 / 3:04 / 3:01 /km, FC 123-142, cadência 175-179, pico 2:42/km. Eficiência 5:35@133 ≈ EASY40 de ontem (5:14@140): ~0,0225 vs 0,0228 m/s/bpm, sem regressão. D+103/D-142. Estado: HRV 44 (semanal 49, 2.ª noite <45 em 3), RHR 50 (48→49→50), sono 6h40 (score 75), readiness 64→53, recovery_time 20,5h, Body Battery -10, ACWR 0,9, TSB +54." } },
+{ day:"Qui 15", code:"EASY STR", km:8.59, status:"done", icon:"⚠️",
+  detail:{ ritmo:"fácil + strides", fc:"Z2 133-147 bpm", estrutura:"Fácil com strides (51 min), reagendado no relógio a 14 Out (tinha desaparecido do calendário Garmin). Sem strides se acordar com HRV <42 ou RHR ≥52 (mantém os 30 min).",
+  real:"Feito sem strides (adormeceu, saída às 07:44): 8,59km em 45:00 (5:14/km), Sintra. Km a km 6:02 (aquecimento) / 5:25 / 5:12 / 5:20 / 5:02 / 5:04 / 5:00 / 4:59 + 589m a 4:58, FC 117→132→135→140→140→143→146→150→153 (máx 162). Passou o teto de 147 a partir do km 7 (~2km acima): 5.º fecho acima do prescrito (29 Set, 1 Out, 7 Out, 13 Out, hoje); 2 dos 3 fáceis desde a meia (ontem limpo). Custo baixo: recovery_time 0h, carga aguda 1045→1012, ACWR 0,9. Eficiência igual ou ligeiramente melhor que ontem (~0,0233-0,0236 vs 0,0225-0,0228 m/s/bpm). Estado: HRV 48, RHR 49, sono 6h17 (score 76), readiness 69→52, Body Battery MODERATE." } },
+{ day:"Sex 16", code:"EASY40", km:10.01, status:"done", icon:"⚠️",
+  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 133-147 bpm", estrutura:"Fácil de 40 min.",
+  real:"Feito, mas NAO foi fácil nem de 40 min: 10,01km em 49:16 (4:55/km), Sintra, plano ~7,5km. Km a km 5:36 / 5:15 / 5:00 / 4:59 / 4:41 / 4:41 / 4:55 / 4:43 / 4:43 + 977m a 4:40, FC 117→136→141→148→149→148→139→140→152→161 (máx 168, Z5). ~5km acima do teto de 147, último km a 161 (D+43). Garmin classificou TEMPO, Body Battery -12. 6.º fecho acima do prescrito, o mais pesado, 2 dias antes da prova. Custo: recovery_time 1h→26,4h, carga aguda 834→1035, readiness 69→50. Calibração válida: FC 147-149 saiu a 4:41-5:00/km (km 4-6, com descida), mais rápido que os 5:10-5:35 prescritos. Estado: HRV 49, RHR 48 (50→49→48), sono 6h34 (score 77)." } },
+{ day:"Sáb 17", code:"REC35-DRILL", km:"6,56", status:"done", icon:"🏃",
+  detail:{ ritmo:"fácil + técnica", fc:"Z2 completa 133-147 bpm", estrutura:"Recuperação com skippings + excêntrico do gémeo (35 min), véspera do Torneio.", real:"Feito: 6,56km em 35:04 (5:21/km), FC média 142 (combinado ≤135, ~7 bpm acima; FC 124-150, máx 156), dentro do teto 147. Sem prejuízo para a prova: RHR 44 e HRV 52 na manhã seguinte. Dado para a discussão dos fáceis depois da Volkswagen." } },
+{ day:"Dom 18", code:"SFRAA 10K", km:"10,10", status:"done", icon:"🏁",
+  detail:{ ritmo:"alvo sub-40 (decisão do Nelson, 13 Out): média 3:52-3:53 no relógio, planear 10,29 km; ritmo por esforço, sem alerta de ritmo", fc:"alerta >170 só até ao km 7; depois sem alerta", estrutura:"SFRAA City Run (Torneio Cidade da Amadora, 2.ª etapa), 09h30, inscrito. 2 voltas de ~5,15 km com 2 retornos por volta (GPX desenhado pelo Nelson em cima da estrada: 10,29 km; regulamento diz 10 000 m, a distância oficial real fica por confirmar). D+ ~98-116 m: km 1-2 e 6-7 a descer, km 5 e 10 a subir (+17/+12 m), a prova acaba a subir. Modo PROVA, sessão forte 7 dias depois da meia (1:32:55) e 7 dias antes da Volkswagen Run; condiciona o 3x2 km de terça 20. Relógio: AQUECIMENTO + RACE-SFRAA-10K-SUB40 + ARREFECIMENTO agendados. PLANO (ritmo no relógio): km1 3:52-3:54, km2 3:48-3:52 (nunca abaixo de 3:48), km3 3:52-3:54, km4 3:53-3:55, km5 3:56-3:59. LAP manual no cruzamento da meia-volta (5,147 km): 19:50-19:58 = sub-40 vivo; >20:02 = sub-40 saiu, mudar para 40:10-40:30 sem queimar a perna. Volta 2 igual à 1, km 7 a descer (3:48-3:52), km 9 3:53-3:55, km 10 3:55-3:58. Mudança final só nos últimos 600 m. FC >170 antes do km 7: manter, não acelerar. Referências: Tejo 40:13 chip (4:01/km); Brandoa 4:05/km (9,65 km confirmados em 39:27, D+ semelhante, o nominal 9,95 estava errado). Sub-40 em 10,29 km pede ~3:53/km, mais rápido do que ambos (Brandoa -12 s/km); cenário base 40:00-40:40, sub-40 é limite e depende do LAP. Critério de decisão na manhã (proposta, a decisão é do Nelson): HRV ≥47 e RHR ≤49 → plano completo; HRV <45 ou RHR ≥52 → sub-40 sai como alvo, corre 4:00-4:03 controlado. Confirmar no dia onde ficam os retornos: se forem ajustados, o alvo passa a ~4:00/km e o LAP de 19:50 deixa de servir.", real:"FEITO (modo PROVA): 40:06 no Garmin em 10,10km (3:58/km), FC média 169/máx 179; sub-40 falhado por ~6 s. Km a km: 3:49 / 3:52 / 3:57 / 4:00 / 4:07 / 3:53 / 3:54 / 3:57 / 4:10 / 4:06 + 105m a 3:38; FC 149→176. Metades: 19:44 aos 5km + 3:59/km nos 5,1km seguintes (~2,6 s/km mais lento; Brandoa 17 s/km, Tejo 1:03). Plano pedia 3:53; sub-40 em 10,10km pedia 3:57,5. Aquecimento só 12 min/1,85km, arrefecimento não gravado. Custo: readiness 13, recovery_time 74h, carga aguda 841→1300, ACWR 1,1. Classificação: 31.º geral, 6.º M35. Tempo oficial inflado pelo registo do código de barras (decisão do Nelson: fica o tempo Garmin 40:06). Por confirmar: distância real (GPX 10,29; Garmin 10,10; regulamento 10 000 m). 'Melhor 10km do ano' depende da distância (40:06 vs 40:05 do Santo António em relógio; 3:58 vs 3:59 por ritmo). VDOT oficial 54 inalterado." } },
+],
+sessionsS41: [
+{ day:"Seg 5", code:"BRANDOA-10K", km:9.65, status:"done", icon:"🏁",
+  detail:{ ritmo:"alvo 4:00-4:03 em plano; alerta se <3:50", fc:"FC no km 6: ≤163 volta 2 normal, >166 gerir", estrutura:"1ª Corrida Santa Teresinha e S. Francisco (Torneio Cidade da Amadora), 09h30, 2 voltas. Modo ESPECÍFICO, não máximo; esperado 40:15-40:45.",
+  real:"Feito: 9,65km em 39:27 (4:05/km) — distância Garmin confirmada como a certa. Parciais 3:42 / 3:54 / 3:56 / 3:40 / 4:33 / 4:05 / 4:10 / 4:11 / 4:04 / últimos 654m a 4:53 (km1 e km4 em descida -32/-35m; km5 e final em subida +43/+33m). Positive split: 1ºs 5km a 3:57/km, restantes 4,65km a 4:14/km. FC média 169, máx 178 (igual ao Tejo), 149 no km1, 166-169 já nos km2-3, 173-175 no fecho. Foi mais rápido que o esperado, mas à custa de arranque a 3:42 (o plano dizia não lançar na descida) e FC média 5bpm acima do Tejo — custo alto para um específico." } },
+{ day:"Ter 6", code:"EASY+STR", km:8.28, status:"done", icon:"🏃",
+  detail:{ ritmo:"5:05-5:30/km + strides", fc:"Z2 133-147 bpm", estrutura:"Fácil + strides curtos, dia seguinte à prova.",
+  real:"Feito: 8,28km em 51:05 (6:10/km), FC média 124 / máx 145 (Z1) — mais lento que o alvo de ritmo mas é o que se pretende no dia seguinte a uma prova. Sem sinais de fadiga muscular." } },
+{ day:"Qua 7", code:"EASY30", km:6.19, status:"done", icon:"⚠️",
+  detail:{ ritmo:"5:10-5:35/km", fc:"Z2 133-147 bpm (alerta só acima de 147)", estrutura:"Rodagem fácil de 30 min.",
+  real:"Feito, mas NÃO foi fácil: 6,19km em 30:04 (4:51/km), FC média 140 / máx 164. Km a km 5:26 / 4:57 / 4:48 / 4:50 / 4:42 / 4:29, com FC 119→134→140→146→147→157 e fecho a ~4:21/km e 161-164 bpm (Z4). É um progressivo escondido num dia FÁCIL — viola o modo da sessão, a 3 dias do pacer e 4 da meia. Mesmo padrão de fecho acima do prescrito de 29 Set e 1 Out." } },
+{ day:"Qui 8", code:"SHARP-4x1", km:5.92, status:"done", icon:"⚡",
+  detail:{ ritmo:"4 reps de 1 min rápidas, recuperação 2 min", fc:"afinação neuromuscular — FC baixa, não cardiovascular", estrutura:"Aquecimento (3,02km) + 4x1min em pista + arrefecimento (1,35km). Afiar sem custo antes de sábado/domingo.",
+  real:"Feito: 4 reps de 60s a ~3:20 / 3:01 / 3:07 / 3:01 /km (300-330m cada), recuperações 2min cumpridas. FC máx por rep 157 / 148 / 158 / 150 (nunca perto de Z5 sustentado), FC média das reps 117-142 — sessão neuromuscular limpa, sem stress cardiovascular. Readiness caiu para 41 após a sessão e voltou a 50 ao fim do dia; HRV 50 de manhã." } },
+{ day:"Sex 9", code:"EASY30", km:5.16, status:"done", icon:"🏃",
+  detail:{ ritmo:"5:10-5:35/km", fc:"Z1-Z2, teto 140 bpm", estrutura:"Fácil de verdade (esta é a que tem de sair fácil), 5km. Sem ensaio: Nelson não vai ao ensaio de sexta para descansar. Cama às 22h30. Dorsais levantados.",
+  real:"Feito: 5,16km em 30:00 (5:49/km), FC média 130 — abaixo do teto de 140 e bem mais baixa que o EASY30 de 7 Out (média 140). Fácil de verdade. Sono da noite 6h38 (score 79), HRV 53 na manhã seguinte." } },
+{ day:"Sáb 10", code:"PACER-MARATONA-4h45", km:21.15, status:"done", icon:"🚩",
+  detail:{ ritmo:"6:45/km (grupo 4h45)", fc:"teto 135 bpm, cadência ≥168", estrutura:"Pacer da 2ª metade da EDP Maratona de Lisboa: Parede (Av. Marginal, mesmo ponto do ano passado) → Praça do Comércio, ~21km. Troca à estafeta EM ANDAMENTO (mochila + bandeira passadas em movimento). Hora de passagem depende da vaga do pacer 4h45 (a confirmar; janela 10h22-10h57). Aquecer no local, 3-4 progressivos, esperar o grupo ≥30 min antes. Géis, flask e telemóvel na bolsa de cinta. Regresso de comboio no Cais do Sodré. Critério da manhã: HRV <45 ou RHR ≥52 → reduzir/reavaliar o pacer. Alerta: se a FC passar de 135 nos 2 primeiros km, estás a correr atrás do grupo.",
+  real:"Feito: 21,15km em 2:17:58 (6:31/km vs 6:45 de referência, 14 s/km mais rápido). Nelson recebeu o grupo já a este andamento (2ª metade da estafeta) e geriu-o — o desvio de ritmo é herdado da 1ª metade, não é erro de pacing dele. Só 4 dos 21 km a ±3 s de 6:45; km 1/4/6 a 6:23, km 7 a 6:46, último km a 6:06 (FC 142). Split quase igual: km 1-10 a 6:31, km 11-20 a 6:34. FC média 133 (129-135 por km, máx 148 só no sprint final): teto de 135 cumprido e ZERO deriva (km 1-5 ~133 vs km 16-20 ~132). Potência ~304 W estável, cadência 159→171, D+48m. TE 3,5 aeróbio, carga 138, body battery -22, RPE 2/10. Fisiologicamente limpo, boa gestão do grupo. Readiness 78 ao acordar → 59 pós-pacer; recovery_time 25,3h." } },
+{ day:"Dom 11", code:"MEIA-VASCO-DA-GAMA", km:21.25, status:"done", icon:"🏁",
+  detail:{ ritmo:"4:15-4:20/km (objetivo 1:30-1:31)", fc:"vigiar km 1-5 — não abrir acima do ritmo", estrutura:"Hyundai Meia Maratona Vasco da Gama, partida 09h20 na Ponte; metro ~06h45 (logística habitual). Nutrição: 2:1 ao km 7 + PowerBar Hydro Cola (cafeína) ao km 14 + flask de Powerade, abastecimentos da organização. A pacer de véspera (21km a 6:31) conta como carga no dia anterior.",
+  real:"Feito: chip oficial 1:32:55 (igual ao Garmin; 21,25km por GPS na ponte vs 21,0975km oficiais, logo o ritmo oficial é 4:24/km e não 4:22). Oficial: km5 22:43 (4:33/km), km10 44:36, km20 1:28:29 (5-10 e 10-20 a 4:23/km), últimos 1,1km a 4:02/km. Negative split: 10km em 44:36 e restantes 11,1km em 48:19 (4:21/km). Garmin km a km: 4:31 / 4:35 / 4:43 (subida da ponte, +21m) / 4:27 / 4:19 / 4:15 / 4:20 / 4:22 / 4:20 / 4:27 / 4:28 / 4:24 / 4:26 / 4:23 / 4:19 / 4:19 / 4:16 / 4:23 / 4:23 / 4:14 / 4:09 + 253m finais a 3:18/km. FC média 160 / máx 178: 136→150→155 nos 3 primeiros km, 151-161 nos km 5-12, 162-168 nos km 13-19, 170-173 nos km 20-21, 176 no final; 76% do tempo em Z4+Z5 (Z4 45%, Z5 31%, Z3 18%). Potência média 444W, cadência 180. TE 5,0 VO2MAX, carga 466, 90min vigorosos, recovery HR 30, body battery -18. Classificação: 382.º geral (8216), 342.º masculino (4745), 68.º M35 (640). Objetivo 1:30-1:31 (4:16-4:19/km) não atingido por ~2-3 min. O arranque conservador (km1-5 a 4:33 oficial) custou ~48s face aos 4:23 estáveis; mesmo com arranque a 4:23 o tempo seria ~1:32 — o alvo exigia ~6s/km mais rápido sustentado, com FC já a 160-168. Fecho forte (4:14 / 4:09 / 3:18, FC 170-176) mostra reserva no fim. Contexto: pacer de 21km na véspera (2:18, FC 133, carga 138), sono 5h21 (score 68), pernas pesadas ao acordar (relato do Nelson), RHR 48 (+3), readiness 53 ao acordar; HRV 51 balanced. Leitura do Nelson: prova bem controlada, sem quebra, muito feliz. Pós-prova: readiness 5 POOR, recovery_time 73,1h (~quarta 14 Out)." } },
+],
+weeklyLoad: [
+{w:"S28",km:66.6},{w:"S29",km:63.3},{w:"S30",km:69.4},
+{w:"S31",km:33.7},{w:"S32",km:66.8},{w:"S33",km:70.7},
+{w:"S34",km:71.7},
+{w:"S35",km:72.31},
+{w:"S36",km:59.27,target:64.5},
+{w:"S37",km:53.51},
+{w:"S38",km:59.87,target:60.5},{w:"S39",km:60.12,target:55.0},{w:"S40",km:60.95,target:66.0},{w:"S41",km:77.6,target:77.0},{w:"S42",km:53.74,target:47.5,cur:true},
+],
+raceTrend: [
+{ x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
+{ x:"Jan'26", vdot:52.1, time:"40:49", name:"CNE 10km" },
+{ x:"Abr'26", vdot:52.0, time:"40:50", name:"Constância" },
+{ x:"7 Jun", vdot:53.0, time:"40:05", name:"Santo António (oficial)" },
+{ x:"13 Set", vdot:54.0, time:"40:13", name:"Corrida do Tejo (oficial · 198º/35º M35)" },
+],
+calibs: [
+{ date:"09 Ago", session:"LR15-FINISH", pace:"15,0km · fecho 3km ~4:15/km", fc:"esforço relativo 121", read:"7 PRs no longo. Confirma longos como ESPECÍFICO/PROGRESSIVO — a aceleração da 2ª metade é método, não falha de RPE" },
+{ date:"11 Ago", session:"10K-2x3K1K", pace:"13,71km · D+179m · bloco2: 3:49 e 3:38/km", fc:"máx 163", read:"Bloco 1 abaixo do alvo (percurso da Ciclovia contaminou os 3km). Bloco 2 forte com FC baixa para o ritmo. VDOT 53 mantém-se — não recalibrar com esta sessão" },
+{ date:"13 Ago", session:"HILL-4xCOMPLETA+2xB", pace:"9,0km · D+177m · potência 612-646W", fc:"máx 168", read:"Execução perfeita: cadência ≥89spm em todas as reps, nunca abaixo do alvo (85spm). 4ª rampa (simula km9 do Tejo em fadiga) teve a melhor cadência das quatro (93,5spm) — sem degradação técnica sob fadiga" },
+{ date:"15 Ago", session:"CAVALARICAS 6x21''", pace:"5,02km · D+116m · potência 688-775W", fc:"máx 160", read:"Estreia excelente: cadência 100-110spm em todas as reps — muito acima do défice crónico de 80-84spm em corrida normal. Sem degradação nas últimas reps. Boa base para progressão a 8 reps em 22 Ago" },
+{ date:"16 Ago", session:"LR17 progressivo", pace:"17,02km · 4:48/km médio · fecho 4:35-4:41/km", fc:"127→170 (negative split)", read:"Execução exemplar do método: 1ª metade em zona, 2ª acelera progressivamente sem degradação. Semana 33 fecha em 70,7km. ANAEROBIC_SHORTAGE sinalizado pelo Garmin — relevante para o 6x1000 de terça" },
+{ date:"18 Ago", session:"6x1000 (feito)", pace:"3:49/3:50/3:50/3:48/3:48/3:46/km — mais rápido que o alvo, acelerando", fc:"154→158→160→167→165→164 (máx 171)", read:"CALIBRAÇÃO CONFIRMADA: FC estabilizou nas últimas 2 reps mesmo com o ritmo a continuar a melhorar — sem disparar. Teto real ~3:46-3:48/km, mais rápido que o alvo de 3:50-3:55. 01 Set sobe para 10K-5x1K-FORTE (3:50-3:55/km). VDOT 54-55 fica como referência, a confirmar antes de mudar a tabela oficial." },
+{ date:"25 Ago", session:"3x2000 (feito)", pace:"3:50/3:48/3:42/km — negative split, todos abaixo do alvo (3:56-4:00)", fc:"160,6→161,1→163,4 (máx 175, só nos últimos 20m)", read:"Pista do Real, HRV 56ms de manhã (bem recuperado). FC quase plana apesar do ritmo a descer 8s/km — economia real, não adrenalina. Terceira sessão seguida com este padrão (5x1000, 6x1000 18Ago, agora 3x2000). O FORTE de 1/Set (3:50-3:55) já pode estar conservador — Qui (I-400x8) é o próximo ponto de confirmação antes de mexer no alvo." },
+{ date:"27 Ago", session:"I-400x8 (feito)", pace:"3:25/3:22/3:20/3:20/3:15/3:15/3:02/km — reps 2-8 (rep1 disparou, alerta não estava configurado)", fc:"146→150→149→152→156→155→158 (máx 158 no rep mais rápido)", read:"4ª sessão consecutiva com FC atrás do ritmo (5x1000, 6x1000, 3x2000, agora I-400x8). Regra pré-decidida acionada: 01/Set 10K-5x1K sobe de FORTE (3:50-3:55) para 3:44-3:48/km. Rep1 saiu rápido por o alerta não estar configurado — checklist pré-treino de pista atualizado." },
+{ date:"29 Ago", session:"REC35-DRILL (feito)", pace:"6,68km em 35:25 (5:18/km) — splits 5:49→5:10/km", fc:"123→147 (máx 153, só nos últimos ~100m)", read:"Sessão de recuperação verdadeira, não calibração. HR dentro do teto Z2 completo (133-147) apesar do D+92m no Parque de Queluz. Sem sinais de fadiga acumulada antes do longo de domingo." },
+{ date:"01 Set", session:"10K-5x1K (feito)", pace:"3:44/3:38/3:35/3:37/3:33/km — negative split completo, só a 1ª rep no alvo", fc:"153→155→159→159→161 (máx 165→168→172→169→172)", read:"Pista do Real, execução limpa — sem arranque disparado, alerta de pace funcionou. 5ª sessão consecutiva com FC atrás do ritmo. Teto de FC estável ~172 nas últimas 3 sessões a ritmos diferentes — sinal forte de patamar real, não ruído. Alvo de 3:44-3:48 (decidido há só 4 dias) já ficou conservador na 1ª confirmação. VDOT estimado sobe para 55-56. Último específico sério antes do Tejo — não repetir teste, deixar a afinação atuar." },
+{ date:"02 Set", session:"EASY+STR (feito)", pace:"8,96km em 50:59 (5:41/km)", fc:"113→139 (máx 153, terreno)", read:"Sessão fácil verdadeira, sem sinais de fadiga acumulada pós-10K-5x1K. Estrutura completa cumprida — base + strides bem definidos." },
+{ date:"03 Set", session:"SHARP-6x300 (feito)", pace:"58/56/55/55/52/49s (2:43-3:13/km)", fc:"média 130, máx 163", read:"Pista do Real. FC baixa o tempo todo, longe do teto de 172 — sessão neuromuscular, não aeróbia. Cadência 94-103spm nas séries. Sessão de afiar cumprida sem stress cardiovascular." },
+{ date:"04 Set", session:"EASY40 (feito)", pace:"7,60km em 40:10 (5:17/km)", fc:"119→150 (máx 155, terreno)", read:"Última fácil antes do pacer de sábado. FC dentro do razoável, subida explicada pelo terreno (D+73m). Sem sinais de fadiga acumulada." },
+{ date:"05 Set", session:"PACER-CAPARICA (feito)", pace:"10,2km em 50:31 (4:57/km) — pacing quase perfeito", fc:"km1 asfalto 139,8 · km2-9 areia 160-172 · final asfalto 159", read:"Maré alta, ziguezague para evitar ondas, areal instável. Esforço relativo 137. Splits por piso confirmam o mecanismo: FC seguiu o terreno, não o ritmo — 50min a esforço de limiar/VO2max pela instabilidade. Estímulo grande e não planeado a 8 dias do Tejo. Motivou ajuste do domingo." },
+{ date:"06 Set", session:"SHAKEOUT (feito)", pace:"7,22km em 40:03 (5:33/km)", fc:"média 135,5/máx 149", read:"Substituiu o LR12-SOFT original. Sem sinais de fadiga residual do pacer apesar de D+101m. Semana 36 fechada em 59,27km (91,9% do alvo 64,5km) — decisão de priorizar recuperação sobre volume nos últimos 2 dias validada pelos dados." },
+{ date:"08 Set", session:"10K-3x1K+200 (feito, não como prescrito)", pace:"1000m: 3:44/3:46/3:42/km · 200m: 33/33/31/30s", fc:"1000m 154,7→156,2→157,7 (máx 171→164→164)", read:"Sessão era modo CUMPRIR ('fresco, não cansado'), saiu como teste: 1000m 10-18s/km mais rápido que o alvo, 200m em sprint a sério (vel. máx 7,5m/s). FC continua abaixo do piso da zona mesmo mais rápido — 6ª+ sessão consecutiva com este padrão, sinal real de patamar a subir. Mas a 5 dias do Tejo isto é custo de fadiga sem tempo de adaptação — não é o momento para mais confirmações. Vigiar HRV/RHR nos próximos 1-2 dias." },
+{ date:"13 Set", session:"Corrida do Tejo (prova)", pace:"10,06km · 40:13 · splits 3:54/3:51/4:07/3:44/3:46/3:57/4:07/4:18/4:13/4:05", fc:"média 164/máx 178 · 68% do tempo em Z5", read:"Diploma oficial (14Set): chip 40:13 (=Garmin), bruto 40:26, 198º geral, 35º M35, km5 oficial 19:35 (2ª metade 20:38 → positive split real 1:03, mais curto que a estimativa Garmin de 1:18). Checkpoints de FC (150-155/160-163bpm) ultrapassados desde o km3, mas o ecrã não mostrava BPM — impossível monitorizar em tempo real. Pior km foi o 8º (plano), não a subida. Calor forte + queda de FC no km9-10 coincide com pórtico de água. vs 2025: -2:28 com FC mais baixa. vs 2019 (mesmo perfil, 38:34): 1:39 mais lento, mas 2019 teve pacing quase perfeito (FC monótona, cadência estável) — gap é tático, não físico. VDOT sobe cautelosamente para 54 (oficial); 55-56 fica por confirmar. Loures (20Set) e Bimbo (27Set) são pacer submáximo — não validam. Entre Bimbo e a Vasco da Gama (11Out) há só o fim de semana de 3-4Out livre, insuficiente para um teste máximo sem comprometer o taper da meia. Confirmação real fica para a Volkswagen Run (25Out, prova própria, já recuperado da meia)." },
+{ date:"16 Set", session:"Recalibração VDOT53→VDOT54 (biblioteca Garmin)", pace:"T-LIM (rua) 4:03-4:07/km · T-LIM-PISTA 3:59-4:04/km · I-400 1:29-1:32/400m · SHARP-300 64-67s · 10K-6x1K/2x3K1K/4x1500 também", fc:"—", read:"Toda a biblioteca de qualidade no relógio recalibrada para VDOT54, confirmado pelo Tejo, incluindo templates que tinham ficado esquecidos numa primeira passagem (TEMPO25, LR2x10T, 10K-6x1K, 10K-2x3K1K, 10K-4x1500). Corrida Auchan removida de vez. Plano de Out (semanas 40-43) escrito no Excel e no relógio: sem taper de semana inteira para a Volkswagen (regra nova — provas de 10km ou menos só levam shakeout no dia anterior)." },
+{ date:"20 Set", session:"Meia Loures-Odivelas-Loures (pacer 4:30 · feita)", pace:"21,14km · 1:34:27 (Garmin) · 4:28/km · km entre 4:22 e 4:34, km21 a 4:16 · oficial: chip 1:34:28 (final 1:34:38) · 149.º geral · 26.º escalão", fc:"média 165/máx 179 · km1 143 → km2-8 157-162 → km13-16 169 → km19-21 173-176 · desacoplamento ~6% (potência ~420W constante)", read:"Pacing limpo (km 2-20 a 4:28,7, desvio ~3s), split negativo (4:29→4:28); km 20+21 somam 4:25 (4:34/4:16 = provável artefacto de marcação, potência 414/422W), sprint real só nos últimos 137m. Chip 29s abaixo dos 1:34:57 que 4:30 fixos dariam em 21,0975km (o Garmin, 21,14km, confirma percurso de ~21,1km e não 21,5). FC muito acima do esperado para 4:28: a média iguala o LTHR (165) e é igual à do Tejo a 4:00 (164); TE 5.0, carga 538, 93min vigorosos — mas esforço percebido 6/10 e sensação 'muito forte'. Partida com contexto fraco: sono de 4h45 (score 60) e 5h54 na noite anterior, Body Battery a 52% ao acordar (vs ~90 na véspera), RHR 50 (+3 vs 47), readiness 58; HRV balanced (50-52) e ACWR 1,1 normais. Calor forte segundo o Nelson (o Garmin só tem a leitura das 9h no aeroporto — 21°C, 60% humidade — e a prova acabou às 10h36); abastecimentos da organização em copos (pouco úteis); levou flask de 250ml com Powerade (+250ml da garrafa 25min antes da partida) e géis (SIS aos ~35min, PowerBar no km 14) — combustível razoável; líquido em prova só ~250ml do flask (~160ml/h) + copos, provável défice de hidratação com calor. Pós-meia: readiness 2, recuperação 91,9h (até ~24 Set de manhã). Leitura em aberto: não dá para separar défice de resistência aos 90min de ruído de contexto (sono curto, calor e hidratação limitada, adrenalina de pacer, mochila, cafeína, sensor de pulso). Meta 1:30-1:31 da Vasco da Gama (4:16-4:18/km) não fica validada nem desmentida — decisão por tomar." },
+{ date:"22 Set", session:"EASY+STR (feito)", pace:"8,19km em 52:09 (6:23/km, splits 6:51→6:01/km)", fc:"média 123/máx 148 (pico nos strides)", read:"Primeira sessão da semana 39, dia seguinte ao pacer de Loures. Ritmo e FC bem abaixo do alvo (Z1, não Z2) — treino acompanhado, não fadiga: nas subidas do percurso (Cavalariças, Mata) a FC não disparou, sinal de zero resíduo muscular do domingo (relatado pelo próprio Nelson e consistente com os dados). Strides limpos, sem excesso. Ponto de atenção para a frente: este padrão de deixar o parceiro ditar o ritmo é aceitável em dia FÁCIL/RECUPERAÇÃO — não pode infiltrar-se no T-LIM de quinta nem no específico." },
+{ date:"24 Set", session:"T-LIM-3x8-PISTA (feito)", pace:"3x8min a ~3:52-3:56/km (alvo pista 3:59-4:04) · 3º bloco a acelerar até ~3:45/km", fc:"blocos fecham em 161 / 164 / 168 (LTHR 165)", read:"4-12s/km mais rápido que o alvo com FC no LTHR — a FC no limiar está ~12s/km melhor que o 4:05@165 do perfil Garmin. Em rua vale ~3:56-3:58. 7ª sessão com FC atrás do ritmo, reforça VDOT 55-56 (por confirmar em prova). Custo real: recovery_time subiu para ~67h. Para T-LIM em rua na S40 mantém-se o alvo 4:03-4:07 em modo CUMPRIR." },
+{ date:"27 Set", session:"Pacer Bimbo Global Race (feito)", pace:"9,96km em 49:16 · 4:57/km médio (alvo 5:00, ~3s/km mais rápido)", fc:"média 151 · 144→159, só 164 no fecho", read:"Pacing limpo, sem arranque disparado. Total do dia 16,26km com aquecimento (3,59km) e arrefecimento (2,71km). Sem custo de fadiga visível: HRV 57ms e RHR 45 na manhã seguinte." },
+{ date:"28 Set", session:"EASY45 (feito)", pace:"8,25km em 45:02 · 5:27/km", fc:"média 132", read:"Dia seguinte ao pacer: fácil de verdade, sem progressivo escondido. Estado da manhã: HRV 57, RHR 45, sono 94, readiness 60 (57 pós-treino), ACWR 1.0. Fadiga real baixa; o recovery_time (~41h) é reflexo dos 16,3km, não sinal autónomo." },
+{ date:"29 Set", session:"T-LIM-4x6-PISTA (feito)", pace:"4 blocos de 6min: 3:49 / 3:54 / 3:51 / 3:43/km (alvo pista 3:56-3:59)", fc:"165 / 159 / 160 / 163 bpm (LTHR 165, alerta de excesso 166)", read:"8ª sessão de qualidade seguida mais rápida que o prescrito — já não é um desvio pontual, é o padrão. O 1º bloco já cruzou o critério de excesso definido (abaixo de 3:54/km) e o 4º fechou a 3:43, quase 15s/km abaixo do alvo. A FC ficou sempre controlada e a técnica melhorou a acelerar (cadência 177→185, contacto no solo a descer), o que sugere capacidade aeróbia real e não apenas adrenalina — mas a disciplina de ritmo em modo CUMPRIR continua a falhar. A 6 dias da prova da Amadora e a 12 da Vasco da Gama, mais uma sessão de limiar acima do prescrito é carga extra que não estava orçamentada." },
+{ date:"01 Out", session:"TEMPO25 (feito)", pace:"média 4:04/km (alvo), mas km a km: 4:12,5 / 4:09,9 / 4:02,9 / 4:01,9 / 3:56,8 / 3:58,9 (km6 a subir)", fc:"145→163bpm progressivo, máx168, 70s em Z5 no fecho (alvo 162-166)", read:"A média no alvo escondeu uma estrutura em V: 2km mais lentos, 1 no alvo, 3 mais rápidos com o último a subir — esforço empurrado, não só terreno. É o mesmo padrão comportamental de terça (fecho mais forte que o prescrito), só que em contínuo. Última qualidade antes da Amadora (5 Out), 4 dias de distância." },
+{ date:"02-04 Out", session:"EASY40 + Lisboa Corrida + EASY30 (feitos)", pace:"2 Out 7,42km 5:24/km · 3 Out 10,02km em 54:27 (5:26/km) · 4 Out 5,54km 5:26/km", fc:"131 / 134 / 134 médias (máx 145-148)", read:"Três dias fáceis de verdade, sem progressivo: FC sempre em Z1-Z2, ritmo no limite lento do alvo. O longo de sábado ficou em 10,02km (plano original: LR14,5). Semana 40 fecha em 60,95km (92% do alvo 66km)." },
+{ date:"05 Out", session:"Brandoa 10K (prova · ESPECÍFICO)", pace:"9,65km em 39:27 · 4:05/km · 3:42/3:54/3:56/3:40/4:33/4:05/4:10/4:11/4:04 + 654m a 4:53", fc:"média 169/máx 178 · 149→166→169→168→173→170→171→173→171→175", read:"Modo ESPECÍFICO (não teste). Distância certa confirmada (9,65km). Resultado melhor que os 40:15-40:45 esperados, mas por um caminho que o plano pedia para evitar: km1 a 3:42 (descida) e km4 a 3:40 (descida) pagos com km5 a 4:33 (subida, FC 173) e a segunda metade 17s/km mais lenta (4:14 vs 3:57). FC média 169 vs 164 no Tejo — esforço alto. Não conta como teste de VDOT (esse é a Volkswagen, 25 Out). Sensação: pernas bem; Nelson quer incluir força de subida no plano pós-Vasco da Gama." },
+{ date:"06 Out", session:"EASY+STR (feito)", pace:"8,28km em 51:05 (6:10/km)", fc:"média 124 / máx 145", read:"Dia seguinte à prova, fácil de verdade em Z1. Sem fadiga muscular residual relatada." },
+{ date:"07 Out", session:"EASY30 (feito, progressivo escondido)", pace:"6,19km em 30:04 (4:51/km) · 5:26/4:57/4:48/4:50/4:42/4:29 + fecho ~4:21/km", fc:"média 140 / máx 164 · 119→134→140→146→147→157→161", read:"Treino FÁCIL que acabou em Z4. A média de FC (140) engana: o começo lento escondeu um fecho a 4:21/km e 161-164 bpm. Repete o padrão de fecho acima do prescrito de 29 Set e 1 Out, agora num dia em modo FÁCIL e não só em qualidade. A 3 dias do pacer e 4 da meia, é carga extra sem objetivo. Na sexta (EASY30, teto 140 bpm) tem de ser fácil de verdade." },
+{ date:"08 Out", session:"SHARP-4x1 (feito)", pace:"4 reps de 1min a ~3:20/3:01/3:07/3:01 por km (300-330m) · aquec. 3,02km, arref. 1,35km", fc:"máx por rep 157/148/158/150 · média das reps 117-142", read:"Sessão neuromuscular limpa, sem stress cardiovascular e com recuperações cumpridas. Readiness: 68-69 ao acordar, 41 após a sessão, 50 ao fim do dia; HRV 50 (baseline), RHR 45, ACWR 0,9. Critérios de quinta cumpridos; sem sinal de fadiga acumulada preocupante, mas sono curto (6h16) continua a ser o ponto fraco antes de sáb+dom." },
+{ date:"09 Out", session:"EASY30 (feito)", pace:"5,16km em 30:00 · 5:49/km", fc:"média 130 (vs 140 no EASY30 de 7 Out)", read:"Fácil de verdade desta vez: FC média 10bpm abaixo da de quarta e abaixo do teto de 140. Splits não analisados. Cumpre o critério definido na quarta para a véspera do pacer." },
+{ date:"10 Out", session:"Pacer Maratona 4h45, 2ª metade (feito)", pace:"21,15km em 2:17:58 · 6:31/km (referência 6:45, -14 s/km) · km entre 6:23 e 6:46, último km a 6:06 · só 4 de 21 km a ±3 s de 6:45", fc:"média 133 · 129-135 por km · máx 148 (sprint final) · sem deriva (km1-5 ~133, km16-20 ~132) · potência ~304 W estável", read:"Nelson recebeu o grupo já a ~6:31 e geriu-o: o desvio vs 6:45 é herdado da 1ª metade, não é erro de pacing dele (correção dele, 10 Out). Fisiologicamente limpo: teto de FC 135 cumprido, zero deriva em 2h18, cadência 159→171, RPE 2/10, TE 3,5 aeróbio, carga 138. Estado na manhã: HRV 53 BALANCED, RHR 45, sono 6h38 (score 79); readiness 78 → 59 pós-pacer, recovery_time 25,3h, ACWR 0,8. Marcador de economia aeróbia positivo (133 bpm a 6:31 sem deriva) mas não valida VDOT — pacer submáximo. Risco para a meia de domingo: glicogénio/pernas e sono, não sistema autónomo." },
+{ date:"11 Out", session:"Meia Maratona Hyundai · Vasco da Gama (prova)", pace:"Chip oficial 1:32:55 · 4:24/km oficial · Garmin 21,25km (GPS) · oficial km5 22:43 / km10 44:36 / km20 1:28:29 · 10km em 44:36 + 11,1km em 48:19 (4:21/km) · Garmin: km1-3 4:31/4:35/4:43 (ponte), km4-19 entre 4:15 e 4:28, km20-21 4:14/4:09, 253m finais a 3:18/km", fc:"média 160/máx 178 · 136→155 (km1-3) → 151-161 (km5-12) → 162-168 (km13-19) → 170-176 (final) · 76% em Z4+Z5 · deriva ~+12-16bpm a ritmo igual (~4:19: km5 151 → km16 167)", read:"Alvo 1:30-1:31 (4:16-4:19/km) não atingido por ~2-3 min; execução limpa: negative split oficial, sem quebra, km5-20 constantes a 4:23, fecho forte. O arranque conservador custou ~48s face aos 4:23 estáveis; mesmo assim o tempo ficaria ~1:32 — o alvo pedia ~6s/km mais rápido sustentado, com FC já a 160-168. Reserva no fim (4:09 a 173 bpm): não separa 'meio de prova prudente' de 'alvo ambicioso'. Confounders: pacer de 21km na véspera (2:18, carga 138), sono 5h21 (score 68), pernas pesadas ao acordar, RHR 48. TE 5,0, carga 466, readiness 5 pós-prova, recovery_time 73h. 382.º geral (8216) · 342.º masc. (4745) · 68.º M35 (640). VDOT mantém-se 54 (prova isolada não o altera); o Garmin prevê meia 1:28:19 e 10K 39:36 — meia real ~4 min acima: durabilidade é o elo mais fraco face à velocidade de 10K. Semana 42 = recuperação, terça EASY40 (T-LIM-4x6 fora); qualidade só se HRV ≥47, RHR normal e sensação ok. Teste real de 10K: Volkswagen (25 Out)." },
+{ date:"13 Out", session:"EASY40 (feito, deriva para Z3) — 1.º treino pós-meia", pace:"7,69km em 40:12 · 5:14/km · 5:46/5:19/5:13/5:16/5:09/5:10/4:55 + 650m a 4:53 · D+100m (Sintra)", fc:"média 140/máx 159 · 120→136→139→142→144→148→150→151 · ~2,6km acima do teto Z2 (147)", read:"Modo FÁCIL que acabou progressivo: FC subiu 31bpm de forma contínua, Garmin classificou TEMPO (TE 3,4, carga 131), percebido 3/10. Custo baixo, mas é o 4.º fecho acima do prescrito (29 Set, 1 Out, 7 Out, 13 Out) e a 5 dias do Torneio e 7 do 3x2km. Fadiga real baixa: HRV 54 (baseline 47-59; 42 ontem foi pico isolado pós-meia), RHR 49, ACWR 0,9, carga aguda 1099 / crónica 1107, Training Status Manter, VO2max 57. Contra: sono 5h47 (score 74), readiness 50, recovery_time ~29h. Eficiência 5:14@140 ≈ REC40 de 7 Set (5:21@134), sem regressão. O alerta de FC (147) apitou e o Nelson seguiu (confirmado por ele): foi decisão, não configuração. Relógio verificado: Qui 15 EASY STR, Sex 16 EASY40, Sáb 17 REC35-DRILL, todos ≥30 min com alerta acima de 147. Decidido com o Nelson (13 Out): Qua 14 = EASY STR (agendado no relógio) e Dom 18 = Torneio de 10 km competitivo (sem sessão no relógio ainda)." },
+{ date:"14 Out", session:"EASY STR (feito, fácil de verdade)", pace:"8,93km em 51:01 · km2-8 a 5:29-5:41/km (km1 6:00) · 6x15'' strides ~3:32/3:32/3:15/3:22/3:04/3:01 por km · D+103/D-142 (Sintra)", fc:"km 127-136 · máx 145 no corpo do treino · média 132 · strides 123-142 (máx 153 só na recuperação)", read:"Modo FÁCIL cumprido: variável principal FC (teto 147) respeitada, ao contrário de ontem. Eficiência 5:35@133 ≈ 5:14@140 de ontem (~0,0225 vs 0,0228 m/s/bpm): mesma curva num ponto mais baixo, sem regressão. Strides progressivos limpos, últimos dois a ~3:02/km (decisão do Nelson, extremo do esperado). Fadiga real baixa, só autónoma: HRV 44 (semanal 49, 2.ª noite <45 em 3), RHR 50 a subir (48→49→50) vs 45-46 antes da meia, sono 6h40 (score 75); sem sinal muscular/neuromuscular. Readiness 64→53, recovery_time 20,5h, ACWR 0,9, TSB +54, Body Battery HIGH. Próximo: Qui EASY STR igual; sem strides se HRV <42 ou RHR ≥52. Qui 15 tinha desaparecido do calendário Garmin: reagendado (EASY STR)." },
+{ date:"15 Out", session:"EASY STR (feito, sem strides)", pace:"8,59km em 45:00 · 5:25/5:12/5:20/5:02/5:04/5:00/4:59 + 589m a 4:58 (km1 6:02)", fc:"132→135→140→140→143→146→150→153 · máx 162 · média 138 · ~2km acima do teto 147", read:"Modo FÁCIL que voltou a acabar progressivo: 5.º fecho acima do prescrito e 2 dos 3 fáceis desde a meia (ontem limpo). Strides cortados por falta de tempo (adormeceu); sem compensação, os de quarta chegam. Custo baixo (recovery 0h, ACWR 0,9) mas a 3 dias da prova não se quer somar. Eficiência igual ou ligeiramente melhor (5:20@140 e 5:02@140 vs 5:35@133 de ontem). Estado: HRV 48 (de volta à baseline), RHR 49 (a descer), sono 6h17 (score 76), readiness 69→52. Critério de domingo (HRV ≥47, RHR ≤49) já cumprido hoje; conta o de domingo de manhã. Proposta pendente de OK: alerta de ritmo com piso 5:10/km no EASY40 de sexta (sem efeito: sexta já feita)." },
+{ date:"16 Out", session:"EASY40 (feito, virou tempo)", pace:"10,01km em 49:16 · 5:36/5:15/5:00/4:59/4:41/4:41/4:55/4:43/4:43 + 977m a 4:40 (plano: 40 min, ~7,5km)", fc:"117→136→141→148→149→148→139→140→152→161 · máx 168 · média 142 · ~5km acima do teto 147, último km a 161", read:"Modo FÁCIL que acabou em tempo: +9 min e +2,5km face ao plano e último km a 4:40 com FC 161 (máx 168, Z5), 2 dias antes do 10 km. 6.º fecho acima do prescrito (29 Set, 1 Out, 7 Out, 13 Out, 15 Out, hoje), o mais pesado: recovery_time 1h→26,4h, carga aguda 834→1035, readiness 69→50. Coincide com a intenção do Nelson (15 Out) de guiar os fáceis pelo ritmo, decisão ainda em discussão (proposta: após a Volkswagen, 4 semanas com banda de ritmo ~5:00-5:20 e teto de FC 150, a medir eficiência). Dado de calibração válido: FC 147-149 saiu a 4:41-5:00/km (km 4-6, com descida), mais rápido que o 5:10-5:35 prescrito. Eficiência dos fáceis parada há 5 semanas (~0,0225-0,0235 m/s/bpm) enquanto o 10km desceu. Estado de manhã: HRV 49, RHR 48 (50→49→48), sono 6h34 (score 77): critério de domingo cumprido, decide-se no domingo. Sábado: REC35-DRILL a sério (média ≤135). Circuito de reforço só depois da prova." },
+{ date:"17 Out", session:"REC35-DRILL (feito, fácil mas acima do combinado)", pace:"6,56km em 35:04 · 5:21/km", fc:"124→150 · máx 156 · média 142 (combinado ≤135)", read:"Modo FÁCIL/RECUPERAÇÃO: teto 147 cumprido, mas a média ficou ~7 bpm acima do combinado (≤135), na véspera da prova. Sem prejuízo visível: RHR 44 e HRV 52 na manhã seguinte, sono score 91. Entra na discussão dos fáceis depois da Volkswagen." },
+{ date:"18 Out", session:"SFRAA City Run 10 km (PROVA)", pace:"40:06 no Garmin · 10,10km · 3:58/km · 3:49/3:52/3:57/4:00/4:07/3:53/3:54/3:57/4:10/4:06 + 105m a 3:38", fc:"149→176 · média 169 · máx 179", read:"Sub-40 falhado por ~6 s (pedia 3:57,5/km em 10,10km; saiu 3:58). Metades 19:44 + 3:59/km nos 5,1km seguintes: a menor diferença entre metades vs Brandoa (17 s/km) e Tejo (1:03), é a melhoria real. Descidas deram os km rápidos, subidas (km 5, 9, 10) os lentos; perdeu ~10 s/km nos km 3-5 com a FC a subir. Eficiência: +3% vs Brandoa, -2% vs Tejo, sem salto a reclamar; VDOT oficial 54. Chegou no melhor estado possível (sono 91, RHR 44, HRV 52, readiness 78): 40:06 é o nível real num bom dia. Custo: readiness 13, recovery_time 74h, ACWR 1,1. Classificação 31.º geral, 6.º M35 (tempo oficial inflado pelo registo do código de barras; referência = Garmin). Por confirmar: distância real; 'melhor 10km do ano' depende dela. Limiar de lactato atualizado pela Garmin com esta prova (18 Out 10h57): LTHR 163 bpm (antes 165), ritmo limiar 4:05/km (4,08 m/s); FTP 446 W de 23 Ago. Zonas Garmin de corrida: Z2 130-146, Z3 147-155, Z4 156-164, Z5 165+, FC máx usada 179. Estimativa algorítmica, não laboratorial. Decisão do Nelson (18 Out): ficam as zonas automáticas da Garmin no perfil (diferença mínima e só nos pisos baixos: Z2 130 vs 133, Z3 147 vs 148); as zonas do plano mantêm-se como referência e não se repõem as de 23 Set. Ter 20 decide-se na terça de manhã pela regra já combinada (manter 3×2 km: Torneio ≤RPE 8 ou ≤5 km, HRV ≥47, FC repouso ≤ +2, dor ≤2/10, sono ≥6h30; um âmbar = 2×2 km; dois âmbares ou HRV <45 = EASY40 + strides). Falta o RPE da prova e a dor." }
+],
+races: [
+{ dateISO:"2026-09-13", date:"13 Set", name:"Corrida do Tejo ★", dist:"10km · 40:13 chip · 198º geral / 35º M35", prio:"Concluída", col:"#FF5422" },
+{ dateISO:"2026-09-20", date:"20 Set", name:"Pacer · Meia Loures-Odivelas-Loures", dist:"pacer 4:30/km · 21,14km · chip 1:34:28 (final 1:34:38) · 149.º geral · 26.º escalão", prio:"Concluída", col:"#FF5422" },
+{ dateISO:"2026-09-27", date:"27 Set", name:"Pacer · Bimbo Global Race", dist:"pacer 5:00/km · 9,96km em 49:16 (4:57/km) · FC média 151", prio:"Concluída", col:"#FF5422" },
+{ dateISO:"2026-10-05", date:"05 Out", name:"1ª Corrida Santa Teresinha e S. Francisco (Brandoa · Torneio Cidade da Amadora)", dist:"9,65km (Garmin, distância certa) · 39:27 · 4:05/km · FC média 169/máx 178 · modo ESPECÍFICO", prio:"Concluída", col:"#FF5422" },
+{ dateISO:"2026-10-10", date:"10 Out", name:"Pacer · EDP Maratona de Lisboa (4h45, 2ª metade)", dist:"21,15km em 2:17:58 · 6:31/km (grupo recebido a este ritmo) · FC média 133, sem deriva · TE 3,5 · carga 138", prio:"Concluída", col:"#FF5422" },
+{ dateISO:"2026-10-11", date:"11 Out", name:"Meia Vasco da Gama / Hyundai ★", dist:"21,1km · chip oficial 1:32:55 (4:24/km) · 382.º geral (8216) · 342.º masc. (4745) · 68.º M35 (640) · FC média 160/máx 178 · negative split (10km 44:36 + 11,1km 48:19) · objetivo 1:30-1:31 não atingido", prio:"Concluída", col:"#FF5422" },
+{ dateISO:"2026-10-18", date:"18 Out", name:"SFRAA City Run · Torneio Cidade da Amadora, 2.ª etapa (09h30)", dist:"10 km (2 voltas; GPX 10,29 km, Garmin 10,10 km) · Garmin 40:06 (3:58/km) · FC média 169/máx 179 · metades 19:44 + 3:59/km nos 5,1 km seguintes · sub-40 falhado por ~6 s · 31.º geral, 6.º M35 · tempo oficial inflado (código de barras), referência Garmin · distância real por confirmar", prio:"Concluída", col:"#FF5422" },
+{ dateISO:"2026-10-25", date:"25 Out", name:"Volkswagen Run (Auto-Europa)", dist:"10km · confirmação de VDOT · sem taper, só shakeout véspera", prio:"PROVA A", col:"#9B59FF" },
+{ dateISO:"2026-11-01", date:"01 Nov", name:"Corrida da Água (Aqueduto)", dist:"10km · sem objetivo de tempo", prio:"Follow-up", col:"#5A6B8A" },
+{ dateISO:"2026-11-29", date:"29 Nov", name:"Meia Maratona dos Descobrimentos (10km)", dist:"10km · consolidação/confirmação, não RP a todo custo", prio:"PROVA B", col:"#9B59FF" },
+{ dateISO:"2026-12-13", date:"13 Dez", name:"Pacer · São Silvestre El Corte Inglês", dist:"pacer 4:00/km", prio:"Compromisso", col:"#F5A623" },
+],
+phases: [
+{ label:"Força + Limiar", weeks:"S28–31", km:"~70–75/sem", status:"done" },
+{ label:"10km Específico", weeks:"S32–35", km:"~74–77/sem", status:"done" },
+{ label:"Afinação", weeks:"S36–37", km:"↓ ~30%", status:"done" },
+{ label:"★ Corrida do Tejo (40:13)", weeks:"13 Set", km:"PROVA A", status:"race" },
+{ label:"Absorção pós-Tejo", weeks:"S38", km:"59,87/60,5 km", status:"done" },
+{ label:"Retoma + Bimbo", weeks:"S39", km:"60,12/55 km", status:"done" },
+{ label:"Construção Meia + prova 10km (5 Out)", weeks:"S40", km:"60,95/66 km", status:"done" },
+{ label:"Taper Vasco da Gama (+ pacer Maratona 10 Out)", weeks:"S41", km:"77,6/77 km (pacer 21 + meia 21)", status:"done" },
+{ label:"★ Meia Vasco da Gama (1:32:55)", weeks:"11 Out", km:"objetivo 1:30-1:31 · 68.º M35", status:"race" },
+{ label:"Recuperação pós-meia", weeks:"S42", km:"~45-50/sem", status:"active" },
+{ label:"Semana normal (sem taper)", weeks:"S43", km:"~55-60/sem", status:"next" },
+{ label:"★ Volkswagen Run", weeks:"25 Out", km:"confirmação VDOT, sem bloco dedicado", status:"race" },
+{ label:"Pós-Volkswagen (2 ramos)", weeks:"S44-48", km:"ver plano-pos-volkswagen", status:"next" },
+{ label:"★ Meia dos Descobrimentos", weeks:"29 Nov", km:"consolidação, não RP a todo custo", status:"race" },
+{ label:"★ Pacer São Silvestre", weeks:"13 Dez", km:"fecho de época", status:"race" },
+],
+hrZones: [
+{z:"Z1",label:"Recuperação", bpm:"108–132",w:72, col:"var(--z1)"},
+{z:"Z2",label:"Easy / Volume",bpm:"133–147",w:89, col:"var(--z2)"},
+{z:"Z3",label:"Aeróbio Ctrl.",bpm:"148–155",w:94, col:"var(--z3)"},
+{z:"Z4",label:"Limiar", bpm:"156–164",w:99, col:"var(--z4)"},
+{z:"Z5",label:"10km / VO₂", bpm:"≥165", w:100,col:"var(--z5)"},
+],
+};
+
+const dotColor = s => ({done:"var(--teal)",today:"var(--orange)",planned:"var(--dim)",race:"var(--gold)"}[s]||"var(--dim)");
+const el = (tag, cls, html) => { const e=document.createElement(tag); if(cls) e.className=cls; if(html!==undefined) e.innerHTML=html; return e; };
+const daysUntil = iso => Math.ceil((new Date(iso+"T00:00:00") - new Date(new Date().toDateString())) / 86400000);
+function renderVDOTGauge(vdot, vdotEst){
+const W=320,H=200,cx=160,cy=175,Ro=126,Ri=96,VMIN=48,VMAX=63;
+const vToAngle = v => Math.PI*(1-(v-VMIN)/(VMAX-VMIN));
+const ptAt=(v,r)=>{ const a=vToAngle(v); return [ (cx+r*Math.cos(a)).toFixed(2), (cy-r*Math.sin(a)).toFixed(2) ]; };
+const arc=(v1,v2,R)=>{ const [x1,y1]=ptAt(v1,R),[x2,y2]=ptAt(v2,R); const large=Math.abs(vToAngle(v2)-vToAngle(v1))>Math.PI?1:0; return `M ${x1} ${y1} A ${R} ${R} 0 ${large} 1 ${x2} ${y2}`; };
+const estEnd = parseFloat((vdotEst||"").split("–")[1] || (vdot+1.5));
+const [nx,ny]=ptAt(vdot,Ri+6), [nx2,ny2]=ptAt(vdot,Ro+5);
+const ticks=[48,51,53,55,57,60,63].map(v=>{
+const [tx,ty]=ptAt(v,Ri-14),[t1x,t1y]=ptAt(v,Ri),[t2x,t2y]=ptAt(v,Ri-6);
+return `<line x1="${t1x}" y1="${t1y}" x2="${t2x}" y2="${t2y}" stroke="var(--sub)" stroke-width="1.5"/><text x="${tx}" y="${parseFloat(ty)+3}" text-anchor="middle" fill="var(--sub)" font-size="8" font-family="monospace">${v}</text>`;
+}).join("");
+return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;overflow:visible">
+<path d="${arc(VMIN,VMAX,Ro)}" fill="none" stroke="var(--dim)" stroke-width="20" stroke-linecap="round"/>
+<path d="${arc(48,51.3,Ro)}" fill="none" stroke="var(--sub)" stroke-width="20" opacity="0.15"/>
+<path d="${arc(51.3,53,Ro)}" fill="none" stroke="var(--z3)" stroke-width="20" opacity="0.2"/>
+<path d="${arc(53,55,Ro)}" fill="none" stroke="var(--orange)" stroke-width="20" opacity="0.18"/>
+<path d="${arc(55,57,Ro)}" fill="none" stroke="var(--purple)" stroke-width="20" opacity="0.18"/>
+<path d="${arc(57,63,Ro)}" fill="none" stroke="var(--teal)" stroke-width="20" opacity="0.18"/>
+<path d="${arc(VMIN,vdot,Ro)}" fill="none" stroke="var(--orange)" stroke-width="20" stroke-linecap="round"/>
+<path d="${arc(vdot,estEnd,Ro)}" fill="none" stroke="var(--orange)" stroke-width="20" stroke-dasharray="6 5" opacity="0.55"/>
+<path d="${arc(VMIN,VMAX,Ri)}" fill="none" stroke="var(--border)" stroke-width="2" stroke-linecap="round"/>
+${ticks}
+<line x1="${nx}" y1="${ny}" x2="${nx2}" y2="${ny2}" stroke="var(--orange)" stroke-width="3" stroke-linecap="round"/>
+<circle cx="${nx}" cy="${ny}" r="4" fill="var(--orange)"/>
+<text x="${cx}" y="${cy-52}" text-anchor="middle" fill="var(--text)" font-size="54" font-weight="900" font-family="'Courier New',monospace" letter-spacing="-2">${vdot}</text>
+<text x="${cx}" y="${cy-32}" text-anchor="middle" fill="var(--sub)" font-size="9" letter-spacing="3">VDOT OFICIAL</text>
+<text x="${cx}" y="${cy-12}" text-anchor="middle" fill="var(--orange)" font-size="13" font-weight="600">~${vdotEst} estimado</text>
+</svg>`;
+}
+function renderRaceTrendChart(data, vdotCur){
+const W=300,H=140,padL=26,padR=10,padT=10,padB=18;
+const vmin=50, vmax=57;
+const xAt = i => padL + (W-padL-padR) * (i/(data.length-1));
+const yAt = v => padT + (H-padT-padB) * (1 - (v-vmin)/(vmax-vmin));
+const pts = data.map((d,i)=>`${xAt(i)},${yAt(d.vdot)}`).join(" ");
+const dots = data.map((d,i)=>`<circle cx="${xAt(i)}" cy="${yAt(d.vdot)}" r="4" fill="var(--orange)"/>`).join("");
+const labels = data.map((d,i)=>`<text x="${xAt(i)}" y="${H-4}" text-anchor="middle" fill="var(--sub)" font-size="8">${d.x}</text>`).join("");
+return `<svg viewBox="0 0 ${W} ${H}" width="100%">
+<line x1="${padL}" y1="${yAt(vdotCur)}" x2="${W-padR}" y2="${yAt(vdotCur)}" stroke="var(--orange)" stroke-dasharray="4 3" stroke-width="1"/>
+<polyline points="${pts}" fill="none" stroke="var(--orange)" stroke-width="2.5"/>
+${dots}${labels}
+</svg>`;
+}
+
+
+/* ===== v2: dados curtos e plano da próxima semana (a manter em sincronia com o resto de D) ===== */
+Object.assign(D, {
+  stamp: "18 Out · 14h",
+  recoveryH: 74,
+  short: {
+    hrv: "baseline 47–59",
+    rhr: "habitual 45–46",
+    ready: "só contexto",
+    rhrNote: "44 bpm hoje (18 Out), abaixo do habitual 45–46 (48 a 16 Out, 49 a 15 Out, 50 a 14 Out)",
+    bbNote: "nível MODERATE · sono +63 · aquecimento −2, prova −17 (Garmin: OVERREACHING_VO2MAX) · carregou 59 · drenou 29",
+    acwrNote: "ÓTIMO (carga aguda 1300 / crónica 1135) · 47% da faixa ótima",
+    loadNote: "carga aguda 841 → 1300 com a prova"
+  },
+  alerts: [
+    "Fáceis a fechar acima do teto de 147 (padrão desde 29 Set). Segunda é EASY45 com 74 h de recuperação por cumprir: sem fecho, FC ≤147."
+  ]
+});
+D.sessions.forEach(x => { x.iso = "2026-10-" + String(parseInt(x.day.split(" ")[1], 10)).padStart(2, "0"); x.week = 42; x.km = String(x.km); });
+const W43 = [
+  {day:"Seg 19", iso:"2026-10-19", code:"EASY45", km:"10", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 (teto 147)", nota:"Fácil de verdade, sem fecho."},
+  {day:"Ter 20", iso:"2026-10-20", code:"3×2 km ou EASY40", km:"~10", status:"planned", icon:"🏃", mode:"QUALIDADE", ritmo:"3:58–4:02/km (3×2 km)", fc:"parar se >172",
+    nota:"Ensaio do ritmo de prova, não é teste máximo. Alerta de ritmo: piso 3:57, teto 4:03.",
+    rule:{title:"Decisão na terça de manhã", rows:[
+      ["Manter 3×2 km","Torneio ≤RPE 8 ou ≤5 km · HRV ≥47 · FC repouso ≤ +2 · dor ≤2/10 · sono ≥6h30"],
+      ["Reduzir a 2×2 km","um âmbar"],
+      ["EASY40 + 6 strides","HRV <45 · FC repouso ≥ +5 · dor ≥5/10 · ou dois âmbares"]],
+      note:"Torneio com RPE ≥9 não conta como medida de forma."}},
+  {day:"Qua 21", iso:"2026-10-21", code:"EASY+STR", km:"9", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147", nota:"Fácil com strides."},
+  {day:"Qui 22", iso:"2026-10-22", code:"SHARP-4x1", km:"7", status:"planned", icon:"🏃", mode:"QUALIDADE", ritmo:"3:56–4:00/km nas 4×1'", fc:"referência secundária", nota:"Ativação, 3 dias antes da VW. Passa a fácil se a terça for convertida em fácil."},
+  {day:"Sex 23", iso:"2026-10-23", code:"EASY40", km:"7", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147", nota:"Fácil."},
+  {day:"Sáb 24", iso:"2026-10-24", code:"SHAKEOUT", km:"4", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"muito leve", fc:"115–140", nota:"Só ativação, sem taper de semana."},
+  {day:"Dom 25", iso:"2026-10-25", code:"Volkswagen Run", km:"10", status:"race", icon:"🏁", mode:"PROVA", ritmo:"4:00–4:03 até ao km 3, nunca <3:57", fc:"FC ≤166 ao km 3", nota:"Prova-chave dos 10 km, calibração da forma. Pavilhões: sem ritmo GPS lá dentro."}
+];
+W43.forEach(x => x.week = 43);
+const PLAN = D.sessions.concat(W43);
+
+/* ===== utilitários ===== */
+const WDN = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+const isoOf = dt => dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0") + "-" + String(dt.getDate()).padStart(2, "0");
+const todayISO = () => isoOf(new Date());
+const modeColor = m => ({"FÁCIL":"var(--teal)","QUALIDADE":"var(--orange)","PROVA":"var(--gold)","DESCANSO":"var(--sub)"}[m] || "var(--sub)");
+const modeOf = x => x.mode || (/DESCANSO/i.test(x.code) ? "DESCANSO" : /EASY|REC|SHAKEOUT/i.test(x.code) ? "FÁCIL" : /SFRAA|Volkswagen|PROVA/i.test(x.code) ? "PROVA" : "QUALIDADE");
+const modeTag = m => `<span class="mode" style="color:${modeColor(m)};background:${modeColor(m)}22">${m}</span>`;
+const statusColor = st => ({done:"var(--teal)", today:"var(--orange)", planned:"var(--dim)", race:"var(--gold)"}[st] || "var(--dim)");
+const cut = (t, n) => t && t.length > n ? t.slice(0, n).replace(/\s+\S*$/, "") + "…" : (t || "");
+
+function verdict() {
+  const hrv = D.hrv, rhr = D.rhr;
+  let lvl = "ok", why = [];
+  if (hrv < 45 || rhr >= 52) { lvl = "rd"; }
+  else if (hrv < 47 || rhr >= 49) { lvl = "am"; }
+  const txt = {ok:"CUMPRIR", am:"MICROAJUSTAR", rd:"BAIXAR"}[lvl];
+  const col = {ok:"var(--z1)", am:"var(--z3)", rd:"var(--z5)"}[lvl];
+  why.push(`HRV ${hrv} ms ${hrv >= 47 ? "≥47" : hrv >= 45 ? "entre 45 e 47" : "<45"}`);
+  why.push(`FC repouso ${rhr} bpm ${rhr <= 48 ? "≤48" : rhr < 52 ? "entre 49 e 51" : "≥52"}`);
+  const cav = D.recoveryH >= 48 ? `Garmin pede ${D.recoveryH} h de recuperação (readiness ${D.readiness}): cumprir = fácil de verdade, sem acelerar.` : "";
+  return {lvl, txt, col, cav, reason: why.join(" · ") + ". Critério: HRV e FC de repouso; a readiness e a recuperação Garmin são só contexto."};
+}
+const tone = (v, good, warn, higherBetter) => higherBetter ? (v >= good ? "var(--z1)" : v >= warn ? "var(--z3)" : "var(--z5)") : (v <= good ? "var(--z1)" : v <= warn ? "var(--z3)" : "var(--z5)");
+
+function weekOf(iso) {
+  const d = new Date(iso + "T00:00:00"); const dow = (d.getDay() + 6) % 7;
+  const mon = new Date(d); mon.setDate(d.getDate() - dow);
+  return Array.from({length: 7}, (_, i) => { const x = new Date(mon); x.setDate(mon.getDate() + i); return isoOf(x); });
+}
+function sessionDetailHTML(x) {
+  const det = x.detail || {};
+  const ritmo = x.ritmo || det.ritmo, fc = x.fc || det.fc, est = det.estrutura || x.nota, real = det.real;
+  return `<div class="kv"><span>Ritmo</span><span style="font-family:monospace;color:var(--orange)">${ritmo || "—"}</span></div>
+<div class="kv"><span>FC</span><span style="font-family:monospace">${fc || "—"}</span></div>
+${est ? `<div style="margin-top:5px"><span style="color:var(--sub)">Estrutura</span><div>${est}</div></div>` : ""}
+${real ? `<div style="margin-top:7px;padding-top:7px;border-top:1px solid var(--border);color:var(--teal)">${real}</div>` : ""}`;
+}
+function ruleHTML(r) {
+  return `<div class="rule"><b>${r.title}</b>
+${r.rows.map(a => `<div style="margin-top:5px"><span style="font-weight:700">${a[0]}</span><br><span style="color:var(--sub)">${a[1]}</span></div>`).join("")}
+${r.note ? `<div style="margin-top:6px;color:var(--gold)">${r.note}</div>` : ""}</div>`;
+}
+
+/* ===== HOJE ===== */
+function renderHoje() {
+  const p = document.getElementById("pane-hoje");
+  const v = verdict();
+  const t = todayISO();
+  const idx = PLAN.findIndex(x => x.iso === t);
+  const cur = idx >= 0 ? PLAN[idx] : null;
+  const next = PLAN.find(x => x.iso > t && x.status !== "done");
+  const nextRace = D.races.filter(r => daysUntil(r.dateISO) >= 0 && ["PROVA A", "Prova"].includes(r.prio))[0] || D.races.find(r => daysUntil(r.dateISO) >= 0);
+
+  const tile = (l, val, unit, sub, c) => `<div class="tile"><div class="tl">${l}</div><div class="tv" style="color:${c}">${val}</div><div class="ts">${unit ? unit + " · " : ""}${sub}</div></div>`;
+  let html = `
+<div class="verdict" style="border-color:${v.col}55"><div class="vk">Prontidão para a próxima sessão</div>
+<div class="vv" style="color:${v.col}">${v.txt}</div><div class="vr">${v.reason}</div>${v.cav ? `<div class="vr" style="color:var(--gold);margin-top:6px">⚠ ${v.cav}</div>` : ""}</div>
+<div class="tiles">
+${tile("HRV", D.hrv, "ms", D.short.hrv, tone(D.hrv, 47, 45, true))}
+${tile("FC repouso", D.rhr, "bpm", D.short.rhr, tone(D.rhr, 48, 51, false))}
+${tile("Readiness", D.readiness, "/100", D.short.ready, tone(D.readiness, 55, 30, true))}
+</div>`;
+  if (D.alerts && D.alerts.length) html += `<div class="alert">⚠ ${D.alerts[0]}</div>`;
+
+  if (cur) {
+    const done = cur.status === "done", race = cur.status === "race";
+    const m = modeOf(cur);
+    html += `<div class="today"><div class="k">${done ? "Hoje · feito ✓" : race ? "Hoje · prova" : "Hoje"}</div>
+<div class="code">${cur.icon} ${cur.code}${modeTag(m)}</div>
+<div class="meta">${cur.day} · ${cur.km} km${cur.nota ? " · " + cur.nota : ""}</div>`;
+    if (done && cur.detail && cur.detail.real) html += `<div class="small" style="margin-top:8px;color:var(--teal)">${cut(cur.detail.real, 230)}</div>`;
+    if (!done) html += `<div class="chips"><div class="chip"><small>Ritmo</small>${cur.ritmo || (cur.detail && cur.detail.ritmo) || "—"}</div><div class="chip"><small>FC</small>${cur.fc || (cur.detail && cur.detail.fc) || "—"}</div></div>`;
+    if (cur.rule && !done) html += ruleHTML(cur.rule);
+    html += `</div>`;
+  }
+  if (next && (!cur || cur.status === "done")) {
+    html += `<div class="today" style="border-color:var(--border);background:var(--card)"><div class="k" style="color:var(--sub)">Próxima sessão</div>
+<div class="code">${next.icon} ${next.code}${modeTag(modeOf(next))}</div>
+<div class="meta">${next.day} · ${next.km} km${next.nota ? " · " + next.nota : ""}</div>
+<div class="chips"><div class="chip"><small>Ritmo</small>${next.ritmo || "—"}</div><div class="chip"><small>FC</small>${next.fc || "—"}</div></div>
+${next.rule ? ruleHTML(next.rule) : ""}</div>`;
+  }
+  if (!cur && !next) html += `<div class="alert">Sem sessões planeadas a partir de hoje: atualizar o plano.</div>`;
+
+  /* semana em 7 pontos */
+  const wk = weekOf(t);
+  html += `<div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Esta semana</span></div><div class="weekstrip">${wk.map(d => {
+    const x = PLAN.find(y => y.iso === d);
+    const c = x ? (d === t && x.status !== "done" ? "var(--orange)" : statusColor(x.status)) : "transparent";
+    return `<div class="wd ${d === t ? "now" : ""}"><div class="d">${WDN[new Date(d + "T00:00:00").getDay()]}</div><div class="dot" style="background:${c};${x ? "" : "border:1px dashed var(--dim)"}"></div><div class="k">${x ? x.km.replace("~", "") : "—"}</div></div>`;
+  }).join("")}</div>
+<div class="small" style="margin-bottom:12px">${D.weekDone} km feitos nesta semana (alvo ${D.weekTarget}) · verde = feito · dourado = prova · cinzento = planeado</div>`;
+
+  if (nextRace) {
+    const dd = daysUntil(nextRace.dateISO);
+    html += `<div class="card" style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px"><div><div class="race-prio">Próxima prova</div><div style="font-size:13px;font-weight:700">${nextRace.name}</div><div class="small">${nextRace.date}</div></div><div style="text-align:right"><div style="color:var(--orange);font-size:34px;font-weight:900;font-family:'Courier New',monospace;line-height:1">${dd}</div><div class="small">dias</div></div></div>`;
+  }
+  p.innerHTML = html;
+}
+
+/* ===== SEMANA ===== */
+function renderSemana() {
+  const p = document.getElementById("pane-semana");
+  const t = todayISO();
+  const wkNow = weekOf(t), wkNext = weekOf((() => { const d = new Date(wkNow[0] + "T00:00:00"); d.setDate(d.getDate() + 7); return isoOf(d); })());
+  const block = (title, days) => {
+    const items = PLAN.filter(x => days.includes(x.iso));
+    if (!items.length) return "";
+    const tot = items.reduce((a, x) => a + (parseFloat(String(x.km).replace("~", "").replace(",", ".")) || 0), 0);
+    return `<div class="st"><div class="bar" style="background:var(--orange)"></div><span class="label">${title} · ≈${tot.toFixed(0)} km planeados</span></div>
+<div class="card" style="padding:0;overflow:hidden">${items.map(x => {
+      const m = modeOf(x), isT = x.iso === t;
+      return `<details class="sess"><summary><span class="sday" style="width:44px">${x.day}</span><span class="sdot" style="background:${isT && x.status !== "done" ? "var(--orange)" : statusColor(x.status)}"></span><span style="flex:1;font-size:12px;${isT ? "color:var(--orange);font-weight:700" : ""}">${x.icon} ${x.code}${modeTag(m)}</span><span class="skm">${x.km} km</span>${x.status === "done" ? '<span style="color:var(--teal);font-size:12px;margin-right:4px">✓</span>' : ""}</summary>
+<div class="body">${sessionDetailHTML(x)}${x.rule ? ruleHTML(x.rule) : ""}</div></details>`;
+    }).join("")}</div>`;
+  };
+  const wl = D.weeklyLoad.slice(-10);
+  const maxLoad = Math.max(...wl.map(w => w.km), D.weekTarget);
+  p.innerHTML = block("Esta semana", wkNow) + block("Próxima semana", wkNext) + `
+<div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga semanal · km</span></div>
+<div class="card"><div style="display:flex;align-items:flex-end;gap:5px;height:110px">${wl.map(w => `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%"><div style="font-size:9px;color:var(--sub);margin-bottom:3px;font-family:monospace">${w.km}</div><div style="width:100%;background:${w.cur ? "var(--orange)" : "var(--dim)"};border-radius:4px 4px 0 0;height:${(w.km / maxLoad * 90)}px"></div><div style="font-size:9px;color:var(--sub);margin-top:4px">${w.w}</div></div>`).join("")}</div></div>
+<details><summary>Notas da semana e histórico de carga</summary><div class="body small">${document.getElementById("__notes").innerHTML}</div></details>`;
+}
+
+/* ===== ANÁLISE ===== */
+function renderAnalise() {
+  const p = document.getElementById("pane-analise");
+  const last = D.calibs[D.calibs.length - 1];
+  const older = D.calibs.slice(0, -1).reverse();
+  const readBlock = r => r.length > 260
+    ? `<div class="calib-read">${cut(r, 260)}</div><details style="margin:4px 0 0"><summary style="padding:6px 0;background:none;border:0;border-radius:0;font-size:10px;font-weight:400;color:var(--sub)">ver leitura completa</summary><div class="calib-read" style="margin-top:2px">${r}</div></details>`
+    : `<div class="calib-read">${r}</div>`;
+  const calibCard = c => `<div class="calib-row"><div class="calib-top"><span class="calib-session">${c.session}</span><span class="calib-date">${c.date}</span></div>
+<div class="calib-cols"><div><div class="calib-col-label">RITMO</div><div class="calib-col-val">${c.pace}</div></div><div><div class="calib-col-label">FC</div><div class="calib-col-val">${c.fc}</div></div></div>
+<div style="margin-top:8px"><div class="calib-col-label">LEITURA</div>${readBlock(c.read)}</div></div>`;
+  const metric = (l, v, u, col, sub) => `<div class="metric" style="margin-bottom:8px"><div class="mlabel">${l}</div><div><span class="mval" style="color:${col}">${v}</span><span class="munit">${u}</span></div><div class="msub">${sub}</div></div>`;
+  p.innerHTML = `
+<div class="st"><div class="bar" style="background:var(--orange)"></div><span class="label">Última sessão analisada</span></div>
+<div class="card lastsess" style="padding:0;overflow:hidden">${calibCard(last)}</div>
+<details><summary>Sessões anteriores (${older.length})</summary><div class="body" style="padding:0">${older.map(calibCard).join("")}</div></details>
+
+<div class="st" style="margin-top:14px"><div class="bar" style="background:var(--purple)"></div><span class="label">Forma · VDOT</span></div>
+<div class="gauge-wrap">${renderVDOTGauge(D.vdot, D.vdotEst)}
+<div class="gauge-legend"><div><div class="gv" style="color:var(--orange)">${D.vdot}</div><div class="gl">OFICIAL</div></div><div><div class="gv" style="color:#FF542299">${D.vdotEst}</div><div class="gl">ESTIMADO</div></div><div><div class="gv" style="color:var(--purple)">57</div><div class="gl">PB 2016</div></div><div><div class="gv" style="color:var(--teal)">60+</div><div class="gl">TARGET</div></div></div></div>
+<div class="card">${renderRaceTrendChart(D.raceTrend, D.vdot)}
+<div class="note">Só pontos com <b>calibração oficial de prova de referência</b> (10 km ou equivalente direto). GP JOMA / Marginal à Noite sustentam o <b>estimado ${D.vdotEst}</b> mas não entram na linha.</div></div>
+
+<details><summary>Limiar e zonas de FC · LTHR ${D.lthr}</summary><div class="body">
+${D.hrZones.map(z => `<div class="zonebar-row"><div class="zonebar-z" style="color:${z.col}">${z.z}</div><div style="flex:1"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:10px">${z.label}</span><span style="color:var(--sub);font-size:9px;font-family:monospace">${z.bpm}</span></div><div class="zonebar-track"><div class="zonebar-fill" style="width:${z.w}%;background:${z.col}"></div></div></div></div>`).join("")}
+<div class="card2" style="margin-top:8px"><div style="display:flex;justify-content:space-between"><span style="color:var(--sub);font-size:9px">LIMIAR LACTATO</span><span style="color:var(--orange);font-size:12px;font-weight:700;font-family:monospace">${D.ltPace}/km @ ${D.lthr} bpm</span></div></div></div></details>
+
+<details><summary>Estado fisiológico completo</summary><div class="body">
+${metric("HRV", D.hrv, "ms", tone(D.hrv, 47, 45, true), D.hrvTrend)}
+${metric("FC repouso", D.rhr, "bpm", tone(D.rhr, 48, 51, false), D.short.rhrNote)}
+${metric("Train. Readiness", D.readiness, "/100", tone(D.readiness, 55, 30, true), D.readinessSub)}
+${metric("Body Battery", D.bodyBattery, "", "var(--z4)", D.short.bbNote)}
+${metric("ACWR", D.acwr, "", "var(--z1)", D.short.acwrNote)}
+${metric("VO₂Max Garmin", D.vo2max, "", "var(--orange)", "plano ~2 meses")}
+${metric("Peso", D.weight, "kg", "var(--text)", "último registo manual")}
+<div class="small" style="margin-top:6px">Training Status Garmin: <b style="color:var(--z1)">${D.trainingStatus}</b> · leitura 18 Out</div>
+<div class="small" style="margin-top:4px">Último registo: ${D.meta.updatedAt}</div></div></details>`;
+}
+
+/* ===== PROVAS ===== */
+function renderProvas() {
+  const p = document.getElementById("pane-provas");
+  const next = D.races.filter(r => daysUntil(r.dateISO) >= 0 && r.prio === "PROVA A")[0];
+  p.innerHTML = `
+${next ? `<div class="card" style="border:2px solid #FF542244;text-align:center;padding:16px 14px"><div style="color:var(--sub);font-size:9px;letter-spacing:3px">DIAS ATÉ ${next.name.toUpperCase()}</div><div style="color:var(--orange);font-size:60px;font-weight:900;font-family:'Courier New',monospace;line-height:1.1">${daysUntil(next.dateISO)}</div><div style="color:var(--sub);font-size:11px">${next.dist}</div></div>` : ""}
+<div class="st"><div class="bar" style="background:var(--gold)"></div><span class="label">Calendário de provas e compromissos</span></div>
+<div class="card" style="padding:0">${D.races.slice().sort((a, b) => a.dateISO < b.dateISO ? 1 : -1).filter(r => daysUntil(r.dateISO) >= 0).reverse().map(r => `
+<div class="race-row" style="border-left:3px solid ${r.col}"><div class="race-top"><div><div class="race-prio">${r.prio}</div><div class="race-name" style="font-weight:${r.prio === "PROVA A" ? 800 : 600};color:${r.prio === "PROVA A" ? "var(--orange)" : "var(--text)"}">${r.name}</div><div class="race-dist">${r.dist}</div></div><div><div class="race-date" style="color:${r.col}">${r.date}</div><div class="race-days">${daysUntil(r.dateISO) === 0 ? "hoje" : "em " + daysUntil(r.dateISO) + " dias"}</div></div></div></div>`).join("")}</div>
+<details><summary>Provas já feitas (${D.races.filter(r => daysUntil(r.dateISO) < 0).length})</summary><div class="body" style="padding:0">${D.races.filter(r => daysUntil(r.dateISO) < 0).sort((a, b) => a.dateISO < b.dateISO ? 1 : -1).map(r => `
+<div class="race-row" style="border-left:3px solid ${r.col}"><div class="race-top"><div><div class="race-prio">${r.prio}</div><div class="race-name">${r.name}</div><div class="race-dist">${r.dist}</div></div><div class="race-date" style="color:${r.col}">${r.date}</div></div></div>`).join("")}</div></details>
+<details><summary>Fases até à próxima prova-chave</summary><div class="body">${D.phases.map((ph, i) => {
+    const pc = ph.status === "active" ? "var(--orange)" : ph.status === "next" ? "var(--z3)" : ph.status === "race" ? "var(--gold)" : "var(--dim)";
+    return `<div class="phase-item"><div class="phase-dot-col"><div class="phase-dot" style="background:${pc}"></div>${i < D.phases.length - 1 ? '<div class="phase-line"></div>' : ""}</div><div style="padding-bottom:6px"><div class="phase-label" style="color:${pc};font-weight:${["active", "race"].includes(ph.status) ? 800 : 500}">${ph.label}</div><div class="phase-sub">${ph.weeks} · ${ph.km}</div></div></div>`;
+  }).join("")}</div></details>`;
+}
+
+/* ===== arranque ===== */
+document.getElementById("statusBadge").textContent = D.trainingStatus;
+document.getElementById("stamp").textContent = "Atualizado " + D.stamp;
+document.getElementById("forceRefreshBtn").addEventListener("click", () => { window.location.href = window.location.pathname + "?t=" + Date.now(); });
+document.querySelectorAll(".nav button").forEach(btn => btn.addEventListener("click", () => {
+  document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".pane").forEach(pn => pn.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById("pane-" + btn.dataset.tab).classList.add("active");
+  window.scrollTo(0, 0);
+}));
+renderHoje(); renderSemana(); renderAnalise(); renderProvas();
+
+</script>
+</body>
+</html>
