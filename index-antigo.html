@@ -2,8 +2,7 @@
 <html lang="pt-PT">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#07090F">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nelson Coelho · Dashboard de Treino</title>
 <style>
 :root{
@@ -85,92 +84,39 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 .footer{text-align:center;color:var(--dim);font-size:8px;letter-spacing:1.5px;margin-top:20px;text-transform:uppercase;}
 .note{background:var(--card2);border-radius:8px;padding:10px 12px;margin-top:8px;font-size:10px;color:var(--sub);line-height:1.5;}
 .note b{color:var(--orange);}
-
-body{padding-bottom:78px;}
-.header{padding:12px 16px 10px;}
-.header-top{margin-bottom:0;align-items:center;}
-.stamp{font-size:9px;color:var(--sub);letter-spacing:.5px;margin-top:2px;}
-.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);border-top:1px solid var(--border);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom);}
-.nav-in{display:flex;width:100%;max-width:480px;}
-.nav button{flex:1;background:transparent;border:0;color:var(--sub);padding:9px 0 10px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;}
-.nav button .ic{font-size:17px;line-height:1;}
-.nav button.active{color:var(--orange);}
-.verdict{border-radius:14px;padding:16px;margin-bottom:12px;border:1px solid var(--border);background:var(--card);}
-.verdict .vk{color:var(--sub);font-size:9px;letter-spacing:2px;text-transform:uppercase;}
-.verdict .vv{font-size:30px;font-weight:900;letter-spacing:-.5px;line-height:1.1;margin:4px 0 6px;}
-.verdict .vr{color:var(--sub);font-size:11px;line-height:1.5;}
-.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
-.tile{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 8px;text-align:center;}
-.tile .tl{color:var(--sub);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;}
-.tile .tv{font-size:26px;font-weight:900;font-family:'Courier New',monospace;line-height:1.15;margin-top:3px;}
-.tile .ts{color:var(--sub);font-size:9px;margin-top:2px;}
-.alert{background:#F5A62315;border:1px solid #F5A62344;color:var(--gold);border-radius:10px;padding:10px 12px;font-size:11px;line-height:1.5;margin-bottom:12px;}
-.today{border:1px solid #FF542266;background:linear-gradient(180deg,#FF542210,var(--card));border-radius:14px;padding:14px;margin-bottom:12px;}
-.today .k{color:var(--orange);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;}
-.today .code{font-size:22px;font-weight:800;margin:4px 0 2px;}
-.today .meta{color:var(--sub);font-size:11px;}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
-.chip{background:var(--card2);border-radius:6px;padding:5px 8px;font-size:11px;font-family:'Courier New',monospace;}
-.chip small{display:block;color:var(--sub);font-size:8px;letter-spacing:1px;font-family:system-ui;text-transform:uppercase;}
-.mode{display:inline-block;font-size:9px;font-weight:800;letter-spacing:1px;padding:2px 7px;border-radius:5px;margin-left:6px;vertical-align:middle;}
-.weekstrip{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:6px;}
-.wd{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:6px 0;text-align:center;}
-.wd.now{border-color:var(--orange);box-shadow:0 0 0 1px #FF542244;}
-.wd .d{color:var(--sub);font-size:8px;letter-spacing:1px;text-transform:uppercase;}
-.wd .dot{width:9px;height:9px;border-radius:50%;margin:5px auto 3px;}
-.wd .k{font-size:9px;font-family:monospace;color:var(--text);}
-details{margin-bottom:10px;}
-details>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:12px;font-size:12px;font-weight:700;}
-details>summary::-webkit-details-marker{display:none;}
-details>summary::after{content:"▾";color:var(--sub);font-size:11px;transition:transform .15s;}
-details[open]>summary{border-bottom-left-radius:0;border-bottom-right-radius:0;}
-details[open]>summary::after{transform:rotate(180deg);}
-details>.body{background:var(--card);border:1px solid var(--border);border-top:0;border-radius:0 0 12px 12px;padding:12px 14px;}
-details.sess>summary{border-radius:0;border:0;border-bottom:1px solid var(--border);background:transparent;padding:11px 14px;font-weight:400;}
-details.sess{margin:0;}
-details.sess>.body{border:0;border-radius:0;background:var(--card2);font-size:11px;line-height:1.6;}
-.kv{display:flex;justify-content:space-between;gap:10px;margin-bottom:3px;}
-.kv span:first-child{color:var(--sub);}
-.rule{background:var(--card2);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:11px;line-height:1.55;}
-.rule b{color:var(--orange);}
-.ok{color:var(--z1);} .am{color:var(--z3);} .rd{color:var(--z5);}
-.lastsess{border-left:3px solid var(--orange);}
-.small{color:var(--sub);font-size:10px;line-height:1.5;}
-.calib-cols{flex-direction:column;gap:6px;}
-.race-date{white-space:nowrap;}
 </style>
 </head>
-
 <body>
 <div class="wrap">
+
 <div class="header">
 <div class="header-top">
 <div>
 <div class="eyebrow">M35 · QUELUZ</div>
 <div class="name">Nelson Coelho</div>
-<div class="stamp" id="stamp"></div>
 </div>
 <div style="text-align:right">
-<span class="badge" id="statusBadge"></span><br>
+<span class="badge" id="statusBadge">MANTER · N4</span>
+<div class="sync" id="syncLine"></div>
 <button class="refreshBtn" id="forceRefreshBtn" title="Forçar atualização (limpa cache)">↻ Atualizar</button>
 </div>
 </div>
-</div>
-<div class="content">
-<div class="pane active" id="pane-hoje"></div>
-<div class="pane" id="pane-semana"></div>
-<div class="pane" id="pane-analise"></div>
-<div class="pane" id="pane-provas"></div>
+<div class="tabs">
+<button class="tab active" data-tab="estado">Estado</button>
+<button class="tab" data-tab="semana">Semana</button>
+<button class="tab" data-tab="provas">Provas</button>
 </div>
 </div>
-<div class="nav"><div class="nav-in">
-<button class="active" data-tab="hoje"><span class="ic">◉</span>Hoje</button>
-<button data-tab="semana"><span class="ic">▤</span>Semana</button>
-<button data-tab="analise"><span class="ic">◭</span>Análise</button>
-<button data-tab="provas"><span class="ic">⚑</span>Provas</button>
-</div></div>
 
-<div id="__notes" style="display:none"><div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 42 — RECUPERAÇÃO PÓS-MEIA</b>. Seg 12 descanso total. Ter 13 EASY40 em Sintra: 7,69km em 40:12 (5:14/km), FC média 140/máx 159, saiu progressivo (últimos ~2,6km em Z3, Garmin TEMPO, carga 131) apesar de percebido 3/10. Qua 14 EASY STR em Sintra: 8,93km em 51:01, FC 127-136 (máx 145 no corpo do treino), teto de 147 cumprido, 6 strides progressivos até ~3:01/km, eficiência igual à de terça (~0,0225 vs 0,0228 m/s/bpm). Fadiga real baixa e só autónoma: HRV 44 (2.ª noite abaixo de 45 em 3) e RHR 50 (a subir 48→49→50) = resíduo da meia, sem sinal muscular; ACWR 0,9, TSB +54. Qui 15 EASY STR sem strides (adormeceu): 8,59km em 45:00, progressivo 5:25 → 4:58/km com FC 132 → 153, ~2km acima do teto de 147 (2 dos 3 fáceis desde a meia acabaram em Z3), HRV 48 e RHR 49 já dentro do critério de domingo, Sex 16 EASY40 que virou 10,01km a 4:55/km (49:16), FC 148→161 e máx 168, ~5km acima do teto de 147, 2 dias antes da prova (recovery_time 26,4h, carga aguda 834→1035; HRV 49, RHR 48 de manhã), Sáb 17 REC35-DRILL feito (6,56km em 35:04, FC média 142 vs ≤135 combinado, sem prejuízo: RHR 44 e HRV 52 na manhã da prova), Dom 18 SFRAA City Run: 40:06 no Garmin (10,10km, 3:58/km, FC média 169/máx 179), sub-40 falhado por ~6 s, com a menor diferença entre metades vs Brandoa e Tejo (19:44 + 3:59/km); 31.º geral e 6.º M35 (tempo oficial inflado pelo registo do código de barras; referência Garmin); distância real por confirmar. Custo: readiness 13, recovery_time 74h, carga aguda 841→1300, ACWR 1,1. Ter 20 por decidir na terça de manhã pela regra combinada (manter 3×2 km só com Torneio ≤RPE 8 ou ≤5 km, HRV ≥47, FC repouso ≤ +2, dor ≤2/10 e sono ≥6h30; um âmbar = 2×2 km; dois âmbares = EASY40 + strides), Qui 22 SHARP-4x1, Dom 25 Volkswagen Run. A S41 fechou em 77,6km (pacer 21 + meia 21,25).</div><div class="note">Semana 40 fechou em <b>60,95km</b> de 66km alvo (92%). Semana 41 fechou em <b>77,6km</b> (100,8% do alvo de 77km) com o pacer de 21km no sábado e a meia de 21,25km (GPS) no domingo: a semana mais pesada desde a S35 em volume total, apesar de ser taper de intensidade. A meia e o pacer contam como estímulo forte; a S42 entra em recuperação (alvo ~45-50km, 53,74km feitos até dom 18, incluindo aquecimento da prova).</div></div>
+<div class="content">
+<div class="pane active" id="pane-estado"></div>
+<div class="pane" id="pane-semana"></div>
+<div class="pane" id="pane-provas"></div>
+<div class="footer" id="footerLine"></div>
+</div>
+
+</div>
+
 <script>
 const D = {
 meta: { updatedAt: "18 Out 2026 · SFRAA City Run feita: 40:06 no Garmin (10,10 km, 3:58/km, FC média 169/máx 179), sub-40 falhado por ~6 s; 31.º geral e 6.º M35; tempo de referência = Garmin (o oficial ficou inflado pelo registo do código de barras); distância real por confirmar · Sáb 17 REC35-DRILL feito (6,56 km, FC média 142) · próximo: Seg 19 EASY45, decisão Ter 20 (EASY40 vs 2x2 km)", source: "Claude + Garmin MCP cloud" },
@@ -324,7 +270,6 @@ hrZones: [
 {z:"Z5",label:"10km / VO₂", bpm:"≥165", w:100,col:"var(--z5)"},
 ],
 };
-
 const dotColor = s => ({done:"var(--teal)",today:"var(--orange)",planned:"var(--dim)",race:"var(--gold)"}[s]||"var(--dim)");
 const el = (tag, cls, html) => { const e=document.createElement(tag); if(cls) e.className=cls; if(html!==undefined) e.innerHTML=html; return e; };
 const daysUntil = iso => Math.ceil((new Date(iso+"T00:00:00") - new Date(new Date().toDateString())) / 86400000);
@@ -371,237 +316,218 @@ return `<svg viewBox="0 0 ${W} ${H}" width="100%">
 ${dots}${labels}
 </svg>`;
 }
-
-
-/* ===== v2: dados curtos e plano da próxima semana (a manter em sincronia com o resto de D) ===== */
-Object.assign(D, {
-  stamp: "18 Out · 14h",
-  recoveryH: 74,
-  short: {
-    hrv: "baseline 47–59",
-    rhr: "habitual 45–46",
-    ready: "só contexto",
-    rhrNote: "44 bpm hoje (18 Out), abaixo do habitual 45–46 (48 a 16 Out, 49 a 15 Out, 50 a 14 Out)",
-    bbNote: "nível MODERATE · sono +63 · aquecimento −2, prova −17 (Garmin: OVERREACHING_VO2MAX) · carregou 59 · drenou 29",
-    acwrNote: "ÓTIMO (carga aguda 1300 / crónica 1135) · 47% da faixa ótima",
-    loadNote: "carga aguda 841 → 1300 com a prova"
-  },
-  alerts: [
-    "Fáceis a fechar acima do teto de 147 (padrão desde 29 Set). Segunda é EASY45 com 74 h de recuperação por cumprir: sem fecho, FC ≤147."
-  ]
-});
-D.sessions.forEach(x => { x.iso = "2026-10-" + String(parseInt(x.day.split(" ")[1], 10)).padStart(2, "0"); x.week = 42; x.km = String(x.km); });
-const W43 = [
-  {day:"Seg 19", iso:"2026-10-19", code:"EASY45", km:"10", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 (teto 147)", nota:"Fácil de verdade, sem fecho."},
-  {day:"Ter 20", iso:"2026-10-20", code:"3×2 km ou EASY40", km:"~10", status:"planned", icon:"🏃", mode:"QUALIDADE", ritmo:"3:58–4:02/km (3×2 km)", fc:"parar se >172",
-    nota:"Ensaio do ritmo de prova, não é teste máximo. Alerta de ritmo: piso 3:57, teto 4:03.",
-    rule:{title:"Decisão na terça de manhã", rows:[
-      ["Manter 3×2 km","Torneio ≤RPE 8 ou ≤5 km · HRV ≥47 · FC repouso ≤ +2 · dor ≤2/10 · sono ≥6h30"],
-      ["Reduzir a 2×2 km","um âmbar"],
-      ["EASY40 + 6 strides","HRV <45 · FC repouso ≥ +5 · dor ≥5/10 · ou dois âmbares"]],
-      note:"Torneio com RPE ≥9 não conta como medida de forma."}},
-  {day:"Qua 21", iso:"2026-10-21", code:"EASY+STR", km:"9", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147", nota:"Fácil com strides."},
-  {day:"Qui 22", iso:"2026-10-22", code:"SHARP-4x1", km:"7", status:"planned", icon:"🏃", mode:"QUALIDADE", ritmo:"3:56–4:00/km nas 4×1'", fc:"referência secundária", nota:"Ativação, 3 dias antes da VW. Passa a fácil se a terça for convertida em fácil."},
-  {day:"Sex 23", iso:"2026-10-23", code:"EASY40", km:"7", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147", nota:"Fácil."},
-  {day:"Sáb 24", iso:"2026-10-24", code:"SHAKEOUT", km:"4", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"muito leve", fc:"115–140", nota:"Só ativação, sem taper de semana."},
-  {day:"Dom 25", iso:"2026-10-25", code:"Volkswagen Run", km:"10", status:"race", icon:"🏁", mode:"PROVA", ritmo:"4:00–4:03 até ao km 3, nunca <3:57", fc:"FC ≤166 ao km 3", nota:"Prova-chave dos 10 km, calibração da forma. Pavilhões: sem ritmo GPS lá dentro."}
-];
-W43.forEach(x => x.week = 43);
-const PLAN = D.sessions.concat(W43);
-
-/* ===== utilitários ===== */
-const WDN = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
-const isoOf = dt => dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0") + "-" + String(dt.getDate()).padStart(2, "0");
-const todayISO = () => isoOf(new Date());
-const modeColor = m => ({"FÁCIL":"var(--teal)","QUALIDADE":"var(--orange)","PROVA":"var(--gold)","DESCANSO":"var(--sub)"}[m] || "var(--sub)");
-const modeOf = x => x.mode || (/DESCANSO/i.test(x.code) ? "DESCANSO" : /EASY|REC|SHAKEOUT/i.test(x.code) ? "FÁCIL" : /SFRAA|Volkswagen|PROVA/i.test(x.code) ? "PROVA" : "QUALIDADE");
-const modeTag = m => `<span class="mode" style="color:${modeColor(m)};background:${modeColor(m)}22">${m}</span>`;
-const statusColor = st => ({done:"var(--teal)", today:"var(--orange)", planned:"var(--dim)", race:"var(--gold)"}[st] || "var(--dim)");
-const cut = (t, n) => t && t.length > n ? t.slice(0, n).replace(/\s+\S*$/, "") + "…" : (t || "");
-
-function verdict() {
-  const hrv = D.hrv, rhr = D.rhr;
-  let lvl = "ok", why = [];
-  if (hrv < 45 || rhr >= 52) { lvl = "rd"; }
-  else if (hrv < 47 || rhr >= 49) { lvl = "am"; }
-  const txt = {ok:"CUMPRIR", am:"MICROAJUSTAR", rd:"BAIXAR"}[lvl];
-  const col = {ok:"var(--z1)", am:"var(--z3)", rd:"var(--z5)"}[lvl];
-  why.push(`HRV ${hrv} ms ${hrv >= 47 ? "≥47" : hrv >= 45 ? "entre 45 e 47" : "<45"}`);
-  why.push(`FC repouso ${rhr} bpm ${rhr <= 48 ? "≤48" : rhr < 52 ? "entre 49 e 51" : "≥52"}`);
-  const cav = D.recoveryH >= 48 ? `Garmin pede ${D.recoveryH} h de recuperação (readiness ${D.readiness}): cumprir = fácil de verdade, sem acelerar.` : "";
-  return {lvl, txt, col, cav, reason: why.join(" · ") + ". Critério: HRV e FC de repouso; a readiness e a recuperação Garmin são só contexto."};
+function renderEstado(){
+const p = document.getElementById("pane-estado");
+p.innerHTML = `
+<div class="st"><div class="bar" style="background:var(--orange)"></div><span class="label">Estado de Forma · VDOT</span></div>
+<div class="gauge-wrap">
+${renderVDOTGauge(D.vdot, D.vdotEst)}
+<div class="gauge-legend">
+<div><div class="gv" style="color:var(--sub)">51.3</div><div class="gl">DEZ'25</div></div>
+<div><div class="gv" style="color:var(--orange)">${D.vdot}</div><div class="gl">OFICIAL</div></div>
+<div><div class="gv" style="color:#FF542299">${D.vdotEst}</div><div class="gl">ESTIMADO</div></div>
+<div><div class="gv" style="color:var(--purple)">57</div><div class="gl">PB 2016</div></div>
+<div><div class="gv" style="color:var(--teal)">60+</div><div class="gl">TARGET</div></div>
+</div>
+</div>
+<div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Estado Fisiológico · ${D.meta.updatedAt}</span></div>
+<div class="metrics-row">
+<div class="metric"><div class="mlabel">HRV</div><div><span class="mval" style="color:var(--z3)">${D.hrv}</span><span class="munit">ms</span></div><div class="msub">${D.hrvTrend}</div></div>
+<div class="metric"><div class="mlabel">FC Repouso</div><div><span class="mval" style="color:var(--z3)">${D.rhr}</span><span class="munit">bpm</span></div><div class="msub">44 bpm hoje (18 Out), abaixo do habitual 45-46 (48 a 16 Out, 49 a 15 Out, 50 a 14 Out)</div></div>
+</div>
+<div class="metrics-row">
+<div class="metric"><div class="mlabel">Body Battery</div><div><span class="mval" style="color:var(--z4)">${D.bodyBattery}</span></div><div class="msub">nível MODERATE · sono +63 · aquecimento -2, prova -17 (Garmin: OVERREACHING_VO2MAX) · carregou 59 · drenou 29</div></div>
+<div class="metric"><div class="mlabel">Train. Readiness</div><div><span class="mval" style="color:var(--z3)">${D.readiness}</span><span class="munit">/100</span></div><div class="msub">${D.readinessSub}</div></div>
+</div>
+<div class="metrics-row" style="margin-bottom:18px">
+<div class="metric"><div class="mlabel">VO₂Max Garmin</div><div><span class="mval" style="color:var(--orange)">${D.vo2max}</span></div><div class="msub">plano ~2 meses</div></div>
+<div class="metric"><div class="mlabel">ACWR</div><div><span class="mval" style="color:var(--z3)">${D.acwr}</span></div><div class="msub">ÓTIMO (carga aguda 1300 / crónica 1135) · 47% da faixa ótima</div></div>
+</div>
+<div class="metrics-row" style="margin-bottom:18px">
+<div class="metric"><div class="mlabel">Peso</div><div><span class="mval" style="color:var(--text)">${D.weight}</span><span class="munit">kg</span></div><div class="msub">último registo manual</div></div>
+</div>
+<div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Evolução VDOT · Provas calibradas</span></div>
+<div class="card">
+${renderRaceTrendChart(D.raceTrend, D.vdot)}
+<div class="note">Só pontos com <b>calibração oficial de prova de referência</b> (10km ou equivalente direto). GP JOMA / Marginal à Noite sustentam o <b>estimado ${D.vdotEst}</b> mas não entram na linha por serem distância não-padrão.</div>
+</div>
+<div class="st"><div class="bar" style="background:var(--z3)"></div><span class="label">Zonas FC · LTHR ${D.lthr} bpm</span></div>
+<div class="card">
+${D.hrZones.map(z=>`
+<div class="zonebar-row">
+<div class="zonebar-z" style="color:${z.col}">${z.z}</div>
+<div style="flex:1">
+<div style="display:flex;justify-content:space-between;margin-bottom:3px">
+<span style="font-size:10px">${z.label}</span>
+<span style="color:var(--sub);font-size:9px;font-family:monospace">${z.bpm}</span>
+</div>
+<div class="zonebar-track"><div class="zonebar-fill" style="width:${z.w}%;background:${z.col}"></div></div>
+</div>
+</div>
+`).join("")}
+<div class="card2" style="margin-top:8px">
+<div style="display:flex;justify-content:space-between">
+<span style="color:var(--sub);font-size:9px">LIMIAR LACTATO</span>
+<span style="color:var(--orange);font-size:12px;font-weight:700;font-family:monospace">${D.ltPace}/km @ ${D.lthr} bpm</span>
+</div>
+</div>
+</div>
+<div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Calibrações Recentes</span></div>
+<div class="card" style="padding:0">
+${D.calibs.map(c=>`
+<div class="calib-row">
+<div class="calib-top"><span class="calib-session">${c.session}</span><span class="calib-date">${c.date}</span></div>
+<div class="calib-cols">
+<div><div class="calib-col-label">RITMO</div><div class="calib-col-val">${c.pace}</div></div>
+<div><div class="calib-col-label">FC</div><div class="calib-col-val">${c.fc}</div></div>
+<div style="flex:1"><div class="calib-col-label">LEITURA</div><div class="calib-read">${c.read}</div></div>
+</div>
+</div>
+`).join("")}
+</div>
+`;
 }
-const tone = (v, good, warn, higherBetter) => higherBetter ? (v >= good ? "var(--z1)" : v >= warn ? "var(--z3)" : "var(--z5)") : (v <= good ? "var(--z1)" : v <= warn ? "var(--z3)" : "var(--z5)");
-
-function weekOf(iso) {
-  const d = new Date(iso + "T00:00:00"); const dow = (d.getDay() + 6) % 7;
-  const mon = new Date(d); mon.setDate(d.getDate() - dow);
-  return Array.from({length: 7}, (_, i) => { const x = new Date(mon); x.setDate(mon.getDate() + i); return isoOf(x); });
+function toggleSessionDetail(i){
+const d = document.getElementById("sdetail-"+i);
+const c = document.getElementById("chev-"+i);
+const isOpen = d.style.display === "block";
+d.style.display = isOpen ? "none" : "block";
+c.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
 }
-function sessionDetailHTML(x) {
-  const det = x.detail || {};
-  const ritmo = x.ritmo || det.ritmo, fc = x.fc || det.fc, est = det.estrutura || x.nota, real = det.real;
-  return `<div class="kv"><span>Ritmo</span><span style="font-family:monospace;color:var(--orange)">${ritmo || "—"}</span></div>
-<div class="kv"><span>FC</span><span style="font-family:monospace">${fc || "—"}</span></div>
-${est ? `<div style="margin-top:5px"><span style="color:var(--sub)">Estrutura</span><div>${est}</div></div>` : ""}
-${real ? `<div style="margin-top:7px;padding-top:7px;border-top:1px solid var(--border);color:var(--teal)">${real}</div>` : ""}`;
+function renderSemana(){
+const p = document.getElementById("pane-semana");
+const maxLoad = Math.max(...D.weeklyLoad.map(w=>w.km), D.weekTarget);
+p.innerHTML = `
+<div class="st"><div class="bar" style="background:var(--orange)"></div><span class="label">${D.weekLabel}</span></div>
+<div class="card">
+<div style="display:flex;justify-content:space-between;margin-bottom:6px">
+<span style="color:var(--sub);font-size:10px">Volume semanal</span>
+<span style="font-size:13px;font-weight:700;font-family:monospace">${D.weekDone}<span style="color:var(--sub);font-size:10px">/${D.weekTarget} km</span></span>
+</div>
+<div style="background:var(--border);border-radius:6px;height:10px;overflow:hidden;margin-bottom:6px">
+<div style="background:linear-gradient(90deg,var(--teal),var(--orange));width:${Math.min(100,(D.weekDone/D.weekTarget)*100)}%;height:100%"></div>
+</div>
+<div style="display:flex;justify-content:space-between">
+<span style="color:var(--orange);font-size:9px">● SEMANA EM CURSO: ${D.weekDone}km</span>
+<span style="color:var(--sub);font-size:9px">${(D.weekDone/D.weekTarget*100).toFixed(1)}% do alvo</span>
+</div>
+</div>
+<div class="card" style="padding:0">
+${D.sessions.map((s,i)=>`
+<div class="session-row ${s.status==='planned'?'planned':''} ${s.status==='today'?'today':''}" onclick="toggleSessionDetail(${i})" style="cursor:pointer">
+<div class="sday">${s.day}</div>
+<div class="sdot" style="background:${dotColor(s.status)}${s.status==='today'?';box-shadow:0 0 8px var(--orange)':''}"></div>
+<div style="flex:1"><span class="scode" style="color:${s.status==='today'?'var(--orange)':s.status==='race'?'var(--gold)':'var(--text)'};font-weight:${['today','race'].includes(s.status)?700:400}">${s.icon} ${s.code}</span></div>
+<span class="skm">${s.km}km</span>
+${s.status==='done'?'<span style="color:var(--teal);font-size:12px;margin-right:4px">✓</span>':''}
+${s.status==='today'?'<span class="stag" style="color:var(--orange);background:#FF542222;margin-right:4px">HOJE</span>':''}
+<span id="chev-${i}" style="color:var(--sub);font-size:10px;transition:transform .15s;display:inline-block">▾</span>
+</div>
+<div id="sdetail-${i}" style="display:none;background:var(--card2);padding:10px 14px 12px 52px;font-size:11px;line-height:1.7;border-bottom:1px solid var(--border)">
+<div style="display:flex;justify-content:space-between"><span style="color:var(--sub)">Ritmo</span><span style="font-family:monospace;color:var(--orange)">${s.detail.ritmo}</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:var(--sub)">FC alvo</span><span style="font-family:monospace">${s.detail.fc}</span></div>
+<div style="margin-top:4px"><span style="color:var(--sub)">Estrutura</span><div style="margin-top:2px">${s.detail.estrutura}</div></div>
+${s.detail.real?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--teal)">${s.detail.real}</div>`:''}
+</div>
+`).join("")}
+<div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 42 — RECUPERAÇÃO PÓS-MEIA</b>. Seg 12 descanso total. Ter 13 EASY40 em Sintra: 7,69km em 40:12 (5:14/km), FC média 140/máx 159, saiu progressivo (últimos ~2,6km em Z3, Garmin TEMPO, carga 131) apesar de percebido 3/10. Qua 14 EASY STR em Sintra: 8,93km em 51:01, FC 127-136 (máx 145 no corpo do treino), teto de 147 cumprido, 6 strides progressivos até ~3:01/km, eficiência igual à de terça (~0,0225 vs 0,0228 m/s/bpm). Fadiga real baixa e só autónoma: HRV 44 (2.ª noite abaixo de 45 em 3) e RHR 50 (a subir 48→49→50) = resíduo da meia, sem sinal muscular; ACWR 0,9, TSB +54. Qui 15 EASY STR sem strides (adormeceu): 8,59km em 45:00, progressivo 5:25 → 4:58/km com FC 132 → 153, ~2km acima do teto de 147 (2 dos 3 fáceis desde a meia acabaram em Z3), HRV 48 e RHR 49 já dentro do critério de domingo, Sex 16 EASY40 que virou 10,01km a 4:55/km (49:16), FC 148→161 e máx 168, ~5km acima do teto de 147, 2 dias antes da prova (recovery_time 26,4h, carga aguda 834→1035; HRV 49, RHR 48 de manhã), Sáb 17 REC35-DRILL feito (6,56km em 35:04, FC média 142 vs ≤135 combinado, sem prejuízo: RHR 44 e HRV 52 na manhã da prova), Dom 18 SFRAA City Run: 40:06 no Garmin (10,10km, 3:58/km, FC média 169/máx 179), sub-40 falhado por ~6 s, com a menor diferença entre metades vs Brandoa e Tejo (19:44 + 3:59/km); 31.º geral e 6.º M35 (tempo oficial inflado pelo registo do código de barras; referência Garmin); distância real por confirmar. Custo: readiness 13, recovery_time 74h, carga aguda 841→1300, ACWR 1,1. Ter 20 por decidir na terça de manhã pela regra combinada (manter 3×2 km só com Torneio ≤RPE 8 ou ≤5 km, HRV ≥47, FC repouso ≤ +2, dor ≤2/10 e sono ≥6h30; um âmbar = 2×2 km; dois âmbares = EASY40 + strides), Qui 22 SHARP-4x1, Dom 25 Volkswagen Run. A S41 fechou em 77,6km (pacer 21 + meia 21,25).</div>
+</div>
+<div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga Semanal · km</span></div>
+<div class="card">
+<div style="display:flex;align-items:flex-end;gap:8px;height:110px">
+${D.weeklyLoad.map(w=>`
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+<div style="font-size:9px;color:var(--sub);margin-bottom:3px;font-family:monospace">${w.km}</div>
+<div style="width:100%;background:${w.cur?'var(--orange)':'var(--dim)'};border-radius:4px 4px 0 0;height:${(w.km/maxLoad*90)}px"></div>
+<div style="font-size:9px;color:var(--sub);margin-top:4px">${w.w}</div>
+</div>
+`).join("")}
+</div>
+<div class="note">Semana 40 fechou em <b>60,95km</b> de 66km alvo (92%). Semana 41 fechou em <b>77,6km</b> (100,8% do alvo de 77km) com o pacer de 21km no sábado e a meia de 21,25km (GPS) no domingo: a semana mais pesada desde a S35 em volume total, apesar de ser taper de intensidade. A meia e o pacer contam como estímulo forte; a S42 entra em recuperação (alvo ~45-50km, 53,74km feitos até dom 18, incluindo aquecimento da prova).</div>
+</div>
+<div class="st"><div class="bar" style="background:var(--purple)"></div><span class="label">Training Status · Garmin</span></div>
+<div class="card">
+<div style="display:flex;justify-content:space-between;margin-bottom:12px">
+<div>
+<div style="color:var(--z1);font-size:14px;font-weight:800">${D.trainingStatus}</div>
+<div style="color:var(--sub);font-size:9px">Garmin Training Status · leitura 18 Out (Garmin MCP)</div>
+</div>
+<div style="text-align:right">
+<div style="color:var(--teal);font-size:18px;font-weight:800;font-family:monospace">${D.acwr}</div>
+<div style="color:var(--sub);font-size:9px">ACWR · ótimo (1,1) · aguda 1300 / crónica 1135</div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<div class="card2"><div style="color:var(--sub);font-size:8px;letter-spacing:1px;text-transform:uppercase">Limiar Ritmo</div><div style="color:var(--orange);font-size:13px;font-weight:700;font-family:monospace">${D.ltPace}/km</div></div>
+<div class="card2"><div style="color:var(--sub);font-size:8px;letter-spacing:1px;text-transform:uppercase">LTHR</div><div style="color:var(--orange);font-size:13px;font-weight:700;font-family:monospace">${D.lthr} bpm</div></div>
+<div class="card2"><div style="color:var(--sub);font-size:8px;letter-spacing:1px;text-transform:uppercase">VO₂Max Garmin</div><div style="color:var(--purple);font-size:13px;font-weight:700;font-family:monospace">${D.vo2max}</div></div>
+<div class="card2"><div style="color:var(--sub);font-size:8px;letter-spacing:1px;text-transform:uppercase">Peso</div><div style="color:var(--sub);font-size:13px;font-weight:700;font-family:monospace">${D.weight} kg</div></div>
+</div>
+</div>
+`;
 }
-function ruleHTML(r) {
-  return `<div class="rule"><b>${r.title}</b>
-${r.rows.map(a => `<div style="margin-top:5px"><span style="font-weight:700">${a[0]}</span><br><span style="color:var(--sub)">${a[1]}</span></div>`).join("")}
-${r.note ? `<div style="margin-top:6px;color:var(--gold)">${r.note}</div>` : ""}</div>`;
-}
-
-/* ===== HOJE ===== */
-function renderHoje() {
-  const p = document.getElementById("pane-hoje");
-  const v = verdict();
-  const t = todayISO();
-  const idx = PLAN.findIndex(x => x.iso === t);
-  const cur = idx >= 0 ? PLAN[idx] : null;
-  const next = PLAN.find(x => x.iso > t && x.status !== "done");
-  const nextRace = D.races.filter(r => daysUntil(r.dateISO) >= 0 && ["PROVA A", "Prova"].includes(r.prio))[0] || D.races.find(r => daysUntil(r.dateISO) >= 0);
-
-  const tile = (l, val, unit, sub, c) => `<div class="tile"><div class="tl">${l}</div><div class="tv" style="color:${c}">${val}</div><div class="ts">${unit ? unit + " · " : ""}${sub}</div></div>`;
-  let html = `
-<div class="verdict" style="border-color:${v.col}55"><div class="vk">Prontidão para a próxima sessão</div>
-<div class="vv" style="color:${v.col}">${v.txt}</div><div class="vr">${v.reason}</div>${v.cav ? `<div class="vr" style="color:var(--gold);margin-top:6px">⚠ ${v.cav}</div>` : ""}</div>
-<div class="tiles">
-${tile("HRV", D.hrv, "ms", D.short.hrv, tone(D.hrv, 47, 45, true))}
-${tile("FC repouso", D.rhr, "bpm", D.short.rhr, tone(D.rhr, 48, 51, false))}
-${tile("Readiness", D.readiness, "/100", D.short.ready, tone(D.readiness, 55, 30, true))}
+function renderProvas(){
+const p = document.getElementById("pane-provas");
+const tejo = D.races.find(r=>r.prio==="PROVA A");
+p.innerHTML = `
+<div class="st"><div class="bar" style="background:var(--gold)"></div><span class="label">Calendário de Provas & Compromissos</span></div>
+<div class="card" style="padding:0">
+${D.races.map(r=>`
+<div class="race-row" style="border-left:3px solid ${r.col}">
+<div class="race-top">
+<div>
+<div class="race-prio">${r.prio}</div>
+<div class="race-name" style="color:${r.prio==='PROVA A'?'var(--orange)':'var(--text)'};font-weight:${r.prio==='PROVA A'?800:600}">${r.name}</div>
+<div class="race-dist">${r.dist}</div>
+</div>
+<div>
+<div class="race-date" style="color:${r.col}">${r.date}</div>
+<div class="race-days">em ${daysUntil(r.dateISO)} dias</div>
+</div>
+</div>
+</div>
+`).join("")}
+</div>
+<div class="st"><div class="bar" style="background:var(--orange)"></div><span class="label">★ Volkswagen Run · 25 Out 2026</span></div>
+<div class="card" style="border:2px solid #FF542244;padding:16px 14px">
+<div style="text-align:center;margin-bottom:16px">
+<div style="color:var(--sub);font-size:9px;letter-spacing:3px">DIAS RESTANTES</div>
+<div style="color:var(--orange);font-size:60px;font-weight:900;font-family:'Courier New',monospace;line-height:1.1">${tejo?daysUntil(tejo.dateISO):'--'}</div>
+<div style="color:var(--sub);font-size:11px">10km · confirmação de VDOT</div>
+</div>
+${D.phases.map((ph,i)=>{
+const pc = ph.status==='active'?'var(--orange)':ph.status==='next'?'var(--z3)':ph.status==='race'?'var(--gold)':'var(--dim)';
+return `<div class="phase-item">
+<div class="phase-dot-col">
+<div class="phase-dot" style="background:${pc}${ph.status==='active'?';box-shadow:0 0 10px var(--orange)':''}"></div>
+${i<D.phases.length-1?'<div class="phase-line"></div>':''}
+</div>
+<div style="padding-bottom:6px">
+<div class="phase-label" style="color:${pc};font-weight:${['active','race'].includes(ph.status)?800:500}">${ph.label}</div>
+<div class="phase-sub">${ph.weeks} · ${ph.km}</div>
+</div>
 </div>`;
-  if (D.alerts && D.alerts.length) html += `<div class="alert">⚠ ${D.alerts[0]}</div>`;
-
-  if (cur) {
-    const done = cur.status === "done", race = cur.status === "race";
-    const m = modeOf(cur);
-    html += `<div class="today"><div class="k">${done ? "Hoje · feito ✓" : race ? "Hoje · prova" : "Hoje"}</div>
-<div class="code">${cur.icon} ${cur.code}${modeTag(m)}</div>
-<div class="meta">${cur.day} · ${cur.km} km${cur.nota ? " · " + cur.nota : ""}</div>`;
-    if (done && cur.detail && cur.detail.real) html += `<div class="small" style="margin-top:8px;color:var(--teal)">${cut(cur.detail.real, 230)}</div>`;
-    if (!done) html += `<div class="chips"><div class="chip"><small>Ritmo</small>${cur.ritmo || (cur.detail && cur.detail.ritmo) || "—"}</div><div class="chip"><small>FC</small>${cur.fc || (cur.detail && cur.detail.fc) || "—"}</div></div>`;
-    if (cur.rule && !done) html += ruleHTML(cur.rule);
-    html += `</div>`;
-  }
-  if (next && (!cur || cur.status === "done")) {
-    html += `<div class="today" style="border-color:var(--border);background:var(--card)"><div class="k" style="color:var(--sub)">Próxima sessão</div>
-<div class="code">${next.icon} ${next.code}${modeTag(modeOf(next))}</div>
-<div class="meta">${next.day} · ${next.km} km${next.nota ? " · " + next.nota : ""}</div>
-<div class="chips"><div class="chip"><small>Ritmo</small>${next.ritmo || "—"}</div><div class="chip"><small>FC</small>${next.fc || "—"}</div></div>
-${next.rule ? ruleHTML(next.rule) : ""}</div>`;
-  }
-  if (!cur && !next) html += `<div class="alert">Sem sessões planeadas a partir de hoje: atualizar o plano.</div>`;
-
-  /* semana em 7 pontos */
-  const wk = weekOf(t);
-  html += `<div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Esta semana</span></div><div class="weekstrip">${wk.map(d => {
-    const x = PLAN.find(y => y.iso === d);
-    const c = x ? (d === t && x.status !== "done" ? "var(--orange)" : statusColor(x.status)) : "transparent";
-    return `<div class="wd ${d === t ? "now" : ""}"><div class="d">${WDN[new Date(d + "T00:00:00").getDay()]}</div><div class="dot" style="background:${c};${x ? "" : "border:1px dashed var(--dim)"}"></div><div class="k">${x ? x.km.replace("~", "") : "—"}</div></div>`;
-  }).join("")}</div>
-<div class="small" style="margin-bottom:12px">${D.weekDone} km feitos nesta semana (alvo ${D.weekTarget}) · verde = feito · dourado = prova · cinzento = planeado</div>`;
-
-  if (nextRace) {
-    const dd = daysUntil(nextRace.dateISO);
-    html += `<div class="card" style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px"><div><div class="race-prio">Próxima prova</div><div style="font-size:13px;font-weight:700">${nextRace.name}</div><div class="small">${nextRace.date}</div></div><div style="text-align:right"><div style="color:var(--orange);font-size:34px;font-weight:900;font-family:'Courier New',monospace;line-height:1">${dd}</div><div class="small">dias</div></div></div>`;
-  }
-  p.innerHTML = html;
+}).join("")}
+</div>
+`;
 }
-
-/* ===== SEMANA ===== */
-function renderSemana() {
-  const p = document.getElementById("pane-semana");
-  const t = todayISO();
-  const wkNow = weekOf(t), wkNext = weekOf((() => { const d = new Date(wkNow[0] + "T00:00:00"); d.setDate(d.getDate() + 7); return isoOf(d); })());
-  const block = (title, days) => {
-    const items = PLAN.filter(x => days.includes(x.iso));
-    if (!items.length) return "";
-    const tot = items.reduce((a, x) => a + (parseFloat(String(x.km).replace("~", "").replace(",", ".")) || 0), 0);
-    return `<div class="st"><div class="bar" style="background:var(--orange)"></div><span class="label">${title} · ≈${tot.toFixed(0)} km planeados</span></div>
-<div class="card" style="padding:0;overflow:hidden">${items.map(x => {
-      const m = modeOf(x), isT = x.iso === t;
-      return `<details class="sess"><summary><span class="sday" style="width:44px">${x.day}</span><span class="sdot" style="background:${isT && x.status !== "done" ? "var(--orange)" : statusColor(x.status)}"></span><span style="flex:1;font-size:12px;${isT ? "color:var(--orange);font-weight:700" : ""}">${x.icon} ${x.code}${modeTag(m)}</span><span class="skm">${x.km} km</span>${x.status === "done" ? '<span style="color:var(--teal);font-size:12px;margin-right:4px">✓</span>' : ""}</summary>
-<div class="body">${sessionDetailHTML(x)}${x.rule ? ruleHTML(x.rule) : ""}</div></details>`;
-    }).join("")}</div>`;
-  };
-  const wl = D.weeklyLoad.slice(-10);
-  const maxLoad = Math.max(...wl.map(w => w.km), D.weekTarget);
-  p.innerHTML = block("Esta semana", wkNow) + block("Próxima semana", wkNext) + `
-<div class="st"><div class="bar" style="background:var(--teal)"></div><span class="label">Carga semanal · km</span></div>
-<div class="card"><div style="display:flex;align-items:flex-end;gap:5px;height:110px">${wl.map(w => `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%"><div style="font-size:9px;color:var(--sub);margin-bottom:3px;font-family:monospace">${w.km}</div><div style="width:100%;background:${w.cur ? "var(--orange)" : "var(--dim)"};border-radius:4px 4px 0 0;height:${(w.km / maxLoad * 90)}px"></div><div style="font-size:9px;color:var(--sub);margin-top:4px">${w.w}</div></div>`).join("")}</div></div>
-<details><summary>Notas da semana e histórico de carga</summary><div class="body small">${document.getElementById("__notes").innerHTML}</div></details>`;
-}
-
-/* ===== ANÁLISE ===== */
-function renderAnalise() {
-  const p = document.getElementById("pane-analise");
-  const last = D.calibs[D.calibs.length - 1];
-  const older = D.calibs.slice(0, -1).reverse();
-  const readBlock = r => r.length > 260
-    ? `<div class="calib-read">${cut(r, 260)}</div><details style="margin:4px 0 0"><summary style="padding:6px 0;background:none;border:0;border-radius:0;font-size:10px;font-weight:400;color:var(--sub)">ver leitura completa</summary><div class="calib-read" style="margin-top:2px">${r}</div></details>`
-    : `<div class="calib-read">${r}</div>`;
-  const calibCard = c => `<div class="calib-row"><div class="calib-top"><span class="calib-session">${c.session}</span><span class="calib-date">${c.date}</span></div>
-<div class="calib-cols"><div><div class="calib-col-label">RITMO</div><div class="calib-col-val">${c.pace}</div></div><div><div class="calib-col-label">FC</div><div class="calib-col-val">${c.fc}</div></div></div>
-<div style="margin-top:8px"><div class="calib-col-label">LEITURA</div>${readBlock(c.read)}</div></div>`;
-  const metric = (l, v, u, col, sub) => `<div class="metric" style="margin-bottom:8px"><div class="mlabel">${l}</div><div><span class="mval" style="color:${col}">${v}</span><span class="munit">${u}</span></div><div class="msub">${sub}</div></div>`;
-  p.innerHTML = `
-<div class="st"><div class="bar" style="background:var(--orange)"></div><span class="label">Última sessão analisada</span></div>
-<div class="card lastsess" style="padding:0;overflow:hidden">${calibCard(last)}</div>
-<details><summary>Sessões anteriores (${older.length})</summary><div class="body" style="padding:0">${older.map(calibCard).join("")}</div></details>
-
-<div class="st" style="margin-top:14px"><div class="bar" style="background:var(--purple)"></div><span class="label">Forma · VDOT</span></div>
-<div class="gauge-wrap">${renderVDOTGauge(D.vdot, D.vdotEst)}
-<div class="gauge-legend"><div><div class="gv" style="color:var(--orange)">${D.vdot}</div><div class="gl">OFICIAL</div></div><div><div class="gv" style="color:#FF542299">${D.vdotEst}</div><div class="gl">ESTIMADO</div></div><div><div class="gv" style="color:var(--purple)">57</div><div class="gl">PB 2016</div></div><div><div class="gv" style="color:var(--teal)">60+</div><div class="gl">TARGET</div></div></div></div>
-<div class="card">${renderRaceTrendChart(D.raceTrend, D.vdot)}
-<div class="note">Só pontos com <b>calibração oficial de prova de referência</b> (10 km ou equivalente direto). GP JOMA / Marginal à Noite sustentam o <b>estimado ${D.vdotEst}</b> mas não entram na linha.</div></div>
-
-<details><summary>Limiar e zonas de FC · LTHR ${D.lthr}</summary><div class="body">
-${D.hrZones.map(z => `<div class="zonebar-row"><div class="zonebar-z" style="color:${z.col}">${z.z}</div><div style="flex:1"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:10px">${z.label}</span><span style="color:var(--sub);font-size:9px;font-family:monospace">${z.bpm}</span></div><div class="zonebar-track"><div class="zonebar-fill" style="width:${z.w}%;background:${z.col}"></div></div></div></div>`).join("")}
-<div class="card2" style="margin-top:8px"><div style="display:flex;justify-content:space-between"><span style="color:var(--sub);font-size:9px">LIMIAR LACTATO</span><span style="color:var(--orange);font-size:12px;font-weight:700;font-family:monospace">${D.ltPace}/km @ ${D.lthr} bpm</span></div></div></div></details>
-
-<details><summary>Estado fisiológico completo</summary><div class="body">
-${metric("HRV", D.hrv, "ms", tone(D.hrv, 47, 45, true), D.hrvTrend)}
-${metric("FC repouso", D.rhr, "bpm", tone(D.rhr, 48, 51, false), D.short.rhrNote)}
-${metric("Train. Readiness", D.readiness, "/100", tone(D.readiness, 55, 30, true), D.readinessSub)}
-${metric("Body Battery", D.bodyBattery, "", "var(--z4)", D.short.bbNote)}
-${metric("ACWR", D.acwr, "", "var(--z1)", D.short.acwrNote)}
-${metric("VO₂Max Garmin", D.vo2max, "", "var(--orange)", "plano ~2 meses")}
-${metric("Peso", D.weight, "kg", "var(--text)", "último registo manual")}
-<div class="small" style="margin-top:6px">Training Status Garmin: <b style="color:var(--z1)">${D.trainingStatus}</b> · leitura 18 Out</div>
-<div class="small" style="margin-top:4px">Último registo: ${D.meta.updatedAt}</div></div></details>`;
-}
-
-/* ===== PROVAS ===== */
-function renderProvas() {
-  const p = document.getElementById("pane-provas");
-  const next = D.races.filter(r => daysUntil(r.dateISO) >= 0 && r.prio === "PROVA A")[0];
-  p.innerHTML = `
-${next ? `<div class="card" style="border:2px solid #FF542244;text-align:center;padding:16px 14px"><div style="color:var(--sub);font-size:9px;letter-spacing:3px">DIAS ATÉ ${next.name.toUpperCase()}</div><div style="color:var(--orange);font-size:60px;font-weight:900;font-family:'Courier New',monospace;line-height:1.1">${daysUntil(next.dateISO)}</div><div style="color:var(--sub);font-size:11px">${next.dist}</div></div>` : ""}
-<div class="st"><div class="bar" style="background:var(--gold)"></div><span class="label">Calendário de provas e compromissos</span></div>
-<div class="card" style="padding:0">${D.races.slice().sort((a, b) => a.dateISO < b.dateISO ? 1 : -1).filter(r => daysUntil(r.dateISO) >= 0).reverse().map(r => `
-<div class="race-row" style="border-left:3px solid ${r.col}"><div class="race-top"><div><div class="race-prio">${r.prio}</div><div class="race-name" style="font-weight:${r.prio === "PROVA A" ? 800 : 600};color:${r.prio === "PROVA A" ? "var(--orange)" : "var(--text)"}">${r.name}</div><div class="race-dist">${r.dist}</div></div><div><div class="race-date" style="color:${r.col}">${r.date}</div><div class="race-days">${daysUntil(r.dateISO) === 0 ? "hoje" : "em " + daysUntil(r.dateISO) + " dias"}</div></div></div></div>`).join("")}</div>
-<details><summary>Provas já feitas (${D.races.filter(r => daysUntil(r.dateISO) < 0).length})</summary><div class="body" style="padding:0">${D.races.filter(r => daysUntil(r.dateISO) < 0).sort((a, b) => a.dateISO < b.dateISO ? 1 : -1).map(r => `
-<div class="race-row" style="border-left:3px solid ${r.col}"><div class="race-top"><div><div class="race-prio">${r.prio}</div><div class="race-name">${r.name}</div><div class="race-dist">${r.dist}</div></div><div class="race-date" style="color:${r.col}">${r.date}</div></div></div>`).join("")}</div></details>
-<details><summary>Fases até à próxima prova-chave</summary><div class="body">${D.phases.map((ph, i) => {
-    const pc = ph.status === "active" ? "var(--orange)" : ph.status === "next" ? "var(--z3)" : ph.status === "race" ? "var(--gold)" : "var(--dim)";
-    return `<div class="phase-item"><div class="phase-dot-col"><div class="phase-dot" style="background:${pc}"></div>${i < D.phases.length - 1 ? '<div class="phase-line"></div>' : ""}</div><div style="padding-bottom:6px"><div class="phase-label" style="color:${pc};font-weight:${["active", "race"].includes(ph.status) ? 800 : 500}">${ph.label}</div><div class="phase-sub">${ph.weeks} · ${ph.km}</div></div></div>`;
-  }).join("")}</div></details>`;
-}
-
-/* ===== arranque ===== */
 document.getElementById("statusBadge").textContent = D.trainingStatus;
-document.getElementById("stamp").textContent = "Atualizado " + D.stamp;
-document.getElementById("forceRefreshBtn").addEventListener("click", () => { window.location.href = window.location.pathname + "?t=" + Date.now(); });
-document.querySelectorAll(".nav button").forEach(btn => btn.addEventListener("click", () => {
-  document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
-  document.querySelectorAll(".pane").forEach(pn => pn.classList.remove("active"));
-  btn.classList.add("active");
-  document.getElementById("pane-" + btn.dataset.tab).classList.add("active");
-  window.scrollTo(0, 0);
-}));
-renderHoje(); renderSemana(); renderAnalise(); renderProvas();
-
+document.getElementById("syncLine").textContent = "✓ sync automático (GitHub PAT) · " + D.meta.updatedAt;
+document.getElementById("footerLine").textContent = "Garmin · Strava · GetFast · " + D.meta.updatedAt;
+document.getElementById("forceRefreshBtn").addEventListener("click", ()=>{
+window.location.href = window.location.pathname + "?t=" + Date.now();
+});
+document.querySelectorAll(".tab").forEach(btn=>{
+btn.addEventListener("click", ()=>{
+document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+document.querySelectorAll(".pane").forEach(pn=>pn.classList.remove("active"));
+btn.classList.add("active");
+document.getElementById("pane-"+btn.dataset.tab).classList.add("active");
+});
+});
+renderEstado();
+renderSemana();
+renderProvas();
 </script>
 </body>
 </html>
