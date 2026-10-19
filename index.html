@@ -176,7 +176,7 @@ const D = {
 meta: { updatedAt: "19 Out 2026 · Segunda: descanso (HRV 45, FC repouso 51, readiness 25). Terça 20: 3×2 km, 2×2 km ou EASY40, decide-se de manhã. Última prova: SFRAA 40:06 (Garmin)", source: "Claude + Garmin MCP cloud" },
 hrv: 45, hrvTrend: "45ms na noite de 19 Out (média semanal Garmin 48ms, BALANCED); 44 a 17 Out, 52 a 18 Out. Na linha do alerta (<45), sem a cruzar. Sono score 68.",
 rhr: 51, bodyBattery: "HIGH", weight: 79.0,
-lthr: "163–165", ltPace: "4:05",
+lthr: "163–165", ltPace: "4:05", rhrMed28: 49, hrvPrev: null,
 vdot: 54, vdotEst: "55–56",
 trainingStatus: "MANTER (Nível 4)",
 acwr: 0.9,
@@ -425,16 +425,32 @@ const statusColor = st => ({done:"var(--teal)", today:"var(--orange)", planned:"
 const cut = (t, n) => t && t.length > n ? t.slice(0, n).replace(/\s+\S*$/, "") + "…" : (t || "");
 
 function verdict() {
-  const hrv = D.hrv, rhr = D.rhr;
-  let lvl = "ok", why = [];
-  if (hrv < 45 || rhr >= 52) { lvl = "rd"; }
-  else if (hrv < 47 || rhr >= 49) { lvl = "am"; }
+  const hrv = D.hrv, rhr = D.rhr, acwr = D.acwr;
+  const NOVO = todayISO() >= "2026-10-26";   // gatilhos acordados a 19 Out, em vigor a partir de 26 Out
+  let lvl = "ok", why = [], criterio;
+  if (!NOVO) {
+    // Regra de 05/08 até 25 Out: referência FC repouso = média 7 dias (48,7). Âmbar 51–53, vermelho ≥54 (+5)
+    if (hrv < 45 || rhr >= 54) { lvl = "rd"; }
+    else if (hrv < 47 || rhr >= 51) { lvl = "am"; }
+    why.push(`HRV ${hrv} ms ${hrv >= 47 ? "≥47" : hrv >= 45 ? "entre 45 e 46" : "<45"}`);
+    why.push(`FC repouso ${rhr} bpm ${rhr <= 50 ? "≤50" : rhr < 54 ? "entre 51 e 53" : "≥54"}`);
+    criterio = "Critério (até 25 Out): HRV e FC de repouso vs média 7 dias; a readiness e a recuperação Garmin são só contexto.";
+  } else {
+    // Gatilhos novos: HRV<45, FC repouso ≥ mediana 28 dias +5, ACWR>1,3. 1 sinal = amarelo; 2 sinais (ou HRV<45 duas noites) = vermelho
+    const med = D.rhrMed28 || 49;
+    const sHrv = hrv < 45, sRhr = rhr >= med + 5, sAcwr = acwr > 1.3;
+    const n = [sHrv, sRhr, sAcwr].filter(Boolean).length;
+    const hrv2 = sHrv && D.hrvPrev != null && D.hrvPrev < 45;
+    lvl = (n >= 2 || hrv2) ? "rd" : n === 1 ? "am" : "ok";
+    why.push(`HRV ${hrv} ms ${sHrv ? "<45 (sinal)" : "≥45"}`);
+    why.push(`FC repouso ${rhr} bpm ${sRhr ? "≥" + (med + 5) + " (sinal)" : "<" + (med + 5)}`);
+    why.push(`ACWR ${acwr} ${sAcwr ? ">1,3 (sinal)" : "≤1,3"}`);
+    criterio = `Critério (desde 26 Out): ${n} sinal(is). 1 = microajuste; 2 sinais ou HRV<45 duas noites = qualidade desce a fácil. Sono, Body Battery e readiness são só contexto.`;
+  }
   const txt = {ok:"CUMPRIR", am:"MICROAJUSTAR", rd:"BAIXAR"}[lvl];
   const col = {ok:"var(--z1)", am:"var(--z3)", rd:"var(--z5)"}[lvl];
-  why.push(`HRV ${hrv} ms ${hrv >= 47 ? "≥47" : hrv >= 45 ? "entre 45 e 47" : "<45"}`);
-  why.push(`FC repouso ${rhr} bpm ${rhr <= 48 ? "≤48" : rhr < 52 ? "entre 49 e 51" : "≥52"}`);
   const cav = D.recoveryH >= 48 ? `Garmin pede ${D.recoveryH} h de recuperação (readiness ${D.readiness}): cumprir = fácil de verdade, sem acelerar.` : "";
-  return {lvl, txt, col, cav, reason: why.join(" · ") + ". Critério: HRV e FC de repouso; a readiness e a recuperação Garmin são só contexto."};
+  return {lvl, txt, col, cav, reason: why.join(" · ") + ". " + criterio};
 }
 const tone = (v, good, warn, higherBetter) => higherBetter ? (v >= good ? "var(--z1)" : v >= warn ? "var(--z3)" : "var(--z5)") : (v <= good ? "var(--z1)" : v <= warn ? "var(--z3)" : "var(--z5)");
 
