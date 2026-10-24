@@ -335,7 +335,18 @@ races: [
 { dateISO:"2026-11-15", date:"15 Nov", name:"Torneio Cidade da Amadora · 3.ª etapa SCRD (Reboleira)", dist:"distância e hora por anunciar · decisão 19 Out: Torneio mantém-se", prio:"Torneio", col:"#9B59FF" },
 { dateISO:"2026-11-22", date:"22 Nov", name:"Corrida das Empresas 10km (provisória)", dist:"10km planos · passou de 15 para 22 Nov · por confirmar se vai e com que objetivo", prio:"Provisória", col:"#5A6B8A" },
 { dateISO:"2026-11-29", date:"29 Nov", name:"Troféu Sintra a Correr 26/27 · 1.ª prova · GP Almargem do Bispo", dist:"distância, hora e regras do troféu por confirmar · ocupa o dia da Légua da Amadora (4.ª etapa do Torneio, fica de fora) · alvo do troféu: melhor classificação possível", prio:"Troféu Sintra", col:"#9B59FF" },
+{ dateISO:"2026-12-05", date:"05 Dez", name:"Troféu Sintra a Correr · Belas Cross São Silvestre (sáb)", dist:"cross · distância e hora por anunciar", prio:"Troféu Sintra", col:"#9B59FF" },
 { dateISO:"2026-12-13", date:"13 Dez", name:"Pacer · São Silvestre El Corte Inglês", dist:"pacer 4:00/km", prio:"Compromisso", col:"#F5A623" },
+{ dateISO:"2027-02-21", date:"21 Fev 2027", name:"Troféu Sintra a Correr · Milha Urbana da URCA (dom)", dist:"milha · hora por anunciar", prio:"Troféu Sintra", col:"#9B59FF", later:true },
+{ dateISO:"2027-03-06", date:"06 Mar 2027", name:"Troféu Sintra a Correr · Milha São Marcos (sáb)", dist:"milha · hora por anunciar", prio:"Troféu Sintra", col:"#9B59FF", later:true },
+{ dateISO:"2027-03-21", date:"21 Mar 2027", name:"Troféu Sintra a Correr · Corrida Miguel Torga (dom)", dist:"distância e hora por anunciar", prio:"Troféu Sintra", col:"#9B59FF", later:true },
+{ dateISO:"2027-04-03", date:"03 Abr 2027", name:"Troféu Sintra a Correr · Rio de Mouro Cross Run (sáb)", dist:"cross · distância e hora por anunciar", prio:"Troféu Sintra", col:"#9B59FF", later:true },
+{ dateISO:"2027-04-25", date:"25 Abr 2027", name:"Troféu Sintra a Correr · GP Queluz – José Araújo (dom)", dist:"distância e hora por anunciar", prio:"Troféu Sintra", col:"#9B59FF", later:true },
+{ dateISO:"2027-05-02", date:"02 Mai 2027", name:"Troféu Sintra a Correr · Algueirão-Mem Martins a Correr (dom)", dist:"distância e hora por anunciar", prio:"Troféu Sintra", col:"#9B59FF", later:true },
+{ dateISO:"2027-05-15", date:"15 Mai 2027", name:"Troféu Sintra a Correr · GP Colares (sáb)", dist:"distância e hora por anunciar", prio:"Troféu Sintra", col:"#9B59FF", later:true },
+{ dateISO:"2027-05-23", date:"23 Mai 2027", name:"Troféu Sintra a Correr · GP Agualva – Mira Sintra (dom)", dist:"distância e hora por anunciar", prio:"Troféu Sintra", col:"#9B59FF", later:true },
+{ dateISO:"2027-06-06", date:"06 Jun 2027", name:"Troféu Sintra a Correr · GP JOMA (dom)", dist:"distância e hora por anunciar", prio:"Troféu Sintra", col:"#9B59FF", later:true },
+{ dateISO:"2027-06-20", date:"20 Jun 2027", name:"Troféu Sintra a Correr · GP Manique de Cima (dom)", dist:"distância e hora por anunciar", prio:"Troféu Sintra", col:"#9B59FF", later:true },
 ],
 phases: [
 { label:"Força + Limiar", weeks:"S28–31", km:"~70–75/sem", status:"done" },
@@ -710,6 +721,9 @@ function renderProvas() {
   const p = document.getElementById("pane-provas");
   const next = D.races.filter(r => daysUntil(r.dateISO) >= 0 && r.prio === "PROVA A")[0];
   const gap = GOAL.bestS - GOAL.targetS;
+  const later = D.races.filter(r => r.later && daysUntil(r.dateISO) >= 0).sort((a, b) => a.dateISO < b.dateISO ? -1 : 1);
+  const laterHTML = later.length ? `<details><summary>Troféu Sintra 26/27 · restantes provas (${later.length})</summary><div class="body" style="padding:0">${later.map(r => `
+<div class="race-row" style="border-left:3px solid ${r.col}"><div class="race-top"><div><div class="race-prio">${r.prio}</div><div class="race-name">${r.name.replace("Troféu Sintra a Correr · ", "")}</div><div class="race-dist">${r.dist}</div></div><div><div class="race-date" style="color:${r.col}">${r.date}</div><div class="race-days">em ${daysUntil(r.dateISO)} dias</div></div></div></div>`).join("")}</div></details>` : "";
   p.innerHTML = `
 <div class="goal"><div class="k">Objetivo · ${GOAL.txt}</div>
 <div class="big"><b>+${gap} s</b><span>melhor do ano ${GOAL.bestTxt} · ${GOAL.bestWhen}</span></div>
@@ -717,8 +731,9 @@ function renderProvas() {
 <div class="crit">${GOAL.crit.map(c => `<span>${c[0]}</span><span>${c[1]}</span>`).join("")}</div></div>
 ${next ? `<div class="card" style="border:2px solid #FF542244;text-align:center;padding:16px 14px"><div style="color:var(--sub);font-size:9px;letter-spacing:3px">DIAS ATÉ ${next.name.toUpperCase()}</div><div style="color:var(--orange);font-size:60px;font-weight:900;font-family:'Courier New',monospace;line-height:1.1">${daysUntil(next.dateISO)}</div><div style="color:var(--sub);font-size:11px">${next.dist.split(" · ")[0]}</div></div>` : ""}
 <div class="st"><div class="bar" style="background:var(--gold)"></div><span class="label">Calendário de provas e compromissos</span></div>
-<div class="card" style="padding:0">${D.races.slice().sort((a, b) => a.dateISO < b.dateISO ? 1 : -1).filter(r => daysUntil(r.dateISO) >= 0).reverse().map(r => `
+<div class="card" style="padding:0">${D.races.slice().sort((a, b) => a.dateISO < b.dateISO ? 1 : -1).filter(r => daysUntil(r.dateISO) >= 0 && !r.later).reverse().map(r => `
 <div class="race-row" style="border-left:3px solid ${r.col}"><div class="race-top"><div><div class="race-prio">${r.prio}</div><div class="race-name" style="font-weight:${r.prio === "PROVA A" ? 800 : 600};color:${r.prio === "PROVA A" ? "var(--orange)" : "var(--text)"}">${r.name}</div><div class="race-dist">${r.dist}</div></div><div><div class="race-date" style="color:${r.col}">${r.date}</div><div class="race-days">${daysUntil(r.dateISO) === 0 ? "hoje" : daysUntil(r.dateISO) === 1 ? "amanhã" : "em " + daysUntil(r.dateISO) + " dias"}</div></div></div></div>`).join("")}</div>
+${laterHTML}
 <details><summary>Provas já feitas (${D.races.filter(r => daysUntil(r.dateISO) < 0).length})</summary><div class="body" style="padding:0">${D.races.filter(r => daysUntil(r.dateISO) < 0).sort((a, b) => a.dateISO < b.dateISO ? 1 : -1).map(r => `
 <div class="race-row" style="border-left:3px solid ${r.col}"><div class="race-top"><div><div class="race-prio">${r.prio}</div><div class="race-name">${r.name}</div><div class="race-dist">${r.dist}</div></div><div class="race-date" style="color:${r.col}">${r.date}</div></div></div>`).join("")}</div></details>
 <details><summary>Fases até à próxima prova-chave</summary><div class="body">${D.phases.map((ph, i) => {
