@@ -214,7 +214,7 @@ vo2max: 57.0,
 readiness: 23,
 readinessSub: "POOR 23 depois da prova (90 ao acordar, 80 às 09h47), recuperação Garmin 73 h. Só contexto, não é gatilho. ACWR 1,1 (carga aguda 1225 / crónica 1111, 47% da faixa ótima).",
 weekLabel: "Semana 44 · 26 Out–1 Nov 2026 · Recuperação pós-Volkswagen (sem qualidade)",
-weekDone: 0, weekTarget: 43,
+weekDone: 0, weekTarget: 50,
 sessions: [
 { day:"Seg 12", code:"DESCANSO", km:0, status:"done", icon:"😴",
   detail:{ ritmo:"—", fc:"—", estrutura:"Descanso total pós-meia (REC40 que ainda consta no calendário Garmin foi substituído por descanso).",
@@ -266,7 +266,7 @@ weeklyLoad: [
 {w:"S35",km:72.31},
 {w:"S36",km:59.27,target:64.5},
 {w:"S37",km:53.51},
-{w:"S38",km:59.87,target:60.5},{w:"S39",km:60.12,target:55.0},{w:"S40",km:60.95,target:66.0},{w:"S41",km:77.6,target:77.0},{w:"S42",km:53.74,target:47.5},{w:"S43",km:54.3,target:47},{w:"S44",km:0,target:43,cur:true},
+{w:"S38",km:59.87,target:60.5},{w:"S39",km:60.12,target:55.0},{w:"S40",km:60.95,target:66.0},{w:"S41",km:77.6,target:77.0},{w:"S42",km:53.74,target:47.5},{w:"S43",km:54.3,target:47},{w:"S44",km:0,target:50,cur:true},
 ],
 raceTrend: [
 { x:"Dez'25", vdot:51.3, time:"41:37", name:"GP Natal" },
@@ -440,7 +440,7 @@ Object.assign(D, {
     loadNote: "carga aguda 924 → 1225 (Volkswagen Run: carga 337, TE 4,8 VO2max)"
   },
   alerts: [
-    "Semana 44 (26 Out–1 Nov): recuperação pós-Volkswagen, sem qualidade. Seg e qua descanso; ter EASY40, qui EASY STR, sex EASY30, sáb REC35-DRILL, dom LR14-EASY (teto 147). Por fechar: Porto 8 Nov e pacer 14 Nov. VDOT mantém 54."
+    "Semana 44 (26 Out–1 Nov): recuperação pós-Volkswagen, sem qualidade. Seg descanso; ter EASY40, qua EASY40, qui EASY STR, sex EASY30, sáb REC35-DRILL, dom LR14-EASY (teto 147). Por fechar: Porto 8 Nov e pacer 14 Nov. VDOT mantém 54."
   ]
 });
 D.sessions.forEach(x => { x.iso = "2026-10-" + String(parseInt(x.day.split(" ")[1], 10)).padStart(2, "0"); x.week = 42; x.km = String(x.km); });
@@ -467,7 +467,7 @@ W43.forEach(x => x.week = 43);
 const W44 = [
   {day:"Seg 26", iso:"2026-10-26", code:"DESCANSO", km:"0", status:"planned", icon:"😴", mode:"DESCANSO", ritmo:"—", fc:"—", nota:"Descanso pós-prova. Checkpoint: decidir Porto e recalibrar VDOT.", detail:{ritmo:"—", fc:"—", estrutura:"Descanso total depois da Volkswagen Run."}},
   {day:"Ter 27", iso:"2026-10-27", code:"EASY40", km:"7.5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Fácil de verdade, sem qualidade.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"Fácil de 40 min, 2 dias depois da Volkswagen. Alerta só acima de 147."}},
-  {day:"Qua 28", iso:"2026-10-28", code:"DESCANSO", km:"0", status:"planned", icon:"😴", mode:"DESCANSO", ritmo:"—", fc:"—", nota:"Descanso a meio da semana (a confirmar). Espetáculo Olga Cadaval às 21h.", detail:{ritmo:"—", fc:"—", estrutura:"Descanso a meio da semana, por confirmar; espetáculo às 21h."}},
+  {day:"Qua 28", iso:"2026-10-28", code:"EASY40", km:"7.5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Fácil de verdade. Espetáculo Olga Cadaval às 21h.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"Fácil de 40 min, alerta só acima de 147."}},
   {day:"Qui 29", iso:"2026-10-29", code:"EASY STR", km:"9", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Fácil com strides soltos.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"Fácil com strides curtos, sem forçar."}},
   {day:"Sex 30", iso:"2026-10-30", code:"EASY30", km:"5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"fácil", fc:"Z2 133–147 bpm", nota:"Sexta pesada: trabalho, Telepizza e ensaio.", detail:{ritmo:"fácil", fc:"Z2 133–147 bpm", estrutura:"Fácil curto de 30 min (mínimo)."}},
   {day:"Sáb 31", iso:"2026-10-31", code:"REC35-DRILL", km:"6.5", status:"planned", icon:"🦵", mode:"FÁCIL", ritmo:"fácil + técnica", fc:"Z2 133–147 bpm", nota:"Folga complementar.", detail:{ritmo:"fácil + técnica", fc:"Z2 133–147 bpm", estrutura:"35 min fáceis + skippings 3–4×20–30 m + excêntrico do gémeo."}},
