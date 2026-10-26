@@ -619,7 +619,7 @@ function renderHoje() {
   const idx = PLAN.findIndex(x => x.iso === t);
   const cur = idx >= 0 ? PLAN[idx] : null;
   const next = PLAN.find(x => x.iso > t && x.status !== "done");
-  const nextRace = D.races.filter(r => daysUntil(r.dateISO) >= 0 && ["PROVA A", "Prova"].includes(r.prio))[0] || D.races.find(r => daysUntil(r.dateISO) >= 0);
+  const nextRace = D.races.find(r => daysUntil(r.dateISO) >= 0 && !["Provisória", "Concluída"].includes(r.prio));
 
   const tile = (l, val, unit, sub, c) => `<div class="tile"><div class="tl">${l}</div><div class="tv" style="color:${c}">${val}</div><div class="ts">${unit ? unit + " · " : ""}${sub}</div></div>`;
   let html = `
