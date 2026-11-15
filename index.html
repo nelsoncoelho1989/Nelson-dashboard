@@ -356,6 +356,8 @@ races: [
 { dateISO:"2026-12-13", date:"13 Dez", name:"Pacer · São Silvestre El Corte Inglés", dist:"pacer 4:00/km (ritmo de prova) · 10km · dom 18h30", prio:"Compromisso", col:"#F5A623" },
 { dateISO:"2026-12-20", date:"20 Dez", name:"GP Natal", dist:"esforço máximo, ‘o melhor possível’ · dia seguinte ao pacer do Seixal (sáb 19/12, 17h30) · distância e hora por confirmar · referência Dez'25: 41:37 (VDOT 49,6)", prio:"Prova", col:"#2FB67C" },
 { dateISO:"2026-12-19", date:"19 Dez", name:"Pacer · São Silvestre do Seixal", dist:"pacer 4:30/km · 10km · sáb 17h30 · véspera do GP Natal (esforço máximo)", prio:"Compromisso", col:"#F5A623" },
+{ dateISO:"2026-12-26", date:"26 Dez", name:"São Silvestre de Lisboa", dist:"10 km · prova B, esforço máximo · percurso com relevo (não é referência de VDOT) · hora por confirmar", prio:"Prova", col:"#2FB67C" },
+{ dateISO:"2026-12-31", date:"31 Dez", name:"São Silvestre da Amadora", dist:"10 km · prova B, esforço máximo · hora por confirmar", prio:"Prova", col:"#2FB67C" },
 { dateISO:"2027-01-10", date:"10 Jan 2027", name:"Pacer · Meia de Torres Vedras (por confirmar)", dist:"pacer 5:30/km · meia maratona · 10 ou 11 Jan · presença ainda por confirmar na app de pacers", prio:"Compromisso", col:"#F5A623" },
 { dateISO:"2027-01-17", date:"17 Jan 2027", name:"Pacer · Grande Corrida de Ano Novo (por confirmar)", dist:"pacer 4:30/km · 10km · presença ainda por confirmar na app de pacers", prio:"Compromisso", col:"#F5A623" },
 { dateISO:"2027-02-21", date:"21 Fev 2027", name:"Troféu Sintra a Correr · Milha Urbana da URCA (dom)", dist:"milha · hora por anunciar", prio:"Troféu Sintra", col:"#9B59FF", later:true },
@@ -450,7 +452,7 @@ ${dots}${labels}
 
 /* ===== v2: dados curtos e plano da próxima semana (a manter em sincronia com o resto de D) ===== */
 Object.assign(D, {
-  stamp: "15 Nov · auditoria de regras (mediana FC repouso 47,5)",
+  stamp: "15 Nov · plano até 31 Dez (quintas: subidas ou limiar; São Silvestres de Lisboa e Amadora)",
   stampISO: "2026-11-15",
   recoveryH: 95,
   short: {
@@ -531,7 +533,64 @@ const W47 = [
   {day:"Dom 22", iso:"2026-11-22", code:"PACER-EMPRESAS-10K", km:"10", status:"planned", icon:"🏁", mode:"PACER", ritmo:"4:30/km fixo (banda 4:25–4:35)", fc:"ref. secundária; nunca a ritmo máximo", nota:"Pacer confirmado a 29 Out (meta 45:00). Corrida das Empresas, 10 km planos, última antes do Troféu Sintra. Workout PACER-10K-430 no relógio (o alerta de FC de 150 nas subidas é do Monsanto, ignorar em plano). Regresso ao trabalho a 23 Nov.", detail:{ritmo:"4:30/km fixo (banda 4:25–4:35)", fc:"ref. secundária; nunca a ritmo máximo", estrutura:"10 km no relógio com banda de ritmo 4:25–4:35. Sem aquecimento extra. Ritmo fixo: não condiciona o GP Almargem de 29 Nov."}},
 ];
 W47.forEach(x => x.week = 47);
-const PLAN = D.sessions.concat(W43, W44, W45, W46, W47);
+const W48 = [
+  {day:"Seg 23", iso:"2026-11-23", code:"REC35", km:"6", status:"planned", icon:"🦵", mode:"FÁCIL", ritmo:"fácil de verdade", fc:"115–140 bpm (teto 140)", nota:"Pós-pacer. Regresso ao trabalho. Hoje decide-se a Leitura B de terça.", detail:{ritmo:"fácil de verdade", fc:"115–140 bpm (teto 140)", estrutura:"Recuperação de 35 min; FC acima de 140: caminhar."}},
+  {day:"Ter 24", iso:"2026-11-24", code:"10K-5x1K-FORTE-RUA", km:"11.5", status:"planned", icon:"⚡", mode:"QUALIDADE", ritmo:"3:44–3:48/km nas 5×1 km", fc:"referência secundária", nota:"Leitura B ao ar livre. Se segunda não confirmar recuperação: EASY40.", detail:{ritmo:"3:44–3:48/km nas 5×1 km", fc:"referência secundária", estrutura:"20' aquecimento, 5×1000 m a 3:44–3:48 com 90'' trote, 10' arrefecimento."}},
+  {day:"Qua 25", iso:"2026-11-25", code:"EASY STR", km:"9", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Fácil com strides.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"Fácil com strides curtos."}},
+  {day:"Qui 26", iso:"2026-11-26", code:"HILL-4xCOMPLETA 2xB ou CAVALARICAS-CIRCUITO-2x8", km:"9", status:"planned", icon:"⛰️", mode:"QUALIDADE", ritmo:"potência e cadência", fc:"circuito: teto 164", nota:"Seco: COMPLETA. Chuva: circuito das Cavalariças (1.ª execução = calibração).", detail:{ritmo:"potência e cadência", fc:"circuito: teto 164", estrutura:"Piso seco: HILL-4xCOMPLETA 2xB (Mata da GNR). Chuva: CAVALARICAS-CIRCUITO-2x8."}},
+  {day:"Sex 27", iso:"2026-11-27", code:"TESTE-A-PACE-FC135-139", km:"7", status:"planned", icon:"🧪", mode:"TESTE", ritmo:"o que sair a FC fixa", fc:"135–139 bpm durante 20 min", nota:"Leitura A que decide. Sozinho, mesmo percurso, cinta. Só conta diferença ≥15 s/km.", detail:{ritmo:"o que sair a FC fixa", fc:"135–139 bpm durante 20 min", estrutura:"10' + 20' a FC 135–139 + 10'."}},
+  {day:"Sáb 28", iso:"2026-11-28", code:"SHAKEOUT", km:"5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"muito leve", fc:"115–140 bpm", nota:"Véspera do GP Almargem.", detail:{ritmo:"muito leve", fc:"115–140 bpm", estrutura:"25 min leves + 4 strides."}},
+  {day:"Dom 29", iso:"2026-11-29", code:"GP ALMARGEM DO BISPO", km:"9", status:"planned", icon:"🏁", mode:"PROVA", ritmo:"esforço máximo", fc:"sem alvo", nota:"1.ª do Troféu Sintra. Classe B. Distância e hora por confirmar.", detail:{ritmo:"esforço máximo", fc:"sem alvo", estrutura:"Prova do Troféu Sintra."}},
+];
+W48.forEach(x => x.week = 48);
+const W49 = [
+  {day:"Seg 30", iso:"2026-11-30", code:"REC35", km:"6", status:"planned", icon:"🦵", mode:"FÁCIL", ritmo:"fácil de verdade", fc:"115–140 bpm (teto 140)", nota:"Pós-prova, fácil sempre.", detail:{ritmo:"fácil de verdade", fc:"115–140 bpm (teto 140)", estrutura:"Recuperação de 35 min; FC acima de 140: caminhar."}},
+  {day:"Ter 1", iso:"2026-12-01", code:"EASY45", km:"8.5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Feriado. Limiar na quinta, prova no sábado e longo no domingo: terça fica fácil.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"45 min fáceis."}},
+  {day:"Qua 2", iso:"2026-12-02", code:"EASY STR", km:"9", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Fácil com strides.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"Fácil com strides curtos."}},
+  {day:"Qui 3", iso:"2026-12-03", code:"T-LIM-3x8", km:"11", status:"planned", icon:"⚡", mode:"QUALIDADE", ritmo:"4:03–4:07/km", fc:"FC como travão", nota:"Primeiro limiar desde 1 Out. Percurso plano. Não fechar mais forte que 4:03.", detail:{ritmo:"4:03–4:07/km", fc:"FC como travão", estrutura:"20' aquecimento, 3×8' a 4:03–4:07 com 2' trote, 10' arrefecimento."}},
+  {day:"Sex 4", iso:"2026-12-04", code:"SHAKEOUT", km:"5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"muito leve", fc:"115–140 bpm", nota:"Véspera do Belas Cross.", detail:{ritmo:"muito leve", fc:"115–140 bpm", estrutura:"25 min leves + 4 strides."}},
+  {day:"Sáb 5", iso:"2026-12-05", code:"BELAS CROSS SÃO SILVESTRE", km:"0", status:"planned", icon:"🏁", mode:"PROVA", ritmo:"esforço de prova", fc:"sem alvo", nota:"Troféu Sintra. Classe B. Cross; distância e hora por anunciar.", detail:{ritmo:"esforço de prova", fc:"sem alvo", estrutura:"Cross do Troféu Sintra."}},
+  {day:"Dom 6", iso:"2026-12-06", code:"LR14-EASY", km:"14.5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Único longo possível até ao fim do ano. Fácil, sem progressivo.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"Longo fácil 14,5 km, sem progressivo."}},
+];
+W49.forEach(x => x.week = 49);
+const W50 = [
+  {day:"Seg 7", iso:"2026-12-07", code:"REC40", km:"7", status:"planned", icon:"🦵", mode:"FÁCIL", ritmo:"fácil de verdade", fc:"115–140 bpm (teto 140)", nota:"Recuperação.", detail:{ritmo:"fácil de verdade", fc:"115–140 bpm (teto 140)", estrutura:"Recuperação de 40 min; FC acima de 140: caminhar."}},
+  {day:"Ter 8", iso:"2026-12-08", code:"T-LIM-4x6", km:"11", status:"planned", icon:"⚡", mode:"QUALIDADE", ritmo:"4:03–4:07/km", fc:"FC como travão", nota:"Feriado. Hipótese B. Se segunda não confirmar recuperação: EASY40.", detail:{ritmo:"4:03–4:07/km", fc:"FC como travão", estrutura:"Aquecimento, 4×6' a 4:03–4:07, arrefecimento."}},
+  {day:"Qua 9", iso:"2026-12-09", code:"EASY STR", km:"9", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Fácil com strides.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"Fácil com strides curtos."}},
+  {day:"Qui 10", iso:"2026-12-10", code:"HILL-4xCOMPLETA 2xB ou CAVALARICAS-CIRCUITO-2x8", km:"9", status:"planned", icon:"⛰️", mode:"QUALIDADE", ritmo:"potência e cadência", fc:"circuito: teto 164", nota:"Seco: COMPLETA. Chuva: circuito das Cavalariças.", detail:{ritmo:"potência e cadência", fc:"circuito: teto 164", estrutura:"Piso seco: HILL-4xCOMPLETA 2xB (Mata da GNR). Chuva: CAVALARICAS-CIRCUITO-2x8."}},
+  {day:"Sex 11", iso:"2026-12-11", code:"EASY40", km:"7.5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:10–5:35/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Fácil.", detail:{ritmo:"5:10–5:35/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"40 min fáceis."}},
+  {day:"Sáb 12", iso:"2026-12-12", code:"SHAKEOUT", km:"5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"muito leve", fc:"115–140 bpm", nota:"Véspera do pacer a 4:00.", detail:{ritmo:"muito leve", fc:"115–140 bpm", estrutura:"25 min leves + 4 strides."}},
+  {day:"Dom 13", iso:"2026-12-13", code:"PACER-10K-400", km:"10", status:"planned", icon:"🎯", mode:"PACER", ritmo:"4:00/km de média (banda 3:57–4:03)", fc:"referência secundária", nota:"São Silvestre El Corte Inglés, 18h30. Classe C, mas 4:00 é 99% do ritmo de prova: conta como esforço de prova.", detail:{ritmo:"4:00/km de média (banda 3:57–4:03)", fc:"referência secundária", estrutura:"10 km a 4:00 de média, meta 40:00."}},
+];
+W50.forEach(x => x.week = 50);
+const W51 = [
+  {day:"Seg 14", iso:"2026-12-14", code:"DESCANSO", km:"0", status:"planned", icon:"😴", mode:"DESCANSO", ritmo:"—", fc:"—", nota:"Prova às 18h30 de domingo: correr às 7h de segunda não recupera nada.", detail:{ritmo:"—", fc:"—", estrutura:"Descanso."}},
+  {day:"Ter 15", iso:"2026-12-15", code:"EASY45", km:"8.5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Fácil. Limiar na quinta, pacer no sábado e prova no domingo.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"45 min fáceis."}},
+  {day:"Qua 16", iso:"2026-12-16", code:"EASY STR", km:"9", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Fácil com strides.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"Fácil com strides curtos."}},
+  {day:"Qui 17", iso:"2026-12-17", code:"T-LIM-3x8", km:"11", status:"planned", icon:"⚡", mode:"QUALIDADE", ritmo:"4:03–4:07/km", fc:"FC como travão", nota:"Com sinal amarelo: 2×8.", detail:{ritmo:"4:03–4:07/km", fc:"FC como travão", estrutura:"20' aquecimento, 3×8' a 4:03–4:07 com 2' trote, 10' arrefecimento."}},
+  {day:"Sex 18", iso:"2026-12-18", code:"SHAKEOUT", km:"5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"muito leve", fc:"115–140 bpm", nota:"Véspera do pacer do Seixal.", detail:{ritmo:"muito leve", fc:"115–140 bpm", estrutura:"25 min leves + 4 strides."}},
+  {day:"Sáb 19", iso:"2026-12-19", code:"PACER-10K-430", km:"10", status:"planned", icon:"🎯", mode:"PACER", ritmo:"4:30/km de média (banda 4:25–4:35)", fc:"travão ≤160", nota:"São Silvestre do Seixal, 17h30. Classe C. Véspera do GP Natal: sem acelerar no fim.", detail:{ritmo:"4:30/km de média (banda 4:25–4:35)", fc:"travão ≤160", estrutura:"10 km a 4:30 de média, meta 45:00."}},
+  {day:"Dom 20", iso:"2026-12-20", code:"GP NATAL", km:"0", status:"planned", icon:"🏁", mode:"PROVA", ritmo:"esforço máximo", fc:"sem alvo", nota:"Classe B. O melhor possível, sobre o pacer da véspera. Distância e hora por confirmar.", detail:{ritmo:"esforço máximo", fc:"sem alvo", estrutura:"Prova a fundo."}},
+];
+W51.forEach(x => x.week = 51);
+const W52 = [
+  {day:"Seg 21", iso:"2026-12-21", code:"REC35", km:"6", status:"planned", icon:"🦵", mode:"FÁCIL", ritmo:"fácil de verdade", fc:"115–140 bpm (teto 140)", nota:"Pós-prova, fácil sempre.", detail:{ritmo:"fácil de verdade", fc:"115–140 bpm (teto 140)", estrutura:"Recuperação de 35 min; FC acima de 140: caminhar."}},
+  {day:"Ter 22", iso:"2026-12-22", code:"EASY45", km:"8.5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Fácil. Dois esforços no fim de semana anterior e prova no sábado.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"45 min fáceis."}},
+  {day:"Qua 23", iso:"2026-12-23", code:"EASY STR", km:"9", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Fácil com strides.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"Fácil com strides curtos."}},
+  {day:"Qui 24", iso:"2026-12-24", code:"SHARP-4x1-RUA", km:"7.3", status:"planned", icon:"⚡", mode:"QUALIDADE", ritmo:"3:56–4:00/km nas 4×1'", fc:"referência secundária", nota:"Ativação curta em vez de subidas: prova a fundo no sábado.", detail:{ritmo:"3:56–4:00/km nas 4×1'", fc:"referência secundária", estrutura:"20' aquecimento, 4×1' a 3:56–4:00 com 2' de recuperação, arrefecimento."}},
+  {day:"Sex 25", iso:"2026-12-25", code:"SHAKEOUT", km:"5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"muito leve", fc:"115–140 bpm", nota:"Véspera da São Silvestre de Lisboa.", detail:{ritmo:"muito leve", fc:"115–140 bpm", estrutura:"25 min leves + 4 strides."}},
+  {day:"Sáb 26", iso:"2026-12-26", code:"SÃO SILVESTRE DE LISBOA", km:"10", status:"planned", icon:"🏁", mode:"PROVA", ritmo:"esforço máximo", fc:"sem alvo", nota:"Classe B (relevo: não é referência de VDOT). Hora por confirmar.", detail:{ritmo:"esforço máximo", fc:"sem alvo", estrutura:"10 km a fundo."}},
+  {day:"Dom 27", iso:"2026-12-27", code:"REC40", km:"7", status:"planned", icon:"🦵", mode:"FÁCIL", ritmo:"fácil de verdade", fc:"115–140 bpm (teto 140)", nota:"Dia a seguir a prova a fundo: recuperação, não longo.", detail:{ritmo:"fácil de verdade", fc:"115–140 bpm (teto 140)", estrutura:"Recuperação de 40 min; FC acima de 140: caminhar."}},
+];
+W52.forEach(x => x.week = 52);
+const W53 = [
+  {day:"Seg 28", iso:"2026-12-28", code:"EASY45", km:"8.5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Fácil.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"45 min fáceis."}},
+  {day:"Ter 29", iso:"2026-12-29", code:"SHARP-4x1-RUA", km:"7.3", status:"planned", icon:"⚡", mode:"QUALIDADE", ritmo:"3:56–4:00/km nas 4×1'", fc:"referência secundária", nota:"Ativação a dois dias da Amadora.", detail:{ritmo:"3:56–4:00/km nas 4×1'", fc:"referência secundária", estrutura:"20' aquecimento, 4×1' a 3:56–4:00 com 2' de recuperação, arrefecimento."}},
+  {day:"Qua 30", iso:"2026-12-30", code:"SHAKEOUT", km:"5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"muito leve", fc:"115–140 bpm", nota:"Véspera da São Silvestre da Amadora.", detail:{ritmo:"muito leve", fc:"115–140 bpm", estrutura:"25 min leves + 4 strides."}},
+  {day:"Qui 31", iso:"2026-12-31", code:"SÃO SILVESTRE DA AMADORA", km:"10", status:"planned", icon:"🏁", mode:"PROVA", ritmo:"esforço máximo", fc:"sem alvo", nota:"Classe B. Hora por confirmar.", detail:{ritmo:"esforço máximo", fc:"sem alvo", estrutura:"10 km a fundo."}},
+];
+W53.forEach(x => x.week = 53);
+const PLAN = D.sessions.concat(W43, W44, W45, W46, W47, W48, W49, W50, W51, W52, W53);
 
 /* ===== Fase 1 · execução vs plano (chave = data ISO · tempos em s/km) =====
    band = [piso rápido, teto lento] do plano · pace = ritmo médio · reps = ritmo de cada bloco/rep
