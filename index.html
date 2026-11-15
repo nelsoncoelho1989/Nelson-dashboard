@@ -204,7 +204,7 @@ details.sess>.body{border:0;border-radius:0;background:var(--card2);font-size:11
 <script>
 const D = {
 meta: { updatedAt: "13 Nov 2026 · 19h45 · Sexta: EASY40 passa para passadeira", source: "Claude + Garmin MCP cloud" },
-hrv: 52, hrvTrend: "Sem valor da noite de 14→15 Nov na API; média semanal Garmin 52ms (BALANCED, baseline 48–58). Sem sinal visível, mas a prova pesou nas pernas, não no HRV.",
+hrv: 52, hrvTrend: "Noite de 14→15 Nov SEM dados: dormiu sem o relógio (decisão dele), por isso não há HRV nem sono nessa noite. Ausência de dado não é sinal. Média semanal Garmin 52ms (BALANCED, baseline 48–58). Gatilhos reavaliam-se na manhã de segunda com o relógio posto.",
 rhr: 50, bodyBattery: "MODERATE", weight: 79.0,
 lthr: "163–165", ltPace: "4:05", rhrMed28: 49, hrvPrev: null,
 vdot: 52.3, vdotEst: "52.8–53.5",
@@ -212,7 +212,7 @@ trainingStatus: "PRODUTIVO (Nível 2)",
 acwr: 1.3,
 vo2max: 57.0,
 readiness: 17,
-readinessSub: "POOR 17 depois da etapa 3 (ao acordar 36, LOW); recovery_time 95,4 h pela Garmin. Só contexto, não é gatilho. ACWR 1,3 (carga aguda 1394 / crónica 1067), no limiar do amarelo.",
+readinessSub: "POOR 17 calculado SEM dados de sono (dormiu sem o relógio) e depois da etapa 3: leitura pouco fiável, não a usar. recovery_time 95,4 h pela Garmin. Só contexto, não é gatilho. ACWR 1,3 (carga aguda 1394 / crónica 1067), no limiar do amarelo.",
 weekLabel: "Semana 46 · 9–15 Nov 2026 · Férias: pacer das Castanhas + etapa 3 do Torneio",
 weekDone: 20.3, weekTarget: 61,
 sessions: [
@@ -450,7 +450,7 @@ ${dots}${labels}
 
 /* ===== v2: dados curtos e plano da próxima semana (a manter em sincronia com o resto de D) ===== */
 Object.assign(D, {
-  stamp: "15 Nov · 13h30",
+  stamp: "15 Nov · fecho do dia",
   stampISO: "2026-11-15",
   recoveryH: 95,
   short: {
@@ -458,12 +458,13 @@ Object.assign(D, {
     rhr: "mediana 28 d ≈49",
     ready: "só contexto",
     rhrNote: "50 bpm no domingo (15 Nov), 1 acima da mediana de 28 dias (≈49) e 3 acima de sábado: sem sinal, mas a subir.",
-    bbNote: "Etapa 3 custou −15 de Body Battery; sono sem score na API",
+    bbNote: "Etapa 3 custou −15 de Body Battery; sem sono registado (noite sem relógio), logo sem recarga contabilizada",
     acwrNote: "ÓTIMO pela Garmin (carga aguda 1394 / crónica 1067) · rácio 1,3, no limiar do amarelo (>1,3) das regras",
     loadNote: "carga aguda 1394 (1090 no sábado); etapa 3 com carga 333 e TE 4,7; recovery_time 95,4 h pela Garmin"
   },
   alerts: [
-    "Domingo 15 Nov: etapa 3 feita sobre pernas cansadas (pacer de sábado TE 4,6, Cavalariças e passadeira na semana): 9,94 km em 41:50, positive split de 2:02, FC média 168 máx 179, TE 4,7, carga 333, RPE 9/10. Garmin: readiness 17, recovery 95 h, carga aguda 1394, ACWR 1,3 (limiar do amarelo), FC repouso 50. Segunda: REC35, salta se pernas pesadas ou HRV <45. Terça (INVERSA-V): decide-se só com os dados de terça entre a Hipótese A (leve) e B (qualidade); se B, cortar uma rep ou FC como teto. Leitura B ao ar livre na terça 24 Nov, decisão a 23 Nov."
+    "Domingo 15 Nov: etapa 3 feita sobre pernas cansadas (pacer de sábado TE 4,6, Cavalariças e passadeira na semana): 9,94 km em 41:50, positive split de 2:02, FC média 168 máx 179, TE 4,7, carga 333, RPE 9/10. Garmin: readiness 17, recovery 95 h, carga aguda 1394, ACWR 1,3 (limiar do amarelo), FC repouso 50. Segunda: REC35, salta se pernas pesadas ou HRV <45. Terça (INVERSA-V): decide-se só com os dados de terça entre a Hipótese A (leve) e B (qualidade); se B, cortar uma rep ou FC como teto. Leitura B ao ar livre na terça 24 Nov, decisão a 23 Nov.",
+    "Noite de 14→15 Nov sem relógio: sem HRV nem sono, readiness 17 não fiável. Segunda 16 Nov: pôr o relógio esta noite; os gatilhos (HRV <45, FC repouso ≥54, ACWR >1,3) avaliam-se com os dados de segunda de manhã, e sem dado de HRV decide-se pelas pernas e pela FC de repouso."
   ]
 });
 D.sessions.forEach(x => { x.iso = "2026-10-" + String(parseInt(x.day.split(" ")[1], 10)).padStart(2, "0"); x.week = 42; x.km = String(x.km); });
