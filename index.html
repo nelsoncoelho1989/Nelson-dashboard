@@ -206,7 +206,7 @@ const D = {
 meta: { updatedAt: "13 Nov 2026 · 19h45 · Sexta: EASY40 passa para passadeira", source: "Claude + Garmin MCP cloud" },
 hrv: 52, hrvTrend: "Noite de 14→15 Nov SEM dados: o relógio estava sem bateria / a carregar, por isso não há HRV nem sono nessa noite. Ausência de dado não é sinal. Média semanal Garmin 52ms (BALANCED, baseline 48–58). Gatilhos reavaliam-se na manhã de segunda com o relógio posto.",
 rhr: 50, bodyBattery: "MODERATE", weight: 79.0,
-lthr: "163–165", ltPace: "4:05", rhrMed28: 49, hrvPrev: null,
+lthr: "163–165", ltPace: "4:05", rhrMed28: 48, hrvPrev: null,
 vdot: 52.3, vdotEst: "52.8–53.5",
 trainingStatus: "PRODUTIVO (Nível 2)",
 acwr: 1.3,
@@ -450,7 +450,7 @@ ${dots}${labels}
 
 /* ===== v2: dados curtos e plano da próxima semana (a manter em sincronia com o resto de D) ===== */
 Object.assign(D, {
-  stamp: "15 Nov · fecho do dia",
+  stamp: "15 Nov · auditoria de regras (mediana FC repouso 47,5)",
   stampISO: "2026-11-15",
   recoveryH: 95,
   short: {
@@ -464,7 +464,7 @@ Object.assign(D, {
   },
   alerts: [
     "Domingo 15 Nov: etapa 3 feita sobre pernas cansadas (pacer de sábado TE 4,6, Cavalariças e passadeira na semana): 9,94 km em 41:50, positive split de 2:02, FC média 168 máx 179, TE 4,7, carga 333, RPE 9/10. Garmin: readiness 17, recovery 95 h, carga aguda 1394, ACWR 1,3 (limiar do amarelo), FC repouso 50. Segunda: REC35, salta se pernas pesadas ou HRV <45. Terça (INVERSA-V): decide-se só com os dados de terça entre a Hipótese A (leve) e B (qualidade); se B, cortar uma rep ou FC como teto. Leitura B ao ar livre na terça 24 Nov, decisão a 23 Nov.",
-    "Noite de 14→15 Nov com o relógio sem bateria: sem HRV nem sono, readiness 17 não fiável. Segunda 16 Nov: confirmar a bateria e pôr o relógio esta noite; os gatilhos (HRV <45, FC repouso ≥54, ACWR >1,3) avaliam-se com os dados de segunda de manhã, e sem dado de HRV decide-se pelas pernas e pela FC de repouso."
+    "Noite de 14→15 Nov com o relógio sem bateria: sem HRV nem sono, readiness 17 não fiável. Segunda 16 Nov: confirmar a bateria e pôr o relógio esta noite; os gatilhos (HRV <45, FC repouso ≥53 [mediana 28 dias 47,5 + 5], ACWR >1,3) avaliam-se com os dados de segunda de manhã, e sem dado de HRV decide-se pelas pernas e pela FC de repouso."
   ]
 });
 D.sessions.forEach(x => { x.iso = "2026-10-" + String(parseInt(x.day.split(" ")[1], 10)).padStart(2, "0"); x.week = 42; x.km = String(x.km); });
@@ -581,7 +581,7 @@ function verdict() {
     criterio = "Critério (até 25 Out): HRV e FC de repouso vs média 7 dias; a readiness e a recuperação Garmin são só contexto.";
   } else {
     // Gatilhos novos: HRV<45, FC repouso ≥ mediana 28 dias +5, ACWR>1,3. 1 sinal = amarelo; 2 sinais (ou HRV<45 duas noites) = vermelho
-    const med = D.rhrMed28 || 49;
+    const med = D.rhrMed28 || 48;
     const sHrv = hrv < 45, sRhr = rhr >= med + 5, sAcwr = acwr > 1.3;
     const n = [sHrv, sRhr, sAcwr].filter(Boolean).length;
     const hrv2 = sHrv && D.hrvPrev != null && D.hrvPrev < 45;
