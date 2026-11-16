@@ -351,8 +351,8 @@ races: [
 { dateISO:"2026-11-14", date:"14 Nov", name:"Pacer · Corrida das Castanhas (Monsanto)", dist:"pacer 4:30/km · 10km · sáb 10h00 (encontro 9h30) · FC abaixo de 150 nas subidas · PACER-10K-430 no relógio · véspera da etapa 3 do Torneio", prio:"Compromisso", col:"#F5A623" },
 { dateISO:"2026-11-15", date:"15 Nov", name:"Torneio Cidade da Amadora · 3.ª etapa SCRD (Reboleira)", dist:"10 km · esforço controlado, travão de FC 168 nos primeiros 7 km e últimos 3 km livres (RACE-TORNEIO3-10K) · terreno desconhecido, hora por anunciar", prio:"Torneio", col:"#9B59FF" },
 { dateISO:"2026-11-22", date:"22 Nov", name:"Pacer · Corrida das Empresas", dist:"pacer 4:30/km (meta 45:00) · 10km planos · confirmado a 29 Out · última antes do Troféu Sintra · ritmo fixo, nunca a ritmo máximo, não condiciona o GP Almargem de 29 Nov", prio:"Compromisso", col:"#F5A623" },
-{ dateISO:"2026-11-29", date:"29 Nov", name:"Troféu Sintra a Correr 26/27 · 1.ª prova · GP Almargem do Bispo", dist:"~9 e qualquer km (distância exata por confirmar) · hora por anunciar · regras oficiais já saíram (Out 2026, ver «Regras do Troféu Sintra») · dorsal 16 já registado · ocupa o dia da Légua da Amadora (4.ª etapa do Torneio, fica de fora) · decisão 24 Out: Sintra é prioridade sobre o Torneio · classificação final exige ≥7 das 12 provas e soma todos os resultados (sem descarte) · alvo do troféu: melhor classificação possível", prio:"Troféu Sintra", col:"#9B59FF" },
-{ dateISO:"2026-12-05", date:"05 Dez", name:"Troféu Sintra a Correr · Belas Cross São Silvestre (sáb)", dist:"cross · distância e hora por anunciar", prio:"Troféu Sintra", col:"#9B59FF" },
+{ dateISO:"2026-11-29", date:"29 Nov", name:"Troféu Sintra a Correr 26/27 · 1.ª prova · GP Almargem do Bispo", dist:"9,29 km · D+ ~180–200 m · descida forte no km 8,2–8,8 · percurso já no relógio · hora por confirmar · regras oficiais já saíram (Out 2026, ver «Regras do Troféu Sintra») · dorsal 16 já registado · ocupa o dia da Légua da Amadora (4.ª etapa do Torneio, fica de fora) · decisão 24 Out: Sintra é prioridade sobre o Torneio · classificação final exige ≥7 das 12 provas e soma todos os resultados (sem descarte) · alvo do troféu: melhor classificação possível", prio:"Troféu Sintra", col:"#9B59FF" },
+{ dateISO:"2026-12-05", date:"05 Dez", name:"Troféu Sintra a Correr · Belas Cross São Silvestre (sáb)", dist:"cross 8 km (percurso 5, M35) · sáb 17h30, Carregueira, de noite · frontal e copo obrigatórios · confirmar presença até 3 Dez 23h59 · 2024: D+ 174 m, FC 168", prio:"Troféu Sintra", col:"#9B59FF" },
 { dateISO:"2026-12-13", date:"13 Dez", name:"Pacer · São Silvestre El Corte Inglés", dist:"pacer 4:00/km (ritmo de prova) · 10km · dom 18h30", prio:"Compromisso", col:"#F5A623" },
 { dateISO:"2026-12-20", date:"20 Dez", name:"GP Natal", dist:"esforço máximo, ‘o melhor possível’ · dia seguinte ao pacer do Seixal (sáb 19/12, 17h30) · distância e hora por confirmar · referência Dez'25: 41:37 (VDOT 49,6)", prio:"Prova", col:"#2FB67C" },
 { dateISO:"2026-12-19", date:"19 Dez", name:"Pacer · São Silvestre do Seixal", dist:"pacer 4:30/km · 10km · sáb 17h30 · véspera do GP Natal (esforço máximo)", prio:"Compromisso", col:"#F5A623" },
@@ -385,7 +385,7 @@ phases: [
 { label:"Semana normal (sem taper)", weeks:"S43", km:"~55-60/sem", status:"done" },
 { label:"★ Volkswagen Run", weeks:"25 Out", km:"confirmação VDOT, sem bloco dedicado", status:"race" },
 { label:"Bloco novo com gatilho de evolução (leitura A 30 Out, testemunha 10 Nov)", weeks:"S44–48 · 26 Out–29 Nov", km:"~51 → ~65/sem nas S45–46 (estimativa)", status:"active" },
-{ label:"Férias 8–22 Nov: sem Telepizza, só ensaios de sexta. Tempo extra vai para sono e fácil, nunca para ritmo", weeks:"8–22 Nov", km:"leitura A de 20 Nov não conta", status:"next" },
+{ label:"Férias 8–22 Nov: sem Telepizza, só ensaios de sexta. Tempo extra vai para sono e para trabalho específico (subidas e limiar), com a FC e a HRV a mandar", weeks:"8–22 Nov", km:"leitura A de 20 Nov não conta", status:"next" },
 { label:"★ Torneio Amadora etapa 3 (15 Nov) · Troféu Sintra 1.ª prova, Almargem do Bispo (29 Nov)", weeks:"15 e 29 Nov", km:"distâncias por anunciar", status:"race" },
 { label:"★ Pacer São Silvestre (13 Dez) · Pacer Seixal (19 Dez) · GP Natal, esforço máximo (20 Dez)", weeks:"13, 19 e 20 Dez", km:"4 esforços em 16 dias (5, 13, 19, 20 Dez)", status:"race" },
 { label:"Manutenção", weeks:"7–20 Dez", km:"proposta aceite a 27 Out", status:"next" },
@@ -452,8 +452,8 @@ ${dots}${labels}
 
 /* ===== v2: dados curtos e plano da próxima semana (a manter em sincronia com o resto de D) ===== */
 Object.assign(D, {
-  stamp: "15 Nov · plano até 31 Dez (quintas: subidas ou limiar; São Silvestres de Lisboa e Amadora)",
-  stampISO: "2026-11-15",
+  stamp: "16 Nov · plano até 31 Dez; Almargem 9,29 km e Belas 8 km (17h30) com os dados dos regulamentos",
+  stampISO: "2026-11-16",
   recoveryH: 95,
   short: {
     hrv: "baseline 47–59",
@@ -540,7 +540,7 @@ const W48 = [
   {day:"Qui 26", iso:"2026-11-26", code:"HILL-4xCOMPLETA 2xB ou CAVALARICAS-CIRCUITO-2x8", km:"9", status:"planned", icon:"⛰️", mode:"QUALIDADE", ritmo:"potência e cadência", fc:"circuito: teto 164", nota:"Seco: COMPLETA. Chuva: circuito das Cavalariças (1.ª execução = calibração).", detail:{ritmo:"potência e cadência", fc:"circuito: teto 164", estrutura:"Piso seco: HILL-4xCOMPLETA 2xB (Mata da GNR). Chuva: CAVALARICAS-CIRCUITO-2x8."}},
   {day:"Sex 27", iso:"2026-11-27", code:"TESTE-A-PACE-FC135-139", km:"7", status:"planned", icon:"🧪", mode:"TESTE", ritmo:"o que sair a FC fixa", fc:"135–139 bpm durante 20 min", nota:"Leitura A que decide. Sozinho, mesmo percurso, cinta. Só conta diferença ≥15 s/km.", detail:{ritmo:"o que sair a FC fixa", fc:"135–139 bpm durante 20 min", estrutura:"10' + 20' a FC 135–139 + 10'."}},
   {day:"Sáb 28", iso:"2026-11-28", code:"SHAKEOUT", km:"5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"muito leve", fc:"115–140 bpm", nota:"Véspera do GP Almargem.", detail:{ritmo:"muito leve", fc:"115–140 bpm", estrutura:"25 min leves + 4 strides."}},
-  {day:"Dom 29", iso:"2026-11-29", code:"GP ALMARGEM DO BISPO", km:"9", status:"planned", icon:"🏁", mode:"PROVA", ritmo:"esforço máximo", fc:"sem alvo", nota:"1.ª do Troféu Sintra. Classe B. Distância e hora por confirmar.", detail:{ritmo:"esforço máximo", fc:"sem alvo", estrutura:"Prova do Troféu Sintra."}},
+  {day:"Dom 29", iso:"2026-11-29", code:"GP ALMARGEM DO BISPO", km:"9.3", status:"planned", icon:"🏁", mode:"PROVA", ritmo:"esforço máximo", fc:"sem alvo", nota:"1.ª do Troféu Sintra. Classe B. 9,29 km, D+ ~180–200 m. Descida forte no km 8,2–8,8: passada curta. Percurso no relógio. Hora por confirmar.", detail:{ritmo:"esforço máximo", fc:"sem alvo", estrutura:"Prova do Troféu Sintra."}},
 ];
 W48.forEach(x => x.week = 48);
 const W49 = [
@@ -549,7 +549,7 @@ const W49 = [
   {day:"Qua 2", iso:"2026-12-02", code:"EASY STR", km:"9", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Fácil com strides.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"Fácil com strides curtos."}},
   {day:"Qui 3", iso:"2026-12-03", code:"T-LIM-3x8", km:"11", status:"planned", icon:"⚡", mode:"QUALIDADE", ritmo:"4:03–4:07/km", fc:"FC como travão", nota:"Primeiro limiar desde 1 Out. Percurso plano. Não fechar mais forte que 4:03.", detail:{ritmo:"4:03–4:07/km", fc:"FC como travão", estrutura:"20' aquecimento, 3×8' a 4:03–4:07 com 2' trote, 10' arrefecimento."}},
   {day:"Sex 4", iso:"2026-12-04", code:"SHAKEOUT", km:"5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"muito leve", fc:"115–140 bpm", nota:"Véspera do Belas Cross.", detail:{ritmo:"muito leve", fc:"115–140 bpm", estrutura:"25 min leves + 4 strides."}},
-  {day:"Sáb 5", iso:"2026-12-05", code:"BELAS CROSS SÃO SILVESTRE", km:"0", status:"planned", icon:"🏁", mode:"PROVA", ritmo:"esforço de prova", fc:"sem alvo", nota:"Troféu Sintra. Classe B. Cross; distância e hora por anunciar.", detail:{ritmo:"esforço de prova", fc:"sem alvo", estrutura:"Cross do Troféu Sintra."}},
+  {day:"Sáb 5", iso:"2026-12-05", code:"BELAS CROSS SÃO SILVESTRE", km:"8", status:"planned", icon:"🏁", mode:"PROVA", ritmo:"esforço de prova", fc:"sem alvo", nota:"Troféu Sintra. Classe B. 8 km em estradão, partida 17h30 (de noite). Frontal e copo obrigatórios. Confirmar presença até qui 3 Dez 23h59.", detail:{ritmo:"esforço de prova", fc:"sem alvo", estrutura:"Cross do Troféu Sintra."}},
   {day:"Dom 6", iso:"2026-12-06", code:"LR14-EASY", km:"14.5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", nota:"Único longo possível até ao fim do ano. Fácil, sem progressivo.", detail:{ritmo:"5:05–5:30/km", fc:"Z2 133–147 bpm (teto 147)", estrutura:"Longo fácil 14,5 km, sem progressivo."}},
 ];
 W49.forEach(x => x.week = 49);
