@@ -351,7 +351,7 @@ races: [
 { dateISO:"2026-11-14", date:"14 Nov", name:"Pacer · Corrida das Castanhas (Monsanto)", dist:"pacer 4:30/km · 10km · sáb 10h00 (encontro 9h30) · FC abaixo de 150 nas subidas · PACER-10K-430 no relógio · véspera da etapa 3 do Torneio", prio:"Compromisso", col:"#F5A623" },
 { dateISO:"2026-11-15", date:"15 Nov", name:"Torneio Cidade da Amadora · 3.ª etapa SCRD (Reboleira)", dist:"10 km · esforço controlado, travão de FC 168 nos primeiros 7 km e últimos 3 km livres (RACE-TORNEIO3-10K) · terreno desconhecido, hora por anunciar", prio:"Torneio", col:"#9B59FF" },
 { dateISO:"2026-11-22", date:"22 Nov", name:"Pacer · Corrida das Empresas", dist:"pacer 4:30/km (meta 45:00) · 10km planos · confirmado a 29 Out · última antes do Troféu Sintra · ritmo fixo, nunca a ritmo máximo, não condiciona o GP Almargem de 29 Nov", prio:"Compromisso", col:"#F5A623" },
-{ dateISO:"2026-11-29", date:"29 Nov", name:"Troféu Sintra a Correr 26/27 · 1.ª prova · GP Almargem do Bispo", dist:"9,29 km · D+ ~180–200 m · descida forte no km 8,2–8,8 · percurso já no relógio · hora por confirmar · regras oficiais já saíram (Out 2026, ver «Regras do Troféu Sintra») · dorsal 16 já registado · ocupa o dia da Légua da Amadora (4.ª etapa do Torneio, fica de fora) · decisão 24 Out: Sintra é prioridade sobre o Torneio · classificação final exige ≥7 das 12 provas e soma todos os resultados (sem descarte) · alvo do troféu: melhor classificação possível", prio:"Troféu Sintra", col:"#9B59FF" },
+{ dateISO:"2026-11-29", date:"29 Nov", name:"Troféu Sintra a Correr 26/27 · 1.ª prova · GP Almargem do Bispo", dist:"dom 09h00 · 9,5 km no regulamento (GPX 9,29 km) · D+ ~180–200 m · descida forte no km 8,2–8,8 · chegada a confirmar no local · confirmar presença até qui 26 Nov 23h59 · regras oficiais já saíram (Out 2026, ver «Regras do Troféu Sintra») · dorsal 16 já registado · ocupa o dia da Légua da Amadora (4.ª etapa do Torneio, fica de fora) · decisão 24 Out: Sintra é prioridade sobre o Torneio · classificação final exige ≥7 das 12 provas e soma todos os resultados (sem descarte) · alvo do troféu: melhor classificação possível", prio:"Troféu Sintra", col:"#9B59FF" },
 { dateISO:"2026-12-05", date:"05 Dez", name:"Troféu Sintra a Correr · Belas Cross São Silvestre (sáb)", dist:"cross 8 km (percurso 5, M35) · sáb 17h30, Carregueira, de noite · frontal e copo obrigatórios · confirmar presença até 3 Dez 23h59 · 2024: D+ 174 m, FC 168", prio:"Troféu Sintra", col:"#9B59FF" },
 { dateISO:"2026-12-13", date:"13 Dez", name:"Pacer · São Silvestre El Corte Inglés", dist:"pacer 4:00/km (ritmo de prova) · 10km · dom 18h30", prio:"Compromisso", col:"#F5A623" },
 { dateISO:"2026-12-20", date:"20 Dez", name:"GP Natal", dist:"esforço máximo, ‘o melhor possível’ · dia seguinte ao pacer do Seixal (sáb 19/12, 17h30) · distância e hora por confirmar · referência Dez'25: 41:37 (VDOT 49,6)", prio:"Prova", col:"#2FB67C" },
@@ -452,7 +452,7 @@ ${dots}${labels}
 
 /* ===== v2: dados curtos e plano da próxima semana (a manter em sincronia com o resto de D) ===== */
 Object.assign(D, {
-  stamp: "16 Nov · plano até 31 Dez; Almargem 9,29 km e Belas 8 km (17h30) com os dados dos regulamentos",
+  stamp: "16 Nov · Almargem: 09h00, 9,5 km, chegada a confirmar no local; subidas a 19 Nov, limiar a 26 Nov",
   stampISO: "2026-11-16",
   recoveryH: 95,
   short: {
@@ -540,7 +540,7 @@ const W48 = [
   {day:"Qui 26", iso:"2026-11-26", code:"T-LIM-3x8", km:"11", status:"planned", icon:"⚡", mode:"QUALIDADE", ritmo:"4:03–4:07/km", fc:"FC como travão", nota:"Primeiro limiar desde 1 Out. Percurso plano. Não fechar mais forte que 4:03.", detail:{ritmo:"4:03–4:07/km", fc:"FC como travão", estrutura:"20' aquecimento, 3×8' a 4:03–4:07 com 2' trote, 10' arrefecimento."}},
   {day:"Sex 27", iso:"2026-11-27", code:"TESTE-A-PACE-FC135-139", km:"7", status:"planned", icon:"🧪", mode:"TESTE", ritmo:"o que sair a FC fixa", fc:"135–139 bpm durante 20 min", nota:"Leitura A que decide. Sozinho, mesmo percurso, cinta. Só conta diferença ≥15 s/km.", detail:{ritmo:"o que sair a FC fixa", fc:"135–139 bpm durante 20 min", estrutura:"10' + 20' a FC 135–139 + 10'."}},
   {day:"Sáb 28", iso:"2026-11-28", code:"SHAKEOUT", km:"5", status:"planned", icon:"🏃", mode:"FÁCIL", ritmo:"muito leve", fc:"115–140 bpm", nota:"Véspera do GP Almargem.", detail:{ritmo:"muito leve", fc:"115–140 bpm", estrutura:"25 min leves + 4 strides."}},
-  {day:"Dom 29", iso:"2026-11-29", code:"GP ALMARGEM DO BISPO", km:"9.3", status:"planned", icon:"🏁", mode:"PROVA", ritmo:"esforço máximo", fc:"sem alvo", nota:"1.ª do Troféu Sintra. Classe B. 9,29 km, D+ ~180–200 m. Descida forte no km 8,2–8,8: passada curta. Percurso no relógio. Hora por confirmar.", detail:{ritmo:"esforço máximo", fc:"sem alvo", estrutura:"Prova do Troféu Sintra."}},
+  {day:"Dom 29", iso:"2026-11-29", code:"GP ALMARGEM DO BISPO", km:"9.3", status:"planned", icon:"🏁", mode:"PROVA", ritmo:"esforço máximo", fc:"sem alvo", nota:"1.ª do Troféu Sintra. Classe B. Partida 09h00. 9,5 km no regulamento (GPX 9,29 km). A chegada pode não ser a do GPX: confirmar no aquecimento. Descida forte no km 8,2–8,8: passada curta. Confirmar presença até qui 26 Nov 23h59.", detail:{ritmo:"esforço máximo", fc:"sem alvo", estrutura:"Prova do Troféu Sintra."}},
 ];
 W48.forEach(x => x.week = 48);
 const W49 = [
@@ -872,7 +872,7 @@ function renderProvas() {
 <div class="kv"><span>Dorsal</span><span>16 · registado</span></div>
 <div class="kv" style="margin-top:8px"><span>Prémios finais</span><span>M35: troféu top 3 · vales 75/50/25 € (por escalão)</span></div>
 <div style="margin-top:8px">Margem: 5 faltas em 12, mas cada falta custa os pontos que ia somar. Em 2026 só há 2 provas (29 Nov, 5 Dez); as outras 10 são em 2027.</div>
-<div style="margin-top:6px"><b style="color:var(--orange)">A confirmar:</b> levantamento do dorsal/chip da época (Portela de Sintra, seg–sex 9h–17h; férias 8–22 Nov); registo fecha sex 27 Nov para a prova de 29 Nov; dorsal visível à chegada senão não classifica; prémio na cerimónia exige presença, senão perde-se e desclassifica; clube só o da inscrição federada (A.A.L./F.P.A.).</div>
+<div style="margin-top:6px"><b style="color:var(--orange)">A confirmar:</b> levantamento do dorsal/chip da época (Portela de Sintra, seg–sex 9h–17h; férias 8–22 Nov); registo e confirmação de presença até qui 26 Nov 23h59 para a prova de 29 Nov; dorsal visível à chegada senão não classifica; prémio na cerimónia exige presença, senão perde-se e desclassifica; clube só o da inscrição federada (A.A.L./F.P.A.).</div>
 </div></div></details>`;
   p.innerHTML = `
 <div class="goal"><div class="k">Objetivo · ${GOAL.txt}</div>
