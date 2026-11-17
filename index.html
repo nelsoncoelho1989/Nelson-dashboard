@@ -183,6 +183,13 @@ details.sess>.body{border:0;border-radius:0;background:var(--card2);font-size:11
 .pg-dots{display:flex;gap:4px;justify-content:flex-end;flex-wrap:wrap;}.pg-dots span{width:11px;height:11px;border-radius:50%;}
 .pg-band{margin-top:10px;}.pg-bl{display:flex;justify-content:space-between;font-size:10px;margin-bottom:4px;}.pg-bt{position:relative;height:10px;background:var(--border);border-radius:5px;overflow:hidden;}
 .pg-bz{position:absolute;top:0;bottom:0;background:#00D9B033;}.pg-bv{position:absolute;top:3px;height:4px;left:0;background:var(--orange);border-radius:2px;}
+.pg-open{padding:12px 14px;}.pg-rings{display:flex;justify-content:space-around;margin:10px 0 4px;}.pg-ring{position:relative;width:118px;height:118px;}.pg-ring svg{width:100%;height:100%;}
+.pg-rv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}.pg-rv b{font-size:22px;font-weight:800;}.pg-rv span{font-size:9.5px;color:var(--sub);}
+.pg-days{display:flex;justify-content:space-between;margin-top:8px;}.pg-day{background:none;border:1px solid transparent;border-radius:8px;color:var(--sub);font-size:10px;font-weight:700;padding:5px 0;width:13%;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;}
+.pg-day i{width:9px;height:9px;border-radius:50%;border:1px solid var(--dim);display:block;}.pg-day.sel{border-color:var(--orange);color:var(--text);}
+.pg-info{background:var(--card2);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:10.5px;line-height:1.5;}.pg-pr{display:flex;justify-content:space-between;gap:10px;margin-top:3px;}.pg-pr span:first-child{color:var(--sub);flex-shrink:0;}.pg-pr span:last-child{text-align:right;}
+.pg-load{width:100%;height:130px;display:block;margin-top:10px;}.pg-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:8.5px;color:var(--sub);margin-top:6px;}.pg-legend i{display:inline-block;width:9px;height:4px;margin-right:4px;vertical-align:middle;}
+rect.sel{fill:#FFFFFF12;}
 </style>
 </head>
 
@@ -920,11 +927,13 @@ ${rulesHTML}
 D.progress = D.progress || {"asOf":"2026-11-17","weeks":[{"w":"2026-08-24","km":70.9,"h":6.25,"el":542,"eff":315,"nE":4,"nQ":3,"sl":6.64,"lt6":0,"hrv":55},{"w":"2026-08-31","km":59.2,"h":5.44,"el":501,"eff":317,"nE":4,"nQ":3,"sl":6.12,"lt6":3,"hrv":51},{"w":"2026-09-07","km":53.5,"h":4.77,"el":265,"eff":310,"nE":2,"nQ":3,"sl":6.37,"lt6":2,"hrv":53},{"w":"2026-09-14","km":59.9,"h":5.01,"el":587,"eff":313,"nE":3,"nQ":2,"sl":5.96,"lt6":3,"hrv":50},{"w":"2026-09-21","km":60.1,"h":5.38,"el":435,"eff":320,"nE":3,"nQ":2,"sl":6.84,"lt6":0,"hrv":48},{"w":"2026-09-28","km":61.0,"h":5.51,"el":538,"eff":310,"nE":4,"nQ":2,"sl":6.5,"lt6":2,"hrv":55},{"w":"2026-10-05","km":77.6,"h":7.03,"el":546,"eff":324,"nE":3,"nQ":3,"sl":6.23,"lt6":2,"hrv":52},{"w":"2026-10-12","km":53.7,"h":4.55,"el":672,"eff":314,"nE":5,"nQ":1,"sl":6.94,"lt6":1,"hrv":48},{"w":"2026-10-19","km":54.3,"h":4.76,"el":366,"eff":325,"nE":2,"nQ":3,"sl":6.53,"lt6":0,"hrv":52},{"w":"2026-10-26","km":46.7,"h":4.13,"el":415,"eff":310,"nE":2,"nQ":1,"sl":6.47,"lt6":2,"hrv":47},{"w":"2026-11-02","km":58.9,"h":5.3,"el":451,"eff":319,"nE":3,"nQ":3,"sl":6.13,"lt6":1,"hrv":49},{"w":"2026-11-09","km":51.9,"h":4.54,"el":467,"eff":315,"nE":1,"nQ":4,"sl":7.77,"lt6":0,"hrv":52},{"w":"2026-11-16","km":17.2,"h":1.51,"el":181,"eff":314,"nE":1,"nQ":1,"sl":7.3,"lt6":0,"hrv":49}],"load":{"date":"17 Nov","feedback":"Foco aeróbico alto","bands":[["Aeróbica baixa",1437,878,1931],["Aeróbica alta",2116,1053,2107],["Anaeróbica",599,351,1053]]},"lt":[{"d":"2026-10-18","hr":163,"pace":245,"src":"SFRAA"},{"d":"2026-11-15","hr":165,"pace":245,"src":"Torneio etapa 3"}],"ltPower":"446 W · 5,65 W/kg (Garmin Connect)","testeA":[{"d":"2026-11-06","pace":301,"hr":"~141","note":"linha de base (9:47 acima de 139)"}],"vo2":{"now":56.7,"start":57.2,"since":"24 Ago"},"pred":{"5K":"18:52","10K":"39:19","Meia":"1:28:04","date":"17 Nov"},"prs":[["10 km","39:46","oficial · Volkswagen Run 25 Out 2026"],["10 km (vida)","36:24","2007 (júnior)"],["Meia (vida)","1:27:04","2016"],["Meia 2026","1:32:14","melhor esforço Strava (relógio, não oficial)"]],"weight":{"goal":74.0,"hist":[["2026-06-24",80.4],["2026-07-18",79.6],["2026-08-13",79.0]]},"streak":{"weeks":99,"src":"Strava"},"vdot":{"official":52.3,"est":"52,8–53,5","next":53,"nextTime":"39:19","hist":[["Santo António 7 Jun","40:05",51.8],["Tejo 13 Set","40:13",51.6],["Volkswagen 25 Out","39:46",52.3]]},"calib":[["2026-11-06","Teste A (FC 135–139)","linha de base","5:01/km a FC ~141"],["2026-11-17","Ritmo I na INVERSA-V","3:41–3:46","confirmado: 3:43 e 3:43"],["2026-11-18","Fáceis a 4:46 (35')","FC média ≤147 → fáceis partem de 4:46; acima → 5:00",null],["2026-11-20","Teste A (férias)","não decide",null],["2026-11-25","Fáceis a 4:46 (semana de trabalho)","confirma a de 18 Nov",null],["2026-11-26","Limiar guiado por FC (T-LIM-3x8)","1.ª execução do formato novo",null],["2026-11-27","Teste A","decide: ≥15 s/km face a 6 Nov",null]]};
 D.execLog = D.execLog || [{"d":"2026-11-13","s":"EASY40-PASSADEIRA","t":"bloco 3 acima da regra da passadeira","ok":false},{"d":"2026-11-15","s":"RACE-TORNEIO3-10K","t":"travão 168 ultrapassado nos km 4–7","ok":false},{"d":"2026-11-16","s":"REC35","t":"teto 140 respeitado nas médias (picos 142–145)","ok":true},{"d":"2026-11-17","s":"INVERSA-V","t":"3 km de limiar a 4:00 (alvo 4:03–4:07), km 3 a FC 169","ok":false}];
 D.trofeu = D.trofeu || {"season":"26/27","min":7,"total":12,"prev":"3.º em 25/26 (90 pts)","pts":null,"pos":null,"races":[["2026-11-29","GP Almargem do Bispo"],["2026-12-05","Belas Cross São Silvestre"],["2027-02-21","Milha Urbana URCA"],["2027-03-06","Milha São Marcos"],["2027-03-21","Corrida Miguel Torga"],["2027-04-03","Rio de Mouro Cross Run"],["2027-04-18","Corrida Queluz – Prémio José Araújo"],["2027-05-02","Algueirão-Mem Martins"],["2027-05-15","GP Colares"],["2027-05-23","GP Agualva–Mira Sintra"],["2027-06-06","GP JOMA"],["2027-06-20","GP Manique de Cima"]],"results":[]};
+D.daily = D.daily || [{"d":"2026-10-21","atl":1110,"ctl":1116,"km":8.4,"min":51,"hr":124},{"d":"2026-10-22","atl":1058,"ctl":1097,"km":7.3,"min":40,"hr":132},{"d":"2026-10-23","atl":972,"ctl":1077,"km":7.5,"min":44,"hr":130},{"d":"2026-10-24","atl":924,"ctl":1063,"km":5.5,"min":30,"hr":136},{"d":"2026-10-25","atl":1225,"ctl":1111,"km":13.4,"min":61,"hr":153},{"d":"2026-10-26","atl":1009,"ctl":1079,"km":0,"min":0,"hr":null},{"d":"2026-10-27","atl":1011,"ctl":1079,"km":8.3,"min":40,"hr":148},{"d":"2026-10-28","atl":975,"ctl":1073,"km":7.7,"min":40,"hr":140},{"d":"2026-10-29","atl":807,"ctl":1032,"km":0,"min":0,"hr":null},{"d":"2026-10-30","atl":707,"ctl":1006,"km":6.5,"min":41,"hr":123},{"d":"2026-10-31","atl":789,"ctl":1004,"km":7.1,"min":47,"hr":132},{"d":"2026-11-01","atl":972,"ctl":1023,"km":17.2,"min":80,"hr":149},{"d":"2026-11-02","atl":884,"ctl":1000,"km":7.2,"min":43,"hr":125},{"d":"2026-11-03","atl":965,"ctl":1008,"km":7.9,"min":44,"hr":130},{"d":"2026-11-04","atl":914,"ctl":997,"km":8.5,"min":51,"hr":129},{"d":"2026-11-05","atl":1054,"ctl":1008,"km":8.2,"min":45,"hr":130},{"d":"2026-11-06","atl":1006,"ctl":995,"km":8.2,"min":45,"hr":132},{"d":"2026-11-07","atl":979,"ctl":984,"km":6.7,"min":36,"hr":139},{"d":"2026-11-08","atl":1244,"ctl":1023,"km":12.2,"min":55,"hr":159},{"d":"2026-11-09","atl":1175,"ctl":1015,"km":5.9,"min":32,"hr":134},{"d":"2026-11-10","atl":1089,"ctl":1010,"km":7.4,"min":41,"hr":128},{"d":"2026-11-11","atl":884,"ctl":979,"km":0,"min":0,"hr":null},{"d":"2026-11-12","atl":960,"ctl":989,"km":7.0,"min":47,"hr":139},{"d":"2026-11-13","atl":900,"ctl":979,"km":7.2,"min":40,"hr":137},{"d":"2026-11-14","atl":1090,"ctl":1010,"km":10.6,"min":48,"hr":161},{"d":"2026-11-15","atl":1394,"ctl":1067,"km":13.8,"min":64,"hr":156},{"d":"2026-11-16","atl":1287,"ctl":1060,"km":6.5,"min":36,"hr":133},{"d":"2026-11-17","atl":1363,"ctl":1083,"km":10.7,"min":55,"hr":145}];
 /* ===== PROGRESSO (cartões; tocar abre o detalhe) · dados: D.progress (semanal), D.execLog (pós-treino), D.trofeu ===== */
 function renderProgresso() {
   const pane = document.getElementById("pane-progresso"), P = D.progress;
   if (!P || !P.weeks || !P.weeks.length) { pane.innerHTML = '<div class="card small">Sem dados de progresso.</div>'; return; }
   const W = P.weeks, last = W[W.length - 1], full = W.slice(0, -1);
+  window.PGI = {};
   const mmss = s => s == null ? "—" : Math.floor(s / 60) + ":" + String(Math.round(s % 60)).padStart(2, "0");
   const dlab = iso => { const d = new Date(iso + "T00:00:00"); return d.getDate() + "/" + (d.getMonth() + 1); };
   const dec = (x, n = 1) => x == null ? "—" : Number(x).toFixed(n).replace(".", ",");
@@ -934,12 +943,47 @@ function renderProgresso() {
     const pts = vals.map((x, i) => x == null ? null : [i * 100 / (vals.length - 1), inv ? 4 + (x - mn) / r * 22 : 26 - (x - mn) / r * 22]).filter(Boolean);
     return `<svg viewBox="-3 0 106 30" class="pg-spark"><polyline fill="none" stroke="${col}" stroke-width="2" points="${pts.map(p => p.join(",")).join(" ")}"/><circle cx="${pts[pts.length-1][0]}" cy="${pts[pts.length-1][1]}" r="3" fill="${col}"/></svg>`; };
   const axis = (labels) => `<div class="pg-axis">${labels.map((l, i) => `<span>${i % 2 === (labels.length - 1) % 2 ? l : ""}</span>`).join("")}</div>`;
-  const bars = (vals, col, labels, fmt, target) => { const mx = Math.max(...vals.map(v => v || 0), target || 0) || 1, n = vals.length, bw = 100 / n;
-    return `<svg viewBox="0 0 100 62" class="pg-bars" preserveAspectRatio="none">${target ? `<line x1="0" x2="100" y1="${50 - target / mx * 44}" y2="${50 - target / mx * 44}" stroke="var(--gold)" stroke-dasharray="2 2" stroke-width=".5"/>` : ""}${vals.map((v, i) => v == null ? "" : `<rect x="${i * bw + bw * .15}" width="${bw * .7}" y="${50 - v / mx * 44}" height="${v / mx * 44}" rx="1" fill="${i === n - 1 ? col : col + "88"}"/>`).join("")}</svg>${axis(labels)}${fmt ? axis(vals.map(fmt)) : ""}`; };
+  const bars = (vals, col, labels, fmt, target, key, info) => { const mx = Math.max(...vals.map(v => v || 0), target || 0) || 1, n = vals.length, bw = 100 / n;
+    if (key) window.PGI[key] = info;
+    return `<svg viewBox="0 0 100 62" class="pg-bars" preserveAspectRatio="none">${target ? `<line x1="0" x2="100" y1="${50 - target / mx * 44}" y2="${50 - target / mx * 44}" stroke="var(--gold)" stroke-dasharray="2 2" stroke-width=".5"/>` : ""}${vals.map((v, i) => `<rect x="${i * bw}" width="${bw}" y="0" height="62" fill="transparent"${key ? ` data-pgk="${key}" data-pgi="${i}"` : ""}/>` + (v == null ? "" : `<rect class="pg-b" x="${i * bw + bw * .15}" width="${bw * .7}" y="${50 - v / mx * 44}" height="${v / mx * 44}" rx="1" fill="${i === n - 1 ? col : col + "88"}" pointer-events="none"/>`)).join("")}</svg>${axis(labels)}${fmt ? axis(vals.map(fmt)) : ""}${key ? `<div class="pg-info" id="pgi-${key}">${info[n - 1] || ""}</div>` : ""}`; };
   const card = (title, big, sub, right, detail, tag) => `<details class="pg-card"><summary><div class="pg-top"><span class="pg-t">${title}${tag ? ` <span class="pg-tag">${tag}</span>` : ""}</span><span class="pg-more">›</span></div>
     <div class="pg-row"><div><div class="pg-big">${big}</div><div class="pg-sub">${sub || ""}</div></div><div class="pg-right">${right || ""}</div></div></summary><div class="pg-detail">${detail}</div></details>`;
   const sec = t => `<div class="pg-sec">${t}</div>`;
   const labels = W.map(x => dlab(x.w)), tgt = parseFloat(D.weekTarget) || null, out = [], prov = [];
+
+  // ===== Esta semana: anéis + dias (toca num dia) =====
+  const DY = D.daily || [], dOf = iso => DY.find(x => x.d === iso), today = todayISO();
+  const wk0 = wkOf(today), wDays = [...Array(7)].map((_, i) => { const d = new Date(wk0 + "T00:00:00"); d.setDate(d.getDate() + i); return isoOf(d); });
+  const planOf = iso => PLAN.filter(x => x.iso === iso && !/DESCANSO/i.test(x.code));
+  const pKm = wDays.reduce((a, iso) => { const p = planOf(iso); return a + (p.length ? Math.max(...p.map(x => parseFloat(x.km) || 0)) : 0); }, 0);
+  const dKm = wDays.reduce((a, iso) => a + ((dOf(iso) || {}).km || 0), 0), dMin = wDays.reduce((a, iso) => a + ((dOf(iso) || {}).min || 0), 0);
+  const pSes = wDays.filter(iso => planOf(iso).length).length, dSes = wDays.filter(iso => ((dOf(iso) || {}).km || 0) > 0).length;
+  const ring = (v, max, big, small, col) => { const r = 40, c = 2 * Math.PI * r, f = Math.max(0, Math.min(1, max ? v / max : 0));
+    return `<div class="pg-ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="${r}" fill="none" stroke="var(--border)" stroke-width="7"/><circle cx="50" cy="50" r="${r}" fill="none" stroke="${col}" stroke-width="7" stroke-linecap="round" stroke-dasharray="${c * f} ${c}" transform="rotate(-90 50 50)"/></svg><div class="pg-rv"><b>${big}</b><span>${small}</span></div></div>`; };
+  const dayInfo = iso => { const p = planOf(iso), r = dOf(iso), wd = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"][new Date(iso + "T00:00:00").getDay()];
+    const pTxt = p.length ? p.map(x => `${x.code}${parseFloat(x.km) ? " · " + String(x.km).replace(".", ",") + " km" : ""}`).join(" ou ") : "descanso";
+    const rTxt = r && r.km ? `${dec(r.km)} km · ${r.min} min · ${mmss(r.min * 60 / r.km)}/km · FC ${r.hr || "—"}` : iso > today ? "—" : "sem atividade registada";
+    const st = p[0] && p[0].status === "done" ? ` · <span style="color:var(--teal)">✓</span>` : "";
+    return `<b>${wd} ${dlab(iso)}</b>${st}<div class="pg-pr"><span>Planeado</span><span>${pTxt}</span></div><div class="pg-pr"><span>Realizado</span><span>${rTxt}</span></div>${r && r.ctl ? `<div class="pg-pr"><span>Carga</span><span>aguda ${r.atl} · ACWR ${(r.atl / r.ctl).toFixed(2).replace(".", ",")}</span></div>` : ""}`; };
+  window.PGI.dia = wDays.map(dayInfo);
+  const tIdx = Math.max(0, wDays.indexOf(today));
+  out.push(`<div class="pg-card pg-open"><div class="pg-top"><span class="pg-t">Esta semana</span><span class="pg-sub">${dlab(wDays[0])}–${dlab(wDays[6])}</span></div>
+    <div class="pg-rings">${ring(dKm, parseFloat(D.weekTarget) || pKm, dec(dKm), "/ " + (parseFloat(D.weekTarget) ? D.weekTarget : dec(pKm)) + " km", "var(--orange)")}${ring(dSes, pSes, dSes + "/" + pSes, "sessões · " + hm(dMin / 60), "var(--teal)")}</div>
+    <div class="pg-days">${wDays.map((iso, i) => { const r = dOf(iso), p = planOf(iso); return `<button class="pg-day${i === tIdx ? " sel" : ""}" data-pgk="dia" data-pgi="${i}"><span>${"STQQSSD"[i]}</span><i style="background:${r && r.km ? "var(--teal)" : iso < today && p.length ? "var(--orange)" : p.length ? "var(--dim)" : "transparent"};border-color:${p.length ? "var(--dim)" : "var(--border)"}"></i></button>`; }).join("")}</div>
+    <div class="pg-info" id="pgi-dia">${window.PGI.dia[tIdx]}</div></div>`);
+
+  // ===== Carga de treino (aguda vs faixa ACWR 0,8–1,3 da crónica) — toca num ponto =====
+  if (DY.length > 1) { const n = DY.length, X = i => 4 + i * 92 / (n - 1), mx = Math.max(...DY.map(x => Math.max(x.atl, x.ctl * 1.3))) * 1.05, mn = Math.min(...DY.map(x => Math.min(x.atl, x.ctl * .8))) * .92, Y = v => 4 + (1 - (v - mn) / (mx - mn)) * 52;
+    const band = DY.map((x, i) => `${X(i)},${Y(x.ctl * 1.3)}`).join(" ") + " " + DY.slice().reverse().map((x, j) => `${X(n - 1 - j)},${Y(x.ctl * .8)}`).join(" ");
+    const last = DY[n - 1], ac = last.atl / last.ctl, acT = ac.toFixed(2).replace(".", ","), over = DY.slice(-10).filter(x => x.atl / x.ctl < .8).length;
+    const msg = ac > 1.3 ? `<b style="color:var(--orange)">Acima de 1,3 — é um sinal.</b> Conta para o veredicto da manhã: com outro sinal no mesmo dia, a qualidade desce a fácil.` : ac >= .8 ? `<b style="color:var(--teal)">Dentro da faixa.</b> ACWR ${acT}: a carga dos últimos 7 dias está alinhada com o que tens treinado.${ac > 1.2 ? " Perto do limite de 1,3: atenção às próximas 48 h." : ""}` : `<b style="color:var(--gold)">Abaixo de 0,8.</b> Só conta se durar 10 dias fora de taper ou pós-prova (${over}/10 até agora) e aí significa sub-estímulo, não aliviar.`;
+    window.PGI.carga = DY.map(x => dayInfo(x.d));
+    out.push(`<div class="pg-card pg-open"><div class="pg-top"><span class="pg-t">Carga de treino <span class="pg-tag">ACWR ${acT}</span></span><span class="pg-sub">${n} dias</span></div>
+      <svg viewBox="0 0 100 62" class="pg-load" preserveAspectRatio="none"><polygon points="${band}" fill="#5A6B8A33"/><polyline fill="none" stroke="var(--text)" stroke-width=".8" points="${DY.map((x, i) => `${X(i)},${Y(x.atl)}`).join(" ")}"/>${DY.map((x, i) => `<circle cx="${X(i)}" cy="${Y(x.atl)}" r="${i === n - 1 ? 1.8 : 1.1}" fill="${x.atl / x.ctl > 1.3 ? "var(--orange)" : i === n - 1 ? "var(--text)" : "var(--card)"}" stroke="var(--text)" stroke-width=".5" pointer-events="none"/><rect x="${X(i) - 46 / (n - 1)}" width="${92 / (n - 1)}" y="0" height="62" fill="transparent" data-pgk="carga" data-pgi="${i}"/>`).join("")}</svg>
+      ${axis(DY.map(x => dlab(x.d)).map((l, i) => i % 7 === (n - 1) % 7 ? l : ""))}
+      <div class="pg-legend"><span><i style="background:#5A6B8A55"></i>faixa segura (0,8–1,3 × crónica)</span><span><i style="background:var(--text)"></i>carga aguda (7 dias)</span></div>
+      <div class="pg-note" style="margin-top:6px">${msg}</div>
+      <div class="pg-info" id="pgi-carga">${window.PGI.carga[n - 1]}</div></div>`); }
 
   out.push(sec("Treino e recuperação"));
   // Eficiência nos fáceis
@@ -968,13 +1012,13 @@ function renderProgresso() {
 
   // Volume
   out.push(card("Volume semanal", `${dec(last.km)} <small>km</small>`, `esta semana${tgt ? " · alvo " + tgt : ""} · ${hm(last.h)} · ${last.el} m D+`, spark(full.map(x => x.km), "var(--orange)"),
-    bars(W.map(x => x.km), "#FF5422", labels, v => Math.round(v), tgt) +
+    bars(W.map(x => x.km), "#FF5422", labels, v => Math.round(v), tgt, "vol", W.map(x => `<b>Semana de ${dlab(x.w)}</b> · ${dec(x.km)} km · ${hm(x.h)} · ${x.el} m D+ · ${x.nQ} qualidade/prova · eficiência ${mmss(x.eff)} a FC 140 · sono ${hm(x.sl)}`)) +
     `<div class="pg-note">Últimas ${W.length} semanas (segunda a domingo; a última está em curso). Média das completas: ${dec(full.reduce((a, x) => a + x.km, 0) / full.length)} km · tracejado = alvo da semana. Sessões de qualidade/prova por semana: ${full.slice(-6).map(x => x.nQ).join(" · ")} (últimas 6). [medido]</div>`));
 
   // Sono
   const slW = W.filter(x => x.sl != null), s4 = full.slice(-4).filter(x => x.sl != null), s4a = s4.reduce((a, x) => a + x.sl, 0) / (s4.length || 1);
   out.push(card("Sono", `${hm(last.sl)} <small>média esta semana</small>`, `${last.lt6 ?? 0} noite(s) abaixo de 6 h · média das 4 anteriores ${hm(s4a)}`, spark(W.map(x => x.sl), "var(--purple)"),
-    bars(W.map(x => x.sl), "#9B59FF", labels, v => v == null ? "" : dec(v), 6) +
+    bars(W.map(x => x.sl), "#9B59FF", labels, v => v == null ? "" : dec(v), 6, "sono", W.map(x => `<b>Semana de ${dlab(x.w)}</b> · sono médio ${hm(x.sl)} · ${x.lt6 ?? 0} noite(s) &lt;6 h · HRV ${x.hrv || "—"} · ${Math.round(x.km)} km`)) +
     `<table class="pg-tab"><tr><th>Semana</th><th>Média</th><th>&lt;6 h</th><th>HRV</th><th>km</th></tr>${slW.slice().reverse().map(x => `<tr><td>${dlab(x.w)}</td><td>${hm(x.sl)}</td><td>${x.lt6}</td><td>${x.hrv || "—"}</td><td>${Math.round(x.km)}</td></tr>`).join("")}</table>
     <div class="pg-note">6–7 h é o teu normal; abaixo de 5h30 é sinal; abaixo de 5 h não há sessão intensa. Tracejado = 6 h. A noite de sexta é curta por norma (ensaio). [medido]</div>`));
 
@@ -1043,6 +1087,9 @@ function renderProgresso() {
   if (pv && prov.length) { const old = document.getElementById("pg-provas"); if (old) old.remove(); pv.insertAdjacentHTML("afterbegin", `<div id="pg-provas"><div class="pg-sec" style="margin-top:4px">Resultados</div>${prov.join("")}</div>`); }
   pane.innerHTML = `<div class="pg-head">Progresso <span>atualizado ${dlab(P.asOf)} · toca num cartão para ver o detalhe</span></div>` + out.join("");
 }
+document.addEventListener("click", ev => { const el = ev.target.closest("[data-pgk]"); if (!el) return; const k = el.dataset.pgk, i = +el.dataset.pgi, box = document.getElementById("pgi-" + k);
+  if (!box || !window.PGI || !window.PGI[k]) return; box.innerHTML = window.PGI[k][i] || "";
+  document.querySelectorAll(`[data-pgk="${k}"]`).forEach(e => e.classList.toggle("sel", e === el)); });
 
 /* ===== arranque ===== */
 document.getElementById("statusBadge").textContent = D.trainingStatus;
