@@ -100,6 +100,14 @@ body{padding-bottom:78px;}
 .verdict .vv{font-size:30px;font-weight:900;letter-spacing:-.5px;line-height:1.1;margin:4px 0 6px;}
 .verdict .vr{color:var(--sub);font-size:11px;line-height:1.5;}
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.gz-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px;}
+.gz{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:8px 4px 7px;text-align:center;cursor:pointer;}
+.gz.sel{border-color:var(--sub);}
+.gz svg{width:100%;max-width:84px;display:block;margin:0 auto;}
+.gz .gl{color:var(--sub);font-size:8px;letter-spacing:1.2px;text-transform:uppercase;margin-top:-2px;}
+.gz .gs{font-size:9px;font-weight:700;margin-top:2px;}
+.gz-info{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:9px 11px;font-size:11px;line-height:1.5;margin-bottom:12px;}
+.gz-ctx{color:var(--sub);font-size:10px;margin:-4px 0 12px 2px;}
 .tile{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 8px;text-align:center;}
 .tile .tl{color:var(--sub);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;}
 .tile .tv{font-size:26px;font-weight:900;font-family:'Courier New',monospace;line-height:1.15;margin-top:3px;}
@@ -230,7 +238,7 @@ const D = {
 meta: { updatedAt: "13 Nov 2026 · 19h45 · Sexta: EASY40 passa para passadeira", source: "Claude + Garmin MCP cloud" },
 hrv: 51, hrvTrend: "Noite de 14→15 Nov SEM dados: o relógio estava sem bateria / a carregar, por isso não há HRV nem sono nessa noite. Ausência de dado não é sinal. Média semanal Garmin 52ms (BALANCED, baseline 48–58). Gatilhos reavaliam-se na manhã de segunda com o relógio posto.",
 rhr: 50, bodyBattery: "MODERATE", weight: 79.0,
-lthr: "163–165", ltPace: "4:05", rhrMed28: 47.5, hrvPrev: 47, hrvLow: 45, sleepH: 7.38,
+lthr: "163–165", ltPace: "4:05", rhrMed28: 48.0, hrvPrev: 47, hrvLow: 45, hrvBal: [48, 58], sleepH: 7.38,
 vdot: 52.3, vdotEst: "52.8–53.5",
 trainingStatus: "MANUTENÇÃO (Nível 3)", tsDate: "17 Nov",
 acwr: 1.26,
@@ -767,15 +775,38 @@ function renderHoje() {
   const next = PLAN.find(x => x.iso > t && x.status !== "done");
   const nextRace = D.races.find(r => daysUntil(r.dateISO) >= 0 && !["Provisória", "Concluída"].includes(r.prio));
 
-  const tile = (l, val, unit, sub, c) => `<div class="tile"><div class="tl">${l}</div><div class="tv" style="color:${c}">${val}</div><div class="ts">${unit ? unit + " · " : ""}${sub}</div></div>`;
-  let html = `
+  /* mostradores dos 4 gatilhos (estilo Garmin): cor pela regra v4.3; tocar mostra o detalhe */
+  const med = D.rhrMed28 || 48, low = D.hrvLow || 45, bal = D.hrvBal || [48, 58], rLim = med + 5, sl = D.sleepH;
+  const hmS = h => Math.floor(h) + "h" + String(Math.round((h % 1) * 60)).padStart(2, "0");
+  const G = "var(--z1)", A = "var(--z3)", R = "var(--z5)", N = "var(--sub)";
+  const pt = (f, r) => { const a = (150 + 240 * f) * Math.PI / 180; return [50 + r * Math.cos(a), 50 + r * Math.sin(a)]; };
+  const arc = (f0, f1, r) => { const [x0, y0] = pt(f0, r), [x1, y1] = pt(f1, r); return `M${x0.toFixed(1)},${y0.toFixed(1)} A${r},${r} 0 ${(f1 - f0) * 240 > 180 ? 1 : 0} 1 ${x1.toFixed(1)},${y1.toFixed(1)}`; };
+  const gauge = (key, label, v, txt, mn, mx, col, status, band, tick) => {
+    const fr = x => Math.max(0, Math.min(1, (x - mn) / (mx - mn))), f = v == null ? 0 : fr(v);
+    const tk = tick == null ? "" : (() => { const [a, b] = pt(fr(tick), 33), [c, d] = pt(fr(tick), 47); return `<line x1="${a.toFixed(1)}" y1="${b.toFixed(1)}" x2="${c.toFixed(1)}" y2="${d.toFixed(1)}" stroke="var(--text)" stroke-width="1.6"/>`; })();
+    return `<div class="gz" data-gz="${key}"><svg viewBox="0 3 100 78"><path d="${arc(0, 1, 40)}" fill="none" stroke="var(--border)" stroke-width="8" stroke-linecap="round"/>${band ? `<path d="${arc(fr(band[0]), fr(band[1]), 40)}" fill="none" stroke="${G}" stroke-opacity=".28" stroke-width="8"/>` : ""}${v == null ? "" : `<path d="${arc(0, Math.max(f, .02), 40)}" fill="none" stroke="${col}" stroke-width="8" stroke-linecap="round"/>`}${tk}<text x="50" y="56" text-anchor="middle" font-size="${String(txt).length > 4 ? 15 : 20}" font-weight="800" fill="var(--text)">${txt}</text></svg><div class="gl">${label}</div><div class="gs" style="color:${col}">${status}</div></div>`;
+  };
+  const hv = D.hrv, rv = D.rhr, av = D.acwr != null ? +D.acwr : null;
+  const hC = hv == null ? N : hv < low ? R : hv < bal[0] ? A : G, hS = hv == null ? "sem dado" : hv < low ? "sinal" : hv < bal[0] ? "abaixo da faixa" : "equilibrado";
+  const rC = rv == null ? N : rv >= rLim ? R : rv >= rLim - 2 ? A : G, rS = rv == null ? "sem dado" : rv >= rLim ? "sinal" : rv >= rLim - 2 ? "perto" : "normal";
+  const aC = av == null ? N : av > 1.3 ? R : (av > 1.2 || av < .8) ? A : G, aS = av == null ? "sem dado" : av > 1.3 ? "sinal" : av > 1.2 ? "no limite" : av < .8 ? "baixo" : "ótimo";
+  const sC = sl == null ? N : sl < 5 ? R : sl < 5.5 ? R : sl < 6 ? A : G, sS = sl == null ? "sem dado" : sl < 5 ? "sem intensidade" : sl < 5.5 ? "sinal" : sl < 6 ? "contexto" : "normal";
+  const DY = D.daily || [], last7 = DY.slice(-7).map(x => `${x.d.slice(8)}/${x.d.slice(5, 7)} ${(x.atl / x.ctl).toFixed(2).replace(".", ",")}`).join(" · ");
+  window.GZI = {
+    hrv: `<b>HRV da noite: ${hv ?? "—"} ms</b> (noite anterior ${D.hrvPrev ?? "—"}). Faixa "equilibrado" da Garmin ${bal[0]}–${bal[1]} ms; o traço marca o limite "low" (${low}). Abaixo do limite = sinal; duas noites seguidas abaixo = vermelho.`,
+    rhr: `<b>FC de repouso: ${rv ?? "—"} bpm</b>. Mediana dos últimos 28 dias ${String(med).replace(".", ",")}; o traço marca o limiar de sinal (${String(rLim).replace(".", ",")} = mediana +5).`,
+    acwr: `<b>ACWR: ${av == null ? "—" : av.toFixed(2).replace(".", ",")}</b> (carga aguda ÷ crónica, 2 casas). Faixa verde 0,8–1,3; acima de 1,3 = sinal; abaixo de 0,8 só conta se durar 10 dias fora de taper.${last7 ? "<br>Últimos 7 dias: " + last7 : ""}`,
+    sono: `<b>Sono: ${sl == null ? "—" : hmS(sl)}</b>. 6–7 h é o teu normal; 5h30–6 h só contexto; abaixo de 5h30 = sinal; abaixo de 5 h = sem sessão intensa nesse dia.`};
+  let html = `<div class="gz-grid">
+${gauge("hrv", "HRV", hv, hv ?? "—", 30, 70, hC, hS, bal, low)}
+${gauge("rhr", "FC repouso", rv, rv ?? "—", 40, 60, rC, rS, null, rLim)}
+${gauge("acwr", "ACWR", av, av == null ? "—" : av.toFixed(2).replace(".", ","), .5, 1.6, aC, aS, [.8, 1.3], 1.3)}
+${gauge("sono", "Sono", sl, sl == null ? "—" : hmS(sl), 4, 9, sC, sS, null, 5.5)}
+</div>
+<div class="gz-ctx">Contexto Garmin (não decide): prontidão ${D.readiness ?? "—"}${D.bodyBattery ? " · body battery " + D.bodyBattery : ""}${D.recoveryH ? " · recuperação " + D.recoveryH + " h" : ""}</div>
 <div class="verdict" style="border-color:${v.col}55"><div class="vk">Prontidão para a próxima sessão</div>
 <div class="vv" style="color:${v.col}">${v.txt}</div><div class="vr">${v.reason}</div>${v.cav ? `<div class="vr" style="color:var(--gold);margin-top:6px">⚠ ${v.cav}</div>` : ""}</div>
-<div class="tiles">
-${tile("HRV", D.hrv, "ms", D.short.hrv, tone(D.hrv, 47, 45, true))}
-${tile("FC repouso", D.rhr, "bpm", D.short.rhr, tone(D.rhr, 48, 51, false))}
-${tile("Readiness", D.readiness, "/100", D.short.ready, tone(D.readiness, 55, 30, true))}
-</div>`;
+<div class="gz-info" id="gz-info" style="display:none"></div>`;
   if (D.alerts && D.alerts.length) html += `<div class="alert">⚠ ${D.alerts[0]}</div>`;
 
   if (cur) {
@@ -813,6 +844,10 @@ ${next.rule ? ruleHTML(next.rule) : ""}</div>`;
   }
   p.innerHTML = html;
 }
+
+document.addEventListener("click", ev => { const g = ev.target.closest("[data-gz]"); if (!g) return; const box = document.getElementById("gz-info"); if (!box || !window.GZI) return;
+  const on = g.classList.contains("sel"); document.querySelectorAll(".gz").forEach(e => e.classList.remove("sel"));
+  if (on) { box.style.display = "none"; return; } g.classList.add("sel"); box.innerHTML = window.GZI[g.dataset.gz] || ""; box.style.display = "block"; });
 
 /* ===== SEMANA ===== */
 function renderSemana() {
