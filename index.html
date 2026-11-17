@@ -168,6 +168,21 @@ details.sess>.body{border:0;border-radius:0;background:var(--card2);font-size:11
 .ld-bar{position:absolute;bottom:0;left:0;right:0;border-radius:4px 4px 0 0;}
 .ld-tick{position:absolute;left:-3px;right:-3px;height:0;border-top:2px solid var(--gold);}
 .glyph{font-size:12px;margin-right:4px;font-weight:800;}
+.pg-head{font-size:13px;font-weight:800;margin:4px 2px 12px;}.pg-head span{display:block;color:var(--sub);font-size:9px;font-weight:400;margin-top:2px;}
+.pg-sec{color:var(--sub);font-size:8px;letter-spacing:2px;text-transform:uppercase;margin:16px 2px 8px;}
+.pg-card{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;}
+.pg-card summary{display:block;list-style:none;padding:12px 14px;cursor:pointer;border:0;border-radius:0;background:none;font-size:inherit;font-weight:400;}.pg-card summary::after{content:none;}.pg-card summary::-webkit-details-marker{display:none;}
+.pg-top{display:flex;justify-content:space-between;align-items:center;}.pg-t{font-size:11px;font-weight:700;}.pg-tag{font-size:8px;font-weight:600;color:var(--orange);background:#FF542220;border-radius:4px;padding:1px 5px;margin-left:4px;}.pg-more{color:var(--sub);font-size:16px;transition:transform .2s;}
+.pg-card[open] .pg-more{transform:rotate(90deg);}
+.pg-row{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:8px;}.pg-big{font-size:22px;font-weight:800;line-height:1.15;}.pg-big small{font-size:11px;color:var(--sub);font-weight:600;}
+.pg-sub{color:var(--sub);font-size:9.5px;margin-top:3px;}.pg-right{width:40%;max-width:150px;flex-shrink:0;}.pg-spark{width:100%;height:34px;display:block;}
+.pg-detail{padding:4px 14px 14px;border-top:1px solid var(--border);}.pg-bars{width:100%;height:110px;display:block;margin-top:8px;}
+.pg-axis{display:flex;}.pg-axis span{flex:1;text-align:center;font-size:8px;color:var(--sub);}
+.pg-note{color:var(--sub);font-size:9.5px;line-height:1.45;margin-top:8px;}.pg-tab{width:100%;border-collapse:collapse;font-size:10.5px;margin-top:8px;}
+.pg-tab th{color:var(--sub);font-weight:600;text-align:left;font-size:9px;padding:4px 2px;border-bottom:1px solid var(--border);}.pg-tab td{padding:5px 2px;border-bottom:1px solid var(--border);}.pg-dim{color:var(--sub);font-size:9px;}
+.pg-dots{display:flex;gap:4px;justify-content:flex-end;flex-wrap:wrap;}.pg-dots span{width:11px;height:11px;border-radius:50%;}
+.pg-band{margin-top:10px;}.pg-bl{display:flex;justify-content:space-between;font-size:10px;margin-bottom:4px;}.pg-bt{position:relative;height:10px;background:var(--border);border-radius:5px;overflow:hidden;}
+.pg-bz{position:absolute;top:0;bottom:0;background:#00D9B033;}.pg-bv{position:absolute;top:3px;height:4px;left:0;background:var(--orange);border-radius:2px;}
 </style>
 </head>
 
@@ -191,6 +206,7 @@ details.sess>.body{border:0;border-radius:0;background:var(--card2);font-size:11
 <div class="pane" id="pane-semana"></div>
 <div class="pane" id="pane-analise"></div>
 <div class="pane" id="pane-provas"></div>
+<div class="pane" id="pane-progresso"></div>
 </div>
 </div>
 <div class="nav"><div class="nav-in">
@@ -198,6 +214,7 @@ details.sess>.body{border:0;border-radius:0;background:var(--card2);font-size:11
 <button data-tab="semana"><span class="ic">▤</span>Semana</button>
 <button data-tab="analise"><span class="ic">◭</span>Análise</button>
 <button data-tab="provas"><span class="ic">⚑</span>Provas</button>
+<button data-tab="progresso"><span class="ic">↗</span>Progresso</button>
 </div></div>
 
 <div id="__notes" style="display:none"><div class="note" style="margin:0;border-radius:0 0 12px 12px"><b>Semana 42 — RECUPERAÇÃO PÓS-MEIA</b>. Seg 12 descanso total. Ter 13 EASY40 em Sintra: 7,69km em 40:12 (5:14/km), FC média 140/máx 159, saiu progressivo (últimos ~2,6km em Z3, Garmin TEMPO, carga 131) apesar de percebido 3/10. Qua 14 EASY STR em Sintra: 8,93km em 51:01, FC 127-136 (máx 145 no corpo do treino), teto de 147 cumprido, 6 strides progressivos até ~3:01/km, eficiência igual à de terça (~0,0225 vs 0,0228 m/s/bpm). Fadiga real baixa e só autónoma: HRV 44 (2.ª noite abaixo de 45 em 3) e RHR 50 (a subir 48→49→50) = resíduo da meia, sem sinal muscular; ACWR 0,9, TSB +54. Qui 15 EASY STR sem strides (adormeceu): 8,59km em 45:00, progressivo 5:25 → 4:58/km com FC 132 → 153, ~2km acima do teto de 147 (2 dos 3 fáceis desde a meia acabaram em Z3), HRV 48 e RHR 49 já dentro do critério de domingo, Sex 16 EASY40 que virou 10,01km a 4:55/km (49:16), FC 148→161 e máx 168, ~5km acima do teto de 147, 2 dias antes da prova (recovery_time 26,4h, carga aguda 834→1035; HRV 49, RHR 48 de manhã), Sáb 17 REC35-DRILL feito (6,56km em 35:04, FC média 142 vs ≤135 combinado, sem prejuízo: RHR 44 e HRV 52 na manhã da prova), Dom 18 SFRAA City Run: 40:06 no Garmin (10,10km, 3:58/km, FC média 169/máx 179), sub-40 falhado por ~6 s, com a menor diferença entre metades vs Brandoa e Tejo (19:44 + 3:59/km); 31.º geral e 6.º M35 (tempo oficial inflado pelo registo do código de barras; referência Garmin); distância real por confirmar. Custo: readiness 13, recovery_time 74h, carga aguda 841→1300, ACWR 1,1. Ter 20 por decidir na terça de manhã pela regra combinada (manter 3×2 km só com Torneio ≤RPE 8 ou ≤5 km, HRV ≥47, FC repouso ≤ +2, dor ≤2/10 e sono ≥6h30; um âmbar = 2×2 km; dois âmbares = EASY40 + strides), Qui 22 SHARP-4x1, Dom 25 Volkswagen Run. A S41 fechou em 77,6km (pacer 21 + meia 21,25).</div><div class="note">Semana 40 fechou em <b>60,95km</b> de 66km alvo (92%). Semana 41 fechou em <b>77,6km</b> (100,8% do alvo de 77km) com o pacer de 21km no sábado e a meia de 21,25km (GPS) no domingo: a semana mais pesada desde a S35 em volume total, apesar de ser taper de intensidade. A meia e o pacer contam como estímulo forte; a S42 entra em recuperação (alvo ~45-50km, 53,74km feitos até dom 18, incluindo aquecimento da prova). S43: Seg 19 descanso (EASY45 não feito), Ter 20 3×2 km feito (12,13 km com aquecimento e arrefecimento). Qua 21 EASY STR feito (8,40 km em 51:03, FC média 124, 6 strides). Qui 22 SHARP-4x1-RUA feito (7,33 km em 40:04, 4 reps a 3:51 / 3:40 / 3:46 / 3:28). Sex 23 EASY40 feito (7,51 km em 44:14, FC média 130, teto 147 respeitado). Sáb 24 SHAKEOUT feito (5,45 km em 30:01, FC média 136, 4 strides; teto de 140 ultrapassado nos últimos 2 km).</div></div>
@@ -900,6 +917,133 @@ ${rulesHTML}
   }).join("")}</div></details>`;
 }
 
+D.progress = D.progress || {"asOf":"2026-11-17","weeks":[{"w":"2026-08-24","km":70.9,"h":6.25,"el":542,"eff":315,"nE":4,"nQ":3,"sl":6.64,"lt6":0,"hrv":55},{"w":"2026-08-31","km":59.2,"h":5.44,"el":501,"eff":317,"nE":4,"nQ":3,"sl":6.12,"lt6":3,"hrv":51},{"w":"2026-09-07","km":53.5,"h":4.77,"el":265,"eff":310,"nE":2,"nQ":3,"sl":6.37,"lt6":2,"hrv":53},{"w":"2026-09-14","km":59.9,"h":5.01,"el":587,"eff":313,"nE":3,"nQ":2,"sl":5.96,"lt6":3,"hrv":50},{"w":"2026-09-21","km":60.1,"h":5.38,"el":435,"eff":320,"nE":3,"nQ":2,"sl":6.84,"lt6":0,"hrv":48},{"w":"2026-09-28","km":61.0,"h":5.51,"el":538,"eff":310,"nE":4,"nQ":2,"sl":6.5,"lt6":2,"hrv":55},{"w":"2026-10-05","km":77.6,"h":7.03,"el":546,"eff":324,"nE":3,"nQ":3,"sl":6.23,"lt6":2,"hrv":52},{"w":"2026-10-12","km":53.7,"h":4.55,"el":672,"eff":314,"nE":5,"nQ":1,"sl":6.94,"lt6":1,"hrv":48},{"w":"2026-10-19","km":54.3,"h":4.76,"el":366,"eff":325,"nE":2,"nQ":3,"sl":6.53,"lt6":0,"hrv":52},{"w":"2026-10-26","km":46.7,"h":4.13,"el":415,"eff":310,"nE":2,"nQ":1,"sl":6.47,"lt6":2,"hrv":47},{"w":"2026-11-02","km":58.9,"h":5.3,"el":451,"eff":319,"nE":3,"nQ":3,"sl":6.13,"lt6":1,"hrv":49},{"w":"2026-11-09","km":51.9,"h":4.54,"el":467,"eff":315,"nE":1,"nQ":4,"sl":7.77,"lt6":0,"hrv":52},{"w":"2026-11-16","km":17.2,"h":1.51,"el":181,"eff":314,"nE":1,"nQ":1,"sl":7.3,"lt6":0,"hrv":49}],"load":{"date":"17 Nov","feedback":"Foco aeróbico alto","bands":[["Aeróbica baixa",1437,878,1931],["Aeróbica alta",2116,1053,2107],["Anaeróbica",599,351,1053]]},"lt":[{"d":"2026-10-18","hr":163,"pace":245,"src":"SFRAA"},{"d":"2026-11-15","hr":165,"pace":245,"src":"Torneio etapa 3"}],"ltPower":"446 W · 5,65 W/kg (Garmin Connect)","testeA":[{"d":"2026-11-06","pace":301,"hr":"~141","note":"linha de base (9:47 acima de 139)"}],"vo2":{"now":56.7,"start":57.2,"since":"24 Ago"},"pred":{"5K":"18:52","10K":"39:19","Meia":"1:28:04","date":"17 Nov"},"prs":[["10 km","39:46","oficial · Volkswagen Run 25 Out 2026"],["10 km (vida)","36:24","2007 (júnior)"],["Meia (vida)","1:27:04","2016"],["Meia 2026","1:32:14","melhor esforço Strava (relógio, não oficial)"]],"weight":{"goal":74.0,"hist":[["2026-06-24",80.4],["2026-07-18",79.6],["2026-08-13",79.0]]},"streak":{"weeks":99,"src":"Strava"},"vdot":{"official":52.3,"est":"52,8–53,5","next":53,"nextTime":"39:19","hist":[["Santo António 7 Jun","40:05",51.8],["Tejo 13 Set","40:13",51.6],["Volkswagen 25 Out","39:46",52.3]]},"calib":[["2026-11-06","Teste A (FC 135–139)","linha de base","5:01/km a FC ~141"],["2026-11-17","Ritmo I na INVERSA-V","3:41–3:46","confirmado: 3:43 e 3:43"],["2026-11-18","Fáceis a 4:46 (35')","FC média ≤147 → fáceis partem de 4:46; acima → 5:00",null],["2026-11-20","Teste A (férias)","não decide",null],["2026-11-25","Fáceis a 4:46 (semana de trabalho)","confirma a de 18 Nov",null],["2026-11-26","Limiar guiado por FC (T-LIM-3x8)","1.ª execução do formato novo",null],["2026-11-27","Teste A","decide: ≥15 s/km face a 6 Nov",null]]};
+D.execLog = D.execLog || [{"d":"2026-11-13","s":"EASY40-PASSADEIRA","t":"bloco 3 acima da regra da passadeira","ok":false},{"d":"2026-11-15","s":"RACE-TORNEIO3-10K","t":"travão 168 ultrapassado nos km 4–7","ok":false},{"d":"2026-11-16","s":"REC35","t":"teto 140 respeitado nas médias (picos 142–145)","ok":true},{"d":"2026-11-17","s":"INVERSA-V","t":"3 km de limiar a 4:00 (alvo 4:03–4:07), km 3 a FC 169","ok":false}];
+D.trofeu = D.trofeu || {"season":"26/27","min":7,"total":12,"prev":"3.º em 25/26 (90 pts)","pts":null,"pos":null,"races":[["2026-11-29","GP Almargem do Bispo"],["2026-12-05","Belas Cross São Silvestre"],["2027-02-21","Milha Urbana URCA"],["2027-03-06","Milha São Marcos"],["2027-03-21","Corrida Miguel Torga"],["2027-04-03","Rio de Mouro Cross Run"],["2027-04-18","Corrida Queluz – Prémio José Araújo"],["2027-05-02","Algueirão-Mem Martins"],["2027-05-15","GP Colares"],["2027-05-23","GP Agualva–Mira Sintra"],["2027-06-06","GP JOMA"],["2027-06-20","GP Manique de Cima"]],"results":[]};
+/* ===== PROGRESSO (cartões; tocar abre o detalhe) · dados: D.progress (semanal), D.execLog (pós-treino), D.trofeu ===== */
+function renderProgresso() {
+  const pane = document.getElementById("pane-progresso"), P = D.progress;
+  if (!P || !P.weeks || !P.weeks.length) { pane.innerHTML = '<div class="card small">Sem dados de progresso.</div>'; return; }
+  const W = P.weeks, last = W[W.length - 1], full = W.slice(0, -1);
+  const mmss = s => s == null ? "—" : Math.floor(s / 60) + ":" + String(Math.round(s % 60)).padStart(2, "0");
+  const dlab = iso => { const d = new Date(iso + "T00:00:00"); return d.getDate() + "/" + (d.getMonth() + 1); };
+  const dec = (x, n = 1) => x == null ? "—" : Number(x).toFixed(n).replace(".", ",");
+  const hm = h => h == null ? "—" : Math.floor(h) + "h" + String(Math.round((h % 1) * 60)).padStart(2, "0");
+  const wkOf = iso => { const d = new Date(iso + "T00:00:00"); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return isoOf(d); };
+  const spark = (vals, col, inv) => { const v = vals.filter(x => x != null); if (v.length < 2) return ""; const mn = Math.min(...v), mx = Math.max(...v), r = (mx - mn) || 1;
+    const pts = vals.map((x, i) => x == null ? null : [i * 100 / (vals.length - 1), inv ? 4 + (x - mn) / r * 22 : 26 - (x - mn) / r * 22]).filter(Boolean);
+    return `<svg viewBox="-3 0 106 30" class="pg-spark"><polyline fill="none" stroke="${col}" stroke-width="2" points="${pts.map(p => p.join(",")).join(" ")}"/><circle cx="${pts[pts.length-1][0]}" cy="${pts[pts.length-1][1]}" r="3" fill="${col}"/></svg>`; };
+  const axis = (labels) => `<div class="pg-axis">${labels.map((l, i) => `<span>${i % 2 === (labels.length - 1) % 2 ? l : ""}</span>`).join("")}</div>`;
+  const bars = (vals, col, labels, fmt, target) => { const mx = Math.max(...vals.map(v => v || 0), target || 0) || 1, n = vals.length, bw = 100 / n;
+    return `<svg viewBox="0 0 100 62" class="pg-bars" preserveAspectRatio="none">${target ? `<line x1="0" x2="100" y1="${50 - target / mx * 44}" y2="${50 - target / mx * 44}" stroke="var(--gold)" stroke-dasharray="2 2" stroke-width=".5"/>` : ""}${vals.map((v, i) => v == null ? "" : `<rect x="${i * bw + bw * .15}" width="${bw * .7}" y="${50 - v / mx * 44}" height="${v / mx * 44}" rx="1" fill="${i === n - 1 ? col : col + "88"}"/>`).join("")}</svg>${axis(labels)}${fmt ? axis(vals.map(fmt)) : ""}`; };
+  const card = (title, big, sub, right, detail, tag) => `<details class="pg-card"><summary><div class="pg-top"><span class="pg-t">${title}${tag ? ` <span class="pg-tag">${tag}</span>` : ""}</span><span class="pg-more">›</span></div>
+    <div class="pg-row"><div><div class="pg-big">${big}</div><div class="pg-sub">${sub || ""}</div></div><div class="pg-right">${right || ""}</div></div></summary><div class="pg-detail">${detail}</div></details>`;
+  const sec = t => `<div class="pg-sec">${t}</div>`;
+  const labels = W.map(x => dlab(x.w)), tgt = parseFloat(D.weekTarget) || null, out = [], prov = [];
+
+  out.push(sec("Treino e recuperação"));
+  // Eficiência nos fáceis
+  const effW = full.filter(x => x.eff), e4 = effW.slice(-4), e4a = e4.reduce((a, x) => a + x.eff, 0) / (e4.length || 1), ePrev = effW.slice(-8, -4), ePa = ePrev.reduce((a, x) => a + x.eff, 0) / (ePrev.length || 1);
+  const dE = Math.round(e4a - ePa), dTxt = !ePrev.length ? "" : Math.abs(dE) < 5 ? "estável (dentro do ruído)" : dE < 0 ? `${-dE} s/km mais rápido que nas 4 anteriores` : `${dE} s/km mais lento que nas 4 anteriores`;
+  out.push(card("Eficiência nos fáceis", `${mmss(e4a)} <small>/km a FC 140</small>`, `média das últimas 4 semanas · ${dTxt}`, spark(W.map(x => x.eff), "var(--teal)", true),
+    `<table class="pg-tab"><tr><th>Semana</th><th>Ritmo a FC 140</th><th>Fáceis</th></tr>${W.slice().reverse().map(x => `<tr><td>${dlab(x.w)}</td><td>${mmss(x.eff)}</td><td>${x.nE}</td></tr>`).join("")}</table>
+    <div class="pg-note">Ritmo equivalente a FC 140 nos fáceis de rua (EASY, REC; mediana por semana; passadeira fora). É a métrica de evolução do plano: mais rápido à mesma FC = mais eficiência. Relevo e calor mexem 5–10 s/km: só conta uma tendência de várias semanas. [calculado]</div>`, "chave"));
+
+  // Execução contra o prescrito
+  const EX = D.execLog || [], exW = {}; EX.forEach(e => { const k = wkOf(e.d); (exW[k] = exW[k] || { n: 0, over: 0 }); exW[k].n++; if (!e.ok) exW[k].over++; });
+  const exThis = exW[last.w] || { n: 0, over: 0 }, exKeys = Object.keys(exW).sort();
+  out.push(card("Execução contra o prescrito", `${exThis.over}/${exThis.n} <small>acima do teto esta semana</small>`, EX.length ? `${EX.filter(e => !e.ok).length} de ${EX.length} sessões registadas desde ${dlab(EX[0].d)}` : "sem registos",
+    `<div class="pg-dots">${EX.slice(-10).map(e => `<span style="background:${e.ok ? "var(--teal)" : "var(--orange)"}"></span>`).join("")}</div>`,
+    `<table class="pg-tab"><tr><th>Semana</th><th>Acima</th><th>Sessões</th></tr>${exKeys.slice().reverse().map(k => `<tr><td>${dlab(k)}</td><td>${exW[k].over}</td><td>${exW[k].n}</td></tr>`).join("")}</table>
+    <table class="pg-tab">${EX.slice().reverse().map(e => `<tr><td>${dlab(e.d)}</td><td>${e.s}</td><td style="color:${e.ok ? "var(--teal)" : "var(--orange)"}">${e.ok ? "✓" : "acima"}</td></tr><tr><td></td><td colspan="2" class="pg-dim">${e.t}</td></tr>`).join("")}</table>
+    <div class="pg-note">O teto é o campo que controla cada sessão: FC 147 nos fáceis, 140 nas recuperações, FC 164 no limiar (3' iniciais com teto de ritmo), travão nas provas e pacers. Ponto cego n.º 2: o objetivo é este número descer semana a semana. A tarefa pós-treino acrescenta cada sessão.</div>`, "ponto cego"));
+
+  // Distribuição de carga (Garmin)
+  const L = P.load;
+  if (L) out.push(card("Distribuição de carga", `<span style="font-size:17px">${L.feedback}</span>`, `últimas 4 semanas · Garmin, ${L.date}`, "",
+    L.bands.map(b => { const mx = Math.max(b[1], b[3]) * 1.15, st = b[1] < b[2] ? "abaixo" : b[1] > b[3] ? "acima" : "dentro";
+      return `<div class="pg-band"><div class="pg-bl"><span>${b[0]}</span><span style="color:${st === "dentro" ? "var(--teal)" : "var(--gold)"}">${Math.round(b[1])} · ${st}</span></div><div class="pg-bt"><div class="pg-bz" style="left:${b[2] / mx * 100}%;width:${(b[3] - b[2]) / mx * 100}%"></div><div class="pg-bv" style="width:${b[1] / mx * 100}%"></div></div></div>`; }).join("") +
+    `<div class="pg-note">Barra = carga do último mês; faixa clara = intervalo ideal da Garmin. Mede por zonas de FC, por isso é mais fina do que a contagem de sessões. Contexto, não gatilho. [Garmin]</div>`,
+    "Garmin"));
+
+  // Volume
+  out.push(card("Volume semanal", `${dec(last.km)} <small>km</small>`, `esta semana${tgt ? " · alvo " + tgt : ""} · ${hm(last.h)} · ${last.el} m D+`, spark(full.map(x => x.km), "var(--orange)"),
+    bars(W.map(x => x.km), "#FF5422", labels, v => Math.round(v), tgt) +
+    `<div class="pg-note">Últimas ${W.length} semanas (segunda a domingo; a última está em curso). Média das completas: ${dec(full.reduce((a, x) => a + x.km, 0) / full.length)} km · tracejado = alvo da semana. Sessões de qualidade/prova por semana: ${full.slice(-6).map(x => x.nQ).join(" · ")} (últimas 6). [medido]</div>`));
+
+  // Sono
+  const slW = W.filter(x => x.sl != null), s4 = full.slice(-4).filter(x => x.sl != null), s4a = s4.reduce((a, x) => a + x.sl, 0) / (s4.length || 1);
+  out.push(card("Sono", `${hm(last.sl)} <small>média esta semana</small>`, `${last.lt6 ?? 0} noite(s) abaixo de 6 h · média das 4 anteriores ${hm(s4a)}`, spark(W.map(x => x.sl), "var(--purple)"),
+    bars(W.map(x => x.sl), "#9B59FF", labels, v => v == null ? "" : dec(v), 6) +
+    `<table class="pg-tab"><tr><th>Semana</th><th>Média</th><th>&lt;6 h</th><th>HRV</th><th>km</th></tr>${slW.slice().reverse().map(x => `<tr><td>${dlab(x.w)}</td><td>${hm(x.sl)}</td><td>${x.lt6}</td><td>${x.hrv || "—"}</td><td>${Math.round(x.km)}</td></tr>`).join("")}</table>
+    <div class="pg-note">6–7 h é o teu normal; abaixo de 5h30 é sinal; abaixo de 5 h não há sessão intensa. Tracejado = 6 h. A noite de sexta é curta por norma (ensaio). [medido]</div>`));
+
+  out.push(sec("Testes e calibrações"));
+  // Teste A
+  const tA = P.testeA || [], tl = tA[tA.length - 1];
+  out.push(card("Teste A (FC 135–139)", tl ? `${mmss(tl.pace)} <small>/km</small>` : "—", tl ? `${dlab(tl.d)} · ${tl.note || ""}` : "sem leituras", "",
+    `<table class="pg-tab"><tr><th>Data</th><th>Ritmo</th><th>FC</th><th>Nota</th></tr>${tA.slice().reverse().map(x => `<tr><td>${dlab(x.d)}</td><td>${mmss(x.pace)}</td><td>${x.hr || "—"}</td><td>${x.note || ""}</td></tr>`).join("")}</table>
+    <div class="pg-note">Ritmo dos últimos 15' do bloco de 20' a FC 135–139, mesmo percurso e hora. Só é progresso ou regressão com diferença ≥15 s/km ou a mesma direção em duas leituras. Próximas: 20 Nov (férias, não decide) e 27 Nov.</div>`));
+
+  // Limiar de lactato
+  const LT = P.lt || [], ll = LT[LT.length - 1];
+  if (ll) out.push(card("Limiar de lactato", `${ll.hr} <small>bpm · ${mmss(ll.pace)}/km</small>`, `${dlab(ll.d)} · ${P.ltPower || ""}`, "",
+    `<table class="pg-tab"><tr><th>Data</th><th>FC</th><th>Ritmo</th><th>Origem</th></tr>${LT.slice().reverse().map(x => `<tr><td>${dlab(x.d)}</td><td>${x.hr}</td><td>${mmss(x.pace)}</td><td>${x.src || ""}</td></tr>`).join("")}</table>
+    <div class="pg-note">Deteção automática da Garmin em provas. Referência do plano: LTHR 163–165, limiar 4:03–4:07. Muda o plano só com calibração confirmada por ti. [Garmin]</div>`, "Garmin"));
+
+  // VO2max e previsões
+  const v = P.vo2 || {}, pr = P.pred || {}, dv = v.now != null && v.start != null ? dec(v.now - v.start) : null;
+  out.push(card("VO2max e previsões", `${dec(v.now)} <small>· 10 km ${pr["10K"] || "—"}</small>`, dv ? `${dv} desde ${v.since} · estimativa da Garmin` : "estimativa da Garmin", "",
+    `<table class="pg-tab"><tr><th>Distância</th><th>Previsão Garmin (${pr.date || ""})</th></tr>${["5K", "10K", "Meia"].map(k => `<tr><td>${k}</td><td>${pr[k] || "—"}</td></tr>`).join("")}</table>
+    <div class="pg-note">Só tendência, nunca decisão. O VO2max varia &lt;0,5 por ruído. O VDOT oficial é o da fórmula sobre o chip (${dec(D.vdot || 52.3)}).</div>`, "Garmin"));
+
+  // VDOT oficial vs estimado
+  const VD = P.vdot;
+  if (VD) out.push(card("VDOT", `${dec(VD.official)} <small>oficial · estimado ${VD.est}</small>`, `próximo patamar ${dec(VD.next)}: chip ≤${VD.nextTime} num 10 km plano`, "",
+    `<table class="pg-tab"><tr><th>Prova</th><th>Chip</th><th>VDOT (fórmula)</th></tr>${(VD.hist || []).slice().reverse().map(h => `<tr><td>${h[0]}</td><td>${h[1]}</td><td>${dec(h[2])}</td></tr>`).join("")}</table>
+    <div class="pg-note">O oficial sai só da fórmula Daniels sobre o chip de um 10 km plano (prova A ou teste formal). Calor, subida e ritmo irregular ficam no estimado. Ritmos de treino em vigor: T 4:03–4:07 · 10K 3:56–4:00 · I 3:41–3:46.</div>`, "oficial"));
+
+  // Próximas calibrações
+  const CA = (P.calib || []).filter(c => c[0] > todayISO());
+  if ((P.calib || []).length) out.push(card("Calibrações", CA[0] ? `${dlab(CA[0][0])} <small>${CA[0][1]}</small>` : "nenhuma marcada", CA[0] ? CA[0][2] : "", `<div class="pg-dots">${(P.calib || []).map(c => `<span style="background:${c[0] <= todayISO() ? "var(--teal)" : "var(--dim)"}"></span>`).join("")}</div>`,
+    `<table class="pg-tab"><tr><th>Data</th><th>Calibração</th><th>Critério / resultado</th></tr>${(P.calib || []).map(c => `<tr><td>${dlab(c[0])}</td><td>${c[1]}</td><td class="pg-dim">${c[3] || c[2]}</td></tr>`).join("")}</table>
+    <div class="pg-note">Uma calibração ajusta a tabela de ritmos, não a semana. Só muda o plano com confirmação tua.</div>`));
+
+  out.push(sec("Hábitos e consistência"));
+  // Semana
+  const t = todayISO(), wk = wkOf(t), end = (() => { const d = new Date(wk + "T00:00:00"); d.setDate(d.getDate() + 6); return isoOf(d); })();
+  const wkAll = PLAN.filter(x => x.iso >= wk && x.iso <= end && !/DESCANSO/i.test(x.code)), wkS = wkAll.filter((x, i, a) => a.findIndex(y => y.iso === x.iso) === i || x.status === "done"), due = wkS.filter(x => x.iso <= t), done = due.filter(x => x.status === "done");
+  out.push(card("Semana", `${done.length}/${due.length} <small>feitas até hoje</small>`, `${wkS.length} sessões planeadas na semana`,
+    `<div class="pg-dots">${wkS.map(x => `<span style="background:${x.status === "done" ? "var(--teal)" : x.iso <= t ? "var(--orange)" : "var(--dim)"}"></span>`).join("")}</div>`,
+    `<table class="pg-tab">${wkAll.map(x => `<tr><td>${x.day || x.iso}</td><td>${x.code}</td><td>${x.status === "done" ? "✓" : x.iso <= t ? "por registar" : "planeada"}</td></tr>`).join("")}</table>`));
+
+  // Sequência
+  const sk = P.streak || {};
+  out.push(card("Sequência", `${sk.weeks ?? "—"} <small>semanas seguidas</small>`, `com pelo menos uma corrida · fonte: ${sk.src || "—"}`, "", `<div class="pg-note">Atualiza-se na revisão semanal.</div>`));
+
+  // Peso
+  const Wt = P.weight; if (Wt && Wt.hist && Wt.hist.length) { const lw = Wt.hist[Wt.hist.length - 1], age = Math.round((new Date(t) - new Date(lw[0])) / 86400000);
+    out.push(card("Peso", `${dec(lw[1])} <small>kg · objetivo ${dec(Wt.goal)}</small>`, `última pesagem ${dlab(lw[0])}${age > 21 ? ` · <span style="color:var(--gold)">há ${age} dias</span>` : ""}`, spark(Wt.hist.map(h => h[1]), "var(--gold)"),
+      `<table class="pg-tab">${Wt.hist.slice().reverse().map(h => `<tr><td>${dlab(h[0])}</td><td>${dec(h[1])} kg</td></tr>`).join("")}</table><div class="pg-note">Fonte: entrada manual no Garmin. Sem pesagens recentes o cartão não diz nada: o hábito de registar é o objetivo.</div>`)); }
+
+  // Troféu Sintra
+  const T = D.trofeu;
+  if (T) { const t0 = todayISO(), nx = T.races.find(r => r[0] >= t0), done = (T.results || []).length;
+    prov.push(card(`Troféu Sintra ${T.season}`, `${done}/${T.total} <small>provas · ${T.pts != null ? T.pts + " pts" : "sem pontos ainda"}</small>`, nx ? `próxima: ${nx[1]}, ${dlab(nx[0])} · mínimo ${T.min} para pontuar` : "época concluída",
+      `<div class="pg-dots">${T.races.map(r => { const res = (T.results || []).find(x => x[0] === r[0]); return `<span style="background:${res ? "var(--teal)" : r[0] < t0 ? "var(--orange)" : "var(--dim)"}"></span>`; }).join("")}</div>`,
+      `<table class="pg-tab"><tr><th>Data</th><th>Prova</th><th>Resultado</th></tr>${T.races.map(r => { const res = (T.results || []).find(x => x[0] === r[0]); return `<tr><td>${dlab(r[0])}</td><td>${r[1]}</td><td>${res ? res.slice(1).join(" · ") : "—"}</td></tr>`; }).join("")}</table>
+      <div class="pg-note">${T.pos ? "Classificação atual: " + T.pos + ". " : ""}Época anterior: ${T.prev}. Estratégia: fazer as 12 (pontua com ${T.min}). Pontos e classificação entram quando mos passares ou quando saírem no site.</div>`, "objetivo n.º 1")); }
+
+  // Marcas
+  const prs = P.prs || [];
+  prov.push(card("Marcas", prs[0] ? `${prs[0][1]} <small>${prs[0][0]}</small>` : "—", prs[0] ? prs[0][2] : "", "",
+    `<table class="pg-tab">${prs.map(p => `<tr><td>${p[0]}</td><td style="font-family:monospace">${p[1]}</td><td class="pg-dim">${p[2]}</td></tr>`).join("")}</table><div class="pg-note">Oficial = chip. Tempos do relógio ou do Strava ficam identificados como tal.</div>`));
+
+  const pv = document.getElementById("pane-provas");
+  if (pv && prov.length) { const old = document.getElementById("pg-provas"); if (old) old.remove(); pv.insertAdjacentHTML("afterbegin", `<div id="pg-provas"><div class="pg-sec" style="margin-top:4px">Resultados</div>${prov.join("")}</div>`); }
+  pane.innerHTML = `<div class="pg-head">Progresso <span>atualizado ${dlab(P.asOf)} · toca num cartão para ver o detalhe</span></div>` + out.join("");
+}
+
 /* ===== arranque ===== */
 document.getElementById("statusBadge").textContent = D.trainingStatus;
 /* ===== Dados vivos da folha Google (aba "Dashboard": A = chave, B = valor JSON) =====
@@ -947,7 +1091,7 @@ document.querySelectorAll(".nav button").forEach(btn => btn.addEventListener("cl
   document.getElementById("pane-" + btn.dataset.tab).classList.add("active");
   window.scrollTo(0, 0);
 }));
-[renderHoje, renderSemana, renderAnalise, renderProvas].forEach(fn => {
+[renderHoje, renderSemana, renderAnalise, renderProvas, renderProgresso].forEach(fn => {
   try { fn(); } catch (err) {
     const pane = document.getElementById("pane-" + fn.name.replace("render", "").toLowerCase());
     if (pane) pane.innerHTML = '<div class="alert">⚠ Erro ao desenhar esta página (' + String(err.message || err) + '). As outras páginas continuam a funcionar.</div>';
