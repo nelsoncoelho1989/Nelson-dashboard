@@ -902,8 +902,42 @@ ${rulesHTML}
 
 /* ===== arranque ===== */
 document.getElementById("statusBadge").textContent = D.trainingStatus;
+/* ===== Dados vivos da folha Google (aba "Dashboard": A = chave, B = valor JSON) =====
+   D.<campo> substitui D[campo] · S.<iso> ou S.<iso>.<código> funde na sessão desse dia (se não existir, acrescenta)
+   Se a folha falhar, o painel desenha com os dados embutidos e avisa no cabeçalho. */
+const SHEET_ID = "1SXPI6mzSAtTv58Va0Yo3UbbVGaZby1gkmlywScqTrrI";
+let SHEET_STATUS = "embutido";
+function applySheetRows(rows) {
+  let n = 0;
+  rows.forEach(r => {
+    const key = String(r[0] || "").trim(), raw = r[1];
+    if (!key || raw === null || raw === undefined || raw === "") return;
+    let val; try { val = JSON.parse(raw); } catch (e) { console.warn("Folha: JSON inválido em", key); return; }
+    if (key.startsWith("D.")) { D[key.slice(2)] = val; n++; return; }
+    if (key.startsWith("S.")) {
+      const [iso, ...rest] = key.slice(2).split("."), code = rest.join(".");
+      const hits = PLAN.filter(x => x.iso === iso && (!code || x.code === code));
+      if (hits.length) hits.forEach(x => Object.assign(x, val));
+      else PLAN.push(Object.assign({iso, code: code || val.code || ""}, val));
+      n++;
+    }
+  });
+  PLAN.sort((a, b) => a.iso < b.iso ? -1 : a.iso > b.iso ? 1 : 0);
+  return n;
+}
+function loadSheet() {
+  const url = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:json&headers=1&sheet=Dashboard&t=" + Date.now();
+  const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), 6000));
+  return Promise.race([fetch(url, {cache: "no-store"}).then(r => r.text()), timeout]).then(txt => {
+    const j = JSON.parse(txt.slice(txt.indexOf("{"), txt.lastIndexOf("}") + 1));
+    if (j.status !== "ok") throw new Error(j.status);
+    const rows = (j.table.rows || []).map(r => (r.c || []).map(c => c ? (c.v === null ? null : String(c.v)) : null));
+    SHEET_STATUS = "folha (" + applySheetRows(rows) + ")";
+  }).catch(err => { SHEET_STATUS = "embutido · folha indisponível"; console.warn("Folha:", err); });
+}
+function boot() {
 (() => { const el = document.getElementById("stamp"); const age = Math.round((new Date(todayISO() + "T00:00:00") - new Date(D.stampISO + "T00:00:00")) / 86400000);
-  el.textContent = "Atualizado " + D.stamp + (age >= 1 ? " · ⚠ dados de há " + age + (age === 1 ? " dia" : " dias") : "");
+  el.textContent = "Atualizado " + D.stamp + (age >= 1 ? " · ⚠ dados de há " + age + (age === 1 ? " dia" : " dias") : "") + (/indispon/.test(SHEET_STATUS) ? " · ⚠ folha indisponível" : "");
   if (age >= 1) el.style.color = "var(--gold)"; })();
 document.getElementById("forceRefreshBtn").addEventListener("click", () => { window.location.href = window.location.pathname + "?t=" + Date.now(); });
 document.querySelectorAll(".nav button").forEach(btn => btn.addEventListener("click", () => {
@@ -919,6 +953,8 @@ document.querySelectorAll(".nav button").forEach(btn => btn.addEventListener("cl
     if (pane) pane.innerHTML = '<div class="alert">⚠ Erro ao desenhar esta página (' + String(err.message || err) + '). As outras páginas continuam a funcionar.</div>';
   }
 });
+}
+loadSheet().then(boot);
 
 </script>
 </body>
