@@ -1127,7 +1127,6 @@ document.addEventListener("click", ev => { const el = ev.target.closest("[data-p
   document.querySelectorAll(`[data-pgk="${k}"]`).forEach(e => e.classList.toggle("sel", e === el)); });
 
 /* ===== arranque ===== */
-document.getElementById("statusBadge").textContent = D.trainingStatus;
 /* ===== Dados vivos da folha Google (aba "Dashboard": A = chave, B = valor JSON) =====
    D.<campo> substitui D[campo] · S.<iso> ou S.<iso>.<código> funde na sessão desse dia (se não existir, acrescenta)
    Se a folha falhar, o painel desenha com os dados embutidos e avisa no cabeçalho. */
@@ -1162,6 +1161,7 @@ function loadSheet() {
   }).catch(err => { SHEET_STATUS = "embutido · folha indisponível"; console.warn("Folha:", err); });
 }
 function boot() {
+document.getElementById("statusBadge").textContent = D.trainingStatus;   // depois de ler a folha (antes ficava sempre o valor embutido)
 (() => { const el = document.getElementById("stamp"); const age = Math.round((new Date(todayISO() + "T00:00:00") - new Date(D.stampISO + "T00:00:00")) / 86400000);
   el.textContent = "Atualizado " + D.stamp + (age >= 1 ? " · ⚠ dados de há " + age + (age === 1 ? " dia" : " dias") : "") + (/indispon/.test(SHEET_STATUS) ? " · ⚠ folha indisponível" : "");
   if (age >= 1) el.style.color = "var(--gold)"; })();
